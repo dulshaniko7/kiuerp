@@ -15,6 +15,7 @@ class SloController extends Controller
     public function index()
     {
         return view('slo::index');
+
     }
 
     /**
