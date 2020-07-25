@@ -56,6 +56,7 @@
                     </p>
                   </a>
                 </li>-->
+
                 <li class="nav-item">
                     <a href="/slo" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -68,3 +69,9 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+<script>
+    import MainApp from "../../../Modules/Slo/Resources/assets/js/MainApp";
+    export default {
+        components: {MainApp}
+    }
+</script>
