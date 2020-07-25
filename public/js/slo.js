@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../node_modules/axios/index.js":
-/*!**********************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/index.js ***!
-  \**********************************************************/
+/*!********************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/index.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98,9 +98,9 @@ module.exports = __webpack_require__(/*! ./lib/axios */ "../../node_modules/axio
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/adapters/xhr.js":
-/*!*********************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/adapters/xhr.js ***!
-  \*********************************************************************/
+/*!*******************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/adapters/xhr.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -290,9 +290,9 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/axios.js":
-/*!**************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/axios.js ***!
-  \**************************************************************/
+/*!************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/axios.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -355,9 +355,9 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/cancel/Cancel.js":
-/*!**********************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/cancel/Cancel.js ***!
-  \**********************************************************************/
+/*!********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/cancel/Cancel.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -386,9 +386,9 @@ module.exports = Cancel;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/cancel/CancelToken.js":
-/*!***************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/cancel/CancelToken.js ***!
-  \***************************************************************************/
+/*!*************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -455,9 +455,9 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/cancel/isCancel.js":
-/*!************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/cancel/isCancel.js ***!
-  \************************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/cancel/isCancel.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -472,9 +472,9 @@ module.exports = function isCancel(value) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/Axios.js":
-/*!*******************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/Axios.js ***!
-  \*******************************************************************/
+/*!*****************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/Axios.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -578,9 +578,9 @@ module.exports = Axios;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/InterceptorManager.js":
-/*!********************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/InterceptorManager.js ***!
-  \********************************************************************************/
+/*!******************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -642,9 +642,9 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/buildFullPath.js":
-/*!***************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/buildFullPath.js ***!
-  \***************************************************************************/
+/*!*************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/buildFullPath.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -674,9 +674,9 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/createError.js":
-/*!*************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/createError.js ***!
-  \*************************************************************************/
+/*!***********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/createError.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -704,9 +704,9 @@ module.exports = function createError(message, config, code, request, response) 
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/dispatchRequest.js":
-/*!*****************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/dispatchRequest.js ***!
-  \*****************************************************************************/
+/*!***************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -795,9 +795,9 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/enhanceError.js":
-/*!**************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/enhanceError.js ***!
-  \**************************************************************************/
+/*!************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/enhanceError.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -849,9 +849,9 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/mergeConfig.js":
-/*!*************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/mergeConfig.js ***!
-  \*************************************************************************/
+/*!***********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/mergeConfig.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -934,9 +934,9 @@ module.exports = function mergeConfig(config1, config2) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/settle.js":
-/*!********************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/settle.js ***!
-  \********************************************************************/
+/*!******************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/settle.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -971,9 +971,9 @@ module.exports = function settle(resolve, reject, response) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/transformData.js":
-/*!***************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/core/transformData.js ***!
-  \***************************************************************************/
+/*!*************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/core/transformData.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1003,9 +1003,9 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/defaults.js":
-/*!*****************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/defaults.js ***!
-  \*****************************************************************/
+/*!***************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/defaults.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1113,9 +1113,9 @@ module.exports = defaults;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/bind.js":
-/*!*********************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/bind.js ***!
-  \*********************************************************************/
+/*!*******************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/bind.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1136,9 +1136,9 @@ module.exports = function bind(fn, thisArg) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/buildURL.js":
-/*!*************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/buildURL.js ***!
-  \*************************************************************************/
+/*!***********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/buildURL.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1219,9 +1219,9 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/combineURLs.js":
-/*!****************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/combineURLs.js ***!
-  \****************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1245,9 +1245,9 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/cookies.js":
-/*!************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/cookies.js ***!
-  \************************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/cookies.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1310,9 +1310,9 @@ module.exports = (
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/isAbsoluteURL.js":
-/*!******************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \******************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1336,9 +1336,9 @@ module.exports = function isAbsoluteURL(url) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/isURLSameOrigin.js":
-/*!********************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \********************************************************************************/
+/*!******************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1416,9 +1416,9 @@ module.exports = (
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/normalizeHeaderName.js":
-/*!************************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
-  \************************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1440,9 +1440,9 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/parseHeaders.js":
-/*!*****************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/parseHeaders.js ***!
-  \*****************************************************************************/
+/*!***************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1505,9 +1505,9 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/spread.js":
-/*!***********************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/helpers/spread.js ***!
-  \***********************************************************************/
+/*!*********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/helpers/spread.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1544,9 +1544,9 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/utils.js":
-/*!**************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/axios/lib/utils.js ***!
-  \**************************************************************/
+/*!************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/axios/lib/utils.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1900,9 +1900,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/bootstrap/dist/js/bootstrap.js":
-/*!**************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/bootstrap/dist/js/bootstrap.js ***!
-  \**************************************************************************/
+/*!************************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/bootstrap/dist/js/bootstrap.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6330,9 +6330,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/jquery/dist/jquery.js":
-/*!*****************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/jquery/dist/jquery.js ***!
-  \*****************************************************************/
+/*!***************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/jquery/dist/jquery.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17214,9 +17214,9 @@ return jQuery;
 /***/ }),
 
 /***/ "../../node_modules/popper.js/dist/esm/popper.js":
-/*!************************************************************************!*\
-  !*** C:/xampp/htdocs/kiuerp/node_modules/popper.js/dist/esm/popper.js ***!
-  \************************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/wamp64/www/kiuerp/node_modules/popper.js/dist/esm/popper.js ***!
+  \**********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -19928,13 +19928,8 @@ __webpack_require__(/*! ./bootstrap */ "./Resources/assets/js/bootstrap.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 
-var app = new Vue({
-  el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_0__["default"],
-  components: {
-    MainApp: _MainApp__WEBPACK_IMPORTED_MODULE_1__["default"]
-  }
-});
+window.MainApp = _MainApp__WEBPACK_IMPORTED_MODULE_1__["default"];
+window.router = _router__WEBPACK_IMPORTED_MODULE_0__["default"];
 
 /***/ }),
 
@@ -20111,7 +20106,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "MainApp",
   components: {
     Test: _components_Test__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -53019,8 +53013,8 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\kiuerp\Modules\Slo\Resources\assets\js\app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\kiuerp\Modules\Slo\Resources\assets\sass\app.scss */"./Resources/assets/sass/app.scss");
+__webpack_require__(/*! D:\wamp64\www\kiuerp\Modules\Slo\Resources\assets\js\app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! D:\wamp64\www\kiuerp\Modules\Slo\Resources\assets\sass\app.scss */"./Resources/assets/sass/app.scss");
 
 
 /***/ })

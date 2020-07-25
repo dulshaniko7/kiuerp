@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/slo.js') }}"></script>
 @yield('content')
 
 {{-- Laravel Mix - JS File --}}
@@ -20,7 +22,6 @@
 <script src="{{ mix('js/slo.js') }}"></script>
 --}}
 
-<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
     console.log('hi');
 </script>

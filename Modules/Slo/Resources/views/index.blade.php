@@ -2,15 +2,25 @@
 
 @section('content')
 
-<div id="app">
-    <main-app></main-app>
-</div>
-<script>
-    import MainApp from "~MainApp";
+<div id="app"></div>
 
-    export default {
-        components: {MainApp}
-    }
+<script>
+    let app = new Vue({
+        el: '#app',
+        router,
+        template: '<MainApp/>',
+        components: {MainApp},
+    });
+
+    /*
+    You can use either above or below
+    */
+
+    /*let app = new Vue({
+        el: "#app",
+        router,
+        render:h => h(MainApp)
+    });*/
 </script>
 @endsection
 
