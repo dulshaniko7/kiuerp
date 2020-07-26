@@ -69,9 +69,3 @@
     </div>
     <!-- /.sidebar -->
 </aside>
-<script>
-    import MainApp from "../../../Modules/Slo/Resources/assets/js/MainApp";
-    export default {
-        components: {MainApp}
-    }
-</script>

@@ -1,58 +1,57 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>KIU ERP | Dashboard</title>
+    <title>@yield('title')</title>
 
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- You can add your view's css files in this section 'css', which need to load in head. Apply it from your view file-->
+    @yield('css')
+
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- You can add your view's javascript files in this section 'js', which need to load in head. Apply it from your view file-->
+    @yield('js')
 </head>
 <body class="sidebar-mini layout-fixed text-sm">
+<!-- You can add your view's javascript files in this section 'js_header', which need to load in header. Apply it from your view file-->
+@yield('js_header')
 <div class="wrapper">
 
-  <!-- Navbar -->
-  @include('layouts.topnavi')
-  <!-- /.navbar -->
+    <!-- Navbar -->
+@include('layouts.topnavi')
+<!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  @include('layouts.leftmenu')
-  <!-- /.Main Sidebar Container -->
+    <!-- Main Sidebar Container -->
+@include('layouts.leftmenu')
+<!-- /.Main Sidebar Container -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-   @yield('content')
-  </div>
-  <!-- /.Content-wrapper -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper mt-2">
+        <section class="content">
+            @yield('content')
+        </section>
+    </div>
+    <!-- /.Content-wrapper -->
 
-  <!-- Control Sidebar -->
-  @include('layouts.controlsidebar')
-  <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+@include('layouts.controlsidebar')
+<!-- /.control-sidebar -->
 
-  <!-- Main Footer -->
-  @include('layouts.footer')
-  <!-- /.Main Footer -->
-  
+    <!-- Main Footer -->
+@include('layouts.footer')
+<!-- /.Main Footer -->
+
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- You can add your view's javascript files in this section 'js_footer', which need to load in footer. Apply it from your view file-->
+@yield('js_footer')
 </body>
 </html>

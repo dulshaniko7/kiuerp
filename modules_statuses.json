@@ -1,3 +1,5 @@
 {
-    "Slo": true
+    "Slo": true,
+    "Admin": true,
+    "Academic": true
 }
