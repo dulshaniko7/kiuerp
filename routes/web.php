@@ -13,13 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(function() {
 
-Route::get('/home', function () {
-    return view('home');
+    Route::get('/', 'DashboardController@index')->name('dashboard.home');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard.home');
 });
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

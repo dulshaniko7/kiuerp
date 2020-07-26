@@ -29,10 +29,12 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $this->repository->initDatatable(new Department());
-        $this->repository->viewData->page_title = "Departments";
+        $this->repository->setPageTitle("Departments");
 
-        $this->repository->viewData->enable_export = true;
+        $this->repository->initDatatable(new Department());
+        $this->repository->viewData->tableTitle = "Departments";
+
+        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "dept_name", "dept_code", "faculty", "dept_status", "created_at")
             ->setColumnLabel("dept_code", "Code")
@@ -57,10 +59,10 @@ class DepartmentController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->enable_restore = true;
-            $this->repository->viewData->enable_view= false;
-            $this->repository->viewData->enable_edit = false;
-            $this->repository->viewData->enable_delete = false;
+            $this->repository->viewData->enableRestore = true;
+            $this->repository->viewData->enableView= false;
+            $this->repository->viewData->enableEdit = false;
+            $this->repository->viewData->enableDelete = false;
         }
         else
         {

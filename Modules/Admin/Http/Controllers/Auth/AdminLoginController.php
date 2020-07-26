@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Http\Controllers\Auth;
 
+use App\Country;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -9,8 +10,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\View;
+use Modules\Admin\Entities\AdminLoginHistory;
 use Modules\Admin\Entities\AdminRole;
 use Modules\Admin\Entities\PermissionValidate;
+use Modules\Admin\Services\Location;
 
 class AdminLoginController extends Controller
 {
@@ -87,6 +90,8 @@ class AdminLoginController extends Controller
 
                 $request->session()->flash("notify", $notify);
 
+                $this->recordLoginActivity($admin->id);
+
                 return redirect()->intended(route('dashboard.home'));
             }
             else
@@ -108,6 +113,8 @@ class AdminLoginController extends Controller
                     $permissions = PermissionValidate::getAdminPermissions($admin["admin_id"], $adminRole->admin_role_id);
                     $request->session()->put("permissions", $permissions);
 
+                    $this->recordLoginActivity($admin->id);
+
                     return redirect()->intended(route('dashboard.home'));
                 }
                 else
@@ -118,13 +125,19 @@ class AdminLoginController extends Controller
                         $notify["notify"][] = $adminRole["reason"];
 
                         $request->session()->flash("notify", $notify);
+
+                        $loginFailedReason = $adminRole["reason"];
                     } else {
                         $notify["status"] = "failed";
                         $notify["notify"][] = "Your admin role has been disabled.";
                         $notify["notify"][] = "Please contact system administrator.";
 
+                        $loginFailedReason = "Admin role has been disabled";
+
                         $request->session()->flash("notify", $notify);
                     }
+
+                    $this->recordLoginActivity($admin->id, true, $loginFailedReason);
 
                     return redirect()->back();
                 }
@@ -141,6 +154,10 @@ class AdminLoginController extends Controller
             $notify["notify"][]="Please contact system administrator.";
 
             $request->session()->flash("notify", $notify);
+
+            $loginFailedReason = "Admin account has been disabled.";
+            $this->recordLoginActivity($admin->id, true, $loginFailedReason);
+
             return redirect()->back();
         }
     }
@@ -172,5 +189,47 @@ class AdminLoginController extends Controller
         $request->session()->flash("notify", $notify);
 
         return redirect()->route('dashboard.login');
+    }
+
+    private function recordLoginActivity($admin_id, $failed=false, $loginFailedReason="")
+    {
+        $ip = Location::getClientIP();
+        $geoData = Location::getGeoData($ip);
+
+        $countryCode = $geoData["countryCode"];
+
+        $country = Country::where("country_code", "=", $countryCode)->first();
+
+        $country_id = null;
+        if($country)
+        {
+            $country_id = $country->country_id;
+        }
+
+        $adminLH = new AdminLoginHistory();
+        $adminLH->admin_id = $admin_id;
+        $adminLH->login_ip = $ip;
+        $adminLH->country_id = $country_id;
+        $adminLH->city = $geoData["city"];
+        if($failed)
+        {
+            $adminLH->login_failed_reason = $loginFailedReason;
+        }
+        else
+        {
+            $adminLH->online_status = 1;
+        }
+        $adminLH->last_activity_at = date("Y-m-d H:i:s", time());
+        $adminLH->sign_in_at = date("Y-m-d H:i:s", time());
+
+        $save = $adminLH->save();
+
+        if($save)
+        {
+            $primaryKey = $adminLH->getKeyName();
+            $admin_login_history_id = $adminLH->$primaryKey;
+
+            request()->session()->put("admin_login_history_id", $admin_login_history_id);
+        }
     }
 }

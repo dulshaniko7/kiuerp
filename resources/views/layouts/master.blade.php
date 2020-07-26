@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>@yield('title')</title>
+    @if($pageTitle!="")
+        <title>{{$pageTitle}}</title>
+    @else
+        <title>Dashboard</title>
+    @endif
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 

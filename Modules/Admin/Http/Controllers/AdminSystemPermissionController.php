@@ -24,61 +24,56 @@ class AdminSystemPermissionController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param int $admin_perm_group_id
      * @return Factory|View
      */
-    public function index()
+    public function index($admin_perm_group_id)
     {
+        $this->repository->setPageTitle("Admin System Permissions");
+
         $this->repository->initDatatable(new AdminSystemPermission());
-        $this->repository->viewData->page_title = "Admin Permission Groups";
+        $this->repository->viewData->tableTitle = "Admin System Permissions";
 
-        $this->repository->viewData->enable_export = true;
+        $this->repository->viewData->enableExport = true;
 
-        $this->repository->setColumns("id", "group_name", "group_code", "permission_group", "group_status", "created_at")
-            ->setColumnLabel("group_code", "Code")
-            ->setColumnLabel("group_name", "Module Name")
-            ->setColumnLabel("group_status", "Status")
-            ->setColumnDisplay("group_status", array($this->repository, 'display_status_as'))
-            ->setColumnDisplay("permission_group", array($this->repository, 'display_permission_group_as'))
+        $this->repository->setColumns("id", "permission_title", "permission_action", "permission_status", "disabled_reason", "created_at")
+            ->setColumnLabel("permission_status", "Status")
+            ->setColumnDisplay("permission_status", array($this->repository, 'display_status_as'))
             ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
 
-            ->setColumnFilterMethod("group_name", "text")
-            ->setColumnFilterMethod("group_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
-            ->setColumnFilterMethod("permission_group", "select", URL::to("/academic/adminPermissionModule/searchData"))
+            ->setColumnFilterMethod("permission_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
 
             ->setColumnSearchability("created_at", false)
-            ->setColumnSearchability("updated_at", false)
-
-            ->setColumnDBField("permission_group", "admin_perm_group_id")
-            ->setColumnFKeyField("permission_group", "admin_perm_group_id")
-            ->setColumnRelation("permission_group", "permissionGroup", "system_name");
+            ->setColumnSearchability("updated_at", false);
 
         if($this->trash)
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->enable_restore = true;
-            $this->repository->viewData->enable_view= false;
-            $this->repository->viewData->enable_edit = false;
-            $this->repository->viewData->enable_delete = false;
+            $this->repository->viewData->enableRestore = true;
+            $this->repository->viewData->enableView= false;
+            $this->repository->viewData->enableEdit = false;
+            $this->repository->viewData->enableDelete = false;
         }
         else
         {
             $query = $this->repository->model;
         }
 
-        $query = $query->with(["permissionGroup"]);
+        $query->where("admin_perm_group_id", "=", $admin_perm_group_id);
 
         return $this->repository->render("academic::layouts.master")->index($query);
     }
 
     /**
      * Display a listing of the resource.
+     * @param $admin_perm_group_id
      * @return Factory|View
      */
-    public function trash()
+    public function trash($admin_perm_group_id)
     {
         $this->trash = true;
-        return $this->index();
+        return $this->index($admin_perm_group_id);
     }
 
     /**
@@ -106,10 +101,12 @@ class AdminSystemPermissionController extends Controller
 
         $model = $this->repository->getValidatedData($model, [
             "admin_perm_group_id" => "required|exists:admin_permission_groups,admin_perm_group_id",
-            "group_name" => "required|min:3",
-            "group_status" => "required|digits:1",
-            "remarks" => "",
-        ], [], ["admin_perm_group_id" => "Group name", "group_name" => "Permission title"]);
+            "permission_title" => "required|min:3",
+            "permission_action" => "required|min:3",
+            "permission_status" => "required|digits:1",
+        ], [], ["admin_perm_group_id" => "Group name", "permission_title" => "Permission title", "permission_action" => "Permission action"]);
+
+        $model->permission_key = $this->repository->generatePermissionHash($model->permission_action);
 
         $dataResponse = $this->repository->saveModel($model);
 
@@ -174,10 +171,12 @@ class AdminSystemPermissionController extends Controller
         {
             $model = $this->repository->getValidatedData($model, [
                 "admin_perm_group_id" => "required|exists:admin_permission_groups,admin_perm_group_id",
-                "group_name" => "required|min:3",
-                "group_status" => "required|digits:1",
-                "remarks" => "",
-            ], [], ["admin_perm_group_id" => "Group name", "group_name" => "Permission title"]);
+                "permission_title" => "required|min:3",
+                "permission_action" => "required|min:3",
+                "permission_status" => "required|digits:1",
+            ], [], ["admin_perm_group_id" => "Group name", "permission_title" => "Permission title", "permission_action" => "Permission action"]);
+
+            $model->permission_key = $this->repository->generatePermissionHash($model->permission_action);
 
             $dataResponse = $this->repository->saveModel($model);
         }
@@ -286,14 +285,14 @@ class AdminSystemPermissionController extends Controller
             $idNot = $request->post("idNot");
 
             $query = AdminSystemPermission::query()
-                ->select("group_id", "group_name")
-                ->where("group_status", "=", "1")
-                ->orderBy("group_name")
+                ->select("group_id", "permission_title")
+                ->where("permission_status", "=", "1")
+                ->orderBy("permission_title")
                 ->limit(10);
 
             if($searchText != "")
             {
-                $query = $query->where("group_name", "LIKE", $searchText."%");
+                $query = $query->where("permission_title", "LIKE", $searchText."%");
             }
 
             if($idNot != "")

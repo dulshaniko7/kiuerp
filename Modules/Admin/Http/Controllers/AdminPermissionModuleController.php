@@ -28,10 +28,12 @@ class AdminPermissionModuleController extends Controller
      */
     public function index()
     {
-        $this->repository->initDatatable(new AdminPermissionModule());
-        $this->repository->viewData->page_title = "Admin Permission Modules";
+        $this->repository->setPageTitle("Admin Permission Modules");
 
-        $this->repository->viewData->enable_export = true;
+        $this->repository->initDatatable(new AdminPermissionModule());
+        $this->repository->viewData->tableTitle = "Admin Permission Modules";
+
+        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "module_name", "permission_system", "module_status", "created_at")
             ->setColumnLabel("module_name", "Module Name")
@@ -55,10 +57,10 @@ class AdminPermissionModuleController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->enable_restore = true;
-            $this->repository->viewData->enable_view= false;
-            $this->repository->viewData->enable_edit = false;
-            $this->repository->viewData->enable_delete = false;
+            $this->repository->viewData->enableRestore = true;
+            $this->repository->viewData->enableView= false;
+            $this->repository->viewData->enableEdit = false;
+            $this->repository->viewData->enableDelete = false;
         }
         else
         {

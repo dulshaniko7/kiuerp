@@ -17,9 +17,9 @@ class CreateAdminLoginHistoriesTable extends Migration
         Schema::create('admin_login_histories', function (Blueprint $table) {
             $table->bigIncrements('admin_login_history_id');
             $table->unsignedInteger("admin_id");
-            $table->string("login_ip", 50);
-            $table->unsignedSmallInteger("country_id");
-            $table->string("city", 255);
+            $table->string("login_ip", 50)->nullable();
+            $table->unsignedSmallInteger("country_id")->nullable();
+            $table->string("city", 255)->nullable();
             $table->string("login_failed_reason", 255)->nullable();
             $table->unsignedTinyInteger("online_status");
             $table->dateTime("last_activity_at");
@@ -29,7 +29,6 @@ class CreateAdminLoginHistoriesTable extends Migration
 
             $table->foreign("admin_id")->references("admin_id")->on(Admin::class);
             $table->index("admin_id");
-
         });
     }
 

@@ -7,7 +7,7 @@
 
 @section("page_js")
     <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    @if($viewData->enable_export)
+    @if($viewData->enableExport)
         <script src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -21,7 +21,7 @@
 @section('page_content')
 <?php
 $columns=$viewData->columns;
-$export_formats = $viewData->export_formats;
+$exportFormats = $viewData->exportFormats;
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -29,7 +29,7 @@ $export_formats = $viewData->export_formats;
             <div class="card-header">
                 <div class="row m-0">
                     <div class="col-sm-7">
-                        <h4 class="header-title mb-0"><?php echo $page_title; ?></h4>
+                        <h4 class="header-title mb-0"><?php echo $tableTitle; ?></h4>
                     </div>
                     <div class="col-sm-5">
                         <div class="float-right">
@@ -60,7 +60,7 @@ $export_formats = $viewData->export_formats;
                             }
                             }
                             ?>
-                            <?php if($viewData->enable_add && isset($viewData->add_url)){ ?>
+                            <?php if($viewData->enableAdd && isset($viewData->add_url)){ ?>
                             <a href="<?php echo $viewData->add_url; ?>">
                                 <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->add_url_icon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->add_url_label; ?></div></a>
                             <?php } ?>
@@ -124,7 +124,7 @@ $export_formats = $viewData->export_formats;
                             }
                             ?>
                             <?php
-                            if($viewData->enable_view || $viewData->enable_edit || $viewData->enable_delete || $viewData->enable_restore)
+                            if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
                             {
                                 ?>
                                 <th class="text-center" style="min-width:180px;">Actions</th>
@@ -153,7 +153,7 @@ $export_formats = $viewData->export_formats;
                             }
                             ?>
                             <?php
-                            if($viewData->enable_view || $viewData->enable_edit || $viewData->enable_delete || $viewData->enable_restore)
+                            if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
                             {
                                 ?>
                                 <th class="text-center" style="min-width:180px;">Actions</th>
@@ -402,7 +402,7 @@ $export_formats = $viewData->export_formats;
                 }
                 ?>
                 <?php
-                if($viewData->enable_view || $viewData->enable_edit || $viewData->enable_delete || $viewData->enable_restore)
+                if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
                 {
                 if(isset($columns["id"]))
                 {
@@ -432,25 +432,25 @@ $export_formats = $viewData->export_formats;
                         let uiText = "";
                         uiText+='<div class="index-actions pull-right d-flex justify-content-center">';
 
-                        <?php if($viewData->enable_view && isset($viewData->view_url)){ ?>
+                        <?php if($viewData->enableView && isset($viewData->view_url)){ ?>
                         uiText+='<a href="<?php echo $viewData->view_url; ?>'+full["id"]+'">';
                         uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->view_url_icon; ?>"></span> <?php echo $viewData->view_url_label; ?></div>';
                         uiText+='</a>';
                         <?php } ?>
 
-                        <?php if($viewData->enable_edit && isset($viewData->edit_url)){ ?>
+                        <?php if($viewData->enableEdit && isset($viewData->edit_url)){ ?>
                         uiText+='<a href="<?php echo $viewData->edit_url; ?>'+full["id"]+'">';
                         uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->edit_url_icon; ?>"></span> <?php echo $viewData->edit_url_label; ?></div>';
                         uiText+='</a>';
                         <?php } ?>
 
-                        <?php if($viewData->enable_delete && isset($viewData->delete_url)){ ?>
+                        <?php if($viewData->enableDelete && isset($viewData->delete_url)){ ?>
                         uiText+='<a href="javascript:;" onclick="return deleteConfirm('+full["id"]+')">';
                         uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->delete_url_icon; ?>"></span> <?php echo $viewData->delete_url_label; ?></div>';
                         uiText+='</a>';
                         <?php } ?>
 
-                        <?php if($viewData->enable_restore && isset($viewData->restore_url)){ ?>
+                        <?php if($viewData->enableRestore && isset($viewData->restore_url)){ ?>
                         uiText+='<a href="javascript:;" onclick="return restoreConfirm('+full["id"]+')">';
                         uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->restore_url_icon; ?>"></span> <?php echo $viewData->restore_url_label; ?></div>';
                         uiText+='</a>';
@@ -699,13 +699,13 @@ $export_formats = $viewData->export_formats;
         });
 
         <?php
-        if($viewData->enable_export && count($viewData->export_formats)>0)
+        if($viewData->enableExport && count($viewData->exportFormats)>0)
         {
         ?>
         new $.fn.dataTable.Buttons(table, {
             "buttons": [
                 <?php
-                if(in_array("copy", $export_formats))
+                if(in_array("copy", $exportFormats))
                 {
                 ?>
                 {
@@ -717,7 +717,7 @@ $export_formats = $viewData->export_formats;
                 },
                 <?php
                 }
-                if(in_array("excel", $export_formats))
+                if(in_array("excel", $exportFormats))
                 {
                 ?>
                 {
@@ -729,7 +729,7 @@ $export_formats = $viewData->export_formats;
                 },
                 <?php
                 }
-                if(in_array("csv", $export_formats))
+                if(in_array("csv", $exportFormats))
                 {
                 ?>
                 {
@@ -741,7 +741,7 @@ $export_formats = $viewData->export_formats;
                 },
                 <?php
                 }
-                if(in_array("pdf", $export_formats))
+                if(in_array("pdf", $exportFormats))
                 {
                 ?>
                 {
@@ -753,7 +753,7 @@ $export_formats = $viewData->export_formats;
                 },
                 <?php
                 }
-                if(in_array("print", $export_formats))
+                if(in_array("print", $exportFormats))
                 {
                 ?>
                 {

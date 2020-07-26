@@ -19,6 +19,7 @@ class CreateAdminActivitiesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('admin_login_history_id');
             $table->unsignedInteger("admin_id");
+            $table->string("event", 20)->nullable();
             $table->text("activity");
             $table->json("activity_old_data");
             $table->json("activity_new_data");

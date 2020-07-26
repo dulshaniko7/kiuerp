@@ -29,10 +29,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $this->repository->initDatatable(new Admin());
-        $this->repository->viewData->page_title = "Admins";
+        $this->repository->setPageTitle("Admins");
 
-        $this->repository->viewData->enable_export = true;
+        $this->repository->initDatatable(new Admin());
+        $this->repository->viewData->tableTitle = "Admins";
+
+        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "name", "admin_role", "status", "created_at", "updated_at")
             ->setColumnLabel("name", "Admin")
@@ -58,10 +60,10 @@ class AdminController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->enable_restore = true;
-            $this->repository->viewData->enable_view= false;
-            $this->repository->viewData->enable_edit = false;
-            $this->repository->viewData->enable_delete = false;
+            $this->repository->viewData->enableRestore = true;
+            $this->repository->viewData->enableView= false;
+            $this->repository->viewData->enableEdit = false;
+            $this->repository->viewData->enableDelete = false;
         }
         else
         {

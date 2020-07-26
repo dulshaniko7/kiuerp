@@ -10,7 +10,16 @@ class AdminLoginHistory extends Model
         "admin_id", "login_ip", "country_id", "city", "login_failed_reason", "online_status", "last_activity_at", "sign_in_at", "sign_out_type", "sign_out_at"
     ];
 
+    protected $primaryKey = "admin_login_history_id";
+
     public $timestamps = false;
+
+    protected $appends = ["id"];
+
+    public function getIdAttribute()
+    {
+        return $this->{$this->primaryKey};
+    }
 
     public function setLastActivityAtAttribute($value)
     {

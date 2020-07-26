@@ -1,15 +1,5 @@
 @extends('layouts.master')
 
-<?php
-//dd($data["urls"]["fetchUrl"]);
-if(!isset($page_title) || $page_title == "")
-{
-    $page_title = "Dashboard";
-}
-?>
-
-@section('title', $page_title)
-
 @section('css')
     <link href="{{ asset('academic/css/academic.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/magicsuggest/magicsuggest-min.css') }}" rel="stylesheet">

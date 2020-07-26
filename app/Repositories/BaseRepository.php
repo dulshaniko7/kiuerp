@@ -10,7 +10,8 @@ class BaseRepository
 {
     use Datatable;
 
-    private $urls = [];
+    private $pageUrls = [];
+    private $pageTitle = "";
 
     public function __construct()
     {
@@ -31,13 +32,24 @@ class BaseRepository
                 $data = $view->getData()["data"];
             }
 
-            if(!isset($data["urls"]))
+            if(!isset($data["pageUrls"]))
             {
-                $data["urls"]=$this->getUrls();
+                $data["pageUrls"]=$this->getPageUrls();
             }
 
             $view->with("data", $data);
+            $view->with("pageTitle", $this->pageTitle);
+            $view->with("pageUrls", $this->getPageUrls());
         });
+    }
+
+    /**
+     * @param $pageTitle
+     * @return void
+     */
+    public function setPageTitle($pageTitle)
+    {
+        $this->pageTitle = $pageTitle;
     }
 
     /**
@@ -45,22 +57,22 @@ class BaseRepository
      * @param string $url System URL
      * @return void
      */
-    public function setUrl($accessKey, $url)
+    public function setPageUrl($accessKey, $url)
     {
-        $this->urls[$accessKey] = $url;
+        $this->pageUrls[$accessKey] = $url;
     }
 
     /**
-     * @param array $urls List of URLs with array
+     * @param array $pageUrls List of URLs with array
      * @return void
      */
-    public function setUrls($urls)
+    public function setPageUrls($pageUrls)
     {
-        if(is_array($urls) && count($urls)>0)
+        if(is_array($pageUrls) && count($pageUrls)>0)
         {
-            foreach ($urls as $key => $url)
+            foreach ($pageUrls as $key => $url)
             {
-                $this->urls[$key] = $url;
+                $this->pageUrls[$key] = $url;
             }
         }
     }
@@ -68,16 +80,16 @@ class BaseRepository
     /**
      * @return ArrayObject
      */
-    public function getUrls()
+    private function getPageUrls()
     {
-        $urls = array();
-        if(count($this->urls)>0)
+        $pageUrls = array();
+        if(count($this->pageUrls)>0)
         {
-            $urls = $this->urls;
-            //$urls = PermissionValidate::getPermissionValidated($this->urls);
+            $pageUrls = $this->pageUrls;
+            //$pageUrls = PermissionValidate::getPermissionValidated($this->pageUrls);
         }
 
-        return new ArrayObject($urls);
+        return new ArrayObject($pageUrls);
     }
 
     /**

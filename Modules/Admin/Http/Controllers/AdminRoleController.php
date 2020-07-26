@@ -23,10 +23,12 @@ class AdminRoleController extends Controller
      */
     public function index()
     {
-        $this->repository->initDatatable(new AdminRole());
-        $this->repository->viewData->page_title = "Admin Roles";
+        $this->repository->setPageTitle("Admin Roles");
 
-        $this->repository->viewData->enable_export = true;
+        $this->repository->initDatatable(new AdminRole());
+        $this->repository->viewData->tableTitle = "Admin Roles";
+
+        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "role_name", "description", "role_status", "created_at")
             ->setColumnLabel("role_status", "Status")
@@ -44,10 +46,10 @@ class AdminRoleController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->enable_restore = true;
-            $this->repository->viewData->enable_view= false;
-            $this->repository->viewData->enable_edit = false;
-            $this->repository->viewData->enable_delete = false;
+            $this->repository->viewData->enableRestore = true;
+            $this->repository->viewData->enableView= false;
+            $this->repository->viewData->enableEdit = false;
+            $this->repository->viewData->enableDelete = false;
         }
         else
         {

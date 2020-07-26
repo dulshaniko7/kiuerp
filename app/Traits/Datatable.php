@@ -17,7 +17,7 @@ trait Datatable
     public $viewData = null;
     public $viewPath = "default.index";
     public $extendViewPath = null;
-    public $page_title = "";
+    public $tableTitle = "";
 
     /**
      * @param $model
@@ -31,14 +31,14 @@ trait Datatable
 
         $this->viewData = (object) array();
 
-        $this->viewData->enable_add=true;
-        $this->viewData->enable_edit=true;
-        $this->viewData->enable_view=true;
-        $this->viewData->enable_delete=true;
-        $this->viewData->enable_restore=false;
-        $this->viewData->enable_list=true;
-        $this->viewData->enable_export=false;
-        $this->viewData->export_formats = array("copy", "csv", "excel", "pdf", "print");
+        $this->viewData->enableAdd=true;
+        $this->viewData->enableEdit=true;
+        $this->viewData->enableView=true;
+        $this->viewData->enableDelete=true;
+        $this->viewData->enableRestore=false;
+        $this->viewData->enableList=true;
+        $this->viewData->enableExport=false;
+        $this->viewData->exportFormats = array("copy", "csv", "excel", "pdf", "print");
     }
 
     /**
@@ -597,9 +597,9 @@ trait Datatable
             {
                 $extendViewPath = $this->extendViewPath;
             }
-            $page_title = $this->viewData->page_title;
+            $tableTitle = $this->viewData->tableTitle;
 
-            return view($this->viewPath, compact("page_title","extendViewPath", "viewData"));
+            return view($this->viewPath, compact("tableTitle","extendViewPath", "viewData"));
         }
     }
 
@@ -623,7 +623,7 @@ trait Datatable
             $this->viewData->this_url=URL::to($uri);
         }
 
-        if(!isset($this->viewData->add_url) && $this->viewData->enable_add)
+        if(!isset($this->viewData->add_url) && $this->viewData->enableAdd)
         {
             $this->viewData->add_url=$this->viewData->this_url."/create";
         }
@@ -637,7 +637,7 @@ trait Datatable
         }
         //----
 
-        if(!isset($this->viewData->edit_url) && $this->viewData->enable_edit)
+        if(!isset($this->viewData->edit_url) && $this->viewData->enableEdit)
         {
             $this->viewData->edit_url=$this->viewData->this_url."/edit/";
         }
@@ -651,7 +651,7 @@ trait Datatable
         }
         //----
 
-        if(!isset($this->viewData->view_url) && $this->viewData->enable_view)
+        if(!isset($this->viewData->view_url) && $this->viewData->enableView)
         {
             $this->viewData->view_url=$this->viewData->this_url."/view/";
         }
@@ -665,7 +665,7 @@ trait Datatable
         }
         //----
 
-        if(!isset($this->viewData->delete_url) && $this->viewData->enable_delete)
+        if(!isset($this->viewData->delete_url) && $this->viewData->enableDelete)
         {
             $this->viewData->delete_url=$this->viewData->this_url."/delete/";
         }
@@ -679,7 +679,7 @@ trait Datatable
         }
         //----
 
-        if(!isset($this->viewData->restore_url) && $this->viewData->enable_restore)
+        if(!isset($this->viewData->restore_url) && $this->viewData->enableRestore)
         {
             $this->viewData->restore_url = str_replace(["/trash", "/trash/"], ["/restore/"], $this->viewData->this_url);
         }

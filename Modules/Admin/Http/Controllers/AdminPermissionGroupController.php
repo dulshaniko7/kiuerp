@@ -28,10 +28,12 @@ class AdminPermissionGroupController extends Controller
      */
     public function index()
     {
-        $this->repository->initDatatable(new AdminPermissionGroup());
-        $this->repository->viewData->page_title = "Admin Permission Groups";
+        $this->repository->setPageTitle("Admin Permission Groups");
 
-        $this->repository->viewData->enable_export = true;
+        $this->repository->initDatatable(new AdminPermissionGroup());
+        $this->repository->viewData->tableTitle = "Admin Permission Groups";
+
+        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "group_name", "permission_module", "group_status", "created_at")
             ->setColumnLabel("group_name", "Module Name")
@@ -55,10 +57,10 @@ class AdminPermissionGroupController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->enable_restore = true;
-            $this->repository->viewData->enable_view= false;
-            $this->repository->viewData->enable_edit = false;
-            $this->repository->viewData->enable_delete = false;
+            $this->repository->viewData->enableRestore = true;
+            $this->repository->viewData->enableView= false;
+            $this->repository->viewData->enableEdit = false;
+            $this->repository->viewData->enableDelete = false;
         }
         else
         {

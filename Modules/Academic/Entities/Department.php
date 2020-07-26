@@ -4,6 +4,7 @@ namespace Modules\Academic\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Admin\Observers\AdminActivityObserver;
 
 class Department extends Model
 {
@@ -38,11 +39,15 @@ class Department extends Model
         return $this->belongsTo(Faculty::class, "faculty_id", "faculty_id");
     }
 
-    /*public static function boot()
+    public static function boot()
     {
         parent::boot();
 
-        // Set field values of created_by and updated_by with current admin id
+        //Use this code block to track activities regarding this model
+        //Use this code block in every model you need to record
+        self::observe(AdminActivityObserver::class);
+
+        /*// Set field values of created_by and updated_by with current admin id
         static::creating(function ($model) {
             $model->created_by = auth("admin")->user()->admin_id;
             $model->updated_by = auth("admin")->user()->admin_id;
@@ -57,6 +62,6 @@ class Department extends Model
             if (!$model->isForceDeleting()) {
                 $model->deleted_by = auth("admin")->user()->admin_id;
             }
-        });
-    }*/
+        });*/
+    }
 }

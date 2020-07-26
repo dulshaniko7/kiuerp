@@ -27,10 +27,12 @@ class AdminPermissionSystemController extends Controller
      */
     public function index()
     {
-        $this->repository->initDatatable(new AdminPermissionSystem());
-        $this->repository->viewData->page_title = "Admin Permission Systems";
+        $this->repository->setPageTitle("Admin Permission Systems");
 
-        $this->repository->viewData->enable_export = true;
+        $this->repository->initDatatable(new AdminPermissionSystem());
+        $this->repository->viewData->tableTitle = "Admin Permission Systems";
+
+        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "system_name", "system_slug", "system_status", "created_at")
             ->setColumnLabel("system_slug", "System Short Code")
@@ -49,10 +51,10 @@ class AdminPermissionSystemController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->enable_restore = true;
-            $this->repository->viewData->enable_view= false;
-            $this->repository->viewData->enable_edit = false;
-            $this->repository->viewData->enable_delete = false;
+            $this->repository->viewData->enableRestore = true;
+            $this->repository->viewData->enableView= false;
+            $this->repository->viewData->enableEdit = false;
+            $this->repository->viewData->enableDelete = false;
         }
         else
         {
