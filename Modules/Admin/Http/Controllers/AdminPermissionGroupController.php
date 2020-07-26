@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Academic\Http\Controllers;
+namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -8,19 +8,18 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-use Modules\Academic\Entities\Department;
-use Modules\Academic\Repositories\DepartmentRepository;
+use Modules\Admin\Entities\AdminPermissionGroup;
+use Modules\Admin\Repositories\AdminPermissionGroupRepository;
 
-class DepartmentController extends Controller
+class AdminPermissionGroupController extends Controller
 {
     private $repository = null;
     private $trash = false;
 
     public function __construct()
     {
-        $this->repository = new DepartmentRepository();
+        $this->repository = new AdminPermissionGroupRepository();
     }
 
     /**
@@ -29,29 +28,28 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $this->repository->initDatatable(new Department());
-        $this->repository->viewData->page_title = "Departments";
+        $this->repository->initDatatable(new AdminPermissionGroup());
+        $this->repository->viewData->page_title = "Admin Permission Groups";
 
         $this->repository->viewData->enable_export = true;
 
-        $this->repository->setColumns("id", "dept_name", "dept_code", "faculty", "dept_status", "created_at")
-            ->setColumnLabel("dept_code", "Code")
-            ->setColumnLabel("dept_name", "Department")
-            ->setColumnLabel("dept_status", "Status")
-            ->setColumnDisplay("dept_status", array($this->repository, 'display_status_as'))
-            ->setColumnDisplay("faculty", array($this->repository, 'display_faculty_as'))
+        $this->repository->setColumns("id", "group_name", "permission_module", "group_status", "created_at")
+            ->setColumnLabel("group_name", "Module Name")
+            ->setColumnLabel("group_status", "Status")
+            ->setColumnDisplay("group_status", array($this->repository, 'display_status_as'))
+            ->setColumnDisplay("permission_module", array($this->repository, 'display_permission_module_as'))
             ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
 
-            ->setColumnFilterMethod("dept_name", "text")
-            ->setColumnFilterMethod("dept_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
-            ->setColumnFilterMethod("faculty", "select", URL::to("/academic/faculty/searchData"))
+            ->setColumnFilterMethod("group_name", "text")
+            ->setColumnFilterMethod("group_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
+            ->setColumnFilterMethod("permission_module", "select", URL::to("/academic/adminPermissionModule/searchData"))
 
             ->setColumnSearchability("created_at", false)
             ->setColumnSearchability("updated_at", false)
 
-            ->setColumnDBField("faculty", "faculty_id")
-            ->setColumnFKeyField("faculty", "faculty_id")
-            ->setColumnRelation("faculty", "faculty", "faculty_name");
+            ->setColumnDBField("permission_module", "admin_perm_module_id")
+            ->setColumnFKeyField("permission_module", "admin_perm_module_id")
+            ->setColumnRelation("permission_module", "permissionModule", "system_name");
 
         if($this->trash)
         {
@@ -67,7 +65,7 @@ class DepartmentController extends Controller
             $query = $this->repository->model;
         }
 
-        $query = $query->with(["faculty"]);
+        $query = $query->with(["permissionModule"]);
 
         return $this->repository->render("academic::layouts.master")->index($query);
     }
@@ -88,13 +86,13 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $model = new Department();
+        $model = new AdminPermissionGroup();
         $record = $model;
 
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('academic::department.create', compact('formMode', 'formSubmitUrl', 'record'));
+        return view('academic::admin_permission_group.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
@@ -103,17 +101,14 @@ class DepartmentController extends Controller
      */
     public function store()
     {
-        $model = new Department();
+        $model = new AdminPermissionGroup();
 
         $model = $this->repository->getValidatedData($model, [
-            "faculty_id" => "required|exists:faculties,faculty_id",
-            "dept_name" => "required|min:3",
-            "color_code" => "required"
-        ], [], ["faculty_id" => "Faculty", "dept_name" => "Department name"]);
-
-        //set dept_status as 0 when inserting the record
-        $model->dept_status = 1;
-        $model->dept_code = $this->repository->generateDeptCode();
+            "admin_perm_module_id" => "required|exists:admin_permission_modules,admin_perm_module_id",
+            "group_name" => "required|min:3",
+            "group_status" => "required|digits:1",
+            "remarks" => "",
+        ], [], ["admin_perm_module_id" => "Module name", "group_name" => "Group name"]);
 
         $dataResponse = $this->repository->saveModel($model);
 
@@ -127,13 +122,13 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        $model = Department::find($id);
+        $model = AdminPermissionGroup::find($id);
 
         if($model)
         {
             $record = $model;
 
-            return view('academic::department.view', compact('data', 'record'));
+            return view('academic::admin_permission_group.view', compact('data', 'record'));
         }
         else
         {
@@ -148,7 +143,7 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        $model = Department::with(["faculty"])->find($id);
+        $model = AdminPermissionGroup::with(["permissionModule"])->find($id);
 
         if($model)
         {
@@ -156,7 +151,7 @@ class DepartmentController extends Controller
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('academic::department.create', compact('formMode', 'formSubmitUrl', 'record'));
+            return view('academic::admin_permission_group.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {
@@ -166,20 +161,22 @@ class DepartmentController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
     public function update($id)
     {
-        $model = Department::find($id);
+        $model = AdminPermissionGroup::find($id);
 
         if($model)
         {
             $model = $this->repository->getValidatedData($model, [
-                "faculty_id" => "required|exists:faculties,faculty_id",
-                "dept_name" => "required|min:3",
-                "color_code" => "required"
-            ], [], ["faculty_id" => "Faculty", "dept_name" => "Department name", "color_code" => "Colour Code"]);
+                "admin_perm_module_id" => "required|exists:admin_permission_modules,admin_perm_module_id",
+                "group_name" => "required|min:3",
+                "group_status" => "required|digits:1",
+                "remarks" => "",
+            ], [], ["admin_perm_module_id" => "Module name", "group_name" => "Group name"]);
 
             $dataResponse = $this->repository->saveModel($model);
         }
@@ -202,7 +199,7 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        $model = Department::find($id);
+        $model = AdminPermissionGroup::find($id);
 
         if($model)
         {
@@ -242,7 +239,7 @@ class DepartmentController extends Controller
      */
     public function restore($id)
     {
-        $model = Department::withTrashed()->find($id);
+        $model = AdminPermissionGroup::withTrashed()->find($id);
 
         if($model)
         {
@@ -287,20 +284,20 @@ class DepartmentController extends Controller
             $searchText = $request->post("searchText");
             $idNot = $request->post("idNot");
 
-            $query = Department::query()
-                ->select("dept_id", "dept_name")
-                ->where("dept_status", "=", "1")
-                ->orderBy("dept_name")
+            $query = AdminPermissionGroup::query()
+                ->select("group_id", "group_name")
+                ->where("group_status", "=", "1")
+                ->orderBy("group_name")
                 ->limit(10);
 
             if($searchText != "")
             {
-                $query = $query->where("dept_name", "LIKE", $searchText."%");
+                $query = $query->where("group_name", "LIKE", $searchText."%");
             }
 
             if($idNot != "")
             {
-                $query = $query->whereNotIn("dept_id", [$idNot]);
+                $query = $query->whereNotIn("group_id", [$idNot]);
             }
 
             $data = $query->get();

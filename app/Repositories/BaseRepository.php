@@ -1,22 +1,28 @@
 <?php
 namespace App\Repositories;
 
+use ArrayObject;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
+use App\Traits\Datatable;
 
-class BaseRepository extends DatatableRepository
+class BaseRepository
 {
-    public $urls = null;
-    public function __construct($model)
-    {
-        parent::__construct($model);
+    use Datatable;
 
+    private $urls = [];
+
+    public function __construct()
+    {
         $this->setViewComposer();
     }
 
+    /**
+     * Setup view variables
+     * @return void
+     */
     private function setViewComposer()
     {
-        $this->urls = (object)array();
-
         View::composer("*", function ($view){
 
             $data = array();
@@ -34,18 +40,50 @@ class BaseRepository extends DatatableRepository
         });
     }
 
-    private function getUrls()
+    /**
+     * @param string $accessKey Key variable to access the URL from array
+     * @param string $url System URL
+     * @return void
+     */
+    public function setUrl($accessKey, $url)
     {
-        $urls = array();
-        if(isset($this->urls))
-        {
-            $urls = json_decode(json_encode($this->urls), true);
-            //$urls = PermissionValidate::getPermissionValidated($urls);
-        }
-
-        return new \ArrayObject($urls);
+        $this->urls[$accessKey] = $url;
     }
 
+    /**
+     * @param array $urls List of URLs with array
+     * @return void
+     */
+    public function setUrls($urls)
+    {
+        if(is_array($urls) && count($urls)>0)
+        {
+            foreach ($urls as $key => $url)
+            {
+                $this->urls[$key] = $url;
+            }
+        }
+    }
+
+    /**
+     * @return ArrayObject
+     */
+    public function getUrls()
+    {
+        $urls = array();
+        if(count($this->urls)>0)
+        {
+            $urls = $this->urls;
+            //$urls = PermissionValidate::getPermissionValidated($this->urls);
+        }
+
+        return new ArrayObject($urls);
+    }
+
+    /**
+     * @param $model
+     * @return array
+     */
     public function saveModel($model)
     {
         $save = $model->save();
@@ -71,6 +109,38 @@ class BaseRepository extends DatatableRepository
         return $dataResponse;
     }
 
+    /**
+     * @param $model
+     * @param array $rules
+     * @param array $messages
+     * @param array $customAttributes
+     * @return mixed
+     */
+    public function getValidatedData($model, $rules, $messages=[], $customAttributes=[])
+    {
+        $postData = Validator::make(request()->all(), $rules, $messages, $customAttributes);
+
+        if ($postData->fails())
+        {
+            return $this->handleValidationErrors($postData->errors());
+        }
+        else
+        {
+            $data = $postData->validated();
+        }
+
+        foreach ($data as $key => $value)
+        {
+            $model->$key = $value;
+        }
+
+        return $model;
+    }
+
+    /**
+     * @param $errors
+     * @return mixed
+     */
     public function handleValidationErrors($errors)
     {
         $errors = json_decode(json_encode($errors), true);
@@ -87,7 +157,11 @@ class BaseRepository extends DatatableRepository
         return BaseRepository::handleResponse($response);
     }
 
-    public function handleResponse($dataResponse)
+    /**
+     * @param array $dataResponse
+     * @return mixed
+    */
+    public function handleResponse($dataResponse=[])
     {
         if(request()->expectsJson())
         {
@@ -95,6 +169,10 @@ class BaseRepository extends DatatableRepository
         }
         else
         {
+            if(isset($dataResponse["status"]))
+            {
+                request()->session()->flash("status", $dataResponse["status"]);
+            }
             request()->session()->flash("notify", $dataResponse["notify"]);
             return redirect()->back();
         }

@@ -1,13 +1,12 @@
 <?php
 
-namespace Modules\Academic\Http\Controllers;
+namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Modules\Admin\Entities\AdminPermissionSystem;
 use Modules\Admin\Repositories\AdminPermissionSystemRepository;
@@ -19,7 +18,7 @@ class AdminPermissionSystemController extends Controller
 
     public function __construct()
     {
-        $this->repository = new AdminPermissionSystemRepository(new AdminPermissionSystem());
+        $this->repository = new AdminPermissionSystemRepository();
     }
 
     /**
@@ -28,6 +27,7 @@ class AdminPermissionSystemController extends Controller
      */
     public function index()
     {
+        $this->repository->initDatatable(new AdminPermissionSystem());
         $this->repository->viewData->page_title = "Admin Permission Systems";
 
         $this->repository->viewData->enable_export = true;
@@ -38,8 +38,8 @@ class AdminPermissionSystemController extends Controller
             ->setColumnDisplay("system_status", array($this->repository, 'display_status_as'))
             ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
 
-            ->setColumnSearchType("system_name", "text")
-            ->setColumnSearchType("system_status", "select", [["id" =>"1", "value" =>"Enabled"], ["id" =>"0", "value" =>"Disabled"]])
+            ->setColumnFilterMethod("system_name", "text")
+            ->setColumnFilterMethod("system_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
 
             ->setColumnSearchability("system_status", false)
             ->setColumnSearchability("created_at", false)
@@ -80,41 +80,29 @@ class AdminPermissionSystemController extends Controller
      */
     public function create()
     {
+        $model = new AdminPermissionSystem();
+        $record = $model;
+
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl'));
+        return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store()
     {
         $model = new AdminPermissionSystem();
 
-        $postData = Validator::make($request->all(), [
+        $model = $this->repository->getValidatedData($model, [
             "system_name" => "required|min:3",
             "system_slug" => "required|min:3",
             "system_status" => "required|digits:1",
             "remarks" => "",
         ]);
-
-        if ($postData->fails())
-        {
-            return $this->repository->handleValidationErrors($postData->errors());
-        }
-        else
-        {
-            $data = $postData->validated();
-        }
-
-        foreach ($data as $key => $value)
-        {
-            $model->$key = $value;
-        }
 
         $dataResponse = $this->repository->saveModel($model);
 
@@ -169,36 +157,21 @@ class AdminPermissionSystemController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         $model = AdminPermissionSystem::find($id);
 
         if($model)
         {
-            $postData = Validator::make($request->all(), [
+            $model = $this->repository->getValidatedData($model, [
                 "system_name" => "required|min:3",
                 "system_slug" => "required|min:3",
                 "system_status" => "required|digits:1",
                 "remarks" => "",
             ]);
-
-            if ($postData->fails())
-            {
-                return $this->repository->handleValidationErrors($postData->errors());
-            }
-            else
-            {
-                $data = $postData->validated();
-            }
-
-            foreach ($data as $key => $value)
-            {
-                $model->$key = $value;
-            }
 
             $dataResponse = $this->repository->saveModel($model);
         }
@@ -308,7 +281,7 @@ class AdminPermissionSystemController extends Controller
 
             $query = AdminPermissionSystem::query()
                 ->select("admin_perm_system_id", "system_name")
-                ->where("system_status", "1")
+                ->where("system_status", "=", "1")
                 ->orderBy("system_name")
                 ->limit(10);
 

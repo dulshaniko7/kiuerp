@@ -303,8 +303,8 @@ $export_formats = $viewData->export_formats;
                 $searchable=$column_data["searchable"];
                 $orderable=$column_data["orderable"];
                 $order=$column_data["order"];
-                $search_type=$column_data["search_type"];
-                $search_options=$column_data["search_options"];
+                $filterMethod=$column_data["filterMethod"];
+                $filterOptions=$column_data["filterOptions"];
 
                 //echo json_encode($column_data);
 
@@ -336,25 +336,25 @@ $export_formats = $viewData->export_formats;
                 }
 
                 $search = "";
-                if($search_type == "date_between")
+                if($filterMethod == "date_between")
                 {
                     $date_from = "";
                     $date_till = "";
-                    if(is_array($search_options) && count($search_options)>0)
+                    if(is_array($filterOptions) && count($filterOptions)>0)
                     {
-                        if(isset($search_options["date_from"]))
+                        if(isset($filterOptions["date_from"]))
                         {
-                            $date_from = $search_options["date_from"];
+                            $date_from = $filterOptions["date_from"];
                         }
 
-                        if(isset($search_options["date_till"]))
+                        if(isset($filterOptions["date_till"]))
                         {
-                            $date_till = $search_options["date_till"];
+                            $date_till = $filterOptions["date_till"];
                         }
 
-                        if(isset($search_options["max_dates"]))
+                        if(isset($filterOptions["max_dates"]))
                         {
-                            $max_dates = $search_options["max_dates"];
+                            $max_dates = $filterOptions["max_dates"];
                         }
                     }
 
@@ -476,7 +476,7 @@ $export_formats = $viewData->export_formats;
 
                     let column = api.column(i);
 
-                    if($(columnsVisible[i]).length > 0 && columnsVisible[i].search_type != "normal")
+                    if($(columnsVisible[i]).length > 0 && columnsVisible[i].filterable)
                     {
                         incr++;
 
@@ -490,16 +490,16 @@ $export_formats = $viewData->export_formats;
                         }
 
                         let label = columnsVisible[i].label;
-                        let search_type = columnsVisible[i].search_type;
+                        let filterMethod = columnsVisible[i].filterMethod;
 
-                        if(search_type == "select")
+                        if(filterMethod == "select")
                         {
-                            let search_options = columnsVisible[i].search_options;
+                            let filterOptions = columnsVisible[i].filterOptions;
 
                             let uiText = '<div class="col-lg-3 col-md-3 col-sm-3 filter-by-label">Filter By '+label+'<br><div class="form-group" id="dt-search-col-'+i+'"></div></div>';
                             $("#results_wrapper .filter-bar").append(uiText);
 
-                            if(typeof search_options == 'object')
+                            if(typeof filterOptions == 'object')
                             {
                                 let select = $('<select class="custom-select form-control"><option value="">Filter By '+label+'</option></select>').appendTo($("#dt-search-col-"+i)).on("change", function () {
 
@@ -508,16 +508,16 @@ $export_formats = $viewData->export_formats;
                                 });
 
                                 let uiText = "";
-                                if(typeof search_options == 'object')
+                                if(typeof filterOptions == 'object')
                                 {
-                                    $(search_options).each(function(index, elem) {
+                                    $(filterOptions).each(function(index, elem) {
 
-                                        uiText += '<option value="'+elem.id+'">'+elem.value+'</option>';
+                                        uiText += '<option value="'+elem.id+'">'+elem.name+'</option>';
                                     });
                                 }
                                 else
                                 {
-                                    uiText = search_options;
+                                    uiText = filterOptions;
                                 }
 
                                 select.append(uiText);
@@ -530,9 +530,9 @@ $export_formats = $viewData->export_formats;
                                     allowFreeEntries: false,
                                     maxSelection:999,
                                     resultAsString: true,
-                                    data: search_options,
+                                    data: filterOptions,
                                     valueField: 'id',
-                                    data: search_options,
+                                    data: filterOptions,
                                     dataUrlParams:{"_token":"{{ csrf_token() }}"},
                                     maxSelectionRenderer: function () {
                                         return "";
@@ -547,7 +547,7 @@ $export_formats = $viewData->export_formats;
                                 });
                             }
                         }
-                        else if(search_type == "date")
+                        else if(filterMethod == "date")
                         {
                             let format = "yyyy-mm-dd";
 
@@ -565,29 +565,29 @@ $export_formats = $viewData->export_formats;
                                 column.search( val ? val : "", true, false ).draw();
                             });
                         }
-                        else if(search_type == "date_between")
+                        else if(filterMethod == "date_between")
                         {
-                            let search_options = columnsVisible[i].search_options;
+                            let filterOptions = columnsVisible[i].filterOptions;
 
                             let date_from = "";
                             let date_till = "";
                             let max_dates = false;
 
-                            if(typeof search_options == 'object')
+                            if(typeof filterOptions == 'object')
                             {
-                                if(search_options.date_from)
+                                if(filterOptions.date_from)
                                 {
-                                    date_from = search_options.date_from;
+                                    date_from = filterOptions.date_from;
                                 }
 
-                                if(search_options.date_till)
+                                if(filterOptions.date_till)
                                 {
-                                    date_till = search_options.date_till;
+                                    date_till = filterOptions.date_till;
                                 }
 
-                                if(search_options.max_dates)
+                                if(filterOptions.max_dates)
                                 {
-                                    max_dates = search_options.max_dates;
+                                    max_dates = filterOptions.max_dates;
                                 }
                             }
 
@@ -682,7 +682,7 @@ $export_formats = $viewData->export_formats;
                                 $(date2).datepicker("setEndDate", new Date(new Date(date_from).setDate(new Date(date_from).getDate() + max_dates)));
                             }
                         }
-                        else if(search_type == "text")
+                        else if(filterMethod == "text")
                         {
                             let uiText = '<div class="col-lg-3 col-md-3 col-sm-3 filter-by-label">Filter By '+label+'<br><div class="form-group" id="dt-search-col-'+i+'"></div></div>';
                             $("#results_wrapper .filter-bar").append(uiText);

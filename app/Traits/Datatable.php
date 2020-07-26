@@ -1,14 +1,12 @@
 <?php
-namespace App\Repositories;
+namespace App\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
-use Nwidart\Modules\Facades\Module;
 
-class DatatableRepository
+trait Datatable
 {
     public $model = null;
 
@@ -21,7 +19,10 @@ class DatatableRepository
     public $extendViewPath = null;
     public $page_title = "";
 
-    public function __construct(Model $model)
+    /**
+     * @param $model
+     */
+    public function initDatatable($model)
     {
         $this->model = $model;
 
@@ -40,15 +41,24 @@ class DatatableRepository
         $this->viewData->export_formats = array("copy", "csv", "excel", "pdf", "print");
     }
 
-    public function getTableColumns()
+    /**
+     * @param mixed $model
+     * @return array
+     */
+    public function getTableColumns($model=false)
     {
-        return $this->model->getConnection()->getSchemaBuilder()->getColumnListing($this->model->getTable());
+        if(!$model)
+        {
+            $model = $this->model;
+        }
+
+        return $model->getConnection()->getSchemaBuilder()->getColumnListing($model->getTable());
     }
 
     /**
      * Setting which columns should be showed in view
      * @param array $newColumns
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumns($newColumns=array())
     {
@@ -77,7 +87,11 @@ class DatatableRepository
         return $this;
     }
 
-    public function buildDefaultColumn($column)
+    /**
+     * @param string $column
+     * @return array
+     */
+    private function buildDefaultColumn($column)
     {
         $defaultColumn = [];
 
@@ -88,10 +102,11 @@ class DatatableRepository
         //set field and field's label
         $defaultColumn["label"]=$column_label;
         $defaultColumn["visible"]=true;
-        $defaultColumn["search_type"]="normal";
+        $defaultColumn["filterMethod"]="normal";
         $defaultColumn["orderable"]=true;
+        $defaultColumn["filterable"]=false;
         $defaultColumn["exportable"]=true;
-        $defaultColumn["search_options"]=array();
+        $defaultColumn["filterOptions"]=array();
         $defaultColumn["relation"]=""; //for fields which is having ORM relationships
         $defaultColumn["relation_field"]=""; //for fields which is having ORM relationships
 
@@ -117,7 +132,7 @@ class DatatableRepository
     /**
      * Setting field labels to pass to the view
      * @param array $unsetColumns
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function unsetColumns($unsetColumns=array())
     {
@@ -157,7 +172,7 @@ class DatatableRepository
      * Setting field labels to pass to the view
      * @param string $column
      * @param string $label
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnLabel($column="", $label="")
     {
@@ -177,7 +192,7 @@ class DatatableRepository
      * Setting field visibility to pass to the view
      * @param string $column
      * @param bool $visibility
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnVisibility($column="", $visibility=true)
     {
@@ -198,7 +213,7 @@ class DatatableRepository
      * Setting field searchable to pass to the view
      * @param string $column
      * @param bool $searchable
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnSearchability($column="", $searchable=true)
     {
@@ -218,21 +233,22 @@ class DatatableRepository
     /**
      * Setting field search type to pass to the view
      * @param string $column
-     * @param string $search_type
-     * @param array $search_options
-     * @return DatatableRepository
+     * @param string $filterMethod
+     * @param array $filterOptions
+     * @return Datatable
      */
-    public function setColumnSearchType($column="", $search_type="text", $search_options = array())
+    public function setColumnFilterMethod($column="", $filterMethod="text", $filterOptions = array())
     {
         $columns=$this->columns;
 
         if($column != "" && isset($columns[$column]))
         {
             //set field and field's label
-            $columns[$column]["search_type"]=$search_type;
-            $columns[$column]["search_options"]=$search_options;
+            $columns[$column]["filterable"]=true;
+            $columns[$column]["filterMethod"]=$filterMethod;
+            $columns[$column]["filterOptions"]=$filterOptions;
 
-            //search_type can be : text, select
+            //filterMethod can be : text, select
         }
 
         $this->columns=$columns;
@@ -245,7 +261,7 @@ class DatatableRepository
      * @param string $column
      * @param bool $orderable
      * @param string $order
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnOrderability($column="", $orderable=true, $order = "ASC")
     {
@@ -267,7 +283,7 @@ class DatatableRepository
      * Setting field exportable to pass to the view
      * @param string $column
      * @param bool $exportable
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnExportability($column="", $exportable=true)
     {
@@ -288,7 +304,7 @@ class DatatableRepository
      * Setting field orderable to pass to the view
      * @param string $column
      * @param string $db_field
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnDBField($column="", $db_field="")
     {
@@ -309,7 +325,7 @@ class DatatableRepository
      * Setting field orderable to pass to the view
      * @param string $column
      * @param string $fkey_field
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnFKeyField($column="", $fkey_field="")
     {
@@ -331,7 +347,7 @@ class DatatableRepository
      * @param string $column
      * @param string $relation
      * @param string $relation_field
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnRelation($column="", $relation, $relation_field)
     {
@@ -354,7 +370,7 @@ class DatatableRepository
      * @param string $column
      * @param $call_back
      * @param array $params
-     * @return DatatableRepository
+     * @return Datatable
      */
     public function setColumnDisplay($column="", $call_back, $params=array())
     {
@@ -398,9 +414,10 @@ class DatatableRepository
 
     /**
      * Generate columns to pass to the UI or read and serve data according to the request
+     * @param $qBuilder
      * @return mixed
      */
-    public function index($queryBuilder)
+    public function index($qBuilder)
     {
         if(isset($_POST["submit"]))
         {
@@ -429,9 +446,8 @@ class DatatableRepository
                 {
                     $field=$column["data"];
 
-                    $searchable=$column["searchable"];
-
                     $db_field=$model_columns[$field]["db_field"];
+                    $filterable=$model_columns[$field]["filterable"];
 
                     $fkey_field=$field;
                     if(isset($model_columns[$field]["fkey_field"]))
@@ -439,7 +455,7 @@ class DatatableRepository
                         $fkey_field=$model_columns[$field]["fkey_field"];
                     }
 
-                    if($searchable == "true")
+                    if($filterable)
                     {
                         $search=$column["search"];
                         $search_value=rawurldecode($search["value"]);
@@ -456,27 +472,27 @@ class DatatableRepository
                                         $date_from = $search_value_arr["date_from"];
                                         $date_till = $search_value_arr["date_till"];
 
-                                        $queryBuilder->whereBetween("LEFT(".$db_field.",10)", [$date_from, $date_till]);
+                                        $qBuilder->whereBetween("LEFT(".$db_field.",10)", [$date_from, $date_till]);
                                     }
                                 }
                             }
-                            else if(isset($model_columns[$field]["search_type"]) && $model_columns[$field]["search_type"] == "select")
+                            else if(isset($model_columns[$field]["filterMethod"]) && $model_columns[$field]["filterMethod"] == "select")
                             {
                                 $sv_exp_del = ",";
                                 $search_value_exp = explode($sv_exp_del, $search_value);
 
                                 if(is_array($search_value_exp) && count($search_value_exp)>1)
                                 {
-                                    $queryBuilder->whereIn($fkey_field, $search_value_exp);
+                                    $qBuilder->whereIn($fkey_field, $search_value_exp);
                                 }
                                 else
                                 {
-                                    $queryBuilder->where($fkey_field, "=", $search_value);
+                                    $qBuilder->where($fkey_field, "=", $search_value);
                                 }
                             }
                             else
                             {
-                                $queryBuilder->where($db_field, "LIKE", "%".$search_value."%");
+                                $qBuilder->where($db_field, "LIKE", "%".$search_value."%");
                             }
                         }
                         else
@@ -491,7 +507,7 @@ class DatatableRepository
                 {
                     if(count($defaultSearchFields)>0)
                     {
-                        $queryBuilder->where(function ($queryBuilder) use($defaultSearchFields, $main_search_value, $model_columns){
+                        $qBuilder->where(function ($qBuilder) use($defaultSearchFields, $main_search_value, $model_columns){
 
                             foreach ($defaultSearchFields as $field)
                             {
@@ -502,7 +518,7 @@ class DatatableRepository
                                     $relation=$column["relation"];
                                     $relation_field=$column["relation_field"];
 
-                                    $queryBuilder->orWhereHas($relation, function ($query) use ($relation_field, $main_search_value) {
+                                    $qBuilder->orWhereHas($relation, function ($query) use ($relation_field, $main_search_value) {
 
                                         $query->where($relation_field, 'LIKE', '%'. $main_search_value .'%');
                                     });
@@ -510,7 +526,7 @@ class DatatableRepository
                                 else
                                 {
                                     $db_field=$column["db_field"];
-                                    $queryBuilder->orWhere($db_field, "LIKE", "%".$main_search_value."%");
+                                    $qBuilder->orWhere($db_field, "LIKE", "%".$main_search_value."%");
                                 }
                             }
                         });
@@ -521,11 +537,11 @@ class DatatableRepository
             //get count from sql query, because laravel is getting the count once after retrieving all the records according to the conditions
             //which has passed to the query builder. It consumes more memory and it's an unwanted operation
             //instead of that we will get the count of records directly from the database using db query
-            $qBAll = $queryBuilder->select(DB::raw("COUNT(DISTINCT ".$this->primaryKey.") AS count"))->first();
+            $qBAll = $qBuilder->select(DB::raw("COUNT(DISTINCT ".$this->primaryKey.") AS count"))->first();
             $all_count = $qBAll["count"];
 
             //changing select, because query builder only knows above select, but not what we want
-            $queryBuilder->select("*");
+            $qBuilder->select("*");
 
             if(isset($order) && is_array($order) && count($order) > 0)
             {
@@ -542,11 +558,11 @@ class DatatableRepository
                         $db_field=$model_columns[$field]["db_field"];
                     }
 
-                    $queryBuilder->orderBy($db_field, $field_order);
+                    $qBuilder->orderBy($db_field, $field_order);
                 }
             }
 
-            $results=$queryBuilder->limit($length)->offset($start)->get();
+            $results=$qBuilder->limit($length)->offset($start)->get();
 
             $data_output=[];
 
@@ -680,7 +696,7 @@ class DatatableRepository
 
     /**
      * Show the ui for displaying record modified details
-     * @return \Illuminate\Contracts\View\Factory|View
+     * @return Factory|View
      */
     public function display_created_at_as()
     {
@@ -689,7 +705,7 @@ class DatatableRepository
 
     /**
      * @param $states
-     * @return \Illuminate\Contracts\View\Factory|View
+     * @return Factory|View
      */
     public function display_status_as($states=array())
     {
@@ -697,8 +713,8 @@ class DatatableRepository
         {
             //state value, state name (Option), css class for label
             $states = array();
-            $states[]=array("value"=>"0", "name"=>"Disabled", "label"=>"danger");
-            $states[]=array("value"=>"1", "name"=>"Enabled", "label"=>"success");
+            $states[]=array("id"=>"0", "name"=>"Disabled", "label"=>"danger");
+            $states[]=array("id"=>"1", "name"=>"Enabled", "label"=>"success");
         }
 
         return view("default.common.status_ui", compact('states'));

@@ -39,11 +39,13 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ["id", "admin_image_url", "admin_role"];
+    protected $appends = ["id"];
+
+    //protected $appends = ["id", "admin_image_url", "admin_role"];
 
     protected $primaryKey = "admin_id";
 
-    public $admin_image_dir = "images/admin_images/";
+    private $admin_image_dir = "images/admin_images/";
 
     public function getIdAttribute()
     {
@@ -60,7 +62,7 @@ class Admin extends Authenticatable
         return $this->belongsTo(AdminRole::class, "admin_role_id", "admin_role_id");
     }
 
-    public function getAdminImageUrlAttribute()
+    /*public function getAdminImageUrlAttribute()
     {
         if($this->image != "")
         {
@@ -70,12 +72,7 @@ class Admin extends Authenticatable
         {
             return "";
         }
-    }
-
-    public function getAdminRoleAttribute()
-    {
-        return AdminRole::find($this->admin_role_id);
-    }
+    }*/
 
     /*public static function boot()
     {

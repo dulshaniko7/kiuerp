@@ -26,6 +26,17 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="float-right">
+                                    <?php
+                                        if($formMode=="edit")
+                                        {
+                                            ?>
+                                            <a href="/academic/department/create">
+                                                <div class="btn btn-info btn-sm"><span class="fa fa-plus"></span> Add New</div>
+                                            </a>
+                                            <?php
+                                        }
+                                    ?>
+
                                     <a href="/academic/department">
                                         <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Departments</div>
                                     </a>
@@ -49,7 +60,7 @@
                                 <div class="form-group">
                                     <label>Department Name</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="dept_name" placeholder="Department Name" value="@isset($record["dept_name"]){{$record["dept_name"]}}@endisset">
+                                    <input type="text" class="form-control" name="dept_name" placeholder="Department Name" value="<?php echo $record["dept_name"]; ?>">
                                 </div>
                             </div>
 
@@ -58,7 +69,7 @@
                                     <label>Department Colour Code</label>
                                     <hr class="mt-1 mb-2">
                                     <div id="component-colorpicker" class="input-group">
-                                        <input type="text" class="form-control" name="color_code" placeholder="#ff0000" value="@isset($record["color_code"]){{$record["color_code"]}}@endisset">
+                                        <input type="text" class="form-control" name="color_code" placeholder="#ff0000" value="<?php echo $record["color_code"]; ?>">
                                         <span class="input-group-append">
                                             <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                         </span>
@@ -78,9 +89,16 @@
             </div>
         </div>
 
-        <input type="hidden" name="faculty_id" value="@isset($record["faculty_id"]){{$record["faculty_id"]}}@endisset">
+        <input type="hidden" name="faculty_id" value="<?php echo $record["color_code"]; ?>">
     </form>
 
+    <?php
+    $faculty_id = [];
+    if(isset($record["faculty"]))
+    {
+        $faculty_id[]=$record["faculty"];
+    }
+    ?>
     <script>
         let faculty_id_ms=null;
         window.onload = function()
@@ -92,7 +110,7 @@
                 maxSelection:1,
                 data: "/academic/faculty/searchData",
                 dataUrlParams:{"_token":"{{ csrf_token() }}"},
-                value:[<?php echo json_encode($faculty) ?>],
+                value:<?php echo json_encode($faculty_id) ?>,
             });
 
             $(faculty_id_ms).on('selectionchange', function(e,m){

@@ -26,6 +26,17 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="float-right">
+                                    <?php
+                                    if($formMode=="edit")
+                                    {
+                                        ?>
+                                        <a href="/academic/faculty/create">
+                                            <div class="btn btn-info btn-sm"><span class="fa fa-plus"></span> Add New</div>
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+
                                     <a href="/academic/faculty">
                                         <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Faculties</div>
                                     </a>
@@ -39,7 +50,7 @@
                                 <div class="form-group">
                                     <label>Faculty Name</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="faculty_name" placeholder="Faculty Name" value="@isset($record["faculty_name"]){{$record["faculty_name"]}}@endisset">
+                                    <input type="text" class="form-control" name="faculty_name" placeholder="Faculty Name" value="<?php echo $record["faculty_name"]; ?>">
                                 </div>
                             </div>
 
@@ -48,7 +59,7 @@
                                     <label>Faculty Colour Code</label>
                                     <hr class="mt-1 mb-2">
                                     <div id="component-colorpicker" class="input-group">
-                                        <input type="text" class="form-control" name="color_code" placeholder="#ff0000" value="@isset($record["color_code"]){{$record["color_code"]}}@endisset">
+                                        <input type="text" class="form-control" name="color_code" placeholder="#ff0000" value="<?php echo $record["color_code"]; ?>">
                                         <span class="input-group-append">
                                             <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                         </span>

@@ -19,7 +19,7 @@ class FacultyController extends Controller
 
     public function __construct()
     {
-        $this->repository = new FacultyRepository(new Faculty());
+        $this->repository = new FacultyRepository();
     }
 
     /**
@@ -28,20 +28,24 @@ class FacultyController extends Controller
      */
     public function index()
     {
+        $this->repository->initDatatable(new Faculty());
+
         $this->repository->viewData->page_title = "Faculties";
 
         $this->repository->viewData->enable_export = true;
 
+        $statusParams = [];
+        $statusParams[]=[["id" =>"1", "name" =>"Enabled", "label" => "success"], ["id" =>"0", "name" =>"Disabled", "label" => "danger"]];
+
         $this->repository->setColumns("id", "faculty_name", "faculty_code", "faculty_status", "created_at")
             ->setColumnLabel("faculty_code", "Code")
             ->setColumnLabel("faculty_status", "Status")
-            ->setColumnDisplay("faculty_status", array($this->repository, 'display_status_as'))
+            ->setColumnDisplay("faculty_status", array($this->repository, 'display_status_as'), $statusParams)
             ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
 
-            ->setColumnSearchType("faculty_name", "text")
-            ->setColumnSearchType("faculty_status", "select", [["id" =>"1", "value" =>"Enabled"], ["id" =>"0", "value" =>"Disabled"]])
+            ->setColumnFilterMethod("faculty_name", "text")
+            ->setColumnFilterMethod("faculty_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
 
-            ->setColumnSearchability("faculty_status", false)
             ->setColumnSearchability("created_at", false)
             ->setColumnSearchability("updated_at", false);
 
@@ -80,39 +84,27 @@ class FacultyController extends Controller
      */
     public function create()
     {
+        $model = new Faculty();
+        $record = $model;
+
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('academic::faculty.create', compact('formMode', 'formSubmitUrl'));
+        return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store()
     {
         $model = new Faculty();
 
-        $postData = Validator::make($request->all(), [
+        $model = $this->repository->getValidatedData($model, [
             "faculty_name" => "required|min:3",
             "color_code" => "required"
         ]);
-
-        if ($postData->fails())
-        {
-            return $this->repository->handleValidationErrors($postData->errors());
-        }
-        else
-        {
-            $data = $postData->validated();
-        }
-
-        foreach ($data as $key => $value)
-        {
-            $model->$key = $value;
-        }
 
         //set faculty_status as 0 when inserting the record
         $model->faculty_status = 1;
@@ -171,34 +163,19 @@ class FacultyController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         $model = Faculty::find($id);
 
         if($model)
         {
-            $postData = Validator::make($request->all(), [
+            $model = $this->repository->getValidatedData($model, [
                 "faculty_name" => "required|min:3",
                 "color_code" => "required"
             ]);
-
-            if ($postData->fails())
-            {
-                return $this->repository->handleValidationErrors($postData->errors());
-            }
-            else
-            {
-                $data = $postData->validated();
-            }
-
-            foreach ($data as $key => $value)
-            {
-                $model->$key = $value;
-            }
 
             $dataResponse = $this->repository->saveModel($model);
         }
@@ -308,7 +285,7 @@ class FacultyController extends Controller
 
             $query = Faculty::query()
                 ->select("faculty_id", "faculty_name")
-                ->where("faculty_status", "1")
+                ->where("faculty_status", "=", "1")
                 ->orderBy("faculty_name")
                 ->limit(10);
 

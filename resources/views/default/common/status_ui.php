@@ -11,7 +11,7 @@ var uiText = '<div class="clearfix text-center">';
                 $label=$state["label"];
             }
             ?>
-            if(data == "<?php echo $state["value"]; ?>")
+            if(data == "<?php echo $state["id"]; ?>")
             {
             uiText += '<span class="btn btn-<?php echo $label; ?> btn-sm"><?php echo $state["name"]; ?></span>';
             }

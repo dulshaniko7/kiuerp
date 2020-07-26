@@ -33,11 +33,6 @@ class Department extends Model
         return $this->dept_name;
     }
 
-    public function getFacultyAttribute()
-    {
-        return Faculty::find($this->faculty_id);
-    }
-
     public function faculty()
     {
         return $this->belongsTo(Faculty::class, "faculty_id", "faculty_id");
