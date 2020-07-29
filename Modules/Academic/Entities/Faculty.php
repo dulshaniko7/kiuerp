@@ -45,7 +45,7 @@ class Faculty extends Model
 
         //Use this code block to track activities regarding this model
         //Use this code block in every model you need to record
-        self::observe(AdminActivityObserver::class);
+        //self::observe(AdminActivityObserver::class);
 
         /*// Set field values of created_by and updated_by with current admin id
         static::creating(function ($model) {

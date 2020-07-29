@@ -11,12 +11,19 @@
 |
 */
 
-Route::prefix('slo')->group(function() {
+Route::prefix('slo')->group(function () {
     Route::get('/', 'SloController@index');
 });
-Route::get('/slo/batch','BatchController@index')->name('batch');
+Route::get('/slo/batches', 'BatchController@index')->name('batch.index');
+Route::get('/slo/batch', 'BatchController@create')->name('batch.create');
+Route::post('/slo/batch', 'BatchController@store')->name('batch.store');
 
-Route::get('/slo/studentRegister','StudentController@index')->name('register');
-Route::get('/slo/idRange','IDRangeController@index')->name('idRange');
-Route::get('/slo/attendance','AttendenceController@index')->name('attendance');
-Route::get('/slo/transfers','BatchController@index')->name('transfers');
+Route::get('/slo/studentRegisters', 'StudentController@index')->name('registers');
+Route::get('/slo/idRanges', 'IDRangeController@index')->name('idRanges');
+Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
+Route::get('/slo/transfers', 'BatchController@index')->name('transfers');
+
+Route::get('/slo/batchTypes', 'BatchTypeController@index')->name('batchType.index');
+Route::get('/slo/batchType', 'BatchTypeController@create')->name('batchType.create');
+Route::post('/slo/batchType', 'BatchTypeController@store')->name('batchType.store');
+Route::get('/slo/batchType/{id}', 'BatchTypeController@show')->name('batchType.show');

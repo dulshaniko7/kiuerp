@@ -5,21 +5,21 @@ namespace Modules\Slo\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\BatchType;
 
-
-class BatchController extends Controller
+class BatchTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Response
      */
-
-
     public function index()
     {
-        return view('slo::batch.index');
+        // return view('slo::batchType.index');
+        $batchType = BatchType::withoutTrashed()->get();
+        return $batchType;
     }
 
     /**
@@ -28,7 +28,7 @@ class BatchController extends Controller
      */
     public function create()
     {
-        return view('slo::batch.create');
+        return view('slo::batchType.create');
     }
 
     /**
@@ -38,31 +38,22 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
+
         $validate = Validator::make($request->all(),
             [
-                'batch_name' => 'required',
-                'max_student' => 'required|int',
-                'batch_start_date' => 'required',
-                'batch_end_date' => 'required',
-                'course_id' => 'required',
-                'batch_type' => 'required'
+                'batch_type' => 'required|int',
+                'description' => 'required'
             ]);
         if ($validate->fails()) {
             return view('slo::error');
         }
 
-        $batch = new Batch();
-        $batch->batch_name = $request->batch_name;
-        $batch->max_student = $request->max_student;
-        $batch->batch_start_date = $request->batch_start_date;
-        $batch->batch_end_date = $request->batch_end_date;
-        $batch->batch_type = $request->batch_type;
-        $batch->course->course_id = $request->course_id;
+        $batchType = new BatchType();
 
-        //$batch->batch_code = $this->repository->generateBatchCode();
-        $batch->batch_code = $batch->generateBatchCode();
-        if ($batch->save()) {
-            return redirect()->route('batch.index');
+        $batchType->batch_type = $request->batch_type;
+        $batchType->description = $request->description;
+        if ($batchType->save()) {
+            return redirect()->route('batchType.index');
         }
     }
 
@@ -73,11 +64,9 @@ class BatchController extends Controller
      */
     public function show($id)
     {
-        $batch = Batch::findOrFail();
-
-        return view('slo::batch.show');
-
-        // return view('slo::batch.show');
+        //return view('slo::batchType.show');
+        $batchType = BatchType::findOrFail($id);
+        return $batchType;
     }
 
     /**
@@ -87,7 +76,7 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-        return view('slo::batch.edit')->with($id);
+        return view('slo::Batch.edit');
     }
 
     /**
@@ -98,9 +87,11 @@ class BatchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //$batch = Batch::findOrFail($id);
-
-
+        $batchType = BatchType::findOrFail($id);
+        $batchType->description = $request->description;
+        $batchType->update($request->all());
+//return redirect('/batchType');
+        return redirect()->route('batchType.index', compact('batchType'));
     }
 
     /**
