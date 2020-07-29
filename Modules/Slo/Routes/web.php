@@ -14,3 +14,5 @@
 Route::prefix('slo')->group(function() {
     Route::get('/', 'SloController@index');
 });
+Route::get('/slo/batch','BatchController@index')->name('batch');
+
