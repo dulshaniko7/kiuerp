@@ -13,8 +13,8 @@
     {{-- Laravel Mix - CSS File --}}
     {{--
     <link rel="stylesheet" href="{{ mix('css/slo.css') }}">
-    --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    --}}
 </head>
 <body class="sidebar-mini layout-fixed text-sm">
 
@@ -30,9 +30,10 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-
+        {{--
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/slo.js') }}"></script>
+        --}}
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
