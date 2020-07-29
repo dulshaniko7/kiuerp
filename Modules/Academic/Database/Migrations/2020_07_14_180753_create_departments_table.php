@@ -26,7 +26,7 @@ class CreateDepartmentsTable extends Migration
             $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedInteger("deleted_by")->nullable();
 
-            $table->foreign("faculty_id")->references("faculty_id")->on(Faculty::class);
+            $table->foreign("faculty_id")->references("faculty_id")->on('faculties');
 
             /*$table->foreign("created_by")->references("admin_id")->on(\Modules\Admin\Entities\Admin::class);
             $table->foreign("updated_by")->references("admin_id")->on(\Modules\Admin\Entities\Admin::class);
