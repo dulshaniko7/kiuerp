@@ -16,3 +16,7 @@ Route::prefix('slo')->group(function() {
 });
 Route::get('/slo/batch','BatchController@index')->name('batch');
 
+Route::get('/slo/studentRegister','StudentController@index')->name('register');
+Route::get('/slo/idRange','IDRangeController@index')->name('idRange');
+Route::get('/slo/attendance','AttendenceController@index')->name('attendance');
+Route::get('/slo/transfers','BatchController@index')->name('transfers');

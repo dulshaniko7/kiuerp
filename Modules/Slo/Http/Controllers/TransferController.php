@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class BatchController extends Controller
+class TransferController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class BatchController extends Controller
      */
     public function index()
     {
-        return view('slo::batch.index');
+        return view('slo::index');
     }
 
     /**
@@ -23,7 +23,7 @@ class BatchController extends Controller
      */
     public function create()
     {
-        return view('slo::batch.create');
+        return view('slo::create');
     }
 
     /**
@@ -43,7 +43,7 @@ class BatchController extends Controller
      */
     public function show($id)
     {
-        return view('slo::batch.show');
+        return view('slo::show');
     }
 
     /**
@@ -53,7 +53,7 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-        return view('slo::batch.edit');
+        return view('slo::edit');
     }
 
     /**
