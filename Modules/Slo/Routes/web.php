@@ -27,7 +27,7 @@ Route::get('/slo/batches', 'BatchController@index')->name('batch.index');
 Route::get('/slo/batch', 'BatchController@create')->name('batch.create');
 Route::post('/slo/batch', 'BatchController@store')->name('batch.store');
 Route::get('/slo/batch/{id}/edit', 'BatchController@edit')->name('batch.edit');
-
+Route::put('/slo/batch/{id}', 'BatchController@update')->name('batch.update');
 
 Route::get('/slo/studentRegisters', 'StudentController@index')->name('registers');
 Route::get('/slo/idRanges', 'IDRangeController@index')->name('idRanges');

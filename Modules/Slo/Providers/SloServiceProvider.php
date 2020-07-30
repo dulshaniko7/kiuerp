@@ -50,7 +50,9 @@ class SloServiceProvider extends ServiceProvider
          //   $view->with('batches',Batch::orderBy('batch_code')->get());
        // });
         //Option 2
+        View::composer(['slo::batch.*'],CourseComposer::class);
         View::composer(['slo::batch.*'], BatchComposer::class);
+        View::composer(['slo::batch.*'], BatchTypeComposer::class);
         //or
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);

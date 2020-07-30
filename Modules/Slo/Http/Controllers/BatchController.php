@@ -89,7 +89,8 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-
+        $batch = Batch::findOrFail($id);
+        return view('slo::batch.edit',compact('batch'));
     }
 
     /**
@@ -100,8 +101,14 @@ class BatchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //$batch = Batch::findOrFail($id);
-
+        $batch = Batch::findOrFail($id);
+        $batch->batch_name = $request->batch_name;
+        $batch->max_student = $request->max_student;
+        $batch->batch_type = $request->batch_type;
+        $batch->batch_start_date = $request->batch_start_date;
+        $batch->batch_end_date = $request->batch_end_date;
+        $batch->update($request->all());
+        return redirect()->route('batch.index');
 
     }
 
