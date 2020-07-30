@@ -19,7 +19,8 @@ class BatchTypeController extends Controller
     {
         // return view('slo::batchType.index');
         $batchType = BatchType::withoutTrashed()->get();
-        return $batchType;
+        //return $batchType;
+        return view("slo::batchType.index");
     }
 
     /**
@@ -77,7 +78,7 @@ class BatchTypeController extends Controller
     public function edit($id)
     {
         $batchType = BatchType::findOrFail($id);
-        return view('slo::batchType.edit')->with('batchType',$batchType);
+        return view('slo::batchType.edit')->with('batchType', $batchType);
     }
 
     /**

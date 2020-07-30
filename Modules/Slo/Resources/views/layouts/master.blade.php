@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('dist/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/dataTables.bootstrap4.min.css') }}">
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     {{-- Laravel Mix - CSS File --}}
@@ -15,6 +19,9 @@
     <link rel="stylesheet" href="{{ mix('css/slo.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     --}}
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 </head>
 <body class="sidebar-mini layout-fixed text-sm">
 
