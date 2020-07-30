@@ -2,8 +2,12 @@
 
 namespace Modules\Slo\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Slo\Entities\BatchType;
+use Modules\Slo\Http\View\Composers\BatchTypeComposer;
+use Modules\Slo\Http\View\Composers\CourseComposer;
 
 class SloServiceProvider extends ServiceProvider
 {
@@ -29,6 +33,22 @@ class SloServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        // Option 1
+        // View::composer(['slo::batch.*'],function ($view){
+        //     $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
+        // });
+      // View::composer(['slo::batch.*'],function ($view){
+        //       $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
+          //   });
+        View::composer(['slo::batchType.*'],function ($view){
+            $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
+        });
+        //Option 2
+        //View::composer(['slo::batch.*'], BatchTypeComposer::class);
+        //or
+        View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
+        View::composer('slo::partials.Course.*', CourseComposer::class);
     }
 
     /**
@@ -97,7 +117,7 @@ class SloServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (! app()->environment('production') && $this->app->runningInConsole()) {
+        if (!app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(module_path($this->moduleName, 'Database/factories'));
         }
     }

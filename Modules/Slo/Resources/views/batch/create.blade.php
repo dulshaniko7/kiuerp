@@ -34,6 +34,8 @@
 
 <form class="form-label-left input_mask" method="post" action={{route('batch.store')}}>
     @csrf
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -49,22 +51,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="course_id">Select Course</label>
-                                <select class="form-control " name="course_id" id="course_id" required>
-                                    <option value="">Select Course</option>
-                                    <option value="1">Course 1</option>
-                                    <option value="2">Course 2</option>
-                                    <option value="3">Course 3</option>
-                                </select>
+                                @include('slo::partials.Course.dropdown')
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="batch_type">Batch Type</label>
-                                <select class="form-control " name="batch_type" id="batch_type" required>
-                                    <option>Select Batch Type</option>
-                                    <option value="1">Reguler</option>
-                                    <option value="2">Loan</option>
-                                </select>
+                                @include('slo::partials.BatchType.dropdown')
                             </div>
                         </div>
                     </div>

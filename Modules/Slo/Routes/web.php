@@ -27,3 +27,7 @@ Route::get('/slo/batchTypes', 'BatchTypeController@index')->name('batchType.inde
 Route::get('/slo/batchType', 'BatchTypeController@create')->name('batchType.create');
 Route::post('/slo/batchType', 'BatchTypeController@store')->name('batchType.store');
 Route::get('/slo/batchType/{id}', 'BatchTypeController@show')->name('batchType.show');
+Route::get('/slo/batchType/{id}/edit', 'BatchTypeController@edit')->name('batchType.edit');
+Route::put('/slo/batchType/{id}', 'BatchTypeController@update')->name('batchType.update');
+
+

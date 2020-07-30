@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\BatchType;
 
 
 class BatchController extends Controller
@@ -28,6 +29,7 @@ class BatchController extends Controller
      */
     public function create()
     {
+        // $types = BatchType::all();
         return view('slo::batch.create');
     }
 
@@ -57,7 +59,7 @@ class BatchController extends Controller
         $batch->batch_start_date = $request->batch_start_date;
         $batch->batch_end_date = $request->batch_end_date;
         $batch->batch_type = $request->batch_type;
-        $batch->course->course_id = $request->course_id;
+        $batch->course_id = $request->course_id;
 
         //$batch->batch_code = $this->repository->generateBatchCode();
         $batch->batch_code = $batch->generateBatchCode();
@@ -87,7 +89,7 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-        return view('slo::batch.edit')->with($id);
+
     }
 
     /**

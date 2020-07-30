@@ -25,6 +25,8 @@ class CreateBatchesTable extends Migration
             $table->date('batch_end_date');
             $table->smallInteger('loan')->nullable();
             $table->unsignedSmallInteger('intake')->nullable();
+            $table->tinyInteger('approved')->default(0);
+
             $table->dateTime("updated_on")->nullable();
             $table->unsignedInteger("created_by")->nullable();
             $table->unsignedInteger("updated_by")->nullable();

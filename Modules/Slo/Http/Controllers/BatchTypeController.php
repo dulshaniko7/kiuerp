@@ -76,7 +76,8 @@ class BatchTypeController extends Controller
      */
     public function edit($id)
     {
-        return view('slo::Batch.edit');
+        $batchType = BatchType::findOrFail($id);
+        return view('slo::batchType.edit')->with('batchType',$batchType);
     }
 
     /**
@@ -91,7 +92,7 @@ class BatchTypeController extends Controller
         $batchType->description = $request->description;
         $batchType->update($request->all());
 //return redirect('/batchType');
-        return redirect()->route('batchType.index', compact('batchType'));
+        return redirect()->route('batchType.index');
     }
 
     /**
