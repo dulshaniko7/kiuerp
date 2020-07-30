@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <label for="batch_type">Batch Type Name</label>
                                 <input type="text" class="form-control" name="batch_type" id="batch_type"
-                                       placeholder="Batch Type Name" value="{{$batchType->batch_type}}">
+                                       placeholder="Batch Type Name" value="{{$batchType->batch_type}}" disabled>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" name="description" id="description" >{{$batchType->description}}</textarea>
+                                <textarea class="form-control" name="description" id="description">{{$batchType->description}}</textarea>
 
                                 <!-- <input type="text" class="form-control" name="max_student" id="max_student"  placeholder="Max Student" value=""> -->
                             </div>

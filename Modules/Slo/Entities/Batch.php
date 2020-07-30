@@ -38,11 +38,16 @@ class Batch extends Model
             $batch_code++;
 
             if ($batch_code < 10) {
-                $batch_code = '0' . $batch_code;
-            }
-            if ($batch_code < 100) {
                 $batch_code = '00' . $batch_code;
             }
+            if (($batch_code > 10) && ($batch_code < 100)) {
+                $batch_code = '0' . $batch_code;
+            }
+
+
+
+
+
         } else {
             $batch_code = "001";
         }

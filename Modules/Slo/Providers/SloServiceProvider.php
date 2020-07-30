@@ -5,7 +5,9 @@ namespace Modules\Slo\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Slo\Entities\Batch;
 use Modules\Slo\Entities\BatchType;
+use Modules\Slo\Http\View\Composers\BatchComposer;
 use Modules\Slo\Http\View\Composers\BatchTypeComposer;
 use Modules\Slo\Http\View\Composers\CourseComposer;
 
@@ -44,8 +46,11 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::batchType.*'],function ($view){
             $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
         });
+       // View::composer(['slo::batch.*'],function ($view){
+         //   $view->with('batches',Batch::orderBy('batch_code')->get());
+       // });
         //Option 2
-        //View::composer(['slo::batch.*'], BatchTypeComposer::class);
+        View::composer(['slo::batch.*'], BatchComposer::class);
         //or
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);

@@ -19,18 +19,18 @@
                             <a class="nav-link" href="#" role="button"><i class="fas fa-bars"></i></a>
                         </li>
                         <li class="nav-item d-none d-sm-inline-block">
-                            <a href="/academic/manager" class="nav-link">Student Liasion Office Manager</a>
+                            <a href="#" class="nav-link">Student Liasion Office Manager</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Batch
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/slo/batchType/create">Add New Batch Type</a>
-                                <a class="dropdown-item" href="/slo/batchType/view">Batch Type List</a>
+                                <a class="dropdown-item" href="{{route('batchType.create')}}">Add New Batch Type</a>
+                                <a class="dropdown-item" href="{{route('batchType.index')}}">Batch Type List</a>
                                 <!-- <a class="dropdown-item" href="/slo/batchType/edit">Edit Batch Type</a> -->
-                                <a class="dropdown-item" href="/slo/batch/create">Add New Batch</a>
-                                <a class="dropdown-item" href="/slo/batch/view">Batch List</a>
+                                <a class="dropdown-item" href="{{route('batch.create')}}">Add New Batch</a>
+                                <a class="dropdown-item" href="{{route('batch.index')}}">Batch List</a>
                                 <!-- <a class="dropdown-item" href="/slo/batch/edit">Edit Batch</a> -->
                                 <!-- <a class="dropdown-item" href="/academic/faculty/trash">Update Student Full Details</a> -->
                             </div>
