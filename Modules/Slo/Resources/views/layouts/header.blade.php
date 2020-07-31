@@ -36,12 +36,13 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="{{route('idRange.index')}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 ID Range
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/academic/faculty/create">Add New Range</a>
-                                <a class="dropdown-item" href="/academic/faculty">Edit Range</a>
+                                <a class="dropdown-item" href="{{route('idRange.index')}}">ID Range List</a>
+                                <a class="dropdown-item" href="{{route('idRange.create')}}">Add New Range</a>
+
                                 <!-- <a class="dropdown-item" href="/academic/faculty/trash">Update Student Full Details</a> -->
                             </div>
                         </li>

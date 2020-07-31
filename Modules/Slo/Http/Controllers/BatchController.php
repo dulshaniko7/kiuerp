@@ -90,7 +90,7 @@ class BatchController extends Controller
     public function edit($id)
     {
         $batch = Batch::findOrFail($id);
-        return view('slo::batch.edit',compact('batch'));
+        return view('slo::batch.edit', compact('batch'));
     }
 
     /**

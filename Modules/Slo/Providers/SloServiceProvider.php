@@ -53,6 +53,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::batch.*'],CourseComposer::class);
         View::composer(['slo::batch.*'], BatchComposer::class);
         View::composer(['slo::batch.*'], BatchTypeComposer::class);
+        View::composer(['slo::idRange.*'], CourseComposer::class);
         //or
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);

@@ -29,8 +29,18 @@ Route::post('/slo/batch', 'BatchController@store')->name('batch.store');
 Route::get('/slo/batch/{id}/edit', 'BatchController@edit')->name('batch.edit');
 Route::put('/slo/batch/{id}', 'BatchController@update')->name('batch.update');
 
+Route::get('/slo/idRanges', 'IDRangeController@index')->name('idRange.index');
+Route::get('/slo/idRange', 'IDRangeController@create')->name('idRange.create');
+Route::post('/slo/idRange', 'IDRangeController@store')->name('idRange.store');
+Route::get('/slo/idRange/{id}/edit', 'IDRangeController@edit')->name('idRange.edit');
+Route::get('/slo/idRange/{id}', 'IDRangeController@show')->name('idRange.show');
+Route::put('/slo/idRange/{id}', 'IDRangeController@update')->name('idRange.update');
+
+Route::get('/slo/idRange/start/{id}', 'IDRangeController@start')->name('idRange.start');
+
+
 Route::get('/slo/studentRegisters', 'StudentController@index')->name('registers');
-Route::get('/slo/idRanges', 'IDRangeController@index')->name('idRanges');
+
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
 Route::get('/slo/transfers', 'BatchController@index')->name('transfers');
 

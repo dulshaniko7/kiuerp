@@ -5,6 +5,10 @@ namespace Modules\Slo\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
+use Modules\Academic\Entities\Course;
+use Modules\Slo\Entities\IdRange;
+
 
 class IDRangeController extends Controller
 {
@@ -14,7 +18,7 @@ class IDRangeController extends Controller
      */
     public function index()
     {
-        return view('slo::index');
+        return view('slo::idRange.index');
     }
 
     /**
@@ -23,7 +27,7 @@ class IDRangeController extends Controller
      */
     public function create()
     {
-        return view('slo::create');
+        return view('slo::idRange.create');
     }
 
     /**
@@ -33,7 +37,27 @@ class IDRangeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(),
+            [
+                'description' => 'required',
+                'start' => 'required|int',
+                'end' => 'required|int',
+                'course_id' => 'required',
+            ]);
+        if ($validate->fails()) {
+            return view('slo::error');
+        }
+
+        $IdRange = new IdRange();
+        $IdRange->description = $request->description;
+        $IdRange->course_id = $request->course_id;
+        $IdRange->start = $request->start;
+        $IdRange->end = $request->end;
+        //$batch->batch_code = $this->repository->generateBatchCode();
+
+        if ($IdRange->save()) {
+            return redirect()->route('idRange.create');
+        }
     }
 
     /**
@@ -75,5 +99,21 @@ class IDRangeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function start($id)
+    {
+
+        $course = Course::findOrFail($id);
+
+        $end = IdRange::orderBy('id')
+            ->where('course_id', $course->course_id)
+            ->get()
+            ->map(function ($idRange) {
+                return [
+                    'end' => $idRange->end
+                ];
+            });
+        return response()->json(['end' => $end]);
     }
 }
