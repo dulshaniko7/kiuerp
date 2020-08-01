@@ -2,32 +2,53 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f87a49ec-cf3d-4fc4-8f21-8176d8269ba0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_095623_create_faculties_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_095623_create_faculties_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_180753_create_departments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_180753_create_departments_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Academic/Entities/Department.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Entities/Department.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Academic/Entities/Faculty.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Entities/Faculty.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/DepartmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/DepartmentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/FacultyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/FacultyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Resources/views/department/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Resources/views/department/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Academic/Resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Resources/views/layouts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181606_create_admin_login_histories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181606_create_admin_login_histories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181628_create_admin_activities_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181628_create_admin_activities_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminLoginHistory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminLoginHistory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180827_create_admin_permission_systems_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180827_create_admin_permission_systems_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180856_create_admin_permission_modules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180856_create_admin_permission_modules_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180913_create_admin_permission_groups_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180913_create_admin_permission_groups_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermission.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionGroup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionModule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionSystem.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionSystem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminRole.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminRole.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminRolePermission.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminRolePermission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminSystemPermission.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminSystemPermission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/IpRestrictionRevokedAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/IpRestrictionRevokedAdmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/SystemAccessAdminIpRestriction.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/SystemAccessAdminIpRestriction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/SystemAccessIpRestriction.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/SystemAccessIpRestriction.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionGroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionGroupController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionModuleController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionSystemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionSystemController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminSystemPermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminSystemPermissionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/Auth/AdminLoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/Auth/AdminLoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminSystemPermissionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminSystemPermissionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Observers/AdminActivityObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Observers/AdminActivityObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionModuleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionModuleRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/assets/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/assets/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/layouts/master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/webpack.mix.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Traits/Datatable.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/Datatable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/default/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/default/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/leftmenu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/leftmenu.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/topnavi.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/topnavi.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,22 +195,22 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Repositories" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_permission_module" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\admin_permission_module" />
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\admin_perm_system" />
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\assets\sass" />
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\assets\js" />
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\admin" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\wamp64\www\kiuerp\Modules\Admin" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\wamp64\www\kiuerp\app\Repositories" />
-      <recent name="D:\wamp64\www\kiuerp\database\seeds" />
-      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\layouts" />
-      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views" />
-      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Repositories" />
     </key>
   </component>
   <component name="RunManager">
@@ -224,14 +245,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="926" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595780571209" />
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595789685111">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1596272300503">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595789685111" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1595731271681">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596272300503" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1596265202741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1595731271681" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1596265202741" />
     <state x="739" y="334" key="NewPhpClassDialog" timestamp="1595769837162">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -244,13 +265,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1595657577576" />
-    <state x="656" y="252" width="737" height="606" key="find.popup" timestamp="1595767421669">
+    <state x="555" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1596287329487">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="737" height="606" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1595767421669" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1595791570160">
+    <state x="555" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1596287329487" />
+    <state x="656" y="252" width="737" height="606" key="find.popup" timestamp="1596273195616">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1595791570160" />
+    <state x="656" y="252" width="737" height="606" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1596273195616" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596290009400">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1596290009400" />
   </component>
 </project>

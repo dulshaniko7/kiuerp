@@ -44,7 +44,7 @@ class AdminPermissionGroupController extends Controller
 
             ->setColumnFilterMethod("group_name", "text")
             ->setColumnFilterMethod("group_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
-            ->setColumnFilterMethod("permission_module", "select", URL::to("/academic/adminPermissionModule/searchData"))
+            ->setColumnFilterMethod("permission_module", "select", URL::to("/admin/admin_permission_module/search_data"))
 
             ->setColumnSearchability("created_at", false)
             ->setColumnSearchability("updated_at", false)
@@ -57,6 +57,9 @@ class AdminPermissionGroupController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
+            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+
+            $this->repository->viewData->enableList = true;
             $this->repository->viewData->enableRestore = true;
             $this->repository->viewData->enableView= false;
             $this->repository->viewData->enableEdit = false;
@@ -65,11 +68,14 @@ class AdminPermissionGroupController extends Controller
         else
         {
             $query = $this->repository->model;
+
+            $this->repository->viewData->enableTrashList = true;
+            $this->repository->viewData->enableTrash = true;
         }
 
         $query = $query->with(["permissionModule"]);
 
-        return $this->repository->render("academic::layouts.master")->index($query);
+        return $this->repository->render("admin::layouts.master")->index($query);
     }
 
     /**
@@ -112,9 +118,16 @@ class AdminPermissionGroupController extends Controller
             "remarks" => "",
         ], [], ["admin_perm_module_id" => "Module name", "group_name" => "Group name"]);
 
-        $dataResponse = $this->repository->saveModel($model);
+        if($this->repository->isValidData)
+        {
+            $response = $this->repository->saveModel($model);
+        }
+        else
+        {
+            $response = $model;
+        }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**
@@ -180,7 +193,14 @@ class AdminPermissionGroupController extends Controller
                 "remarks" => "",
             ], [], ["admin_perm_module_id" => "Module name", "group_name" => "Group name"]);
 
-            $dataResponse = $this->repository->saveModel($model);
+            if($this->repository->isValidData)
+            {
+                $response = $this->repository->saveModel($model);
+            }
+            else
+            {
+                $response = $model;
+            }
         }
         else
         {
@@ -188,10 +208,10 @@ class AdminPermissionGroupController extends Controller
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed. Requested record does not exist.";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**

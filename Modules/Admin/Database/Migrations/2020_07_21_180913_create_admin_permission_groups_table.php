@@ -20,7 +20,7 @@ class CreateAdminPermissionGroupsTable extends Migration
             $table->unsignedInteger("admin_perm_module_id");
             $table->string("group_name", 255);
             $table->unsignedTinyInteger("group_status");
-            $table->text("remarks");
+            $table->text("remarks")->nullable();
 
             $table->unsignedInteger("created_by");
             $table->unsignedInteger("updated_by")->nullable();

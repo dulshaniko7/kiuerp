@@ -4,6 +4,7 @@ namespace Modules\Admin\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Admin\Observers\AdminActivityObserver;
 
 class AdminPermissionModule extends Model
 {
@@ -41,5 +42,15 @@ class AdminPermissionModule extends Model
     public function permissionSystem()
     {
         return $this->belongsTo(AdminPermissionSystem::class, "admin_perm_system_id", "admin_perm_system_id");
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        //Use this code block to track activities regarding this model
+        //Use this code block in every model you need to record
+        //This will record created_by, updated_by, deleted_by admins to, if you have set those fields in your model
+        self::observe(AdminActivityObserver::class);
     }
 }

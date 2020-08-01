@@ -24,9 +24,10 @@ class AdminPermissionModuleController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param $admin_perm_system_id
      * @return Factory|View
      */
-    public function index()
+    public function index($admin_perm_system_id)
     {
         $this->repository->setPageTitle("Admin Permission Modules");
 
@@ -44,7 +45,7 @@ class AdminPermissionModuleController extends Controller
 
             ->setColumnFilterMethod("module_name", "text")
             ->setColumnFilterMethod("module_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
-            ->setColumnFilterMethod("permission_system", "select", URL::to("/academic/adminPermissionSystem/searchData"))
+            ->setColumnFilterMethod("permission_system", "select", URL::to("/admin/admin_permission_system/search_data"))
 
             ->setColumnSearchability("created_at", false)
             ->setColumnSearchability("updated_at", false)
@@ -57,6 +58,9 @@ class AdminPermissionModuleController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
+            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+
+            $this->repository->viewData->enableList = true;
             $this->repository->viewData->enableRestore = true;
             $this->repository->viewData->enableView= false;
             $this->repository->viewData->enableEdit = false;
@@ -65,21 +69,27 @@ class AdminPermissionModuleController extends Controller
         else
         {
             $query = $this->repository->model;
+
+            $this->repository->viewData->enableTrashList = true;
+            $this->repository->viewData->enableTrash = true;
         }
 
         $query = $query->with(["permissionSystem"]);
 
-        return $this->repository->render("academic::layouts.master")->index($query);
+        $query->where("admin_perm_system_id", "=", $admin_perm_system_id);
+
+        return $this->repository->render("admin::layouts.master")->index($query);
     }
 
     /**
      * Display a listing of the resource.
+     * @param $admin_perm_system_id
      * @return Factory|View
      */
-    public function trash()
+    public function trash($admin_perm_system_id)
     {
         $this->trash = true;
-        return $this->index();
+        return $this->index($admin_perm_system_id);
     }
 
     /**
@@ -94,7 +104,7 @@ class AdminPermissionModuleController extends Controller
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('academic::admin_permission_module.create', compact('formMode', 'formSubmitUrl', 'record'));
+        return view('academic::admin_perm_module.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
@@ -112,9 +122,16 @@ class AdminPermissionModuleController extends Controller
             "remarks" => "",
         ], [], ["admin_perm_system_id" => "Permission System", "module_name" => "Module name"]);
 
-        $dataResponse = $this->repository->saveModel($model);
+        if($this->repository->isValidData)
+        {
+            $response = $this->repository->saveModel($model);
+        }
+        else
+        {
+            $response = $model;
+        }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**
@@ -130,7 +147,7 @@ class AdminPermissionModuleController extends Controller
         {
             $record = $model;
 
-            return view('academic::admin_permission_module.view', compact('data', 'record'));
+            return view('academic::admin_perm_module.view', compact('data', 'record'));
         }
         else
         {
@@ -153,7 +170,7 @@ class AdminPermissionModuleController extends Controller
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('academic::admin_permission_module.create', compact('formMode', 'formSubmitUrl', 'record'));
+            return view('academic::admin_perm_module.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {
@@ -179,7 +196,14 @@ class AdminPermissionModuleController extends Controller
                 "remarks" => "",
             ], [], ["admin_perm_system_id" => "Permission system", "module_name" => "Module name"]);
 
-            $dataResponse = $this->repository->saveModel($model);
+            if($this->repository->isValidData)
+            {
+                $response = $this->repository->saveModel($model);
+            }
+            else
+            {
+                $response = $model;
+            }
         }
         else
         {
@@ -187,10 +211,10 @@ class AdminPermissionModuleController extends Controller
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed. Requested record does not exist.";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**

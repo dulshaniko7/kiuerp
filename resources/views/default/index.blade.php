@@ -29,7 +29,7 @@ $exportFormats = $viewData->exportFormats;
             <div class="card-header">
                 <div class="row m-0">
                     <div class="col-sm-7">
-                        <h4 class="header-title mb-0"><?php echo $tableTitle; ?></h4>
+                        <h4 class="header-title mb-0"><?php echo $viewData->tableTitle; ?></h4>
                     </div>
                     <div class="col-sm-5">
                         <div class="float-right">
@@ -60,10 +60,21 @@ $exportFormats = $viewData->exportFormats;
                             }
                             }
                             ?>
-                            <?php if($viewData->enableAdd && isset($viewData->add_url)){ ?>
-                            <a href="<?php echo $viewData->add_url; ?>">
-                                <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->add_url_icon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->add_url_label; ?></div></a>
+                            <?php if($viewData->enableTrashList && isset($viewData->trashListUrl)){ ?>
+                            <a href="<?php echo $viewData->trashListUrl; ?>">
+                                <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->trashListUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->trashListUrlLabel; ?></div></a>
                             <?php } ?>
+
+                            <?php if($viewData->enableList && isset($viewData->listUrl)){ ?>
+                            <a href="<?php echo $viewData->listUrl; ?>">
+                                <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->listUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->listUrlLabel; ?></div></a>
+                            <?php } ?>
+
+                            <?php if($viewData->enableAdd && isset($viewData->addUrl)){ ?>
+                            <a href="<?php echo $viewData->addUrl; ?>">
+                                <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->addUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->addUrlLabel; ?></div></a>
+                            <?php } ?>
+
                             <?php
                             if(isset($viewData->more_buttons_after))
                             {
@@ -226,7 +237,7 @@ $exportFormats = $viewData->exportFormats;
             "autoWidth"	: true,
             "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
             ajax	: {
-                url 	: "<?php echo $viewData->this_url; ?>",
+                url 	: "<?php echo $viewData->thisUrl; ?>",
                 type	: "POST",
                 data 	: function(data)
                 {
@@ -432,27 +443,33 @@ $exportFormats = $viewData->exportFormats;
                         let uiText = "";
                         uiText+='<div class="index-actions pull-right d-flex justify-content-center">';
 
-                        <?php if($viewData->enableView && isset($viewData->view_url)){ ?>
-                        uiText+='<a href="<?php echo $viewData->view_url; ?>'+full["id"]+'">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->view_url_icon; ?>"></span> <?php echo $viewData->view_url_label; ?></div>';
+                        <?php if($viewData->enableView && isset($viewData->viewUrl)){ ?>
+                        uiText+='<a href="<?php echo $viewData->viewUrl; ?>'+full["id"]+'">';
+                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->viewUrlIcon; ?>"></span> <?php echo $viewData->viewUrlLabel; ?></div>';
                         uiText+='</a>';
                         <?php } ?>
 
-                        <?php if($viewData->enableEdit && isset($viewData->edit_url)){ ?>
-                        uiText+='<a href="<?php echo $viewData->edit_url; ?>'+full["id"]+'">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->edit_url_icon; ?>"></span> <?php echo $viewData->edit_url_label; ?></div>';
+                        <?php if($viewData->enableEdit && isset($viewData->editUrl)){ ?>
+                        uiText+='<a href="<?php echo $viewData->editUrl; ?>'+full["id"]+'">';
+                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->editUrlIcon; ?>"></span> <?php echo $viewData->editUrlLabel; ?></div>';
                         uiText+='</a>';
                         <?php } ?>
 
-                        <?php if($viewData->enableDelete && isset($viewData->delete_url)){ ?>
+                        <?php if($viewData->enableTrash && isset($viewData->trashUrl)){ ?>
+                        uiText+='<a href="javascript:;" onclick="return trashConfirm('+full["id"]+')">';
+                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->trashUrlIcon; ?>"></span> <?php echo $viewData->trashUrlLabel; ?></div>';
+                        uiText+='</a>';
+                        <?php } ?>
+
+                        <?php if($viewData->enableDelete && isset($viewData->deleteUrl)){ ?>
                         uiText+='<a href="javascript:;" onclick="return deleteConfirm('+full["id"]+')">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->delete_url_icon; ?>"></span> <?php echo $viewData->delete_url_label; ?></div>';
+                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->deleteUrlIcon; ?>"></span> <?php echo $viewData->deleteUrlLabel; ?></div>';
                         uiText+='</a>';
                         <?php } ?>
 
-                        <?php if($viewData->enableRestore && isset($viewData->restore_url)){ ?>
+                        <?php if($viewData->enableRestore && isset($viewData->restoreUrl)){ ?>
                         uiText+='<a href="javascript:;" onclick="return restoreConfirm('+full["id"]+')">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->restore_url_icon; ?>"></span> <?php echo $viewData->restore_url_label; ?></div>';
+                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->restoreUrlIcon; ?>"></span> <?php echo $viewData->restoreUrlLabel; ?></div>';
                         uiText+='</a>';
                         <?php } ?>
                         uiText+='</div>';
@@ -854,24 +871,60 @@ $exportFormats = $viewData->exportFormats;
         });
     }
 
-    function deleteConfirm(id)
+    function trashConfirm(id)
     {
-        showConfirmation('', 'deleteRecord', id)
+        showConfirmation('', 'trashRecord', id)
     }
 
-    <?php if(isset($viewData->delete_url)){ ?>
-    function deleteRecord(id)
+    <?php if(isset($viewData->trashUrl)){ ?>
+    function trashRecord(id)
     {
         showPreloader($("#results").parent(), true);
         $.ajax({
-            url		: "<?php echo $viewData->delete_url; ?>"+id,
+            url		: "<?php echo $viewData->trashUrl; ?>"+id,
             dataType: "JSON",
             type	: "POST",
             data    :{"_token":"{{ csrf_token() }}"},
             success	: function(theResponse)
             {
                 hidePreloader($("#results").parent());
-                //check the reponse status
+                //check the response status
+                if(theResponse.notify.status == "success")
+                {
+                    $(".row-id-"+id).parent().parent().remove();
+                    setTableRowNumbers();
+                }
+
+                showNotifications(theResponse.notify);
+            },
+            error	: function()
+            {
+                hidePreloader($("#results").parent());
+            }
+        });
+    }
+    <?php
+    }
+    ?>
+
+    function deleteConfirm(id)
+    {
+        showConfirmation('', 'deleteRecord', id)
+    }
+
+    <?php if(isset($viewData->deleteUrl)){ ?>
+    function deleteRecord(id)
+    {
+        showPreloader($("#results").parent(), true);
+        $.ajax({
+            url		: "<?php echo $viewData->deleteUrl; ?>"+id,
+            dataType: "JSON",
+            type	: "POST",
+            data    :{"_token":"{{ csrf_token() }}"},
+            success	: function(theResponse)
+            {
+                hidePreloader($("#results").parent());
+                //check the response status
                 if(theResponse.notify.status == "success")
                 {
                     $(".row-id-"+id).parent().parent().remove();
@@ -895,19 +948,19 @@ $exportFormats = $viewData->exportFormats;
         showConfirmation('Are you sure you want to restore this record? Then confirm.', 'restoreRecord', id)
     }
 
-    <?php if(isset($viewData->restore_url)){ ?>
+    <?php if(isset($viewData->restoreUrl)){ ?>
     function restoreRecord(id)
     {
         showPreloader($("#results").parent(), true);
         $.ajax({
-            url		: "<?php echo $viewData->restore_url; ?>"+id,
+            url		: "<?php echo $viewData->restoreUrl; ?>"+id,
             dataType: "JSON",
             type	: "POST",
             data    :{"_token":"{{ csrf_token() }}"},
             success	: function(theResponse)
             {
                 hidePreloader($("#results").parent());
-                //check the reponse status
+                //check the response status
                 if(theResponse.notify.status == "success")
                 {
                     $(".row-id-"+id).parent().parent().remove();

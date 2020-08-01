@@ -34,15 +34,18 @@ class AdminPermissionSystemController extends Controller
 
         $this->repository->viewData->enableExport = true;
 
-        $this->repository->setColumns("id", "system_name", "system_slug", "system_status", "created_at")
+        $this->repository->setColumns("id", "system_name", "system_slug", "modules", "system_status", "created_at")
             ->setColumnLabel("system_slug", "System Short Code")
             ->setColumnLabel("system_status", "Status")
             ->setColumnDisplay("system_status", array($this->repository, 'display_status_as'))
             ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
+            ->setColumnDisplay("modules", array($this->repository, 'display_modules_as'))
 
             ->setColumnFilterMethod("system_name", "text")
             ->setColumnFilterMethod("system_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
 
+            ->setColumnDBField("modules", $this->repository->primaryKey)
+            ->setColumnSearchability("modules", false)
             ->setColumnSearchability("system_status", false)
             ->setColumnSearchability("created_at", false)
             ->setColumnSearchability("updated_at", false);
@@ -51,6 +54,9 @@ class AdminPermissionSystemController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
+            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+
+            $this->repository->viewData->enableList = true;
             $this->repository->viewData->enableRestore = true;
             $this->repository->viewData->enableView= false;
             $this->repository->viewData->enableEdit = false;
@@ -59,6 +65,9 @@ class AdminPermissionSystemController extends Controller
         else
         {
             $query = $this->repository->model;
+
+            $this->repository->viewData->enableTrashList = true;
+            $this->repository->viewData->enableTrash = true;
         }
 
         $query = $query->with([]);
@@ -106,9 +115,16 @@ class AdminPermissionSystemController extends Controller
             "remarks" => "",
         ]);
 
-        $dataResponse = $this->repository->saveModel($model);
+        if($this->repository->isValidData)
+        {
+            $response = $this->repository->saveModel($model);
+        }
+        else
+        {
+            $response = $model;
+        }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**
@@ -175,7 +191,14 @@ class AdminPermissionSystemController extends Controller
                 "remarks" => "",
             ]);
 
-            $dataResponse = $this->repository->saveModel($model);
+            if($this->repository->isValidData)
+            {
+                $response = $this->repository->saveModel($model);
+            }
+            else
+            {
+                $response = $model;
+            }
         }
         else
         {
@@ -183,10 +206,10 @@ class AdminPermissionSystemController extends Controller
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed. Requested record does not exist.";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**

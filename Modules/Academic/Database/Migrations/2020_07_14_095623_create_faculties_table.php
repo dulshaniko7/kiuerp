@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Admin\Entities\Admin;
 
 class CreateFacultiesTable extends Migration
 {
@@ -24,9 +25,9 @@ class CreateFacultiesTable extends Migration
             $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedInteger("deleted_by")->nullable();
 
-            /*$table->foreign("created_by")->references("admin_id")->on(\Modules\Admin\Entities\Admin::class);
-            $table->foreign("updated_by")->references("admin_id")->on(\Modules\Admin\Entities\Admin::class);
-            $table->foreign("deleted_by")->references("admin_id")->on(\Modules\Admin\Entities\Admin::class);*/
+            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
+            $table->foreign("updated_by")->references("admin_id")->on(Admin::class);
+            $table->foreign("deleted_by")->references("admin_id")->on(Admin::class);
 
             $table->timestamps();
             $table->softDeletes();

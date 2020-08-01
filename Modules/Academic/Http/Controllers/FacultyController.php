@@ -55,6 +55,9 @@ class FacultyController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
+            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+
+            $this->repository->viewData->enableList = true;
             $this->repository->viewData->enableRestore = true;
             $this->repository->viewData->enableView= false;
             $this->repository->viewData->enableEdit = false;
@@ -63,6 +66,9 @@ class FacultyController extends Controller
         else
         {
             $query = $this->repository->model;
+
+            $this->repository->viewData->enableTrashList = true;
+            $this->repository->viewData->enableTrash = true;
         }
 
         $query = $query->with([]);
@@ -108,13 +114,20 @@ class FacultyController extends Controller
             "color_code" => "required"
         ]);
 
-        //set faculty_status as 0 when inserting the record
-        $model->faculty_status = 1;
-        $model->faculty_code = $this->repository->generateFacultyCode();
+        if($this->repository->isValidData)
+        {
+            //set faculty_status as 0 when inserting the record
+            $model->faculty_status = 1;
+            $model->faculty_code = $this->repository->generateFacultyCode();
 
-        $dataResponse = $this->repository->saveModel($model);
+            $response = $this->repository->saveModel($model);
+        }
+        else
+        {
+            $response = $model;
+        }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**
@@ -179,7 +192,14 @@ class FacultyController extends Controller
                 "color_code" => "required"
             ]);
 
-            $dataResponse = $this->repository->saveModel($model);
+            if($this->repository->isValidData)
+            {
+                $response = $this->repository->saveModel($model);
+            }
+            else
+            {
+                $response = $model;
+            }
         }
         else
         {
@@ -187,10 +207,10 @@ class FacultyController extends Controller
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed. Requested record does not exist.";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**

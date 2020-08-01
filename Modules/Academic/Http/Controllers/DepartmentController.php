@@ -32,9 +32,9 @@ class DepartmentController extends Controller
         $this->repository->setPageTitle("Departments");
 
         $this->repository->initDatatable(new Department());
-        $this->repository->viewData->tableTitle = "Departments";
+        $this->repository->setTableTitle("Departments");
 
-        $this->repository->viewData->enableExport = true;
+        $this->repository->enableViewData("export");
 
         $this->repository->setColumns("id", "dept_name", "dept_code", "faculty", "dept_status", "created_at")
             ->setColumnLabel("dept_code", "Code")
@@ -46,7 +46,7 @@ class DepartmentController extends Controller
 
             ->setColumnFilterMethod("dept_name", "text")
             ->setColumnFilterMethod("dept_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
-            ->setColumnFilterMethod("faculty", "select", URL::to("/academic/faculty/searchData"))
+            ->setColumnFilterMethod("faculty", "select", URL::to("/academic/faculty/search_data"))
 
             ->setColumnSearchability("created_at", false)
             ->setColumnSearchability("updated_at", false)
@@ -59,6 +59,9 @@ class DepartmentController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
+            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+
+            $this->repository->viewData->enableList = true;
             $this->repository->viewData->enableRestore = true;
             $this->repository->viewData->enableView= false;
             $this->repository->viewData->enableEdit = false;
@@ -67,6 +70,9 @@ class DepartmentController extends Controller
         else
         {
             $query = $this->repository->model;
+
+            $this->repository->viewData->enableTrashList = true;
+            $this->repository->viewData->enableTrash = true;
         }
 
         $query = $query->with(["faculty"]);
@@ -113,13 +119,20 @@ class DepartmentController extends Controller
             "color_code" => "required"
         ], [], ["faculty_id" => "Faculty", "dept_name" => "Department name"]);
 
-        //set dept_status as 0 when inserting the record
-        $model->dept_status = 1;
-        $model->dept_code = $this->repository->generateDeptCode();
+        if($this->repository->isValidData)
+        {
+            //set dept_status as 0 when inserting the record
+            $model->dept_status = 1;
+            $model->dept_code = $this->repository->generateDeptCode();
 
-        $dataResponse = $this->repository->saveModel($model);
+            $response = $this->repository->saveModel($model);
+        }
+        else
+        {
+            $response = $model;
+        }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**
@@ -183,7 +196,14 @@ class DepartmentController extends Controller
                 "color_code" => "required"
             ], [], ["faculty_id" => "Faculty", "dept_name" => "Department name", "color_code" => "Colour Code"]);
 
-            $dataResponse = $this->repository->saveModel($model);
+            if($this->repository->isValidData)
+            {
+                $response = $this->repository->saveModel($model);
+            }
+            else
+            {
+                $response = $model;
+            }
         }
         else
         {
@@ -191,10 +211,10 @@ class DepartmentController extends Controller
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed. Requested record does not exist.";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**

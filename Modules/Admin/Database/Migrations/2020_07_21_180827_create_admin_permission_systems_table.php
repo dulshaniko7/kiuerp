@@ -19,7 +19,7 @@ class CreateAdminPermissionSystemsTable extends Migration
             $table->string("system_name", 255);
             $table->string("system_slug", 255);
             $table->unsignedTinyInteger("system_status");
-            $table->text("remarks");
+            $table->text("remarks")->nullable();
 
             $table->unsignedInteger("created_by");
             $table->unsignedInteger("updated_by")->nullable();

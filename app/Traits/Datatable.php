@@ -9,15 +9,16 @@ use Illuminate\View\View;
 trait Datatable
 {
     public $model = null;
+    public $primaryKey = null;
 
-    private $tableColumns = NULL;
+    private $tableColumns = null;
     private $columns = array();
-    private $primaryKey = "";
+    private $exportFormats = array("copy", "csv", "excel", "pdf", "print");
 
     public $viewData = null;
     public $viewPath = "default.index";
     public $extendViewPath = null;
-    public $tableTitle = "";
+    public $controllerUrl = null;
 
     /**
      * @param $model
@@ -31,14 +32,23 @@ trait Datatable
 
         $this->viewData = (object) array();
 
+        $this->viewData->enableList=false;
         $this->viewData->enableAdd=true;
         $this->viewData->enableEdit=true;
         $this->viewData->enableView=true;
-        $this->viewData->enableDelete=true;
+        $this->viewData->enableDelete=false;
         $this->viewData->enableRestore=false;
-        $this->viewData->enableList=true;
+        $this->viewData->enableTrash=false;
+        $this->viewData->enableTrashList=false;
+
+        if($this->viewData->enableTrashList)
+        {
+            $this->viewData->enableTrash=true;
+            $this->viewData->enableDelete=false;
+        }
+
         $this->viewData->enableExport=false;
-        $this->viewData->exportFormats = array("copy", "csv", "excel", "pdf", "print");
+        $this->viewData->exportFormats = $this->exportFormats;
     }
 
     /**
@@ -57,7 +67,7 @@ trait Datatable
 
     /**
      * Setting which columns should be showed in view
-     * @param array $newColumns
+     * @param array $newColumns  Comma separated columns list
      * @return Datatable
      */
     public function setColumns($newColumns=array())
@@ -597,9 +607,8 @@ trait Datatable
             {
                 $extendViewPath = $this->extendViewPath;
             }
-            $tableTitle = $this->viewData->tableTitle;
 
-            return view($this->viewPath, compact("tableTitle","extendViewPath", "viewData"));
+            return view($this->viewPath, compact("extendViewPath", "viewData"));
         }
     }
 
@@ -609,9 +618,9 @@ trait Datatable
      */
     private function set_index_urls()
     {
-        if(!isset($this->viewData->this_url))
+        if(!isset($this->viewData->thisUrl))
         {
-            $uri = request()->path();
+            $uri = request()->getPathInfo();
 
             $route = collect(\Route::getRoutes())->first(function($route) use($uri){
 
@@ -620,78 +629,276 @@ trait Datatable
             });
 
             $uri = $route->uri;
-            $this->viewData->this_url=URL::to($uri);
+
+            //get current url
+            $this->viewData->thisUrl=URL::to($uri);
+
+            $controllerUrl = $uri;
+
+            //check for url params
+            $curlyStart = strpos($controllerUrl, "{");
+            if($curlyStart)
+            {
+                //get rest of the URL without URL params
+                $controllerUrl = substr($controllerUrl, 0, $curlyStart);
+            }
+
+            $this->controllerUrl = URL::to($controllerUrl);
+        }
+        if(!isset($this->viewData->listUrl))
+        {
+            $listUrl = str_replace("/trash", "", $this->controllerUrl);
+
+            $this->viewData->listUrl=$listUrl;
+        }
+        if(!isset($this->viewData->listUrlLabel))
+        {
+            $this->viewData->listUrlLabel="View List";
+        }
+        if(!isset($this->viewData->listUrlIcon))
+        {
+            $this->viewData->listUrlIcon="fa fa-list";
         }
 
-        if(!isset($this->viewData->add_url) && $this->viewData->enableAdd)
+        if(!isset($this->viewData->addUrl) && $this->viewData->enableAdd)
         {
-            $this->viewData->add_url=$this->viewData->this_url."/create";
+            $this->viewData->addUrl=$this->controllerUrl."/create";
         }
-        if(!isset($this->viewData->add_url_label))
+        if(!isset($this->viewData->addUrlLabel))
         {
-            $this->viewData->add_url_label="Add New";
+            $this->viewData->addUrlLabel="Add New";
         }
-        if(!isset($this->viewData->add_url_icon))
+        if(!isset($this->viewData->addUrlIcon))
         {
-            $this->viewData->add_url_icon="Add New";
+            $this->viewData->addUrlIcon="Add New";
         }
         //----
 
-        if(!isset($this->viewData->edit_url) && $this->viewData->enableEdit)
+        if(!isset($this->viewData->editUrl) && $this->viewData->enableEdit)
         {
-            $this->viewData->edit_url=$this->viewData->this_url."/edit/";
+            $this->viewData->editUrl=$this->controllerUrl."/edit/";
         }
-        if(!isset($this->viewData->edit_url_label))
+        if(!isset($this->viewData->editUrlLabel))
         {
-            $this->viewData->edit_url_label="Edit";
+            $this->viewData->editUrlLabel="Edit";
         }
-        if(!isset($this->viewData->edit_url_icon))
+        if(!isset($this->viewData->editUrlIcon))
         {
-            $this->viewData->edit_url_icon="fa fa-edit";
-        }
-        //----
-
-        if(!isset($this->viewData->view_url) && $this->viewData->enableView)
-        {
-            $this->viewData->view_url=$this->viewData->this_url."/view/";
-        }
-        if(!isset($this->viewData->view_url_label))
-        {
-            $this->viewData->view_url_label="view";
-        }
-        if(!isset($this->viewData->view_url_icon))
-        {
-            $this->viewData->view_url_icon="fa fa-list";
+            $this->viewData->editUrlIcon="fa fa-edit";
         }
         //----
 
-        if(!isset($this->viewData->delete_url) && $this->viewData->enableDelete)
+        if(!isset($this->viewData->viewUrl) && $this->viewData->enableView)
         {
-            $this->viewData->delete_url=$this->viewData->this_url."/delete/";
+            $this->viewData->viewUrl=$this->controllerUrl."/view/";
         }
-        if(!isset($this->viewData->delete_url_label))
+        if(!isset($this->viewData->viewUrlLabel))
         {
-            $this->viewData->delete_url_label="Delete";
+            $this->viewData->viewUrlLabel="view";
         }
-        if(!isset($this->viewData->delete_url_icon))
+        if(!isset($this->viewData->viewUrlIcon))
         {
-            $this->viewData->delete_url_icon="fa fa-trash";
+            $this->viewData->viewUrlIcon="fa fa-list";
         }
         //----
 
-        if(!isset($this->viewData->restore_url) && $this->viewData->enableRestore)
+        if(!isset($this->viewData->deleteUrl) && $this->viewData->enableDelete)
         {
-            $this->viewData->restore_url = str_replace(["/trash", "/trash/"], ["/restore/"], $this->viewData->this_url);
+            $this->viewData->deleteUrl=$this->controllerUrl."/destroy/";
         }
-        if(!isset($this->viewData->restore_url_label))
+        if(!isset($this->viewData->deleteUrlLabel))
         {
-            $this->viewData->restore_url_label="Restore";
+            $this->viewData->deleteUrlLabel="Delete";
         }
-        if(!isset($this->viewData->restore_url_icon))
+        if(!isset($this->viewData->deleteUrlIcon))
         {
-            $this->viewData->restore_url_icon="fas fa-trash-restore";
+            $this->viewData->deleteUrlIcon="fa fa-trash";
         }
         //----
+
+        if(!isset($this->viewData->restoreUrl) && $this->viewData->enableRestore)
+        {
+            $this->viewData->restoreUrl = str_replace(["/trash", "/trash/"], ["/restore/"], $this->controllerUrl);
+        }
+        if(!isset($this->viewData->restoreUrlLabel))
+        {
+            $this->viewData->restoreUrlLabel="Restore";
+        }
+        if(!isset($this->viewData->restoreUrlIcon))
+        {
+            $this->viewData->restoreUrlIcon="fas fa-trash-restore";
+        }
+        //----
+
+        if(!isset($this->viewData->trashUrl) && $this->viewData->enableTrash)
+        {
+            $this->viewData->trashUrl = $this->controllerUrl."/delete/";
+        }
+        if(!isset($this->viewData->trashUrlLabel))
+        {
+            $this->viewData->trashUrlLabel="Trash";
+        }
+        if(!isset($this->viewData->trashUrlIcon))
+        {
+            $this->viewData->trashUrlIcon="fa fa-trash";
+        }
+        //----
+
+        if(!isset($this->viewData->trashListUrl) && $this->viewData->enableTrashList)
+        {
+            $this->viewData->trashListUrl = $this->controllerUrl."/trash";
+        }
+        if(!isset($this->viewData->trashListUrlLabel))
+        {
+            $this->viewData->trashListUrlLabel="View Trash";
+        }
+        if(!isset($this->viewData->trashListUrlIcon))
+        {
+            $this->viewData->trashListUrlIcon="fa fa-trash";
+        }
+        //----
+    }
+
+    /**
+     * @param string $actions Comma separated actions list
+     * @return Datatable
+     */
+    public function enableViewData($actions)
+    {
+        // number of argument passed,(Number of columns)
+        $noa = func_num_args();
+
+        for ($i=0; $i<$noa; $i++)
+        {
+            //get each argument passed
+            $action=func_get_arg($i);
+
+            $action = strtolower($action);
+
+            $property = "enable".ucfirst($action);
+            $this->viewData->$property = true;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $actions Comma separated actions list
+     * @return Datatable
+     */
+    public function disableViewData($actions)
+    {
+        // number of argument passed,(Number of columns)
+        $noa = func_num_args();
+
+        for ($i=0; $i<$noa; $i++)
+        {
+            //get each argument passed
+            $action=func_get_arg($i);
+
+            $action = strtolower($action);
+
+            $property = "enable".ucfirst($action);
+            $this->viewData->$property = false;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $action
+     * @param string $url
+     * @return Datatable
+     */
+    public function setUrl($action, $url="")
+    {
+        $property = strtolower($action)."Url";
+
+        $this->viewData->$property = $url;
+
+        return $this;
+    }
+
+    /**
+     * @param string $action
+     * @param string $label
+     * @return Datatable
+     */
+    public function setUrlLabel($action, $label="")
+    {
+        $property = strtolower($action)."UrlLabel";
+
+        $this->viewData->$property = $label;
+
+        return $this;
+    }
+
+    /**
+     * @param string $action
+     * @param string $icon FontAwesome or any icon class/classes which is using in the theme
+     * @return Datatable
+     */
+    public function setUrlIcon($action, $icon="")
+    {
+        $property = strtolower($action)."UrlIcon";
+
+        $this->viewData->$property = $icon;
+
+        return $this;
+    }
+
+    /**
+     * @param string $title Title for the datatable records list
+     * @return Datatable
+     */
+    public function setTableTitle($title)
+    {
+        $this->viewData->tableTitle = $title;
+
+        return $this;
+    }
+
+    /**
+     * Setting which columns should be showed in view
+     * @param array $formats
+     * @return Datatable
+     */
+    public function setExportFormats($formats=array())
+    {
+        $defaultFormats = $this->exportFormats;
+
+        $exportFormats = [];
+        if(is_array($formats) && count($formats) > 0)
+        {
+            foreach($formats as $format)
+            {
+                if(in_array($format, $defaultFormats))
+                {
+                    $exportFormats[]=$format;
+                }
+            }
+        }
+        else
+        {
+            $noa = func_num_args(); // number of argument passed,(Number of columns)
+
+            for ($i=0; $i<$noa; $i++)
+            {
+                $format=func_get_arg($i); // get each argument passed
+
+                if(in_array($format, $defaultFormats))
+                {
+                    $exportFormats[]=$format;
+                }
+            }
+        }
+
+        if(count($exportFormats)>0)
+        {
+            $this->viewData->exportFormats = $exportFormats;
+        }
+
+        return $this;
     }
 
     /**

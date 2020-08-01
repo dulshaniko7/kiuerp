@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Modules\Admin\Repositories\AdminPermissionModuleRepository;
+use Modules\Admin\Repositories\AdminRepository;
 use Modules\Admin\Entities\Admin;
 
 class AdminController extends Controller
@@ -20,7 +20,7 @@ class AdminController extends Controller
 
     public function __construct()
     {
-        $this->repository = new AdminPermissionModuleRepository();
+        $this->repository = new AdminRepository();
     }
 
     /**
@@ -47,7 +47,7 @@ class AdminController extends Controller
 
             ->setColumnFilterMethod("name", "text")
             ->setColumnFilterMethod("status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
-            ->setColumnFilterMethod("admin_role", "select", URL::to("/academic/adminRole/searchData"))
+            ->setColumnFilterMethod("admin_role", "select", URL::to("/admin/admin_role/search_data"))
 
             ->setColumnSearchability("created_at", false)
             ->setColumnSearchability("updated_at", false)
@@ -60,6 +60,9 @@ class AdminController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
+            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+
+            $this->repository->viewData->enableList = true;
             $this->repository->viewData->enableRestore = true;
             $this->repository->viewData->enableView= false;
             $this->repository->viewData->enableEdit = false;
@@ -68,11 +71,14 @@ class AdminController extends Controller
         else
         {
             $query = $this->repository->model;
+
+            $this->repository->viewData->enableTrashList = true;
+            $this->repository->viewData->enableTrash = true;
         }
 
         $query = $query->with(["adminRole"]);
 
-        return $this->repository->render("academic::layouts.master")->index($query);
+        return $this->repository->render("admin::layouts.master")->index($query);
     }
 
     /**
@@ -113,12 +119,19 @@ class AdminController extends Controller
             "status" => "required|digits:1",
         ], [], ["admin_role_id" => "Faculty", "name" => "Admin name"]);
 
-        //set status as 0 when inserting the record
-        $model->status = 0;
+        if($this->repository->isValidData)
+        {
+            //set status as 0 when inserting the record
+            $model->status = 0;
 
-        $dataResponse = $this->repository->saveModel($model);
+            $response = $this->repository->saveModel($model);
+        }
+        else
+        {
+            $response = $model;
+        }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**

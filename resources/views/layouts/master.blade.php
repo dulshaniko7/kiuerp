@@ -26,6 +26,31 @@
 <body class="sidebar-mini layout-fixed text-sm">
 <!-- You can add your view's javascript files in this section 'js_header', which need to load in header. Apply it from your view file-->
 @yield('js_header')
+
+<?php
+$notifications = [];
+$response = session("response");
+if($response)
+{
+    if(isset($response["notify"]))
+    {
+        $notifications = $response["notify"];
+    }
+}
+
+if(empty($notifications))
+{
+    $notify = session("notify");
+
+    if($notify)
+    {
+        $notifications = $notify;
+    }
+}
+?>
+<script>
+    showNotifications(<?php echo json_encode($notifications); ?>);
+</script>
 <div class="wrapper">
 
     <!-- Navbar -->

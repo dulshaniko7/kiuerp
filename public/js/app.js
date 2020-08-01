@@ -32837,6 +32837,1697 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/assets/js/jquery.form.min.js":
+/*!************************************************!*\
+  !*** ./resources/assets/js/jquery.form.min.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*!
+ * jQuery Form Plugin
+ * version: 4.3.0
+ * Requires jQuery v1.7.2 or later
+ * Project repository: https://github.com/jquery-form/form
+
+ * Copyright 2017 Kevin Morris
+ * Copyright 2006 M. Alsup
+
+ * Dual licensed under the LGPL-2.1+ or MIT licenses
+ * https://github.com/jquery-form/form#license
+
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ */
+!function (r) {
+   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (r),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
+}(function (q) {
+  "use strict";
+
+  var m = /\r?\n/g,
+      S = {};
+  S.fileapi = void 0 !== q('<input type="file">').get(0).files, S.formdata = void 0 !== window.FormData;
+
+  var _ = !!q.fn.prop;
+
+  function o(e) {
+    var t = e.data;
+    e.isDefaultPrevented() || (e.preventDefault(), q(e.target).closest("form").ajaxSubmit(t));
+  }
+
+  function i(e) {
+    var t = e.target,
+        r = q(t);
+
+    if (!r.is("[type=submit],[type=image]")) {
+      var a = r.closest("[type=submit]");
+      if (0 === a.length) return;
+      t = a[0];
+    }
+
+    var n,
+        o = t.form;
+    "image" === (o.clk = t).type && (void 0 !== e.offsetX ? (o.clk_x = e.offsetX, o.clk_y = e.offsetY) : "function" == typeof q.fn.offset ? (n = r.offset(), o.clk_x = e.pageX - n.left, o.clk_y = e.pageY - n.top) : (o.clk_x = e.pageX - t.offsetLeft, o.clk_y = e.pageY - t.offsetTop)), setTimeout(function () {
+      o.clk = o.clk_x = o.clk_y = null;
+    }, 100);
+  }
+
+  function N() {
+    var e;
+    q.fn.ajaxSubmit.debug && (e = "[jquery.form] " + Array.prototype.join.call(arguments, ""), window.console && window.console.log ? window.console.log(e) : window.opera && window.opera.postError && window.opera.postError(e));
+  }
+
+  q.fn.attr2 = function () {
+    if (!_) return this.attr.apply(this, arguments);
+    var e = this.prop.apply(this, arguments);
+    return e && e.jquery || "string" == typeof e ? e : this.attr.apply(this, arguments);
+  }, q.fn.ajaxSubmit = function (M, e, t, r) {
+    if (!this.length) return N("ajaxSubmit: skipping submit process - no element selected"), this;
+    var O,
+        a,
+        n,
+        o,
+        X = this;
+    "function" == typeof M ? M = {
+      success: M
+    } : "string" == typeof M || !1 === M && 0 < arguments.length ? (M = {
+      url: M,
+      data: e,
+      dataType: t
+    }, "function" == typeof r && (M.success = r)) : void 0 === M && (M = {}), O = M.method || M.type || this.attr2("method"), n = (n = (n = "string" == typeof (a = M.url || this.attr2("action")) ? q.trim(a) : "") || window.location.href || "") && (n.match(/^([^#]+)/) || [])[1], o = /(MSIE|Trident)/.test(navigator.userAgent || "") && /^https/i.test(window.location.href || "") ? "javascript:false" : "about:blank", M = q.extend(!0, {
+      url: n,
+      success: q.ajaxSettings.success,
+      type: O || q.ajaxSettings.type,
+      iframeSrc: o
+    }, M);
+    var i = {};
+    if (this.trigger("form-pre-serialize", [this, M, i]), i.veto) return N("ajaxSubmit: submit vetoed via form-pre-serialize trigger"), this;
+    if (M.beforeSerialize && !1 === M.beforeSerialize(this, M)) return N("ajaxSubmit: submit aborted via beforeSerialize callback"), this;
+    var s = M.traditional;
+    void 0 === s && (s = q.ajaxSettings.traditional);
+    var u,
+        c,
+        C = [],
+        l = this.formToArray(M.semantic, C, M.filtering);
+    if (M.data && (c = q.isFunction(M.data) ? M.data(l) : M.data, M.extraData = c, u = q.param(c, s)), M.beforeSubmit && !1 === M.beforeSubmit(l, this, M)) return N("ajaxSubmit: submit aborted via beforeSubmit callback"), this;
+    if (this.trigger("form-submit-validate", [l, this, M, i]), i.veto) return N("ajaxSubmit: submit vetoed via form-submit-validate trigger"), this;
+    var f = q.param(l, s);
+    u && (f = f ? f + "&" + u : u), "GET" === M.type.toUpperCase() ? (M.url += (0 <= M.url.indexOf("?") ? "&" : "?") + f, M.data = null) : M.data = f;
+    var d,
+        m,
+        p,
+        h = [];
+    M.resetForm && h.push(function () {
+      X.resetForm();
+    }), M.clearForm && h.push(function () {
+      X.clearForm(M.includeHidden);
+    }), !M.dataType && M.target ? (d = M.success || function () {}, h.push(function (e, t, r) {
+      var a = arguments,
+          n = M.replaceTarget ? "replaceWith" : "html";
+      q(M.target)[n](e).each(function () {
+        d.apply(this, a);
+      });
+    })) : M.success && (q.isArray(M.success) ? q.merge(h, M.success) : h.push(M.success)), M.success = function (e, t, r) {
+      for (var a = M.context || this, n = 0, o = h.length; n < o; n++) {
+        h[n].apply(a, [e, t, r || X, X]);
+      }
+    }, M.error && (m = M.error, M.error = function (e, t, r) {
+      var a = M.context || this;
+      m.apply(a, [e, t, r, X]);
+    }), M.complete && (p = M.complete, M.complete = function (e, t) {
+      var r = M.context || this;
+      p.apply(r, [e, t, X]);
+    });
+    var v = 0 < q("input[type=file]:enabled", this).filter(function () {
+      return "" !== q(this).val();
+    }).length,
+        g = "multipart/form-data",
+        x = X.attr("enctype") === g || X.attr("encoding") === g,
+        y = S.fileapi && S.formdata;
+    N("fileAPI :" + y);
+    var b,
+        T = (v || x) && !y;
+    !1 !== M.iframe && (M.iframe || T) ? M.closeKeepAlive ? q.get(M.closeKeepAlive, function () {
+      b = w(l);
+    }) : b = w(l) : b = (v || x) && y ? function (e) {
+      for (var r = new FormData(), t = 0; t < e.length; t++) {
+        r.append(e[t].name, e[t].value);
+      }
+
+      if (M.extraData) {
+        var a = function (e) {
+          var t,
+              r,
+              a = q.param(e, M.traditional).split("&"),
+              n = a.length,
+              o = [];
+
+          for (t = 0; t < n; t++) {
+            a[t] = a[t].replace(/\+/g, " "), r = a[t].split("="), o.push([decodeURIComponent(r[0]), decodeURIComponent(r[1])]);
+          }
+
+          return o;
+        }(M.extraData);
+
+        for (t = 0; t < a.length; t++) {
+          a[t] && r.append(a[t][0], a[t][1]);
+        }
+      }
+
+      M.data = null;
+      var n = q.extend(!0, {}, q.ajaxSettings, M, {
+        contentType: !1,
+        processData: !1,
+        cache: !1,
+        type: O || "POST"
+      });
+      M.uploadProgress && (n.xhr = function () {
+        var e = q.ajaxSettings.xhr();
+        return e.upload && e.upload.addEventListener("progress", function (e) {
+          var t = 0,
+              r = e.loaded || e.position,
+              a = e.total;
+          e.lengthComputable && (t = Math.ceil(r / a * 100)), M.uploadProgress(e, r, a, t);
+        }, !1), e;
+      });
+      n.data = null;
+      var o = n.beforeSend;
+      return n.beforeSend = function (e, t) {
+        M.formData ? t.data = M.formData : t.data = r, o && o.call(this, e, t);
+      }, q.ajax(n);
+    }(l) : q.ajax(M), X.removeData("jqxhr").data("jqxhr", b);
+
+    for (var j = 0; j < C.length; j++) {
+      C[j] = null;
+    }
+
+    return this.trigger("form-submit-notify", [this, M]), this;
+
+    function w(e) {
+      var t,
+          r,
+          l,
+          f,
+          o,
+          d,
+          m,
+          p,
+          a,
+          n,
+          h,
+          v,
+          i = X[0],
+          g = q.Deferred();
+      if (g.abort = function (e) {
+        p.abort(e);
+      }, e) for (r = 0; r < C.length; r++) {
+        t = q(C[r]), _ ? t.prop("disabled", !1) : t.removeAttr("disabled");
+      }
+      (l = q.extend(!0, {}, q.ajaxSettings, M)).context = l.context || l, o = "jqFormIO" + new Date().getTime();
+      var s = i.ownerDocument,
+          u = X.closest("body");
+      if (l.iframeTarget ? (n = (d = q(l.iframeTarget, s)).attr2("name")) ? o = n : d.attr2("name", o) : (d = q('<iframe name="' + o + '" src="' + l.iframeSrc + '" />', s)).css({
+        position: "absolute",
+        top: "-1000px",
+        left: "-1000px"
+      }), m = d[0], p = {
+        aborted: 0,
+        responseText: null,
+        responseXML: null,
+        status: 0,
+        statusText: "n/a",
+        getAllResponseHeaders: function getAllResponseHeaders() {},
+        getResponseHeader: function getResponseHeader() {},
+        setRequestHeader: function setRequestHeader() {},
+        abort: function abort(e) {
+          var t = "timeout" === e ? "timeout" : "aborted";
+          N("aborting upload... " + t), this.aborted = 1;
+
+          try {
+            m.contentWindow.document.execCommand && m.contentWindow.document.execCommand("Stop");
+          } catch (e) {}
+
+          d.attr("src", l.iframeSrc), p.error = t, l.error && l.error.call(l.context, p, t, e), f && q.event.trigger("ajaxError", [p, l, t]), l.complete && l.complete.call(l.context, p, t);
+        }
+      }, (f = l.global) && 0 == q.active++ && q.event.trigger("ajaxStart"), f && q.event.trigger("ajaxSend", [p, l]), l.beforeSend && !1 === l.beforeSend.call(l.context, p, l)) return l.global && q.active--, g.reject(), g;
+      if (p.aborted) return g.reject(), g;
+      (a = i.clk) && (n = a.name) && !a.disabled && (l.extraData = l.extraData || {}, l.extraData[n] = a.value, "image" === a.type && (l.extraData[n + ".x"] = i.clk_x, l.extraData[n + ".y"] = i.clk_y));
+      var x = 1,
+          y = 2;
+
+      function b(t) {
+        var r = null;
+
+        try {
+          t.contentWindow && (r = t.contentWindow.document);
+        } catch (e) {
+          N("cannot get iframe.contentWindow document: " + e);
+        }
+
+        if (r) return r;
+
+        try {
+          r = t.contentDocument ? t.contentDocument : t.document;
+        } catch (e) {
+          N("cannot get iframe.contentDocument: " + e), r = t.document;
+        }
+
+        return r;
+      }
+
+      var c = q("meta[name=csrf-token]").attr("content"),
+          T = q("meta[name=csrf-param]").attr("content");
+
+      function j() {
+        var e = X.attr2("target"),
+            t = X.attr2("action"),
+            r = X.attr("enctype") || X.attr("encoding") || "multipart/form-data";
+        i.setAttribute("target", o), O && !/post/i.test(O) || i.setAttribute("method", "POST"), t !== l.url && i.setAttribute("action", l.url), l.skipEncodingOverride || O && !/post/i.test(O) || X.attr({
+          encoding: "multipart/form-data",
+          enctype: "multipart/form-data"
+        }), l.timeout && (v = setTimeout(function () {
+          h = !0, A(x);
+        }, l.timeout));
+        var a = [];
+
+        try {
+          if (l.extraData) for (var n in l.extraData) {
+            l.extraData.hasOwnProperty(n) && (q.isPlainObject(l.extraData[n]) && l.extraData[n].hasOwnProperty("name") && l.extraData[n].hasOwnProperty("value") ? a.push(q('<input type="hidden" name="' + l.extraData[n].name + '">', s).val(l.extraData[n].value).appendTo(i)[0]) : a.push(q('<input type="hidden" name="' + n + '">', s).val(l.extraData[n]).appendTo(i)[0]));
+          }
+          l.iframeTarget || d.appendTo(u), m.attachEvent ? m.attachEvent("onload", A) : m.addEventListener("load", A, !1), setTimeout(function e() {
+            try {
+              var t = b(m).readyState;
+              N("state = " + t), t && "uninitialized" === t.toLowerCase() && setTimeout(e, 50);
+            } catch (e) {
+              N("Server abort: ", e, " (", e.name, ")"), A(y), v && clearTimeout(v), v = void 0;
+            }
+          }, 15);
+
+          try {
+            i.submit();
+          } catch (e) {
+            document.createElement("form").submit.apply(i);
+          }
+        } finally {
+          i.setAttribute("action", t), i.setAttribute("enctype", r), e ? i.setAttribute("target", e) : X.removeAttr("target"), q(a).remove();
+        }
+      }
+
+      T && c && (l.extraData = l.extraData || {}, l.extraData[T] = c), l.forceSync ? j() : setTimeout(j, 10);
+      var w,
+          S,
+          k,
+          D = 50;
+
+      function A(e) {
+        if (!p.aborted && !k) {
+          if ((S = b(m)) || (N("cannot access response document"), e = y), e === x && p) return p.abort("timeout"), void g.reject(p, "timeout");
+          if (e === y && p) return p.abort("server abort"), void g.reject(p, "error", "server abort");
+
+          if (S && S.location.href !== l.iframeSrc || h) {
+            m.detachEvent ? m.detachEvent("onload", A) : m.removeEventListener("load", A, !1);
+            var t,
+                r = "success";
+
+            try {
+              if (h) throw "timeout";
+              var a = "xml" === l.dataType || S.XMLDocument || q.isXMLDoc(S);
+              if (N("isXml=" + a), !a && window.opera && (null === S.body || !S.body.innerHTML) && --D) return N("requeing onLoad callback, DOM not available"), void setTimeout(A, 250);
+              var n = S.body ? S.body : S.documentElement;
+              p.responseText = n ? n.innerHTML : null, p.responseXML = S.XMLDocument ? S.XMLDocument : S, a && (l.dataType = "xml"), p.getResponseHeader = function (e) {
+                return {
+                  "content-type": l.dataType
+                }[e.toLowerCase()];
+              }, n && (p.status = Number(n.getAttribute("status")) || p.status, p.statusText = n.getAttribute("statusText") || p.statusText);
+              var o,
+                  i,
+                  s,
+                  u = (l.dataType || "").toLowerCase(),
+                  c = /(json|script|text)/.test(u);
+              c || l.textarea ? (o = S.getElementsByTagName("textarea")[0]) ? (p.responseText = o.value, p.status = Number(o.getAttribute("status")) || p.status, p.statusText = o.getAttribute("statusText") || p.statusText) : c && (i = S.getElementsByTagName("pre")[0], s = S.getElementsByTagName("body")[0], i ? p.responseText = i.textContent ? i.textContent : i.innerText : s && (p.responseText = s.textContent ? s.textContent : s.innerText)) : "xml" === u && !p.responseXML && p.responseText && (p.responseXML = F(p.responseText));
+
+              try {
+                w = E(p, u, l);
+              } catch (e) {
+                r = "parsererror", p.error = t = e || r;
+              }
+            } catch (e) {
+              N("error caught: ", e), r = "error", p.error = t = e || r;
+            }
+
+            p.aborted && (N("upload aborted"), r = null), p.status && (r = 200 <= p.status && p.status < 300 || 304 === p.status ? "success" : "error"), "success" === r ? (l.success && l.success.call(l.context, w, "success", p), g.resolve(p.responseText, "success", p), f && q.event.trigger("ajaxSuccess", [p, l])) : r && (void 0 === t && (t = p.statusText), l.error && l.error.call(l.context, p, r, t), g.reject(p, "error", t), f && q.event.trigger("ajaxError", [p, l, t])), f && q.event.trigger("ajaxComplete", [p, l]), f && ! --q.active && q.event.trigger("ajaxStop"), l.complete && l.complete.call(l.context, p, r), k = !0, l.timeout && clearTimeout(v), setTimeout(function () {
+              l.iframeTarget ? d.attr("src", l.iframeSrc) : d.remove(), p.responseXML = null;
+            }, 100);
+          }
+        }
+      }
+
+      var F = q.parseXML || function (e, t) {
+        return window.ActiveXObject ? ((t = new ActiveXObject("Microsoft.XMLDOM")).async = "false", t.loadXML(e)) : t = new DOMParser().parseFromString(e, "text/xml"), t && t.documentElement && "parsererror" !== t.documentElement.nodeName ? t : null;
+      },
+          L = q.parseJSON || function (e) {
+        return window.eval("(" + e + ")");
+      },
+          E = function E(e, t, r) {
+        var a = e.getResponseHeader("content-type") || "",
+            n = ("xml" === t || !t) && 0 <= a.indexOf("xml"),
+            o = n ? e.responseXML : e.responseText;
+        return n && "parsererror" === o.documentElement.nodeName && q.error && q.error("parsererror"), r && r.dataFilter && (o = r.dataFilter(o, t)), "string" == typeof o && (("json" === t || !t) && 0 <= a.indexOf("json") ? o = L(o) : ("script" === t || !t) && 0 <= a.indexOf("javascript") && q.globalEval(o)), o;
+      };
+
+      return g;
+    }
+  }, q.fn.ajaxForm = function (e, t, r, a) {
+    if (("string" == typeof e || !1 === e && 0 < arguments.length) && (e = {
+      url: e,
+      data: t,
+      dataType: r
+    }, "function" == typeof a && (e.success = a)), (e = e || {}).delegation = e.delegation && q.isFunction(q.fn.on), e.delegation || 0 !== this.length) return e.delegation ? (q(document).off("submit.form-plugin", this.selector, o).off("click.form-plugin", this.selector, i).on("submit.form-plugin", this.selector, e, o).on("click.form-plugin", this.selector, e, i), this) : (e.beforeFormUnbind && e.beforeFormUnbind(this, e), this.ajaxFormUnbind().on("submit.form-plugin", e, o).on("click.form-plugin", e, i));
+    var n = {
+      s: this.selector,
+      c: this.context
+    };
+    return !q.isReady && n.s ? (N("DOM not ready, queuing ajaxForm"), q(function () {
+      q(n.s, n.c).ajaxForm(e);
+    })) : N("terminating; zero elements found by selector" + (q.isReady ? "" : " (DOM not ready)")), this;
+  }, q.fn.ajaxFormUnbind = function () {
+    return this.off("submit.form-plugin click.form-plugin");
+  }, q.fn.formToArray = function (e, t, r) {
+    var a = [];
+    if (0 === this.length) return a;
+    var n,
+        o,
+        i,
+        s,
+        u,
+        c,
+        l,
+        f,
+        d,
+        m,
+        p = this[0],
+        h = this.attr("id"),
+        v = (v = e || void 0 === p.elements ? p.getElementsByTagName("*") : p.elements) && q.makeArray(v);
+    if (h && (e || /(Edge|Trident)\//.test(navigator.userAgent)) && (n = q(':input[form="' + h + '"]').get()).length && (v = (v || []).concat(n)), !v || !v.length) return a;
+
+    for (q.isFunction(r) && (v = q.map(v, r)), o = 0, c = v.length; o < c; o++) {
+      if ((m = (u = v[o]).name) && !u.disabled) if (e && p.clk && "image" === u.type) p.clk === u && (a.push({
+        name: m,
+        value: q(u).val(),
+        type: u.type
+      }), a.push({
+        name: m + ".x",
+        value: p.clk_x
+      }, {
+        name: m + ".y",
+        value: p.clk_y
+      }));else if ((s = q.fieldValue(u, !0)) && s.constructor === Array) for (t && t.push(u), i = 0, l = s.length; i < l; i++) {
+        a.push({
+          name: m,
+          value: s[i]
+        });
+      } else if (S.fileapi && "file" === u.type) {
+        t && t.push(u);
+        var g = u.files;
+        if (g.length) for (i = 0; i < g.length; i++) {
+          a.push({
+            name: m,
+            value: g[i],
+            type: u.type
+          });
+        } else a.push({
+          name: m,
+          value: "",
+          type: u.type
+        });
+      } else null != s && (t && t.push(u), a.push({
+        name: m,
+        value: s,
+        type: u.type,
+        required: u.required
+      }));
+    }
+
+    return e || !p.clk || (m = (d = (f = q(p.clk))[0]).name) && !d.disabled && "image" === d.type && (a.push({
+      name: m,
+      value: f.val()
+    }), a.push({
+      name: m + ".x",
+      value: p.clk_x
+    }, {
+      name: m + ".y",
+      value: p.clk_y
+    })), a;
+  }, q.fn.formSerialize = function (e) {
+    return q.param(this.formToArray(e));
+  }, q.fn.fieldSerialize = function (n) {
+    var o = [];
+    return this.each(function () {
+      var e = this.name;
+
+      if (e) {
+        var t = q.fieldValue(this, n);
+        if (t && t.constructor === Array) for (var r = 0, a = t.length; r < a; r++) {
+          o.push({
+            name: e,
+            value: t[r]
+          });
+        } else null != t && o.push({
+          name: this.name,
+          value: t
+        });
+      }
+    }), q.param(o);
+  }, q.fn.fieldValue = function (e) {
+    for (var t = [], r = 0, a = this.length; r < a; r++) {
+      var n = this[r],
+          o = q.fieldValue(n, e);
+      null == o || o.constructor === Array && !o.length || (o.constructor === Array ? q.merge(t, o) : t.push(o));
+    }
+
+    return t;
+  }, q.fieldValue = function (e, t) {
+    var r = e.name,
+        a = e.type,
+        n = e.tagName.toLowerCase();
+    if (void 0 === t && (t = !0), t && (!r || e.disabled || "reset" === a || "button" === a || ("checkbox" === a || "radio" === a) && !e.checked || ("submit" === a || "image" === a) && e.form && e.form.clk !== e || "select" === n && -1 === e.selectedIndex)) return null;
+    if ("select" !== n) return q(e).val().replace(m, "\r\n");
+    var o = e.selectedIndex;
+    if (o < 0) return null;
+
+    for (var i = [], s = e.options, u = "select-one" === a, c = u ? o + 1 : s.length, l = u ? o : 0; l < c; l++) {
+      var f = s[l];
+
+      if (f.selected && !f.disabled) {
+        var d = (d = f.value) || (f.attributes && f.attributes.value && !f.attributes.value.specified ? f.text : f.value);
+        if (u) return d;
+        i.push(d);
+      }
+    }
+
+    return i;
+  }, q.fn.clearForm = function (e) {
+    return this.each(function () {
+      q("input,select,textarea", this).clearFields(e);
+    });
+  }, q.fn.clearFields = q.fn.clearInputs = function (r) {
+    var a = /^(?:color|date|datetime|email|month|number|password|range|search|tel|text|time|url|week)$/i;
+    return this.each(function () {
+      var e = this.type,
+          t = this.tagName.toLowerCase();
+      a.test(e) || "textarea" === t ? this.value = "" : "checkbox" === e || "radio" === e ? this.checked = !1 : "select" === t ? this.selectedIndex = -1 : "file" === e ? /MSIE/.test(navigator.userAgent) ? q(this).replaceWith(q(this).clone(!0)) : q(this).val("") : r && (!0 === r && /hidden/.test(e) || "string" == typeof r && q(this).is(r)) && (this.value = "");
+    });
+  }, q.fn.resetForm = function () {
+    return this.each(function () {
+      var t = q(this),
+          e = this.tagName.toLowerCase();
+
+      switch (e) {
+        case "input":
+          this.checked = this.defaultChecked;
+
+        case "textarea":
+          return this.value = this.defaultValue, !0;
+
+        case "option":
+        case "optgroup":
+          var r = t.parents("select");
+          return r.length && r[0].multiple ? "option" === e ? this.selected = this.defaultSelected : t.find("option").resetForm() : r.resetForm(), !0;
+
+        case "select":
+          return t.find("option").each(function (e) {
+            if (this.selected = this.defaultSelected, this.defaultSelected && !t[0].multiple) return t[0].selectedIndex = e, !1;
+          }), !0;
+
+        case "label":
+          var a = q(t.attr("for")),
+              n = t.find("input,select,textarea");
+          return a[0] && n.unshift(a[0]), n.resetForm(), !0;
+
+        case "form":
+          return "function" != typeof this.reset && ("object" != _typeof(this.reset) || this.reset.nodeType) || this.reset(), !0;
+
+        default:
+          return t.find("form,input,label,select,textarea").resetForm(), !0;
+      }
+    });
+  }, q.fn.enable = function (e) {
+    return void 0 === e && (e = !0), this.each(function () {
+      this.disabled = !e;
+    });
+  }, q.fn.selected = function (r) {
+    return void 0 === r && (r = !0), this.each(function () {
+      var e,
+          t = this.type;
+      "checkbox" === t || "radio" === t ? this.checked = r : "option" === this.tagName.toLowerCase() && (e = q(this).parent("select"), r && e[0] && "select-one" === e[0].type && e.find("option").selected(!1), this.selected = r);
+    });
+  }, q.fn.ajaxSubmit.debug = !1;
+});
+
+/***/ }),
+
+/***/ "./resources/assets/plugins/magicsuggest/magicsuggest-min.js":
+/*!*******************************************************************!*\
+  !*** ./resources/assets/plugins/magicsuggest/magicsuggest-min.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+(function ($) {
+  "use strict";
+
+  var MagicSuggest = function MagicSuggest(element, options) {
+    var ms = this;
+    var defaults = {
+      allowFreeEntries: true,
+      allowDuplicates: false,
+      ajaxConfig: {},
+      autoSelect: true,
+      selectFirst: false,
+      queryParam: "query",
+      beforeSend: function beforeSend() {},
+      cls: "",
+      data: null,
+      dataUrlParams: {},
+      disabled: false,
+      disabledField: null,
+      displayField: "name",
+      editable: true,
+      expanded: false,
+      expandOnFocus: false,
+      groupBy: null,
+      hideTrigger: false,
+      highlight: true,
+      id: null,
+      infoMsgCls: "",
+      inputCfg: {},
+      invalidCls: "ms-inv",
+      matchCase: false,
+      maxDropHeight: 290,
+      maxEntryLength: null,
+      maxEntryRenderer: function maxEntryRenderer(v) {
+        return "Please reduce your entry by " + v + " character" + (v > 1 ? "s" : "");
+      },
+      maxSuggestions: null,
+      maxSelection: 10,
+      maxSelectionRenderer: function maxSelectionRenderer(v) {
+        return "You cannot choose more than " + v + " item" + (v > 1 ? "s" : "");
+      },
+      method: "POST",
+      minChars: 0,
+      minCharsRenderer: function minCharsRenderer(v) {
+        return "Please type " + v + " more character" + (v > 1 ? "s" : "");
+      },
+      mode: "local",
+      name: null,
+      noSuggestionText: "No suggestions",
+      placeholder: "Type or click here",
+      renderer: null,
+      required: false,
+      resultAsString: false,
+      resultAsStringDelimiter: ",",
+      resultsField: "results",
+      selectionCls: "",
+      selectionContainer: null,
+      selectionPosition: "inner",
+      selectionRenderer: null,
+      selectionStacked: false,
+      sortDir: "asc",
+      sortOrder: null,
+      strictSuggest: false,
+      style: "",
+      toggleOnClick: false,
+      typeDelay: 400,
+      useTabKey: false,
+      useCommaKey: true,
+      useZebraStyle: false,
+      value: null,
+      valueField: "id",
+      vregex: null,
+      vtype: null
+    };
+    var conf = $.extend({}, options);
+    var cfg = $.extend(true, {}, defaults, conf);
+
+    this.addToSelection = function (items, isSilent) {
+      if (!cfg.maxSelection || _selection.length < cfg.maxSelection) {
+        if (!$.isArray(items)) {
+          items = [items];
+        }
+
+        var valuechanged = false;
+        $.each(items, function (index, json) {
+          if (cfg.allowDuplicates || $.inArray(json[cfg.valueField], ms.getValue()) === -1) {
+            _selection.push(json);
+
+            valuechanged = true;
+          }
+        });
+
+        if (valuechanged === true) {
+          self._renderSelection();
+
+          this.empty();
+
+          if (isSilent !== true) {
+            $(this).trigger("selectionchange", [this, this.getSelection()]);
+          }
+        }
+      }
+
+      this.input.attr("placeholder", cfg.selectionPosition === "inner" && this.getValue().length > 0 ? "" : cfg.placeholder);
+    };
+
+    this.clear = function (isSilent) {
+      this.removeFromSelection(_selection.slice(0), isSilent);
+    };
+
+    this.collapse = function () {
+      if (cfg.expanded === true) {
+        this.combobox.detach();
+        cfg.expanded = false;
+        $(this).trigger("collapse", [this]);
+      }
+    };
+
+    this.disable = function () {
+      this.container.addClass("ms-ctn-disabled");
+      cfg.disabled = true;
+      ms.input.attr("disabled", true);
+    };
+
+    this.empty = function () {
+      this.input.val("");
+    };
+
+    this.enable = function () {
+      this.container.removeClass("ms-ctn-disabled");
+      cfg.disabled = false;
+      ms.input.attr("disabled", false);
+    };
+
+    this.expand = function () {
+      if (!cfg.expanded && (this.input.val().length >= cfg.minChars || this.combobox.children().length > 0)) {
+        this.combobox.appendTo(this.container);
+
+        self._processSuggestions();
+
+        cfg.expanded = true;
+        $(this).trigger("expand", [this]);
+      }
+    };
+
+    this.isDisabled = function () {
+      return cfg.disabled;
+    };
+
+    this.isValid = function () {
+      var valid = cfg.required === false || _selection.length > 0;
+
+      if (cfg.vtype || cfg.vregex) {
+        $.each(_selection, function (index, item) {
+          valid = valid && self._validateSingleItem(item[cfg.valueField]);
+        });
+      }
+
+      return valid;
+    };
+
+    this.getDataUrlParams = function () {
+      return cfg.dataUrlParams;
+    };
+
+    this.getName = function () {
+      return cfg.name;
+    };
+
+    this.getSelection = function () {
+      return _selection;
+    };
+
+    this.getRawValue = function () {
+      return ms.input.val();
+    };
+
+    this.getValue = function () {
+      return $.map(_selection, function (o) {
+        return o[cfg.valueField];
+      });
+    };
+
+    this.removeFromSelection = function (items, isSilent) {
+      if (!$.isArray(items)) {
+        items = [items];
+      }
+
+      var valuechanged = false;
+      $.each(items, function (index, json) {
+        var i = $.inArray(json[cfg.valueField], ms.getValue());
+
+        if (i > -1) {
+          _selection.splice(i, 1);
+
+          valuechanged = true;
+        }
+      });
+
+      if (valuechanged === true) {
+        self._renderSelection();
+
+        if (isSilent !== true) {
+          $(this).trigger("selectionchange", [this, this.getSelection()]);
+        }
+
+        if (cfg.expandOnFocus) {
+          ms.expand();
+        }
+
+        if (cfg.expanded) {
+          self._processSuggestions();
+        }
+      }
+
+      this.input.attr("placeholder", cfg.selectionPosition === "inner" && this.getValue().length > 0 ? "" : cfg.placeholder);
+    };
+
+    this.getData = function () {
+      return _cbData;
+    };
+
+    this.setData = function (data) {
+      cfg.data = data;
+
+      self._processSuggestions();
+    };
+
+    this.setName = function (name) {
+      cfg.name = name;
+
+      if (name) {
+        cfg.name += name.indexOf("[]") > 0 ? "" : "[]";
+      }
+
+      if (ms._valueContainer) {
+        $.each(ms._valueContainer.children(), function (i, el) {
+          el.name = cfg.name;
+        });
+      }
+    };
+
+    this.setSelection = function (items) {
+      this.clear();
+      this.addToSelection(items);
+    };
+
+    this.setValue = function (values) {
+      var items = [];
+      $.each(values, function (index, value) {
+        var found = false;
+        $.each(_cbData, function (i, item) {
+          if (item[cfg.valueField] == value) {
+            items.push(item);
+            found = true;
+            return false;
+          }
+        });
+
+        if (!found) {
+          if (_typeof(value) === "object") {
+            items.push(value);
+          } else {
+            var json = {};
+            json[cfg.valueField] = value;
+            json[cfg.displayField] = value;
+            items.push(json);
+          }
+        }
+      });
+
+      if (items.length > 0) {
+        this.addToSelection(items);
+      }
+    };
+
+    this.setDataUrlParams = function (params) {
+      cfg.dataUrlParams = $.extend({}, params);
+    };
+
+    var _selection = [],
+        _comboItemHeight = 0,
+        _timer,
+        _hasFocus = false,
+        _groups = null,
+        _cbData = [],
+        _ctrlDown = false,
+        KEYCODES = {
+      BACKSPACE: 8,
+      TAB: 9,
+      ENTER: 13,
+      CTRL: 17,
+      ESC: 27,
+      SPACE: 32,
+      UPARROW: 38,
+      DOWNARROW: 40,
+      COMMA: 188
+    };
+
+    var self = {
+      _displaySuggestions: function _displaySuggestions(data) {
+        ms.combobox.show();
+        ms.combobox.empty();
+        var resHeight = 0,
+            nbGroups = 0;
+
+        if (_groups === null) {
+          self._renderComboItems(data);
+
+          resHeight = _comboItemHeight * data.length;
+        } else {
+          for (var grpName in _groups) {
+            nbGroups += 1;
+            $("<div/>", {
+              "class": "ms-res-group",
+              html: grpName
+            }).appendTo(ms.combobox);
+
+            self._renderComboItems(_groups[grpName].items, true);
+          }
+
+          var _groupItemHeight = ms.combobox.find(".ms-res-group").outerHeight();
+
+          if (_groupItemHeight !== null) {
+            var tmpResHeight = nbGroups * _groupItemHeight;
+            resHeight = _comboItemHeight * data.length + tmpResHeight;
+          } else {
+            resHeight = _comboItemHeight * (data.length + nbGroups);
+          }
+        }
+
+        if (resHeight < ms.combobox.height() || resHeight <= cfg.maxDropHeight) {
+          ms.combobox.height(resHeight);
+        } else if (resHeight >= ms.combobox.height() && resHeight > cfg.maxDropHeight) {
+          ms.combobox.height(cfg.maxDropHeight);
+        }
+
+        if (data.length === 1 && cfg.autoSelect === true) {
+          ms.combobox.children().filter(":not(.ms-res-item-disabled):last").addClass("ms-res-item-active");
+        }
+
+        if (cfg.selectFirst === true) {
+          ms.combobox.children().filter(":not(.ms-res-item-disabled):first").addClass("ms-res-item-active");
+        }
+
+        if (data.length === 0 && ms.getRawValue() !== "") {
+          var noSuggestionText = cfg.noSuggestionText.replace(/\{\{.*\}\}/, ms.input.val());
+
+          self._updateHelper(noSuggestionText);
+
+          ms.collapse();
+        }
+
+        if (cfg.allowFreeEntries === false) {
+          if (data.length === 0) {
+            $(ms.input).addClass(cfg.invalidCls);
+            ms.combobox.hide();
+          } else {
+            $(ms.input).removeClass(cfg.invalidCls);
+          }
+        }
+      },
+      _getEntriesFromStringArray: function _getEntriesFromStringArray(data) {
+        var json = [];
+        $.each(data, function (index, s) {
+          var entry = {};
+          entry[cfg.displayField] = entry[cfg.valueField] = $.trim(s);
+          json.push(entry);
+        });
+        return json;
+      },
+      _highlightSuggestion: function _highlightSuggestion(html) {
+        var q = ms.input.val();
+        var specialCharacters = ["^", "$", "*", "+", "?", ".", "(", ")", ":", "!", "|", "{", "}", "[", "]"];
+        $.each(specialCharacters, function (index, value) {
+          q = q.replace(value, "\\" + value);
+        });
+
+        if (q.length === 0) {
+          return html;
+        }
+
+        var glob = cfg.matchCase === true ? "g" : "gi";
+        return html.replace(new RegExp("(" + q + ")(?!([^<]+)?>)", glob), "<em>$1</em>");
+      },
+      _moveSelectedRow: function _moveSelectedRow(dir) {
+        if (!cfg.expanded) {
+          ms.expand();
+        }
+
+        var list, start, active, scrollPos;
+        list = ms.combobox.find(".ms-res-item:not(.ms-res-item-disabled)");
+
+        if (dir === "down") {
+          start = list.eq(0);
+        } else {
+          start = list.filter(":last");
+        }
+
+        active = ms.combobox.find(".ms-res-item-active:not(.ms-res-item-disabled):first");
+
+        if (active.length > 0) {
+          if (dir === "down") {
+            start = active.nextAll(".ms-res-item:not(.ms-res-item-disabled)").first();
+
+            if (start.length === 0) {
+              start = list.eq(0);
+            }
+
+            scrollPos = ms.combobox.scrollTop();
+            ms.combobox.scrollTop(0);
+
+            if (start[0].offsetTop + start.outerHeight() > ms.combobox.height()) {
+              ms.combobox.scrollTop(scrollPos + _comboItemHeight);
+            }
+          } else {
+            start = active.prevAll(".ms-res-item:not(.ms-res-item-disabled)").first();
+
+            if (start.length === 0) {
+              start = list.filter(":last");
+              ms.combobox.scrollTop(_comboItemHeight * list.length);
+            }
+
+            if (start[0].offsetTop < ms.combobox.scrollTop()) {
+              ms.combobox.scrollTop(ms.combobox.scrollTop() - _comboItemHeight);
+            }
+          }
+        }
+
+        list.removeClass("ms-res-item-active");
+        start.addClass("ms-res-item-active");
+      },
+      _processSuggestions: function _processSuggestions(source) {
+        var json = null,
+            data = source || cfg.data;
+
+        if (data !== null) {
+          if (typeof data === "function") {
+            data = data.call(ms, ms.getRawValue());
+          }
+
+          if (typeof data === "string") {
+            $(ms).trigger("beforeload", [ms]);
+            var queryParams = {};
+            queryParams[cfg.queryParam] = ms.input.val();
+            var params = $.extend(queryParams, cfg.dataUrlParams);
+            $.ajax($.extend({
+              type: cfg.method,
+              url: data,
+              data: params,
+              beforeSend: cfg.beforeSend,
+              success: function success(asyncData) {
+                json = typeof asyncData === "string" ? JSON.parse(asyncData) : asyncData;
+
+                self._processSuggestions(json);
+
+                $(ms).trigger("load", [ms, json]);
+
+                if (self._asyncValues) {
+                  ms.setValue(typeof self._asyncValues === "string" ? JSON.parse(self._asyncValues) : self._asyncValues);
+
+                  self._renderSelection();
+
+                  delete self._asyncValues;
+                }
+              },
+              error: function error() {
+                throw "Could not reach server";
+              }
+            }, cfg.ajaxConfig));
+            return;
+          } else {
+            if (data.length > 0 && typeof data[0] === "string") {
+              _cbData = self._getEntriesFromStringArray(data);
+            } else {
+              _cbData = data[cfg.resultsField] || data;
+            }
+          }
+
+          var sortedData = cfg.mode === "remote" ? _cbData : self._sortAndTrim(_cbData);
+
+          self._displaySuggestions(self._group(sortedData));
+        }
+      },
+      _render: function _render(el) {
+        ms.setName(cfg.name);
+        ms.container = $("<div/>", {
+          "class": "ms-ctn form-control " + (cfg.resultAsString ? "ms-as-string " : "") + cfg.cls + ($(el).hasClass("input-lg") ? " input-lg" : "") + ($(el).hasClass("input-sm") ? " input-sm" : "") + (cfg.disabled === true ? " ms-ctn-disabled" : "") + (cfg.editable === true ? "" : " ms-ctn-readonly") + (cfg.hideTrigger === false ? "" : " ms-no-trigger"),
+          style: cfg.style,
+          id: cfg.id
+        });
+        ms.container.focus($.proxy(handlers._onFocus, this));
+        ms.container.blur($.proxy(handlers._onBlur, this));
+        ms.container.keydown($.proxy(handlers._onKeyDown, this));
+        ms.container.keyup($.proxy(handlers._onKeyUp, this));
+        ms.input = $("<input/>", $.extend({
+          type: "text",
+          "class": cfg.editable === true ? "" : " ms-input-readonly",
+          readonly: !cfg.editable,
+          placeholder: cfg.placeholder,
+          disabled: cfg.disabled
+        }, cfg.inputCfg));
+        ms.input.focus($.proxy(handlers._onInputFocus, this));
+        ms.input.click($.proxy(handlers._onInputClick, this));
+        ms.combobox = $("<div/>", {
+          "class": "ms-res-ctn dropdown-menu"
+        }).height(cfg.maxDropHeight);
+        ms.combobox.on("click", "div.ms-res-item", $.proxy(handlers._onComboItemSelected, this));
+        ms.combobox.on("mouseover", "div.ms-res-item", $.proxy(handlers._onComboItemMouseOver, this));
+
+        if (cfg.selectionContainer) {
+          ms.selectionContainer = cfg.selectionContainer;
+          $(ms.selectionContainer).addClass("ms-sel-ctn");
+        } else {
+          ms.selectionContainer = $("<div/>", {
+            "class": "ms-sel-ctn"
+          });
+        }
+
+        ms.selectionContainer.click($.proxy(handlers._onFocus, this));
+
+        if (cfg.selectionPosition === "inner" && !cfg.selectionContainer) {
+          ms.selectionContainer.append(ms.input);
+        } else {
+          ms.container.append(ms.input);
+        }
+
+        ms.helper = $("<span/>", {
+          "class": "ms-helper " + cfg.infoMsgCls
+        });
+
+        self._updateHelper();
+
+        ms.container.append(ms.helper);
+        $(el).replaceWith(ms.container);
+
+        if (!cfg.selectionContainer) {
+          switch (cfg.selectionPosition) {
+            case "bottom":
+              ms.selectionContainer.insertAfter(ms.container);
+
+              if (cfg.selectionStacked === true) {
+                ms.selectionContainer.width(ms.container.width());
+                ms.selectionContainer.addClass("ms-stacked");
+              }
+
+              break;
+
+            case "right":
+              ms.selectionContainer.insertAfter(ms.container);
+              ms.container.css("float", "left");
+              break;
+
+            default:
+              ms.container.append(ms.selectionContainer);
+              break;
+          }
+        }
+
+        if (cfg.hideTrigger === false) {
+          ms.trigger = $("<div/>", {
+            "class": "ms-trigger",
+            html: '<div class="ms-trigger-ico"></div>'
+          });
+          ms.trigger.click($.proxy(handlers._onTriggerClick, this));
+          ms.container.append(ms.trigger);
+        }
+
+        $(window).resize($.proxy(handlers._onWindowResized, this));
+
+        if (cfg.value !== null || cfg.data !== null) {
+          if (typeof cfg.data === "string") {
+            self._asyncValues = cfg.value;
+
+            self._processSuggestions();
+          } else {
+            self._processSuggestions();
+
+            if (cfg.value !== null) {
+              ms.setValue(cfg.value);
+
+              self._renderSelection();
+            }
+          }
+        }
+
+        $("body").click(function (e) {
+          if (ms.container.hasClass("ms-ctn-focus") && ms.container.has(e.target).length === 0 && e.target.className.indexOf("ms-res-item") < 0 && e.target.className.indexOf("ms-close-btn") < 0 && ms.container[0] !== e.target) {
+            handlers._onBlur();
+          }
+        });
+
+        if (cfg.expanded === true) {
+          cfg.expanded = false;
+          ms.expand();
+        }
+      },
+      _renderComboItems: function _renderComboItems(items, isGrouped) {
+        var ref = this,
+            html = "";
+        $.each(items, function (index, value) {
+          var displayed = cfg.renderer !== null ? cfg.renderer.call(ref, value) : value[cfg.displayField];
+          var disabled = cfg.disabledField !== null && value[cfg.disabledField] === true;
+          var resultItemEl = $("<div/>", {
+            "class": "ms-res-item " + (isGrouped ? "ms-res-item-grouped " : "") + (disabled ? "ms-res-item-disabled " : "") + (index % 2 === 1 && cfg.useZebraStyle === true ? "ms-res-odd" : ""),
+            html: cfg.highlight === true ? self._highlightSuggestion(displayed) : displayed,
+            "data-json": JSON.stringify(value)
+          });
+          html += $("<div/>").append(resultItemEl).html();
+        });
+        ms.combobox.append(html);
+        _comboItemHeight = ms.combobox.find(".ms-res-item:first").outerHeight();
+      },
+      _renderSelection: function _renderSelection() {
+        var ref = this,
+            w = 0,
+            inputOffset = 0,
+            items = [],
+            asText = cfg.resultAsString === true && !_hasFocus;
+        ms.selectionContainer.find(".ms-sel-item").remove();
+
+        if (ms._valueContainer !== undefined) {
+          ms._valueContainer.remove();
+        }
+
+        $.each(_selection, function (index, value) {
+          var selectedItemEl,
+              delItemEl,
+              selectedItemHtml = cfg.selectionRenderer !== null ? cfg.selectionRenderer.call(ref, value) : value[cfg.displayField];
+          var validCls = self._validateSingleItem(value[cfg.displayField]) ? "" : " ms-sel-invalid";
+
+          if (asText === true) {
+            selectedItemEl = $("<div/>", {
+              "class": "ms-sel-item ms-sel-text " + cfg.selectionCls + validCls,
+              html: selectedItemHtml + (index === _selection.length - 1 ? "" : cfg.resultAsStringDelimiter)
+            }).data("json", value);
+          } else {
+            selectedItemEl = $("<div/>", {
+              "class": "ms-sel-item " + cfg.selectionCls + validCls,
+              html: selectedItemHtml
+            }).data("json", value);
+
+            if (cfg.disabled === false) {
+              delItemEl = $("<span/>", {
+                "class": "ms-close-btn"
+              }).data("json", value).appendTo(selectedItemEl);
+              delItemEl.click($.proxy(handlers._onTagTriggerClick, ref));
+            }
+          }
+
+          items.push(selectedItemEl);
+        });
+        ms.selectionContainer.prepend(items);
+        ms._valueContainer = $("<div/>", {
+          style: "display: none;"
+        });
+        $.each(ms.getValue(), function (i, val) {
+          var el = $("<input/>", {
+            type: "hidden",
+            name: cfg.name,
+            value: val
+          });
+          el.appendTo(ms._valueContainer);
+        });
+
+        ms._valueContainer.appendTo(ms.selectionContainer);
+
+        if (cfg.selectionPosition === "inner" && !cfg.selectionContainer) {
+          ms.input.width(0);
+          inputOffset = ms.input.offset().left - ms.selectionContainer.offset().left;
+          w = ms.container.width() - inputOffset - 42;
+          ms.input.width(w);
+        }
+
+        if (_selection.length === cfg.maxSelection) {
+          self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+        } else {
+          ms.helper.hide();
+        }
+      },
+      _selectItem: function _selectItem(item) {
+        if (cfg.maxSelection === 1) {
+          _selection = [];
+        }
+
+        ms.addToSelection(item.data("json"));
+        item.removeClass("ms-res-item-active");
+
+        if (cfg.expandOnFocus === false || _selection.length === cfg.maxSelection) {
+          ms.collapse();
+        }
+
+        if (!_hasFocus) {
+          ms.input.focus();
+        } else if (_hasFocus && (cfg.expandOnFocus || _ctrlDown)) {
+          self._processSuggestions();
+
+          if (_ctrlDown) {
+            ms.expand();
+          }
+        }
+      },
+      _sortAndTrim: function _sortAndTrim(data) {
+        var q = ms.getRawValue(),
+            filtered = [],
+            newSuggestions = [],
+            selectedValues = ms.getValue();
+
+        if (q.length > 0) {
+          $.each(data, function (index, obj) {
+            var name = obj[cfg.displayField];
+
+            if (cfg.matchCase === true && name.indexOf(q) > -1 || cfg.matchCase === false && name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+              if (cfg.strictSuggest === false || name.toLowerCase().indexOf(q.toLowerCase()) === 0) {
+                filtered.push(obj);
+              }
+            }
+          });
+        } else {
+          filtered = data;
+        }
+
+        $.each(filtered, function (index, obj) {
+          if (cfg.allowDuplicates || $.inArray(obj[cfg.valueField], selectedValues) === -1) {
+            newSuggestions.push(obj);
+          }
+        });
+
+        if (cfg.sortOrder !== null) {
+          newSuggestions.sort(function (a, b) {
+            if (a[cfg.sortOrder] < b[cfg.sortOrder]) {
+              return cfg.sortDir === "asc" ? -1 : 1;
+            }
+
+            if (a[cfg.sortOrder] > b[cfg.sortOrder]) {
+              return cfg.sortDir === "asc" ? 1 : -1;
+            }
+
+            return 0;
+          });
+        }
+
+        if (cfg.maxSuggestions && cfg.maxSuggestions > 0) {
+          newSuggestions = newSuggestions.slice(0, cfg.maxSuggestions);
+        }
+
+        return newSuggestions;
+      },
+      _group: function _group(data) {
+        if (cfg.groupBy !== null) {
+          _groups = {};
+          $.each(data, function (index, value) {
+            var props = cfg.groupBy.indexOf(".") > -1 ? cfg.groupBy.split(".") : cfg.groupBy;
+            var prop = value[cfg.groupBy];
+
+            if (typeof props != "string") {
+              prop = value;
+
+              while (props.length > 0) {
+                prop = prop[props.shift()];
+              }
+            }
+
+            if (_groups[prop] === undefined) {
+              _groups[prop] = {
+                title: prop,
+                items: [value]
+              };
+            } else {
+              _groups[prop].items.push(value);
+            }
+          });
+        }
+
+        return data;
+      },
+      _updateHelper: function _updateHelper(html) {
+        ms.helper.html(html);
+
+        if (!ms.helper.is(":visible")) {
+          ms.helper.fadeIn();
+        }
+      },
+      _validateSingleItem: function _validateSingleItem(value) {
+        if (cfg.vregex !== null && cfg.vregex instanceof RegExp) {
+          return cfg.vregex.test(value);
+        } else if (cfg.vtype !== null) {
+          switch (cfg.vtype) {
+            case "alpha":
+              return /^[a-zA-Z_]+$/.test(value);
+
+            case "alphanum":
+              return /^[a-zA-Z0-9_]+$/.test(value);
+
+            case "email":
+              return /^(\w+)([\-+.][\w]+)*@(\w[\-\w]*\.){1,5}([A-Za-z]){2,6}$/.test(value);
+
+            case "url":
+              return /(((^https?)|(^ftp)):\/\/([\-\w]+\.)+\w{2,3}(\/[%\-\w]+(\.\w{2,})?)*(([\w\-\.\?\\\/+@&#;`~=%!]*)(\.\w{2,})?)*\/?)/i.test(value);
+
+            case "ipaddress":
+              return /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(value);
+          }
+        }
+
+        return true;
+      }
+    };
+    var handlers = {
+      _onBlur: function _onBlur() {
+        ms.container.removeClass("ms-ctn-focus");
+        ms.collapse();
+        _hasFocus = false;
+
+        if (ms.getRawValue() !== "" && cfg.allowFreeEntries === true) {
+          var obj = {};
+          obj[cfg.displayField] = obj[cfg.valueField] = ms.getRawValue().trim();
+          ms.addToSelection(obj);
+        }
+
+        self._renderSelection();
+
+        if (ms.isValid() === false) {
+          ms.container.addClass(cfg.invalidCls);
+        } else if (ms.input.val() !== "" && cfg.allowFreeEntries === false) {
+          ms.empty();
+
+          self._updateHelper("");
+        }
+
+        $(ms).trigger("blur", [ms]);
+      },
+      _onComboItemMouseOver: function _onComboItemMouseOver(e) {
+        var target = $(e.currentTarget);
+
+        if (!target.hasClass("ms-res-item-disabled")) {
+          ms.combobox.children().removeClass("ms-res-item-active");
+          target.addClass("ms-res-item-active");
+        }
+      },
+      _onComboItemSelected: function _onComboItemSelected(e) {
+        var target = $(e.currentTarget);
+
+        if (!target.hasClass("ms-res-item-disabled")) {
+          self._selectItem($(e.currentTarget));
+        }
+      },
+      _onFocus: function _onFocus() {
+        ms.input.focus();
+      },
+      _onInputClick: function _onInputClick() {
+        if (ms.isDisabled() === false && _hasFocus) {
+          if (cfg.toggleOnClick === true) {
+            if (cfg.expanded) {
+              ms.collapse();
+            } else {
+              ms.expand();
+            }
+          }
+        }
+      },
+      _onInputFocus: function _onInputFocus() {
+        if (ms.isDisabled() === false && !_hasFocus) {
+          _hasFocus = true;
+          ms.container.addClass("ms-ctn-focus");
+          ms.container.removeClass(cfg.invalidCls);
+          var curLength = ms.getRawValue().length;
+
+          if (cfg.expandOnFocus === true) {
+            ms.expand();
+          }
+
+          if (_selection.length === cfg.maxSelection) {
+            self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+          } else if (curLength < cfg.minChars) {
+            self._updateHelper(cfg.minCharsRenderer.call(this, cfg.minChars - curLength));
+          }
+
+          self._renderSelection();
+
+          $(ms).trigger("focus", [ms]);
+        }
+      },
+      _onKeyDown: function _onKeyDown(e) {
+        var active = ms.combobox.find(".ms-res-item-active:not(.ms-res-item-disabled):first"),
+            freeInput = ms.input.val();
+        $(ms).trigger("keydown", [ms, e]);
+
+        if (e.keyCode === KEYCODES.TAB && (cfg.useTabKey === false || cfg.useTabKey === true && active.length === 0 && ms.input.val().length === 0)) {
+          handlers._onBlur();
+
+          return;
+        }
+
+        switch (e.keyCode) {
+          case KEYCODES.BACKSPACE:
+            if (freeInput.length === 0 && ms.getSelection().length > 0 && cfg.selectionPosition === "inner") {
+              _selection.pop();
+
+              self._renderSelection();
+
+              $(ms).trigger("selectionchange", [ms, ms.getSelection()]);
+              ms.input.attr("placeholder", cfg.selectionPosition === "inner" && ms.getValue().length > 0 ? "" : cfg.placeholder);
+              ms.input.focus();
+              e.preventDefault();
+            }
+
+            break;
+
+          case KEYCODES.TAB:
+          case KEYCODES.ESC:
+            e.preventDefault();
+            break;
+
+          case KEYCODES.ENTER:
+            if (freeInput !== "" || cfg.expanded) {
+              e.preventDefault();
+            }
+
+            break;
+
+          case KEYCODES.COMMA:
+            if (cfg.useCommaKey === true) {
+              e.preventDefault();
+            }
+
+            break;
+
+          case KEYCODES.CTRL:
+            _ctrlDown = true;
+            break;
+
+          case KEYCODES.DOWNARROW:
+            e.preventDefault();
+
+            self._moveSelectedRow("down");
+
+            break;
+
+          case KEYCODES.UPARROW:
+            e.preventDefault();
+
+            self._moveSelectedRow("up");
+
+            break;
+
+          default:
+            if (_selection.length === cfg.maxSelection) {
+              e.preventDefault();
+            }
+
+            break;
+        }
+      },
+      _onKeyUp: function _onKeyUp(e) {
+        var freeInput = ms.getRawValue(),
+            inputValid = $.trim(ms.input.val()).length > 0 && (!cfg.maxEntryLength || $.trim(ms.input.val()).length <= cfg.maxEntryLength),
+            selected,
+            obj = {};
+        $(ms).trigger("keyup", [ms, e]);
+        clearTimeout(_timer);
+
+        if (e.keyCode === KEYCODES.ESC && cfg.expanded) {
+          ms.combobox.hide();
+        }
+
+        if (e.keyCode === KEYCODES.TAB && cfg.useTabKey === false || e.keyCode > KEYCODES.ENTER && e.keyCode < KEYCODES.SPACE) {
+          if (e.keyCode === KEYCODES.CTRL) {
+            _ctrlDown = false;
+          }
+
+          return;
+        }
+
+        switch (e.keyCode) {
+          case KEYCODES.UPARROW:
+          case KEYCODES.DOWNARROW:
+            e.preventDefault();
+            break;
+
+          case KEYCODES.ENTER:
+          case KEYCODES.TAB:
+          case KEYCODES.COMMA:
+            if (e.keyCode !== KEYCODES.COMMA || cfg.useCommaKey === true) {
+              e.preventDefault();
+
+              if (cfg.expanded === true) {
+                selected = ms.combobox.find(".ms-res-item-active:not(.ms-res-item-disabled):first");
+
+                if (selected.length > 0) {
+                  self._selectItem(selected);
+
+                  return;
+                }
+              }
+
+              if (inputValid === true && cfg.allowFreeEntries === true) {
+                obj[cfg.displayField] = obj[cfg.valueField] = freeInput.trim();
+                ms.addToSelection(obj);
+                ms.collapse();
+                ms.input.focus();
+              }
+
+              break;
+            }
+
+          default:
+            if (_selection.length === cfg.maxSelection) {
+              self._updateHelper(cfg.maxSelectionRenderer.call(this, _selection.length));
+            } else {
+              if (freeInput.length < cfg.minChars) {
+                self._updateHelper(cfg.minCharsRenderer.call(this, cfg.minChars - freeInput.length));
+
+                if (cfg.expanded === true) {
+                  ms.collapse();
+                }
+              } else if (cfg.maxEntryLength && freeInput.length > cfg.maxEntryLength) {
+                self._updateHelper(cfg.maxEntryRenderer.call(this, freeInput.length - cfg.maxEntryLength));
+
+                if (cfg.expanded === true) {
+                  ms.collapse();
+                }
+              } else {
+                ms.helper.hide();
+
+                if (cfg.minChars <= freeInput.length) {
+                  _timer = setTimeout(function () {
+                    if (cfg.expanded === true) {
+                      self._processSuggestions();
+                    } else {
+                      ms.expand();
+                    }
+                  }, cfg.typeDelay);
+                }
+              }
+            }
+
+            break;
+        }
+      },
+      _onTagTriggerClick: function _onTagTriggerClick(e) {
+        ms.removeFromSelection($(e.currentTarget).data("json"));
+      },
+      _onTriggerClick: function _onTriggerClick() {
+        if (ms.isDisabled() === false && !(cfg.expandOnFocus === true && _selection.length === cfg.maxSelection)) {
+          $(ms).trigger("triggerclick", [ms]);
+
+          if (cfg.expanded === true) {
+            ms.collapse();
+          } else {
+            var curLength = ms.getRawValue().length;
+
+            if (curLength >= cfg.minChars) {
+              ms.input.focus();
+              ms.expand();
+            } else {
+              self._updateHelper(cfg.minCharsRenderer.call(this, cfg.minChars - curLength));
+            }
+          }
+        }
+      },
+      _onWindowResized: function _onWindowResized() {
+        self._renderSelection();
+      }
+    };
+
+    if (element !== null) {
+      self._render(element);
+    }
+  };
+
+  $.fn.magicSuggest = function (options) {
+    var obj = $(this);
+
+    if (obj.length === 1 && obj.data("magicSuggest")) {
+      return obj.data("magicSuggest");
+    }
+
+    obj.each(function (i) {
+      var cntr = $(this);
+
+      if (cntr.data("magicSuggest")) {
+        return;
+      }
+
+      if (this.nodeName.toLowerCase() === "select") {
+        options.data = [];
+        options.value = [];
+        $.each(this.children, function (index, child) {
+          if (child.nodeName && child.nodeName.toLowerCase() === "option") {
+            options.data.push({
+              id: child.value,
+              name: child.text
+            });
+
+            if ($(child).attr("selected")) {
+              options.value.push(child.value);
+            }
+          }
+        });
+      }
+
+      var def = {};
+      $.each(this.attributes, function (i, att) {
+        def[att.name] = att.name === "value" && att.value !== "" ? JSON.parse(att.value) : att.value;
+      });
+      var field = new MagicSuggest(this, $.extend([], $.fn.magicSuggest.defaults, options, def));
+      cntr.data("magicSuggest", field);
+      field.container.data("magicSuggest", field);
+    });
+
+    if (obj.length === 1) {
+      return obj.data("magicSuggest");
+    }
+
+    return obj;
+  };
+
+  $.fn.magicSuggest.defaults = {};
+})(jQuery);
+
+/***/ }),
+
 /***/ "./resources/assets/theme/dist/js/adminlte.min.js":
 /*!********************************************************!*\
   !*** ./resources/assets/theme/dist/js/adminlte.min.js ***!
@@ -41031,6 +42722,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 __webpack_require__(/*! ../assets/theme/plugins/bootstrap/js/bootstrap.bundle.min */ "./resources/assets/theme/plugins/bootstrap/js/bootstrap.bundle.min.js");
 
 __webpack_require__(/*! ../assets/theme/dist/js/adminlte.min */ "./resources/assets/theme/dist/js/adminlte.min.js");
+
+__webpack_require__(/*! ../assets/js/jquery.form.min */ "./resources/assets/js/jquery.form.min.js");
+
+__webpack_require__(/*! ../assets/plugins/magicsuggest/magicsuggest-min */ "./resources/assets/plugins/magicsuggest/magicsuggest-min.js");
 
 __webpack_require__(/*! ../assets/theme/plugins/datatables/jquery.dataTables.min */ "./resources/assets/theme/plugins/datatables/jquery.dataTables.min.js");
 

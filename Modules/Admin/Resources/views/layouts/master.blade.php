@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module Admin</title>
+@extends('layouts.master')
 
-       {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/admin.css') }}"> --}}
+@section('css')
+    <link href="{{ asset('admin/css/admin.css') }}" rel="stylesheet">
+    @yield('page_css')
+@endsection
 
-    </head>
-    <body>
-        @yield('content')
+@section('js')
+    <script src="{{ asset('admin/js/admin.js') }}"></script>
+    @yield('page_js')
+@endsection
 
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/admin.js') }}"></script> --}}
-    </body>
-</html>
+@section('content')
+    @include("admin::layouts.header")
+    @yield("page_content")
+@stop

@@ -12,33 +12,34 @@
 */
 
 
-//Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(function() {
+Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(function() {
 
-    Route::get('/admin/dashboard','AcademicController@dashboard')->name('admin.dashboard');
+    Route::prefix('academic')->group(function() {
 
-    Route::get('/academic/faculty', 'FacultyController@index')->name('faculty.list');
-    Route::post('/academic/faculty', 'FacultyController@index')->name('faculty.fetch');
-    Route::get('/academic/faculty/trash', 'FacultyController@trash')->name('faculty.list.trash');
-    Route::post('/academic/faculty/trash', 'FacultyController@trash')->name('faculty.list.trash');
-    Route::get('/academic/faculty/create', 'FacultyController@create')->name('faculty.add');
-    Route::post('/academic/faculty/create', 'FacultyController@store')->name('faculty.store');
-    Route::get('/academic/faculty/edit/{id}', 'FacultyController@edit')->name('faculty.edit');
-    Route::post('/academic/faculty/edit/{id}', 'FacultyController@update')->name('faculty.update');
-    Route::post('/academic/faculty/delete/{id}', 'FacultyController@destroy')->name('faculty.delete');
-    Route::post('/academic/faculty/restore/{id}', 'FacultyController@restore')->name('faculty.restore');
-    Route::post('/academic/faculty/searchData', 'FacultyController@searchData')->name('faculty.search.data');
+        Route::get('/faculty', 'FacultyController@index')->name('faculty.list');
+        Route::post('/faculty', 'FacultyController@index')->name('faculty.fetch');
+        Route::get('/faculty/trash', 'FacultyController@trash')->name('faculty.list.trash');
+        Route::post('/faculty/trash', 'FacultyController@trash')->name('faculty.list.trash');
+        Route::get('/faculty/create', 'FacultyController@create')->name('faculty.add');
+        Route::post('/faculty/create', 'FacultyController@store')->name('faculty.store');
+        Route::get('/faculty/edit/{id}', 'FacultyController@edit')->name('faculty.edit');
+        Route::post('/faculty/edit/{id}', 'FacultyController@update')->name('faculty.update');
+        Route::post('/faculty/delete/{id}', 'FacultyController@destroy')->name('faculty.delete');
+        Route::post('/faculty/restore/{id}', 'FacultyController@restore')->name('faculty.restore');
+        Route::post('/faculty/search_data', 'FacultyController@searchData')->name('faculty.search.data');
 
-    Route::get('/academic/department', 'DepartmentController@index')->name('department.list');
-    Route::post('/academic/department', 'DepartmentController@index')->name('department.fetch');
-    Route::get('/academic/department/trash', 'DepartmentController@trash')->name('department.list.trash');
-    Route::post('/academic/department/trash', 'DepartmentController@trash')->name('department.list.fetch');
-    Route::get('/academic/department/create', 'DepartmentController@create')->name('department.add');
-    Route::post('/academic/department/create', 'DepartmentController@store')->name('department.store');
-    Route::get('/academic/department/edit/{id}', 'DepartmentController@edit')->name('department.edit');
-    Route::post('/academic/department/edit/{id}', 'DepartmentController@update')->name('department.update');
-    Route::post('/academic/department/delete/{id}', 'DepartmentController@destroy')->name('department.delete');
-    Route::post('/academic/department/restore/{id}', 'DepartmentController@restore')->name('department.restore');
-    Route::post('/academic/department/searchData', 'DepartmentController@searchData')->name('department.search.data');
+        Route::get('/department', 'DepartmentController@index')->name('department.list');
+        Route::post('/department', 'DepartmentController@index')->name('department.fetch');
+        Route::get('/department/trash', 'DepartmentController@trash')->name('department.list.trash');
+        Route::post('/department/trash', 'DepartmentController@trash')->name('department.list.fetch');
+        Route::get('/department/create', 'DepartmentController@create')->name('department.add');
+        Route::post('/department/create', 'DepartmentController@store')->name('department.store');
+        Route::get('/department/edit/{id}', 'DepartmentController@edit')->name('department.edit');
+        Route::post('/department/edit/{id}', 'DepartmentController@update')->name('department.update');
+        Route::post('/department/delete/{id}', 'DepartmentController@destroy')->name('department.delete');
+        Route::post('/department/restore/{id}', 'DepartmentController@restore')->name('department.restore');
+        Route::post('/department/search_data', 'DepartmentController@searchData')->name('department.search.data');
 
-//});
+    });
+});
 

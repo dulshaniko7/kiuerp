@@ -50,6 +50,9 @@ class AdminSystemPermissionController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
+            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+
+            $this->repository->viewData->enableList = true;
             $this->repository->viewData->enableRestore = true;
             $this->repository->viewData->enableView= false;
             $this->repository->viewData->enableEdit = false;
@@ -58,11 +61,14 @@ class AdminSystemPermissionController extends Controller
         else
         {
             $query = $this->repository->model;
+
+            $this->repository->viewData->enableTrashList = true;
+            $this->repository->viewData->enableTrash = true;
         }
 
         $query->where("admin_perm_group_id", "=", $admin_perm_group_id);
 
-        return $this->repository->render("academic::layouts.master")->index($query);
+        return $this->repository->render("admin::layouts.master")->index($query);
     }
 
     /**
@@ -106,11 +112,17 @@ class AdminSystemPermissionController extends Controller
             "permission_status" => "required|digits:1",
         ], [], ["admin_perm_group_id" => "Group name", "permission_title" => "Permission title", "permission_action" => "Permission action"]);
 
-        $model->permission_key = $this->repository->generatePermissionHash($model->permission_action);
+        if($this->repository->isValidData)
+        {
+            $model->permission_key = $this->repository->generatePermissionHash($model->permission_action);
+            $response = $this->repository->saveModel($model);
+        }
+        else
+        {
+            $response = $model;
+        }
 
-        $dataResponse = $this->repository->saveModel($model);
-
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**
@@ -176,9 +188,15 @@ class AdminSystemPermissionController extends Controller
                 "permission_status" => "required|digits:1",
             ], [], ["admin_perm_group_id" => "Group name", "permission_title" => "Permission title", "permission_action" => "Permission action"]);
 
-            $model->permission_key = $this->repository->generatePermissionHash($model->permission_action);
-
-            $dataResponse = $this->repository->saveModel($model);
+            if($this->repository->isValidData)
+            {
+                $model->permission_key = $this->repository->generatePermissionHash($model->permission_action);
+                $response = $this->repository->saveModel($model);
+            }
+            else
+            {
+                $response = $model;
+            }
         }
         else
         {
@@ -186,10 +204,10 @@ class AdminSystemPermissionController extends Controller
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed. Requested record does not exist.";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**

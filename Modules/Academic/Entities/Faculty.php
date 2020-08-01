@@ -45,23 +45,7 @@ class Faculty extends Model
 
         //Use this code block to track activities regarding this model
         //Use this code block in every model you need to record
+        //This will record created_by, updated_by, deleted_by admins to, if you have set those fields in your model
         self::observe(AdminActivityObserver::class);
-
-        /*// Set field values of created_by and updated_by with current admin id
-        static::creating(function ($model) {
-            $model->created_by = auth("admin")->user()->admin_id;
-            $model->updated_by = auth("admin")->user()->admin_id;
-        });
-
-        // Update field updated_by with current admin id
-        static::saving(function ($model) {
-            $model->updated_by = auth("admin")->user()->admin_id;
-        });
-
-        static::deleting(function ($model) {
-            if (!$model->isForceDeleting()) {
-                $model->deleted_by = auth("admin")->user()->admin_id;
-            }
-        });*/
     }
 }

@@ -4,6 +4,7 @@ namespace Modules\Admin\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Admin\Observers\AdminActivityObserver;
 
 class SystemAccessIpRestriction extends Model
 {
@@ -12,4 +13,14 @@ class SystemAccessIpRestriction extends Model
     protected $fillable = [
         "ip_location", "ip_address", "ip_address_key", "description", "created_by", "updated_by", "deleted_by"
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        //Use this code block to track activities regarding this model
+        //Use this code block in every model you need to record
+        //This will record created_by, updated_by, deleted_by admins to, if you have set those fields in your model
+        self::observe(AdminActivityObserver::class);
+    }
 }

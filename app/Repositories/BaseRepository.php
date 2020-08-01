@@ -12,6 +12,7 @@ class BaseRepository
 
     private $pageUrls = [];
     private $pageTitle = "";
+    public $isValidData = false;
 
     public function __construct()
     {
@@ -106,8 +107,8 @@ class BaseRepository
             $notify["status"]="success";
             $notify["notify"][]="Successfully saved the details.";
 
-            $dataResponse["record"]=$model;
-            $dataResponse["notify"]=$notify;
+            $response["record"]=$model;
+            $response["notify"]=$notify;
         }
         else
         {
@@ -115,10 +116,10 @@ class BaseRepository
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $dataResponse;
+        return $response;
     }
 
     /**
@@ -134,10 +135,12 @@ class BaseRepository
 
         if ($postData->fails())
         {
-            return $this->handleValidationErrors($postData->errors());
+            $this->isValidData = false;
+            return $this->getValidationErrors($postData->errors());
         }
         else
         {
+            $this->isValidData = true;
             $data = $postData->validated();
         }
 
@@ -153,39 +156,45 @@ class BaseRepository
      * @param $errors
      * @return mixed
      */
-    public function handleValidationErrors($errors)
+    public function getValidationErrors($errors)
     {
         $errors = json_decode(json_encode($errors), true);
 
-        $response = array();
-        $response["status"]="failed";
-        $response["notify"]=[];
+        $validationResponse["status"]="failed";
 
-        foreach($errors as $error)
+        foreach($errors as $key => $error)
         {
-            $response["notify"][]=$error;
+            if(is_array($error) && count($error)>0)
+            {
+                foreach ($error as $err)
+                {
+                    $validationResponse["notify"][]=$err;
+                }
+            }
+            else
+            {
+                $validationResponse["notify"][]=$error;
+            }
         }
 
-        return BaseRepository::handleResponse($response);
+        $response["notify"]=$validationResponse;
+
+        return $response;
     }
 
     /**
-     * @param array $dataResponse
+     * @param array $response
      * @return mixed
-    */
-    public function handleResponse($dataResponse=[])
+     */
+    public function handleResponse($response)
     {
         if(request()->expectsJson())
         {
-            return response()->json($dataResponse, 201);
+            return response()->json($response, 201);
         }
         else
         {
-            if(isset($dataResponse["status"]))
-            {
-                request()->session()->flash("status", $dataResponse["status"]);
-            }
-            request()->session()->flash("notify", $dataResponse["notify"]);
+            request()->session()->flash("response", $response);
             return redirect()->back();
         }
     }

@@ -22,39 +22,6 @@ class AdminActivityObserver
         $this->recordActivity($model, $event, $oldData, $newData, $activity);
     }
 
-    /*
-    public function saved($model)
-    {
-        $primaryKey = $model->getKeyName();
-        $id = $model->getOriginal($primaryKey);
-
-        if(isset($id) && $id != "")
-        {
-            //this is a record update
-            $newData = $model->getChanges();
-
-            $oldData = [];
-            foreach($newData as $key => $value)
-            {
-                $oldData[$key] = $model->getOriginal($key);
-            }
-
-            $event = "updated";
-            $activity = "Updated a record.";
-        }
-        else
-        {
-            //this is a new record
-            $newData = $model->toArray();
-            $oldData = [];
-
-            $event = "created";
-            $activity = "Created a new record.";
-        }
-
-        $this->recordActivity($model, $event, $oldData, $newData, $activity);
-    }*/
-
     /**
      * Listen to the deleting event.
      *
@@ -72,10 +39,18 @@ class AdminActivityObserver
             $oldData[$key] = $model->getOriginal($key);
         }
 
-        $event = "updated";
-        $activity = "Updated a record.";
+        if(array_key_exists("deleted_at", $newData))
+        {
+            //this means this event was triggered due to restoration of the record
+            //this is update event is not triggered by a user, but automated in laravel
+        }
+        else
+        {
+            $event = "updated";
+            $activity = "Updated a record.";
 
-        $this->recordActivity($model, $event, $oldData, $newData, $activity);
+            $this->recordActivity($model, $event, $oldData, $newData, $activity);
+        }
     }
 
     /**
@@ -88,7 +63,7 @@ class AdminActivityObserver
     {
         //this is a record update
         $newData = [];
-        $oldData = $model->toArray();
+        $oldData = [];
 
         //determine if this is a soft delete or force delete
         if (method_exists($model, "forceDelete"))
@@ -102,6 +77,17 @@ class AdminActivityObserver
             $activity = "Permanently deleted a record.";
         }
 
+        if(array_key_exists("deleted_by", $model->getAttributes()))
+        {
+            if ($model->trashed())
+            {
+                $columns = ["deleted_by" => auth("admin")->user()->admin_id];
+                $query = $model->newQueryWithoutScopes()->where($model->getKeyName(), $model->getKey());
+
+                $query->update($columns);
+            }
+        }
+
         $this->recordActivity($model, $event, $oldData, $newData, $activity);
     }
 
@@ -113,12 +99,20 @@ class AdminActivityObserver
      */
     public function restored($model)
     {
-        //this is a record update
+        //this is a record restore
         $newData = [];
-        $oldData = $model->toArray();
+        $oldData = [];
 
         $event = "restored";
-        $activity = "Deleted a record.";
+        $activity = "Restored a record.";
+
+        if(array_key_exists("deleted_by", $model->getAttributes()))
+        {
+            $columns = ["deleted_by" => null];
+            $query = $model->newQueryWithoutScopes()->where($model->getKeyName(), $model->getKey());
+
+            $query->update($columns);
+        }
 
         $this->recordActivity($model, $event, $oldData, $newData, $activity);
     }
@@ -139,6 +133,34 @@ class AdminActivityObserver
         $activity = "Permanently deleted a record.";
 
         $this->recordActivity($model, $event, $oldData, $newData, $activity);
+    }
+
+    /**
+     * Listen to the creating event.
+     *
+     * @param $model
+     * @return void
+     */
+    public function creating($model)
+    {
+        if(property_exists($model, "created_by"))
+        {
+            $model->created_by = auth("admin")->user()->admin_id;
+        }
+    }
+
+    /**
+     * Listen to the updating event.
+     *
+     * @param $model
+     * @return void
+     */
+    public function updating($model)
+    {
+        if(property_exists($model, "updated_by"))
+        {
+            $model->created_by = auth("admin")->user()->admin_id;
+        }
     }
 
     /**
