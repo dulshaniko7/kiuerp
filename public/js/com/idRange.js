@@ -10,7 +10,7 @@ $("#course_id").change(function () {
                 let value = (response.end[0].end)
                 value++;
 
-                $('#start').val(value);
+                $('#start').val(value)
 
             }
         })
