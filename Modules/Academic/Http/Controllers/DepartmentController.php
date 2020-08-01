@@ -32,9 +32,6 @@ class DepartmentController extends Controller
         $this->repository->setPageTitle("Departments");
 
         $this->repository->initDatatable(new Department());
-        $this->repository->setTableTitle("Departments");
-
-        $this->repository->enableViewData("export");
 
         $this->repository->setColumns("id", "dept_name", "dept_code", "faculty", "dept_status", "created_at")
             ->setColumnLabel("dept_code", "Code")
@@ -59,20 +56,16 @@ class DepartmentController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
-
-            $this->repository->viewData->enableList = true;
-            $this->repository->viewData->enableRestore = true;
-            $this->repository->viewData->enableView= false;
-            $this->repository->viewData->enableEdit = false;
-            $this->repository->viewData->enableDelete = false;
+            $this->repository->setTableTitle("Departments | Trashed")
+                ->enableViewData("list", "restore", "export")
+                ->disableViewData("view", "edit", "delete");
         }
         else
         {
             $query = $this->repository->model;
 
-            $this->repository->viewData->enableTrashList = true;
-            $this->repository->viewData->enableTrash = true;
+            $this->repository->setTableTitle("Departments")
+                ->enableViewData("trashList", "trash", "export");
         }
 
         $query = $query->with(["faculty"]);

@@ -32,10 +32,6 @@ class FacultyController extends Controller
 
         $this->repository->initDatatable(new Faculty());
 
-        $this->repository->viewData->tableTitle = "Faculties";
-
-        $this->repository->viewData->enableExport = true;
-
         $statusParams = [];
         $statusParams[]=[["id" =>"1", "name" =>"Enabled", "label" => "success"], ["id" =>"0", "name" =>"Disabled", "label" => "danger"]];
 
@@ -55,20 +51,16 @@ class FacultyController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
-
-            $this->repository->viewData->enableList = true;
-            $this->repository->viewData->enableRestore = true;
-            $this->repository->viewData->enableView= false;
-            $this->repository->viewData->enableEdit = false;
-            $this->repository->viewData->enableDelete = false;
+            $this->repository->setTableTitle("Faculties | Trashed")
+                ->enableViewData("list", "restore", "export")
+                ->disableViewData("view", "edit", "delete");
         }
         else
         {
             $query = $this->repository->model;
 
-            $this->repository->viewData->enableTrashList = true;
-            $this->repository->viewData->enableTrash = true;
+            $this->repository->setTableTitle("Faculties")
+                ->enableViewData("trashList", "trash", "export");
         }
 
         $query = $query->with([]);

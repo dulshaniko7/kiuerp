@@ -773,8 +773,6 @@ trait Datatable
             //get each argument passed
             $action=func_get_arg($i);
 
-            $action = strtolower($action);
-
             $property = "enable".ucfirst($action);
             $this->viewData->$property = true;
         }
@@ -796,8 +794,6 @@ trait Datatable
             //get each argument passed
             $action=func_get_arg($i);
 
-            $action = strtolower($action);
-
             $property = "enable".ucfirst($action);
             $this->viewData->$property = false;
         }
@@ -812,7 +808,7 @@ trait Datatable
      */
     public function setUrl($action, $url="")
     {
-        $property = strtolower($action)."Url";
+        $property = $action."Url";
 
         $this->viewData->$property = $url;
 
@@ -826,7 +822,7 @@ trait Datatable
      */
     public function setUrlLabel($action, $label="")
     {
-        $property = strtolower($action)."UrlLabel";
+        $property = $action."UrlLabel";
 
         $this->viewData->$property = $label;
 
@@ -840,7 +836,7 @@ trait Datatable
      */
     public function setUrlIcon($action, $icon="")
     {
-        $property = strtolower($action)."UrlIcon";
+        $property = $action."UrlIcon";
 
         $this->viewData->$property = $icon;
 

@@ -30,9 +30,6 @@ class AdminPermissionSystemController extends Controller
         $this->repository->setPageTitle("Admin Permission Systems");
 
         $this->repository->initDatatable(new AdminPermissionSystem());
-        $this->repository->viewData->tableTitle = "Admin Permission Systems";
-
-        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "system_name", "system_slug", "modules", "system_status", "created_at")
             ->setColumnLabel("system_slug", "System Short Code")
@@ -54,20 +51,16 @@ class AdminPermissionSystemController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
-
-            $this->repository->viewData->enableList = true;
-            $this->repository->viewData->enableRestore = true;
-            $this->repository->viewData->enableView= false;
-            $this->repository->viewData->enableEdit = false;
-            $this->repository->viewData->enableDelete = false;
+            $this->repository->setTableTitle("Admin Permission Systems | Trashed")
+                ->enableViewData("list", "restore", "export")
+                ->disableViewData("view", "edit", "delete");
         }
         else
         {
             $query = $this->repository->model;
 
-            $this->repository->viewData->enableTrashList = true;
-            $this->repository->viewData->enableTrash = true;
+            $this->repository->setTableTitle("Admin Permission Systems")
+                ->enableViewData("trashList", "trash", "export");
         }
 
         $query = $query->with([]);
