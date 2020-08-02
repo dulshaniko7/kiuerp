@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Modules\Admin\Entities\AdminPermissionSystem;
 use Modules\Admin\Repositories\AdminPermissionSystemRepository;
@@ -33,6 +34,7 @@ class AdminPermissionSystemController extends Controller
 
         $this->repository->setColumns("id", "system_name", "system_slug", "modules", "system_status", "created_at")
             ->setColumnLabel("system_slug", "System Short Code")
+            ->setColumnLabel("modules", "Permission Modules")
             ->setColumnLabel("system_status", "Status")
             ->setColumnDisplay("system_status", array($this->repository, 'display_status_as'))
             ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
@@ -63,8 +65,6 @@ class AdminPermissionSystemController extends Controller
                 ->enableViewData("trashList", "trash", "export");
         }
 
-        $query = $query->with([]);
-
         return $this->repository->render("admin::layouts.master")->index($query);
     }
 
@@ -84,13 +84,18 @@ class AdminPermissionSystemController extends Controller
      */
     public function create()
     {
+        $this->repository->setPageTitle("Admin Permission Systems | Add New");
+
         $model = new AdminPermissionSystem();
         $record = $model;
 
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record'));
+        $urls = [];
+        $urls["listUrl"]=URL::to("/admin/admin_permission_system");
+
+        return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
     }
 
     /**
@@ -127,13 +132,19 @@ class AdminPermissionSystemController extends Controller
      */
     public function show($id)
     {
+        $this->repository->setPageTitle("Admin Permission Systems | View");
+
         $model = AdminPermissionSystem::find($id);
 
         if($model)
         {
             $record = $model;
 
-            return view('admin::admin_perm_system.view', compact('data', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin_permission_system/create");
+            $urls["listUrl"]=URL::to("/admin/admin_permission_system");
+
+            return view('admin::admin_perm_system.view', compact('data', 'record', 'urls'));
         }
         else
         {
@@ -148,6 +159,8 @@ class AdminPermissionSystemController extends Controller
      */
     public function edit($id)
     {
+        $this->repository->setPageTitle("Admin Permission Systems | Edit");
+
         $model = AdminPermissionSystem::find($id);
 
         //dd(get_class($model));
@@ -158,7 +171,11 @@ class AdminPermissionSystemController extends Controller
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin_permission_system/create");
+            $urls["listUrl"]=URL::to("/admin/admin_permission_system");
+
+            return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
         }
         else
         {
@@ -206,11 +223,11 @@ class AdminPermissionSystemController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $model = AdminPermissionSystem::find($id);
 
@@ -246,7 +263,7 @@ class AdminPermissionSystemController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Restore record
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
@@ -286,7 +303,7 @@ class AdminPermissionSystemController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Search records
      * @param Request $request
      * @return JsonResponse
      */

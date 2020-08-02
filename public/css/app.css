@@ -295,7 +295,7 @@ table.dataTable .dataTables_empty {
 }
 
 .header-title {
-    font-size: 22px !important;
+    font-size: 18px !important;
 }
 
 .card-header {
@@ -306,6 +306,10 @@ table.dataTable .dataTables_empty {
 
 .adv-table {
     padding: 5px;
+}
+
+.module-nav-bar, .module-nav-bar a {
+    font-size: 16px;
 }
 .ms-ctn {
   position: relative;

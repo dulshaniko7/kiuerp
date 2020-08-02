@@ -15,6 +15,8 @@ class AdminRole extends Model
 
     protected $fillable = ['role_name', 'description', 'allowed_roles', 'role_status', 'disabled_reason', 'created_by', 'updated_by', 'deleted_by'];
 
+    protected $with = [];
+
     protected $casts = ["allowed_roles" => "array"];
 
     protected $appends = ["id", "allowed_roles_data"];

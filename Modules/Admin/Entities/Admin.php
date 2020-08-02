@@ -40,6 +40,13 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Setting up this field as an empty array, otherwise it will retrieve ORM relations every time
+     *
+     * @var array
+     */
+    protected $with = [];
+
     protected $appends = ["id"];
 
     //protected $appends = ["id", "admin_image_url", "admin_role"];

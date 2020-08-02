@@ -29,17 +29,25 @@
                                     <?php
                                     if($formMode=="edit")
                                     {
+                                        if(isset($urls["addUrl"]))
+                                        {
+                                            ?>
+                                            <a href="{{$urls["addUrl"]}}">
+                                                <div class="btn btn-info btn-sm"><span class="fa fa-plus"></span> Add New</div>
+                                            </a>
+                                            <?php
+                                        }
+                                    }
+
+                                    if(isset($urls["listUrl"]))
+                                    {
                                         ?>
-                                        <a href="/admin/admin_permission_system/create">
-                                            <div class="btn btn-info btn-sm"><span class="fa fa-plus"></span> Add New</div>
+                                        <a href="{{$urls["listUrl"]}}">
+                                            <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Permission Systems</div>
                                         </a>
                                         <?php
                                     }
                                     ?>
-
-                                    <a href="/admin/admin_permission_system">
-                                        <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Faculties</div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +147,7 @@
             let system_name=form.system_name.value;
             let system_slug=form.system_slug.value;
 
-            errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occured while submitting the form</strong><br/>");
+            errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occurred while submitting the form</strong><br/>");
 
             if(system_name === "")
             {

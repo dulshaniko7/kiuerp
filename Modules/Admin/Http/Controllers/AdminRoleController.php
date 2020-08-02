@@ -2,8 +2,11 @@
 
 namespace Modules\Admin\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\URL;
+use Illuminate\View\View;
 use Modules\Admin\Entities\AdminRole;
 use Modules\Admin\Repositories\AdminRoleRepository;
 
@@ -23,10 +26,10 @@ class AdminRoleController extends Controller
      */
     public function index()
     {
-        $this->repository->setPageTitle("Admin Roles");
+        $this->repository->setPageTitle("Administrator Roles");
 
         $this->repository->initDatatable(new AdminRole());
-        $this->repository->viewData->tableTitle = "Admin Roles";
+        $this->repository->viewData->tableTitle = "Administrator Roles";
 
         $this->repository->viewData->enableExport = true;
 
@@ -46,23 +49,17 @@ class AdminRoleController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
-
-            $this->repository->viewData->enableList = true;
-            $this->repository->viewData->enableRestore = true;
-            $this->repository->viewData->enableView= false;
-            $this->repository->viewData->enableEdit = false;
-            $this->repository->viewData->enableDelete = false;
+            $this->repository->setTableTitle("Administrator Roles | Trashed")
+                ->enableViewData("list", "restore", "export")
+                ->disableViewData("view", "edit", "delete");
         }
         else
         {
             $query = $this->repository->model;
 
-            $this->repository->viewData->enableTrashList = true;
-            $this->repository->viewData->enableTrash = true;
+            $this->repository->setTableTitle("Administrator Roles")
+                ->enableViewData("trashList", "trash", "export");
         }
-
-        $query = $query->with([]);
 
         return $this->repository->render("admin::layouts.master")->index($query);
     }
@@ -86,7 +83,10 @@ class AdminRoleController extends Controller
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl'));
+        $urls = [];
+        $urls["listUrl"]=URL::to("/admin/admin_role");
+
+        return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'urls'));
     }
 
     /**
@@ -122,7 +122,11 @@ class AdminRoleController extends Controller
         {
             $record = $model;
 
-            return view('admin::admin_role.view', compact('data', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin_role/create");
+            $urls["listUrl"]=URL::to("/admin/admin_role");
+
+            return view('admin::admin_role.view', compact('data', 'record', 'urls'));
         }
         else
         {
@@ -147,7 +151,11 @@ class AdminRoleController extends Controller
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin_role/create");
+            $urls["listUrl"]=URL::to("/admin/admin_role");
+
+            return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
         }
         else
         {
@@ -195,11 +203,11 @@ class AdminRoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $model = AdminRole::find($id);
 
@@ -235,7 +243,7 @@ class AdminRoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
@@ -275,7 +283,7 @@ class AdminRoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param Request $request
      * @return JsonResponse
      */

@@ -8,6 +8,8 @@ class AdminPermissionHistory extends Model
 {
     protected $fillable = ["admin_id", "admin_perm_system_id", "remarks", "invoked_permissions", "revoked_permissions", "updated_by"];
 
+    protected $with = [];
+
     const UPDATED_AT = null;
 
     protected $casts = [

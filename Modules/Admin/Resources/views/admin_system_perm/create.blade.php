@@ -1,7 +1,7 @@
-@extends('academic::layouts.master')
+@extends('admin::layouts.master')
 
 @section('page_content')
-    <form class="form-label-left input_mask" action="javascript:;" id="create_form">
+    <form action="javascript:;" id="create_form">
         @csrf
         <div class="row">
             <div class="col-md-12">
@@ -13,13 +13,13 @@
                                 if($formMode == "add")
                                 {
                                     ?>
-                                    <h4 class="header-title">Add New Faculty</h4>
+                                    <h4 class="header-title">Add New Group Permission</h4>
                                     <?php
                                 }
                                 else
                                 {
                                     ?>
-                                    <h4 class="header-title">Edit Faculty</h4>
+                                    <h4 class="header-title">Edit Group Permission</h4>
                                     <?php
                                 }
                                 ?>
@@ -43,7 +43,7 @@
                                     {
                                         ?>
                                         <a href="{{$urls["listUrl"]}}">
-                                            <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Faculties</div>
+                                            <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Group Permissions</div>
                                         </a>
                                         <?php
                                     }
@@ -54,32 +54,87 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Faculty Name</label>
+                                    <label>Permission System</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="faculty_name" placeholder="Faculty Name" value="<?php echo $record["faculty_name"]; ?>">
+                                    <input type="text" class="form-control" value="<?php echo $record["permissionSystem"]["system_name"]; ?>" readonly>
                                 </div>
                             </div>
 
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>Permission Module</label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" value="<?php echo $record["permissionModule"]["module_name"]; ?>" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Permission Group</label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" value="<?php echo $record["permissionGroup"]["group_name"]; ?>" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Permission Title</label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" name="permission_title" placeholder="Permission Title" value="<?php echo $record["permission_title"]; ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Permission Action</label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" name="permission_action" placeholder="Permission Action" value="<?php echo $record["permission_action"]; ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Remarks</label>
+                                    <hr class="mt-1 mb-2">
+                                    <textarea class="form-control" name="remarks" placeholder="Remarks"><?php echo $record["remarks"]; ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
                             <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Faculty Colour Code</label>
-                                    <hr class="mt-1 mb-2">
-                                    <div id="component-colorpicker" class="input-group">
-                                        <input type="text" class="form-control" name="color_code" placeholder="#ff0000" value="<?php echo $record["color_code"]; ?>">
-                                        <span class="input-group-append">
-                                            <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                                        </span>
-                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-3">
+                                    <label>Enable/Disable Permission Group<span
+                                            class="text-danger">*</span></label>
+                                    <select name="permission_status" class="form-control">
+                                        <option value="1" <?php if ($record["permission_status"] == "1") { ?> selected="selected" <?php } ?>>
+                                            Enable
+                                        </option>
+                                        <option value="0" <?php if ($record["permission_status"] == "0") { ?> selected="selected" <?php } ?>>
+                                            Disable
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="form-group" style="margin-top: 30px;">
                                     <button type="submit" class="btn btn-success btn-add-row">Save</button>
-                                    <button class="btn btn-dark" type="reset">Reset</button>
                                 </div>
+                            </div>
+                            <div class="col-md-3">
                             </div>
                         </div>
                     </div>
@@ -92,23 +147,7 @@
         window.onload = function()
         {
             submitCreateForm();
-
-            $("#component-colorpicker").colorpicker({format:"auto"});
         };
-
-        function isValidColor(color_code)
-        {
-            if (/^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(color_code))
-            {
-                return true;
-            }
-            else if(/^rgb\s*(\s*[012]?[0-9]{1,2}\s*,\s*[012]?[0-9]{1,2}\s*,\s*[012]?[0-9]{1,2}\s*)$/i.test(color_code))
-            {
-                return true;
-            }
-
-            return false;
-        }
 
         function submitCreateForm()
         {
@@ -129,21 +168,21 @@
             let errors=0;
             let errorText=[];
 
-            let faculty_name=form.faculty_name.value;
-            let color_code=form.color_code.value;
+            let permission_title=form.permission_title.value;
+            let permission_action=form.permission_action.value;
 
             errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occurred while submitting the form</strong><br/>");
 
-            if(faculty_name == "")
+            if(permission_title === "")
             {
                 errors++;
-                errorText.push('Faculty Name Required.');
+                errorText.push('Permission Title Required.');
             }
 
-            if(!isValidColor(color_code))
+            if(permission_action === "")
             {
                 errors++;
-                errorText.push('Valid Color Code Required.');
+                errorText.push('Permission Action Required.');
             }
 
             if(errors > 0)
@@ -208,9 +247,7 @@
 @endsection
 
 @section('page_css')
-    <link href="{{ asset('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('page_js')
-    <script src="{{ asset('assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
 @endsection

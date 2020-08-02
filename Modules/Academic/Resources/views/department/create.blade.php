@@ -27,19 +27,27 @@
                             <div class="col-sm-6">
                                 <div class="float-right">
                                     <?php
-                                        if($formMode=="edit")
+                                    if($formMode=="edit")
+                                    {
+                                        if(isset($urls["addUrl"]))
                                         {
                                             ?>
-                                            <a href="/academic/department/create">
+                                            <a href="{{$urls["addUrl"]}}">
                                                 <div class="btn btn-info btn-sm"><span class="fa fa-plus"></span> Add New</div>
                                             </a>
                                             <?php
                                         }
-                                    ?>
+                                    }
 
-                                    <a href="/academic/department">
-                                        <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Departments</div>
-                                    </a>
+                                    if(isset($urls["listUrl"]))
+                                    {
+                                        ?>
+                                        <a href="{{$urls["listUrl"]}}">
+                                            <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Departments</div>
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +166,7 @@
             let dept_name=form.dept_name.value;
             let color_code=form.color_code.value;
 
-            errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occured while submitting the form</strong><br/>");
+            errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occurred while submitting the form</strong><br/>");
 
             if(faculty_id_ms.getValue() == "")
             {

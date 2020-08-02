@@ -14,6 +14,8 @@ class AdminPermissionSystem extends Model
         "system_name", "system_slug", "system_status", "remarks", "created_by", "updated_by", "deleted_by"
     ];
 
+    protected $with = [];
+
     protected $primaryKey = "admin_perm_system_id";
 
     protected $casts = [
@@ -23,8 +25,6 @@ class AdminPermissionSystem extends Model
     ];
 
     protected $appends = ["id", "name"];
-
-    protected $with = [];
 
     public function getIdAttribute()
     {

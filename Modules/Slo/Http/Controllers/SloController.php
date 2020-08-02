@@ -69,11 +69,11 @@ class SloController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         //
     }

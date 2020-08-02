@@ -9,6 +9,8 @@ class IpRestrictionRevokedAdmin extends Model
 {
     protected $fillable = ["admin_id", "remarks", "created_by"];
 
+    protected $with = [];
+
     const UPDATED_AT = null;
 
     public static function boot()

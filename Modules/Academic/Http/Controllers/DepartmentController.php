@@ -95,7 +95,10 @@ class DepartmentController extends Controller
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('academic::department.create', compact('formMode', 'formSubmitUrl', 'record'));
+        $urls = [];
+        $urls["listUrl"]=URL::to("/academic/department");
+
+        return view('academic::department.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
     }
 
     /**
@@ -141,7 +144,11 @@ class DepartmentController extends Controller
         {
             $record = $model;
 
-            return view('academic::department.view', compact('data', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/academic/department/create");
+            $urls["listUrl"]=URL::to("/academic/department");
+
+            return view('academic::department.view', compact('data', 'record', 'urls'));
         }
         else
         {
@@ -164,7 +171,11 @@ class DepartmentController extends Controller
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('academic::department.create', compact('formMode', 'formSubmitUrl', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/academic/department/create");
+            $urls["listUrl"]=URL::to("/academic/department");
+
+            return view('academic::department.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
         }
         else
         {
@@ -211,11 +222,11 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $model = Department::find($id);
 
@@ -251,7 +262,7 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Restore record
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
@@ -291,7 +302,7 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Search records
      * @param Request $request
      * @return JsonResponse
      */

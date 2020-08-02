@@ -14,6 +14,8 @@ class SystemAccessIpRestriction extends Model
         "ip_location", "ip_address", "ip_address_key", "description", "created_by", "updated_by", "deleted_by"
     ];
 
+    protected $with = [];
+
     public static function boot()
     {
         parent::boot();

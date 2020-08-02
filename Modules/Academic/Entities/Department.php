@@ -12,6 +12,8 @@ class Department extends Model
 
     protected $fillable = ["faculty_id", "dept_code", "dept_name", "color_code", "dept_status", "created_by", "updated_by", "deleted_by"];
 
+    protected $with = [];
+
     protected $primaryKey = "dept_id";
 
     protected $casts = [
@@ -21,8 +23,6 @@ class Department extends Model
     ];
 
     protected $appends = ["id", "name"];
-
-    protected $with = [];
 
     public function getIdAttribute()
     {

@@ -45,7 +45,7 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::get('/admin/view/{id}','AdminController@show')->name('admin.view');
         Route::get('/admin/edit/{id}','AdminController@edit')->name('admin.edit');
         Route::post('/admin/edit/{id}','AdminController@update')->name('admin.update');
-        Route::post('/admin/delete/{id}','AdminController@destroy')->name('admin.delete');
+        Route::post('/admin/delete/{id}','AdminController@delete')->name('admin.delete');
         Route::post('/admin/restore/{id}','AdminController@restore')->name('admin.restore');
         Route::post('/admin/search_data','AdminController@searchData')->name('admin.search.data');
 
@@ -58,7 +58,7 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::get('/admin_role/view/{id}','AdminRoleController@show')->name('admin_role.view');
         Route::get('/admin_role/edit/{id}','AdminRoleController@edit')->name('admin_role.edit');
         Route::post('/admin_role/edit/{id}','AdminRoleController@update')->name('admin_role.update');
-        Route::post('/admin_role/delete/{id}','AdminRoleController@destroy')->name('admin_role.delete');
+        Route::post('/admin_role/delete/{id}','AdminRoleController@delete')->name('admin_role.delete');
         Route::post('/admin_role/restore/{id}','AdminRoleController@restore')->name('admin_role.restore');
         Route::post('/admin_role/search_data','AdminRoleController@searchData')->name('admin_role.search.data');
 
@@ -71,7 +71,7 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::get('/admin_permission_system/view/{id}','AdminPermissionSystemController@show')->name('admin_permission_system.view');
         Route::get('/admin_permission_system/edit/{id}','AdminPermissionSystemController@edit')->name('admin_permission_system.edit');
         Route::post('/admin_permission_system/edit/{id}','AdminPermissionSystemController@update')->name('admin_permission_system.update');
-        Route::post('/admin_permission_system/delete/{id}','AdminPermissionSystemController@destroy')->name('admin_permission_system.delete');
+        Route::post('/admin_permission_system/delete/{id}','AdminPermissionSystemController@delete')->name('admin_permission_system.delete');
         Route::post('/admin_permission_system/restore/{id}','AdminPermissionSystemController@restore')->name('admin_permission_system.restore');
         Route::post('/admin_permission_system/search_data','AdminPermissionSystemController@searchData')->name('admin_permission_system.search.data');
 
@@ -79,38 +79,38 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/admin_permission_module/{admin_perm_system_id}','AdminPermissionModuleController@index')->name('admin_permission_module.fetch');
         Route::get('/admin_permission_module/trash/{admin_perm_system_id}', 'AdminPermissionModuleController@trash')->name('admin_permission_module.list.trash');
         Route::post('/admin_permission_module/trash/{admin_perm_system_id}', 'AdminPermissionModuleController@trash')->name('admin_permission_module.list.trash');
-        Route::get('/admin_permission_module/create','AdminPermissionModuleController@create')->name('admin_permission_module.create');
-        Route::post('/admin_permission_module/create','AdminPermissionModuleController@store')->name('admin_permission_module.store');
+        Route::get('/admin_permission_module/create/{admin_perm_system_id}','AdminPermissionModuleController@create')->name('admin_permission_module.create');
+        Route::post('/admin_permission_module/create/{admin_perm_system_id}','AdminPermissionModuleController@store')->name('admin_permission_module.store');
         Route::get('/admin_permission_module/view/{id}','AdminPermissionModuleController@show')->name('admin_permission_module.view');
         Route::get('/admin_permission_module/edit/{id}','AdminPermissionModuleController@edit')->name('admin_permission_module.edit');
         Route::post('/admin_permission_module/edit/{id}','AdminPermissionModuleController@update')->name('admin_permission_module.update');
-        Route::post('/admin_permission_module/delete/{id}','AdminPermissionModuleController@destroy')->name('admin_permission_module.delete');
+        Route::post('/admin_permission_module/delete/{id}','AdminPermissionModuleController@delete')->name('admin_permission_module.delete');
         Route::post('/admin_permission_module/restore/{id}','AdminPermissionModuleController@restore')->name('admin_permission_module.restore');
         Route::post('/admin_permission_module/search_data','AdminPermissionModuleController@searchData')->name('admin_permission_module.search.data');
 
-        Route::get('/admin_permission_group','AdminPermissionGroupController@index')->name('admin_permission_group.index');
-        Route::post('/admin_permission_group','AdminPermissionGroupController@index')->name('admin_permission_group.fetch');
-        Route::get('/admin_permission_group/trash', 'AdminPermissionGroupController@trash')->name('admin_permission_group.list.trash');
-        Route::post('/admin_permission_group/trash', 'AdminPermissionGroupController@trash')->name('admin_permission_group.list.trash');
-        Route::get('/admin_permission_group/create','AdminPermissionGroupController@create')->name('admin_permission_group.create');
-        Route::post('/admin_permission_group/create','AdminPermissionGroupController@store')->name('admin_permission_group.store');
+        Route::get('/admin_permission_group/{admin_perm_module_id}','AdminPermissionGroupController@index')->name('admin_permission_group.index');
+        Route::post('/admin_permission_group/{admin_perm_module_id}','AdminPermissionGroupController@index')->name('admin_permission_group.fetch');
+        Route::get('/admin_permission_group/trash/{admin_perm_module_id}', 'AdminPermissionGroupController@trash')->name('admin_permission_group.list.trash');
+        Route::post('/admin_permission_group/trash/{admin_perm_module_id}', 'AdminPermissionGroupController@trash')->name('admin_permission_group.list.trash');
+        Route::get('/admin_permission_group/create/{admin_perm_module_id}','AdminPermissionGroupController@create')->name('admin_permission_group.create');
+        Route::post('/admin_permission_group/create/{admin_perm_module_id}','AdminPermissionGroupController@store')->name('admin_permission_group.store');
         Route::get('/admin_permission_group/view/{id}','AdminPermissionGroupController@show')->name('admin_permission_group.view');
         Route::get('/admin_permission_group/edit/{id}','AdminPermissionGroupController@edit')->name('admin_permission_group.edit');
         Route::post('/admin_permission_group/edit/{id}','AdminPermissionGroupController@update')->name('admin_permission_group.update');
-        Route::post('/admin_permission_group/delete/{id}','AdminPermissionGroupController@destroy')->name('admin_permission_group.delete');
+        Route::post('/admin_permission_group/delete/{id}','AdminPermissionGroupController@delete')->name('admin_permission_group.delete');
         Route::post('/admin_permission_group/restore/{id}','AdminPermissionGroupController@restore')->name('admin_permission_group.restore');
         Route::post('/admin_permission_group/search_data','AdminPermissionGroupController@searchData')->name('admin_permission_group.search.data');
 
-        Route::get('/admin_system_permission','AdminSystemPermissionController@index')->name('admin_system_permission.index');
-        Route::post('/admin_system_permission','AdminSystemPermissionController@index')->name('admin_system_permission.fetch');
-        Route::get('/admin_system_permission/trash', 'AdminSystemPermissionController@trash')->name('admin_system_permission.list.trash');
-        Route::post('/admin_system_permission/trash', 'AdminSystemPermissionController@trash')->name('admin_system_permission.list.trash');
-        Route::get('/admin_system_permission/create','AdminSystemPermissionController@create')->name('admin_system_permission.create');
-        Route::post('/admin_system_permission/create','AdminSystemPermissionController@store')->name('admin_system_permission.store');
+        Route::get('/admin_system_permission/{admin_perm_group_id}','AdminSystemPermissionController@index')->name('admin_system_permission.index');
+        Route::post('/admin_system_permission/{admin_perm_group_id}','AdminSystemPermissionController@index')->name('admin_system_permission.fetch');
+        Route::get('/admin_system_permission/trash/{admin_perm_group_id}', 'AdminSystemPermissionController@trash')->name('admin_system_permission.list.trash');
+        Route::post('/admin_system_permission/trash/{admin_perm_group_id}', 'AdminSystemPermissionController@trash')->name('admin_system_permission.list.trash');
+        Route::get('/admin_system_permission/create/{admin_perm_group_id}','AdminSystemPermissionController@create')->name('admin_system_permission.create');
+        Route::post('/admin_system_permission/create/{admin_perm_group_id}','AdminSystemPermissionController@store')->name('admin_system_permission.store');
         Route::get('/admin_system_permission/view/{id}','AdminSystemPermissionController@show')->name('admin_system_permission.view');
         Route::get('/admin_system_permission/edit/{id}','AdminSystemPermissionController@edit')->name('admin_system_permission.edit');
         Route::post('/admin_system_permission/edit/{id}','AdminSystemPermissionController@update')->name('admin_system_permission.update');
-        Route::post('/admin_system_permission/delete/{id}','AdminSystemPermissionController@destroy')->name('admin_system_permission.delete');
+        Route::post('/admin_system_permission/delete/{id}','AdminSystemPermissionController@delete')->name('admin_system_permission.delete');
         Route::post('/admin_system_permission/restore/{id}','AdminSystemPermissionController@restore')->name('admin_system_permission.restore');
         Route::post('/admin_system_permission/search_data','AdminSystemPermissionController@searchData')->name('admin_system_permission.search.data');
     });

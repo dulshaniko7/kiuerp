@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
+use Modules\Admin\Entities\AdminPermissionGroup;
+use Modules\Admin\Entities\AdminPermissionModule;
+use Modules\Admin\Entities\AdminPermissionSystem;
 use Modules\Admin\Entities\AdminSystemPermission;
 use Modules\Admin\Repositories\AdminSystemPermissionRepository;
 
@@ -29,46 +32,67 @@ class AdminSystemPermissionController extends Controller
      */
     public function index($admin_perm_group_id)
     {
-        $this->repository->setPageTitle("Admin System Permissions");
+        $permissionGroup = AdminPermissionGroup::find($admin_perm_group_id);
 
-        $this->repository->initDatatable(new AdminSystemPermission());
-        $this->repository->viewData->tableTitle = "Admin System Permissions";
-
-        $this->repository->viewData->enableExport = true;
-
-        $this->repository->setColumns("id", "permission_title", "permission_action", "permission_status", "disabled_reason", "created_at")
-            ->setColumnLabel("permission_status", "Status")
-            ->setColumnDisplay("permission_status", array($this->repository, 'display_status_as'))
-            ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
-
-            ->setColumnFilterMethod("permission_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
-
-            ->setColumnSearchability("created_at", false)
-            ->setColumnSearchability("updated_at", false);
-
-        if($this->trash)
+        if($permissionGroup)
         {
-            $query = $this->repository->model::onlyTrashed();
+            $permissionModule = AdminPermissionModule::find($permissionGroup["admin_perm_module_id"]);
+            $permissionSystem = AdminPermissionSystem::find($permissionModule["admin_perm_system_id"]);
 
-            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
+            $sysModUrl = URL::to("/admin/admin_permission_module/".$permissionModule["admin_perm_system_id"]);
+            $modGroupUrl = URL::to("/admin/admin_permission_group/".$permissionGroup["admin_perm_module_id"]);
 
-            $this->repository->viewData->enableList = true;
-            $this->repository->viewData->enableRestore = true;
-            $this->repository->viewData->enableView= false;
-            $this->repository->viewData->enableEdit = false;
-            $this->repository->viewData->enableDelete = false;
+            $this->repository->setButton($sysModUrl, "System Modules", "btn-info", "fa fa-list")
+                             ->setButton($modGroupUrl, "Modules Groups", "btn-info", "fa fa-list");
+
+            $pageTitle = "System : ".$permissionSystem["system_name"]." | "." Module : ".$permissionModule["module_name"]." | Group : ".$permissionGroup["group_name"]." | System Permissions";
+            $tableTitle = "System : ".$permissionSystem["system_name"]." &nbsp;<span class='fa fa-long-arrow-alt-right'></span>&nbsp; "." Module : ".$permissionModule["module_name"]." &nbsp;<span class='fa fa-long-arrow-alt-right'></span>&nbsp; Group : ".$permissionGroup["group_name"]." &nbsp;<span class='fa fa-long-arrow-alt-right'></span>&nbsp; System Permissions";
+
+            $this->repository->setPageTitle($pageTitle);
+
+            $this->repository->initDatatable(new AdminSystemPermission());
+            $this->repository->viewData->tableTitle = "Admin System Permissions";
+
+            $this->repository->viewData->enableExport = true;
+
+            $this->repository->setColumns("id", "permission_title", "permission_action", "permission_status", "disabled_reason", "created_at")
+                ->setColumnLabel("permission_status", "Status")
+                ->setColumnDisplay("permission_status", array($this->repository, 'display_status_as'))
+                ->setColumnDisplay("created_at", array($this->repository, 'display_created_at_as'))
+
+                ->setColumnFilterMethod("permission_status", "select", [["id" =>"1", "name" =>"Enabled"], ["id" =>"0", "name" =>"Disabled"]])
+
+                ->setColumnSearchability("created_at", false)
+                ->setColumnSearchability("updated_at", false);
+
+            if($this->trash)
+            {
+                $query = $this->repository->model::onlyTrashed();
+
+                $this->repository->setTableTitle($tableTitle." | Trashed")
+                    ->enableViewData("list", "restore", "export")
+                    ->disableViewData("view", "edit", "delete")
+                    ->setUrl("list",$this->repository->getUrl("list")."/".$admin_perm_group_id)
+                    ->setUrl("add",$this->repository->getUrl("add")."/".$admin_perm_group_id);
+            }
+            else
+            {
+                $query = $this->repository->model;
+
+                $this->repository->setTableTitle($tableTitle)
+                    ->enableViewData("trashList", "trash", "export")
+                    ->setUrl("trashList",$this->repository->getUrl("trashList")."/".$admin_perm_group_id)
+                    ->setUrl("add",$this->repository->getUrl("add")."/".$admin_perm_group_id);
+            }
+
+            $query->where("admin_perm_group_id", "=", $admin_perm_group_id);
+
+            return $this->repository->render("admin::layouts.master")->index($query);
         }
         else
         {
-            $query = $this->repository->model;
-
-            $this->repository->viewData->enableTrashList = true;
-            $this->repository->viewData->enableTrash = true;
+            abort(404);
         }
-
-        $query->where("admin_perm_group_id", "=", $admin_perm_group_id);
-
-        return $this->repository->render("admin::layouts.master")->index($query);
     }
 
     /**
@@ -84,36 +108,60 @@ class AdminSystemPermissionController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param int $admin_perm_group_id
      * @return Factory|View
      */
-    public function create()
+    public function create($admin_perm_group_id)
     {
-        $model = new AdminSystemPermission();
-        $record = $model;
+        $permissionGroup = AdminPermissionGroup::find($admin_perm_group_id);
 
-        $formMode = "add";
-        $formSubmitUrl = "/".request()->path();
+        if($permissionGroup)
+        {
+            $this->repository->setPageTitle("Admin System Permissions | Add New");
 
-        return view('academic::admin_system_permission.create', compact('formMode', 'formSubmitUrl', 'record'));
+            $permissionModule = AdminPermissionModule::find($permissionGroup["admin_perm_module_id"]);
+
+            $admin_perm_system_id = $permissionModule["admin_perm_system_id"];
+            $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
+
+            $model = new AdminSystemPermission();
+            $record = $model;
+            $record->permissionGroup = $permissionGroup;
+            $record->permissionModule = $permissionModule;
+            $record->permissionSystem = $permissionSystem;
+
+            $formMode = "add";
+            $formSubmitUrl = "/".request()->path();
+
+            $urls = [];
+            $urls["listUrl"]=URL::to("/admin/admin_system_permission/".$admin_perm_group_id);
+
+            return view('admin::admin_system_perm.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+        }
+        else
+        {
+            abort(404);
+        }
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param int $admin_perm_group_id
      * @return JsonResponse
      */
-    public function store()
+    public function store($admin_perm_group_id)
     {
         $model = new AdminSystemPermission();
 
         $model = $this->repository->getValidatedData($model, [
-            "admin_perm_group_id" => "required|exists:admin_permission_groups,admin_perm_group_id",
             "permission_title" => "required|min:3",
             "permission_action" => "required|min:3",
             "permission_status" => "required|digits:1",
-        ], [], ["admin_perm_group_id" => "Group name", "permission_title" => "Permission title", "permission_action" => "Permission action"]);
+        ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action"]);
 
         if($this->repository->isValidData)
         {
+            $model->admin_perm_group_id = $admin_perm_group_id;
             $model->permission_key = $this->repository->generatePermissionHash($model->permission_action);
             $response = $this->repository->saveModel($model);
         }
@@ -132,13 +180,19 @@ class AdminSystemPermissionController extends Controller
      */
     public function show($id)
     {
+        $this->repository->setPageTitle("Admin System Permissions | View");
+
         $model = AdminSystemPermission::find($id);
 
         if($model)
         {
             $record = $model;
 
-            return view('academic::admin_system_permission.view', compact('data', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin_system_permission/create/".$model["admin_perm_group_id"]);
+            $urls["listUrl"]=URL::to("/admin/admin_system_permission/".$model["admin_perm_group_id"]);
+
+            return view('admin::admin_system_perm.view', compact('data', 'record', 'urls'));
         }
         else
         {
@@ -157,11 +211,25 @@ class AdminSystemPermissionController extends Controller
 
         if($model)
         {
+            $this->repository->setPageTitle("Admin System Permissions | Edit");
+
+            $permissionModule = AdminPermissionModule::find($model["permissionGroup"]["admin_perm_module_id"]);
+
+            $admin_perm_system_id = $permissionModule["admin_perm_system_id"];
+            $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
+
             $record = $model;
+            $record->permissionModule = $permissionModule;
+            $record->permissionSystem = $permissionSystem;
+
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('academic::admin_system_permission.create', compact('formMode', 'formSubmitUrl', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin_system_permission/create/".$model["admin_perm_group_id"]);
+            $urls["listUrl"]=URL::to("/admin/admin_system_permission/".$model["admin_perm_group_id"]);
+
+            return view('admin::admin_system_perm.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
         }
         else
         {
@@ -171,7 +239,6 @@ class AdminSystemPermissionController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
@@ -211,11 +278,11 @@ class AdminSystemPermissionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $model = AdminSystemPermission::find($id);
 
@@ -251,7 +318,7 @@ class AdminSystemPermissionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Restore record
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
@@ -291,7 +358,7 @@ class AdminSystemPermissionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Search records
      * @param Request $request
      * @return JsonResponse
      */

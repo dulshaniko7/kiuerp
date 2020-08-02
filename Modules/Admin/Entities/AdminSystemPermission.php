@@ -14,6 +14,8 @@ class AdminSystemPermission extends Model
         "admin_perm_group_id", "permission_title", "permission_action", "permission_key", "permission_status", "disabled_reason", "created_by", "updated_by", "deleted_by"
     ];
 
+    protected $with = [];
+
     protected $primaryKey = "system_perm_id";
 
     protected $casts = [
@@ -23,11 +25,6 @@ class AdminSystemPermission extends Model
     ];
 
     protected $appends = ["id", "name"];
-
-    /*
-     * Setting up this field as an empty array, otherwise it will retrieve ORM relations every time
-     */
-    protected $with = [];
 
     public function getIdAttribute()
     {

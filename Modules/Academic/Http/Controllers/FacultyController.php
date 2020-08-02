@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Modules\Academic\Entities\Faculty;
@@ -63,8 +64,6 @@ class FacultyController extends Controller
                 ->enableViewData("trashList", "trash", "export");
         }
 
-        $query = $query->with([]);
-
         return $this->repository->render("academic::layouts.master")->index($query);
     }
 
@@ -90,7 +89,10 @@ class FacultyController extends Controller
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
-        return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record'));
+        $urls = [];
+        $urls["listUrl"]=URL::to("/academic/faculty");
+
+        return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
     }
 
     /**
@@ -135,7 +137,11 @@ class FacultyController extends Controller
         {
             $record = $model;
 
-            return view('academic::faculty.view', compact('data', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/academic/faculty/create");
+            $urls["listUrl"]=URL::to("/academic/faculty");
+
+            return view('academic::faculty.view', compact('data', 'record', 'urls'));
         }
         else
         {
@@ -160,7 +166,11 @@ class FacultyController extends Controller
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/academic/faculty/create");
+            $urls["listUrl"]=URL::to("/academic/faculty");
+
+            return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
         }
         else
         {
@@ -206,11 +216,11 @@ class FacultyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $model = Faculty::find($id);
 
@@ -246,7 +256,7 @@ class FacultyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Restore record
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
@@ -286,7 +296,7 @@ class FacultyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Search records
      * @param Request $request
      * @return JsonResponse
      */

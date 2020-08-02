@@ -11,6 +11,8 @@ class AdminPermission extends Model
         "admin_id", "admin_perm_system_id", "system_perm_id", "admin_perm_change_remark_id", "inv_rev_status", "valid_from", "valid_till"
     ];
 
+    protected $with = [];
+
     public $timestamps = false;
 
     public static function boot()

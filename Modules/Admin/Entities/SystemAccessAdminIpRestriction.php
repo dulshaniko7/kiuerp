@@ -14,6 +14,8 @@ class SystemAccessAdminIpRestriction extends Model
         "admin_id", "ip_location", "ip_address", "ip_address_key", "remarks", "created_by", "updated_by", "deleted_by"
     ];
 
+    protected $with = [];
+
     public static function boot()
     {
         parent::boot();

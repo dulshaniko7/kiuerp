@@ -11,6 +11,8 @@ class AdminRolePermission extends Model
         "admin_role_id", "admin_perm_system_id", "system_perm_id", "created_by"
     ];
 
+    protected $with = [];
+
     const UPDATED_AT = null;
 
     public static function boot()

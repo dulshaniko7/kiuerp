@@ -143,7 +143,7 @@ class AdminActivityObserver
      */
     public function creating($model)
     {
-        if(property_exists($model, "created_by"))
+        if(in_array("created_by", $model->getFillable()))
         {
             $model->created_by = auth("admin")->user()->admin_id;
         }
@@ -157,9 +157,9 @@ class AdminActivityObserver
      */
     public function updating($model)
     {
-        if(property_exists($model, "updated_by"))
+        if(in_array("created_by", $model->getFillable()))
         {
-            $model->created_by = auth("admin")->user()->admin_id;
+            $model->updated_by = auth("admin")->user()->admin_id;
         }
     }
 

@@ -24,7 +24,7 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/faculty/create', 'FacultyController@store')->name('faculty.store');
         Route::get('/faculty/edit/{id}', 'FacultyController@edit')->name('faculty.edit');
         Route::post('/faculty/edit/{id}', 'FacultyController@update')->name('faculty.update');
-        Route::post('/faculty/delete/{id}', 'FacultyController@destroy')->name('faculty.delete');
+        Route::post('/faculty/delete/{id}', 'FacultyController@delete')->name('faculty.delete');
         Route::post('/faculty/restore/{id}', 'FacultyController@restore')->name('faculty.restore');
         Route::post('/faculty/search_data', 'FacultyController@searchData')->name('faculty.search.data');
 
@@ -36,7 +36,7 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/department/create', 'DepartmentController@store')->name('department.store');
         Route::get('/department/edit/{id}', 'DepartmentController@edit')->name('department.edit');
         Route::post('/department/edit/{id}', 'DepartmentController@update')->name('department.update');
-        Route::post('/department/delete/{id}', 'DepartmentController@destroy')->name('department.delete');
+        Route::post('/department/delete/{id}', 'DepartmentController@delete')->name('department.delete');
         Route::post('/department/restore/{id}', 'DepartmentController@restore')->name('department.restore');
         Route::post('/department/search_data', 'DepartmentController@searchData')->name('department.search.data');
 

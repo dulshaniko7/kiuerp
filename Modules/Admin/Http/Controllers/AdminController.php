@@ -29,12 +29,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $this->repository->setPageTitle("Admins");
+        $this->repository->setPageTitle("System Administrators");
 
         $this->repository->initDatatable(new Admin());
-        $this->repository->viewData->tableTitle = "Admins";
-
-        $this->repository->viewData->enableExport = true;
 
         $this->repository->setColumns("id", "name", "admin_role", "status", "created_at", "updated_at")
             ->setColumnLabel("name", "Admin")
@@ -60,20 +57,16 @@ class AdminController extends Controller
         {
             $query = $this->repository->model::onlyTrashed();
 
-            $this->repository->viewData->tableTitle = $this->repository->viewData->tableTitle." | Trashed";
-
-            $this->repository->viewData->enableList = true;
-            $this->repository->viewData->enableRestore = true;
-            $this->repository->viewData->enableView= false;
-            $this->repository->viewData->enableEdit = false;
-            $this->repository->viewData->enableDelete = false;
+            $this->repository->setTableTitle("System Administrators | Trashed")
+                ->enableViewData("list", "restore", "export")
+                ->disableViewData("view", "edit", "delete");
         }
         else
         {
             $query = $this->repository->model;
 
-            $this->repository->viewData->enableTrashList = true;
-            $this->repository->viewData->enableTrash = true;
+            $this->repository->setTableTitle("System Administrators")
+                ->enableViewData("trashList", "trash", "export");
         }
 
         $query = $query->with(["adminRole"]);
@@ -99,9 +92,11 @@ class AdminController extends Controller
     {
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
-        $adminRole = null;
 
-        return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'adminRole'));
+        $urls = [];
+        $urls["listUrl"]=URL::to("/admin/admin");
+
+        return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'urls'));
     }
 
     /**
@@ -147,7 +142,11 @@ class AdminController extends Controller
         {
             $record = $model;
 
-            return view('academic::admin.view', compact('data', 'record'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin/create");
+            $urls["listUrl"]=URL::to("/admin/admin");
+
+            return view('academic::admin.view', compact('data', 'record', 'urls'));
         }
         else
         {
@@ -167,11 +166,14 @@ class AdminController extends Controller
         if($model)
         {
             $record = $model;
-            $adminRole = $model->adminRole;
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
-            return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'record', 'adminRole'));
+            $urls = [];
+            $urls["addUrl"]=URL::to("/admin/admin/create");
+            $urls["listUrl"]=URL::to("/admin/admin");
+
+            return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
         }
         else
         {
@@ -212,11 +214,11 @@ class AdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $model = Admin::find($id);
 
@@ -252,7 +254,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param int $id
      * @return JsonResponse|RedirectResponse
      */
@@ -292,7 +294,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Move the record to trash
      * @param Request $request
      * @return JsonResponse
      */

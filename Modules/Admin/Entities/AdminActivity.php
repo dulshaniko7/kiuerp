@@ -10,6 +10,8 @@ class AdminActivity extends Model
         "admin_login_history_id", "admin_id", "activity", "activity_old_data", "activity_new_data", "activity_model_name", "activity_model", "activity_at"
     ];
 
+    protected $with = [];
+
     public $timestamps = false;
 
     protected $casts = [

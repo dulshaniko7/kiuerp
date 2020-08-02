@@ -28,152 +28,138 @@ $exportFormats = $viewData->exportFormats;
         <div class="card">
             <div class="card-header">
                 <div class="row m-0">
-                    <div class="col-sm-7">
+                    <div class="col-sm-9 mb-3">
                         <h4 class="header-title mb-0"><?php echo $viewData->tableTitle; ?></h4>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-3">
                         <div class="float-right">
-                            <?php
-                            if(isset($viewData->more_buttons_before))
-                            {
-                            $more_buttons = $viewData->more_buttons_before;
-
-                            if(is_array($more_buttons) && count($more_buttons)>0)
-                            {
-                            foreach($more_buttons as $button)
-                            {
-                            ?>
-                            <a href="<?php echo $button["url"]; ?>">
-                                <div class="btn btn-<?php echo $button["btn"]; ?> btn-sm">
-                                    <?php
-                                    if(isset($button["icon"]))
-                                    {
-                                    ?>
-                                    <span class="<?php echo $button["icon"]; ?>"></span>
-                                    <?php
-                                    }
-                                    ?>
-                                    &nbsp;&nbsp;<?php echo $button["label"]; ?>
-                                </div></a>
-                            <?php
-                            }
-                            }
-                            }
-                            ?>
                             <?php if($viewData->enableTrashList && isset($viewData->trashListUrl)){ ?>
                             <a href="<?php echo $viewData->trashListUrl; ?>">
-                                <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->trashListUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->trashListUrlLabel; ?></div></a>
+                                <div class="btn btn-info btn-sm mb-2"><span class="<?php echo $viewData->trashListUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->trashListUrlLabel; ?></div></a>
                             <?php } ?>
 
                             <?php if($viewData->enableList && isset($viewData->listUrl)){ ?>
                             <a href="<?php echo $viewData->listUrl; ?>">
-                                <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->listUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->listUrlLabel; ?></div></a>
+                                <div class="btn btn-info btn-sm mb-2"><span class="<?php echo $viewData->listUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->listUrlLabel; ?></div></a>
                             <?php } ?>
 
                             <?php if($viewData->enableAdd && isset($viewData->addUrl)){ ?>
                             <a href="<?php echo $viewData->addUrl; ?>">
-                                <div class="btn btn-info btn-sm"><span class="<?php echo $viewData->addUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->addUrlLabel; ?></div></a>
+                                <div class="btn btn-info btn-sm mb-2"><span class="<?php echo $viewData->addUrlIcon; ?>"></span> &nbsp;&nbsp;<?php echo $viewData->addUrlLabel; ?></div></a>
                             <?php } ?>
-
-                            <?php
-                            if(isset($viewData->more_buttons_after))
-                            {
-                            $more_buttons = $viewData->more_buttons_after;
-
-                            if(is_array($more_buttons) && count($more_buttons)>0)
-                            {
-                            foreach($more_buttons as $button)
-                            {
-                            ?>
-                            <a href="<?php echo $button["url"]; ?>">
-                                <div class="btn btn-<?php echo $button["btn"]; ?> btn-sm">
-                                    <?php
-                                    if(isset($button["icon"]))
-                                    {
-                                    ?>
-                                    <span class="<?php echo $button["icon"]; ?>"></span>
-                                    <?php
-                                    }
-                                    ?>
-                                    &nbsp;&nbsp;<?php echo $button["label"]; ?>
-                                </div></a>
-                            <?php
-                            }
-                            }
-                            }
-                            ?>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="card-body">
-                <div class="clearfix mb-2 mt-2">
-                    <div class="col-sm-12 d-flex justify-content-center">
-                        <div id="export"></div>
-                    </div>
+                <div class="row">
+                    <?php
+                    if(isset($buttons) && is_array($buttons) && count($buttons)>0)
+                    {
+                        ?>
+
+                        <div class="col-sm-4 mb-4" style="padding-left: 5px; padding-right: 5px;">
+                            <div id="export"></div>
+                        </div>
+
+                        <div class="col-sm-8 text-right" style="padding-left: 5px; padding-right: 5px;">
+                        <?php
+                        foreach ($buttons as $button)
+                        {
+                            ?>
+                            <a href="<?php echo $button["url"]; ?>">
+                                <div class="btn btn-sm mb-2 <?php echo $button["buttonClasses"]; ?>">
+                                    <?php
+                                    if(isset($button["iconClasses"]))
+                                    {
+                                    ?>
+                                    <span class="<?php echo $button["iconClasses"]; ?>"></span>
+                                    <?php
+                                    }
+                                    ?>
+                                    <?php echo $button["caption"]; ?>
+                                </div>
+                            </a>
+                            <?php
+                        }
+                        ?>
+                        </div>
+                        <?php
+                    }
+                    else
+                    {
+                        ?>
+                        <div class="col-sm-12 d-flex justify-content-center">
+                            <div id="export"></div>
+                        </div>
+                        <?php
+                    }
+                ?>
                 </div>
 
-                <div class="adv-table table-responsive dataTables_wrapper dt-bootstrap4 no-footer">
-                    <table class="display table" id="results">
-                        <thead>
-                        <tr>
-                            <th class="text-left" style="max-width:50px;">No</th>
-                            <?php
-                            if(is_array($columns) && count($columns) > 0)
-                            {
-                                foreach($columns as $column => $column_data)
+                <div class="row">
+                    <div class="adv-table table-responsive dataTables_wrapper dt-bootstrap4 no-footer">
+                        <table class="display table" id="results">
+                            <thead>
+                            <tr>
+                                <th class="text-left" style="max-width:50px;">No</th>
+                                <?php
+                                if(is_array($columns) && count($columns) > 0)
                                 {
-                                    if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                    foreach($columns as $column => $column_data)
                                     {
-                                        $label=$column_data["label"];
-                                        ?>
-                                        <th class="text-left"><?php echo $label; ?></th>
-                                        <?php
+                                        if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                        {
+                                            $label=$column_data["label"];
+                                            ?>
+                                            <th class="text-left"><?php echo $label; ?></th>
+                                            <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                            <?php
-                            if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
-                            {
                                 ?>
-                                <th class="text-center" style="min-width:180px;">Actions</th>
                                 <?php
-                            }
-                            ?>
-                        </tr>
-                        </thead>
+                                if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
+                                {
+                                    ?>
+                                    <th class="text-center" style="min-width:180px;">Actions</th>
+                                    <?php
+                                }
+                                ?>
+                            </tr>
+                            </thead>
 
-                        <tfoot>
-                        <tr>
-                            <th class="text-left">No</th>
-                            <?php
-                            if(is_array($columns) && count($columns) > 0)
-                            {
-                                foreach($columns as $column => $column_data)
+                            <tfoot>
+                            <tr>
+                                <th class="text-left">No</th>
+                                <?php
+                                if(is_array($columns) && count($columns) > 0)
                                 {
-                                    if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                    foreach($columns as $column => $column_data)
                                     {
-                                        $label=$column_data["label"];
-                                        ?>
-                                        <th class="text-left"><?php echo $label; ?></th>
-                                        <?php
+                                        if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                        {
+                                            $label=$column_data["label"];
+                                            ?>
+                                            <th class="text-left"><?php echo $label; ?></th>
+                                            <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                            <?php
-                            if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
-                            {
                                 ?>
-                                <th class="text-center" style="min-width:180px;">Actions</th>
                                 <?php
-                            }
-                            ?>
-                        </tr>
-                        </tfoot>
-                    </table>
+                                if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
+                                {
+                                    ?>
+                                    <th class="text-center" style="min-width:180px;">Actions</th>
+                                    <?php
+                                }
+                                ?>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -730,7 +716,7 @@ $exportFormats = $viewData->exportFormats;
                     exportOptions: {
                         columns: exportableColumns,
                     },
-                    className	: "btn btn-info btn-sm",
+                    className	: "btn btn-info btn-sm mb-2",
                 },
                 <?php
                 }
@@ -742,7 +728,7 @@ $exportFormats = $viewData->exportFormats;
                     exportOptions: {
                         columns: exportableColumns,
                     },
-                    className	: "btn btn-info btn-sm",
+                    className	: "btn btn-info btn-sm mb-2",
                 },
                 <?php
                 }
@@ -754,7 +740,7 @@ $exportFormats = $viewData->exportFormats;
                     exportOptions: {
                         columns: exportableColumns,
                     },
-                    className	: "btn btn-info btn-sm",
+                    className	: "btn btn-info btn-sm mb-2",
                 },
                 <?php
                 }
@@ -766,7 +752,7 @@ $exportFormats = $viewData->exportFormats;
                     exportOptions: {
                         columns: exportableColumns,
                     },
-                    className	: "btn btn-info btn-sm",
+                    className	: "btn btn-info btn-sm mb-2",
                 },
                 <?php
                 }
@@ -778,7 +764,7 @@ $exportFormats = $viewData->exportFormats;
                     exportOptions: {
                         columns: exportableColumns,
                     },
-                    className	: "btn btn-info btn-sm",
+                    className	: "btn btn-info btn-sm mb-2",
                 },
                 <?php
                 }

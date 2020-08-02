@@ -12,6 +12,8 @@ class Faculty extends Model
 
     protected $fillable = ["faculty_code", "faculty_name", "color_code", "faculty_status", "created_by", "updated_by", "deleted_by"];
 
+    protected $with = [];
+
     protected $primaryKey = "faculty_id";
 
     protected $casts = [
@@ -21,8 +23,6 @@ class Faculty extends Model
     ];
 
     protected $appends = ["id", "name"];
-
-    protected $with = [];
 
     public function getIdAttribute()
     {

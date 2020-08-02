@@ -13,7 +13,7 @@
     <div class="col-md-12">
         <div class="card mb-2">
             <div class="card-body p-0">
-                <nav class="navbar navbar-expand navbar-white navbar-light">
+                <nav class="navbar navbar-expand navbar-white navbar-light module-nav-bar">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">

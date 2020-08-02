@@ -14,6 +14,7 @@ trait Datatable
     private $tableColumns = null;
     private $columns = array();
     private $exportFormats = array("copy", "csv", "excel", "pdf", "print");
+    private $buttons = array();
 
     public $viewData = null;
     public $viewPath = "default.index";
@@ -32,23 +33,18 @@ trait Datatable
 
         $this->viewData = (object) array();
 
-        $this->viewData->enableList=false;
-        $this->viewData->enableAdd=true;
-        $this->viewData->enableEdit=true;
-        $this->viewData->enableView=true;
-        $this->viewData->enableDelete=false;
-        $this->viewData->enableRestore=false;
-        $this->viewData->enableTrash=false;
-        $this->viewData->enableTrashList=false;
+        $this->enableViewData("add", "edit")
+             ->disableViewData("list", "view", "delete", "restore", "trash", "trashList", "export");
 
         if($this->viewData->enableTrashList)
         {
-            $this->viewData->enableTrash=true;
-            $this->viewData->enableDelete=false;
+            $this->enableViewData("trash")
+                 ->disableViewData("delete");
         }
 
-        $this->viewData->enableExport=false;
         $this->viewData->exportFormats = $this->exportFormats;
+
+        $this->setIndexUrls();
     }
 
     /**
@@ -598,7 +594,6 @@ trait Datatable
         else
         {
             $this->viewData->columns=$this->getColumns();
-            $this->set_index_urls();
 
             $viewData = $this->viewData;
             $extendViewPath = config("academic.datatable_template");
@@ -608,155 +603,84 @@ trait Datatable
                 $extendViewPath = $this->extendViewPath;
             }
 
-            return view($this->viewPath, compact("extendViewPath", "viewData"));
+            $buttons = $this->buttons;
+
+            return view($this->viewPath, compact("extendViewPath", "viewData", "buttons"));
         }
+    }
+
+    /**
+     * Build viewData variable to pass to the UI
+     * @param string $uri
+     * @return void
+     */
+    private function setControllerUrl($uri)
+    {
+        //extract controller URL
+        $route = collect(\Route::getRoutes())->first(function($route) use($uri){
+
+            $method = request()->method();
+            return $route->matches(request()->create($uri, $method));
+        });
+
+        $controllerUrl = $route->uri;
+
+        //check for url params
+        $paramStart = strpos($controllerUrl, "{");
+        if($paramStart)
+        {
+            //get rest of the URL without URL params
+            $controllerUrl = substr($controllerUrl, 0, $paramStart);
+        }
+
+        $this->controllerUrl = URL::to($controllerUrl);
     }
 
     /**
      * Build viewData variable to pass to the UI
      * @return void
      */
-    private function set_index_urls()
+    private function setIndexUrls()
     {
-        if(!isset($this->viewData->thisUrl))
-        {
-            $uri = request()->getPathInfo();
+        $uri = request()->getPathInfo();
 
-            $route = collect(\Route::getRoutes())->first(function($route) use($uri){
+        //set current url
+        $this->viewData->thisUrl=URL::to($uri);
 
-                $method = request()->method();
-                return $route->matches(request()->create($uri, $method));
-            });
+        $this->setControllerUrl($uri);
 
-            $uri = $route->uri;
+        $listUrl = str_replace("/trash", "", $this->controllerUrl);
+        $this->viewData->listUrl=$listUrl;
+        $this->viewData->listUrlLabel="View List";
+        $this->viewData->listUrlIcon="fa fa-list";
 
-            //get current url
-            $this->viewData->thisUrl=URL::to($uri);
+        $this->viewData->addUrl=$listUrl."/create";
+        $this->viewData->addUrlLabel="Add New";
+        $this->viewData->addUrlIcon="fa fa-plus";
 
-            $controllerUrl = $uri;
+        $this->viewData->editUrl=$listUrl."/edit/";
+        $this->viewData->editUrlLabel="Edit";
+        $this->viewData->editUrlIcon="fa fa-edit";
 
-            //check for url params
-            $curlyStart = strpos($controllerUrl, "{");
-            if($curlyStart)
-            {
-                //get rest of the URL without URL params
-                $controllerUrl = substr($controllerUrl, 0, $curlyStart);
-            }
+        $this->viewData->viewUrl=$listUrl."/view/";
+        $this->viewData->viewUrlLabel="view";
+        $this->viewData->viewUrlIcon="fa fa-list";
 
-            $this->controllerUrl = URL::to($controllerUrl);
-        }
-        if(!isset($this->viewData->listUrl))
-        {
-            $listUrl = str_replace("/trash", "", $this->controllerUrl);
+        $this->viewData->deleteUrl=$listUrl."/destroy/";
+        $this->viewData->deleteUrlLabel="Delete";
+        $this->viewData->deleteUrlIcon="fa fa-ban";
 
-            $this->viewData->listUrl=$listUrl;
-        }
-        if(!isset($this->viewData->listUrlLabel))
-        {
-            $this->viewData->listUrlLabel="View List";
-        }
-        if(!isset($this->viewData->listUrlIcon))
-        {
-            $this->viewData->listUrlIcon="fa fa-list";
-        }
+        $this->viewData->trashUrl = $listUrl."/delete/";
+        $this->viewData->trashUrlLabel="Trash";
+        $this->viewData->trashUrlIcon="fa fa-trash";
 
-        if(!isset($this->viewData->addUrl) && $this->viewData->enableAdd)
-        {
-            $this->viewData->addUrl=$this->controllerUrl."/create";
-        }
-        if(!isset($this->viewData->addUrlLabel))
-        {
-            $this->viewData->addUrlLabel="Add New";
-        }
-        if(!isset($this->viewData->addUrlIcon))
-        {
-            $this->viewData->addUrlIcon="Add New";
-        }
-        //----
+        $this->viewData->trashListUrl = $listUrl."/trash";
+        $this->viewData->trashListUrlLabel="View Trash";
+        $this->viewData->trashListUrlIcon="fa fa-trash";
 
-        if(!isset($this->viewData->editUrl) && $this->viewData->enableEdit)
-        {
-            $this->viewData->editUrl=$this->controllerUrl."/edit/";
-        }
-        if(!isset($this->viewData->editUrlLabel))
-        {
-            $this->viewData->editUrlLabel="Edit";
-        }
-        if(!isset($this->viewData->editUrlIcon))
-        {
-            $this->viewData->editUrlIcon="fa fa-edit";
-        }
-        //----
-
-        if(!isset($this->viewData->viewUrl) && $this->viewData->enableView)
-        {
-            $this->viewData->viewUrl=$this->controllerUrl."/view/";
-        }
-        if(!isset($this->viewData->viewUrlLabel))
-        {
-            $this->viewData->viewUrlLabel="view";
-        }
-        if(!isset($this->viewData->viewUrlIcon))
-        {
-            $this->viewData->viewUrlIcon="fa fa-list";
-        }
-        //----
-
-        if(!isset($this->viewData->deleteUrl) && $this->viewData->enableDelete)
-        {
-            $this->viewData->deleteUrl=$this->controllerUrl."/destroy/";
-        }
-        if(!isset($this->viewData->deleteUrlLabel))
-        {
-            $this->viewData->deleteUrlLabel="Delete";
-        }
-        if(!isset($this->viewData->deleteUrlIcon))
-        {
-            $this->viewData->deleteUrlIcon="fa fa-trash";
-        }
-        //----
-
-        if(!isset($this->viewData->restoreUrl) && $this->viewData->enableRestore)
-        {
-            $this->viewData->restoreUrl = str_replace(["/trash", "/trash/"], ["/restore/"], $this->controllerUrl);
-        }
-        if(!isset($this->viewData->restoreUrlLabel))
-        {
-            $this->viewData->restoreUrlLabel="Restore";
-        }
-        if(!isset($this->viewData->restoreUrlIcon))
-        {
-            $this->viewData->restoreUrlIcon="fas fa-trash-restore";
-        }
-        //----
-
-        if(!isset($this->viewData->trashUrl) && $this->viewData->enableTrash)
-        {
-            $this->viewData->trashUrl = $this->controllerUrl."/delete/";
-        }
-        if(!isset($this->viewData->trashUrlLabel))
-        {
-            $this->viewData->trashUrlLabel="Trash";
-        }
-        if(!isset($this->viewData->trashUrlIcon))
-        {
-            $this->viewData->trashUrlIcon="fa fa-trash";
-        }
-        //----
-
-        if(!isset($this->viewData->trashListUrl) && $this->viewData->enableTrashList)
-        {
-            $this->viewData->trashListUrl = $this->controllerUrl."/trash";
-        }
-        if(!isset($this->viewData->trashListUrlLabel))
-        {
-            $this->viewData->trashListUrlLabel="View Trash";
-        }
-        if(!isset($this->viewData->trashListUrlIcon))
-        {
-            $this->viewData->trashListUrlIcon="fa fa-trash";
-        }
-        //----
+        $this->viewData->restoreUrl = str_replace(["/trash", "/trash/"], ["/restore/"], $listUrl);
+        $this->viewData->restoreUrlLabel="Restore";
+        $this->viewData->restoreUrlIcon="fas fa-trash-restore";
     }
 
     /**
@@ -816,6 +740,18 @@ trait Datatable
     }
 
     /**
+     * Get current property value for the url
+     * @param string $action
+     * @return string
+     */
+    public function getUrl($action)
+    {
+        $property = $action."Url";
+
+        return $this->viewData->$property;
+    }
+
+    /**
      * @param string $action
      * @param string $label
      * @return Datatable
@@ -827,6 +763,18 @@ trait Datatable
         $this->viewData->$property = $label;
 
         return $this;
+    }
+
+    /**
+     * Get current property value for the URL label
+     * @param string $action
+     * @return string
+     */
+    public function getUrlLabel($action)
+    {
+        $property = $action."UrlLabel";
+
+        return  $this->viewData->$property;
     }
 
     /**
@@ -844,12 +792,83 @@ trait Datatable
     }
 
     /**
+     * Get current property value for the URL icon
+     * @param string $action
+     * @return string
+     */
+    public function getUrlIcon($action)
+    {
+        $property = $action."UrlIcon";
+
+        return $this->viewData->$property;
+    }
+
+    /**
      * @param string $title Title for the datatable records list
      * @return Datatable
      */
     public function setTableTitle($title)
     {
         $this->viewData->tableTitle = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get current property value for the table title
+     * @return string
+     */
+    public function getTableTitle()
+    {
+        return $this->viewData->tableTitle;
+    }
+
+    /**
+     * @param string $url
+     * @param string $caption
+     * @param string $buttonClasses
+     * @param string $iconClasses
+     * @return Datatable
+     */
+    public function setButton($url, $caption, $buttonClasses="btn btn-info", $iconClasses="")
+    {
+        $button = [];
+        $button["url"]=$url;
+        $button["caption"]=$caption;
+        $button["buttonClasses"]=$buttonClasses;
+        $button["iconClasses"]=$iconClasses;
+
+        $this->buttons[] = $button;
+
+        return $this;
+    }
+
+    /**
+     * @param array $buttons button properties [url, caption, buttonClasses, iconClasses]
+     * @return Datatable
+     */
+    public function setButtons($buttons=[])
+    {
+        if(is_array($buttons) && count($buttons)>0)
+        {
+            foreach ($buttons as $button)
+            {
+                if(isset($button["url"]) && isset($button["caption"]))
+                {
+                    if(!isset($button["buttonClasses"]))
+                    {
+                        $button["buttonClasses"]="btn btn-info";
+                    }
+
+                    if(!isset($button["iconClasses"]))
+                    {
+                        $button["iconClasses"]="";
+                    }
+
+                    $this->buttons[] = $button;
+                }
+            }
+        }
 
         return $this;
     }
