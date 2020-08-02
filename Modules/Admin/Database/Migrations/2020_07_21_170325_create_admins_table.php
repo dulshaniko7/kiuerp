@@ -26,6 +26,7 @@ class CreateAdminsTable extends Migration
             $table->string("image")->nullable();
             $table->unsignedTinyInteger("default_admin")->default('0');
             $table->unsignedTinyInteger("status")->default("1");
+            $table->text("disabled_reason")->nullable(true)->comment("If user has been disabled, then reason for that. This value will be displayed to the user when he is trying to sign in");
             $table->rememberToken();
 
             $table->unsignedInteger("created_by")->nullable();

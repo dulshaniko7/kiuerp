@@ -19,6 +19,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function() {
         Route::get('/login', 'AdminLoginController@showLoginForm')->name('login');
         Route::post('/login', 'AdminLoginController@login');
         Route::get('/logout', 'AdminLoginController@logout')->name('logout');
+        Route::get('/logout_auto', 'AdminLoginController@logoutAuto')->name('logout.auto');
 
         //Forgot Password Routes
         Route::get('/password/reset', 'AdminForgotPasswordController@showLinkRequestForm')->name('password.request');

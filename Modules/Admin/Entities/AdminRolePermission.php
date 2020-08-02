@@ -8,12 +8,10 @@ use Modules\Admin\Observers\AdminActivityObserver;
 class AdminRolePermission extends Model
 {
     protected $fillable = [
-        "admin_role_id", "admin_perm_system_id", "system_perm_id", "created_by"
+        "admin_role_id", "admin_perm_system_id", "permissions", "created_by", "updated_by"
     ];
 
     protected $with = [];
-
-    const UPDATED_AT = null;
 
     public static function boot()
     {

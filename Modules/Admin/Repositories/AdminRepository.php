@@ -2,7 +2,12 @@
 namespace Modules\Admin\Repositories;
 
 use App\Repositories\BaseRepository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\URL;
+use Illuminate\View\View;
+use Modules\Admin\Entities\AdminPermission;
+use Modules\Admin\Entities\AdminPermissionHistory;
+use Modules\Admin\Services\Permission;
 
 class AdminRepository extends BaseRepository
 {
@@ -11,9 +16,200 @@ class AdminRepository extends BaseRepository
         return md5($permissionAction);
     }
 
+    /**
+     * Return column UI for the datatable of the model
+     * @return Factory|View
+     */
     public function display_admin_role_as()
     {
         $url = URL::to("/admin/admin_role/");
         return view("admin::admin.datatable.admin_role_ui", compact('url'));
+    }
+
+    /**
+     * Update admin permissions
+     * @param int $adminId
+     * @param int $inv_rev_status
+     */
+    public static function updatePermission($adminId, $inv_rev_status)
+    {
+        $systemsPermissions = Permission::getPermissionFormData();
+
+        $data = array();
+        $data["admin_id"] = $adminId;
+        $data["inv_rev_status"] = $inv_rev_status;
+
+        $valid_from = request()->post("valid_from");
+        $valid_till = request()->post("valid_till");
+
+        if($valid_from != "" && $valid_till != "")
+        {
+            $data["valid_from"] = $valid_from;
+            $data["valid_till"] = $valid_till;
+        }
+
+        $systems = array();
+        $updatedPermissions = array();
+        $resetPermissions = array();
+
+        if(is_array($systemsPermissions) && count($systemsPermissions)>0)
+        {
+            foreach ($systemsPermissions as $systemId => $permissions)
+            {
+                $data["admin_perm_system_id"]=$systemId;
+                $systems[]=$systemId;
+
+                if(is_array($permissions) && count($permissions)>0)
+                {
+                    foreach ($permissions as $permId => $permission)
+                    {
+                        $prevStatus= $permission["prevStatus"];
+                        $newStatus = $permission["newStatus"];
+
+                        if($prevStatus != $newStatus)
+                        {
+                            if($newStatus == "1")
+                            {
+                                $updatedPermissions[$systemId][]=$permId;
+                                $data["system_perm_id"]=$permId;
+                                AdminPermission::updateOrCreate(["admin_id" => $adminId, "admin_perm_system_id" => $systemId, "system_perm_id" => $permId], $data);
+                            }
+                            else
+                            {
+                                $resetPermissions[$systemId][]=$permId;
+                                AdminPermission::query()->where("admin_id", "=", $adminId)
+                                                        ->where("admin_perm_system_id", "=", $systemId)
+                                                        ->where("system_perm_id", "=", $permId)->delete();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if($inv_rev_status == "1")
+        {
+            $invokedPermissions = $updatedPermissions;
+            $revokedPermissions = $resetPermissions;
+        }
+        else
+        {
+            $invokedPermissions = $resetPermissions;
+            $revokedPermissions = $updatedPermissions;
+        }
+
+        if(is_array($systems) && count($systems)>0)
+        {
+            $data = array();
+            $data["admin_id"] = $adminId;
+            $data["remarks"] = request()->post("remarks");
+
+            foreach ($systems as $systemId)
+            {
+                $invPerms = array();
+                if(isset($invokedPermissions[$systemId]))
+                {
+                    $invPerms = $invokedPermissions[$systemId];
+                }
+                $revPerms = array();
+                if(isset($revokedPermissions[$systemId]))
+                {
+                    $revPerms = $revokedPermissions[$systemId];
+                }
+
+                if(count($invPerms)>0 || count($revPerms)>0)
+                {
+                    $data["admin_perm_system_id"] = $systemId;
+                    $data["invoked_permissions"] = $invPerms;
+                    $data["revoked_permissions"] = $revPerms;
+
+                    AdminPermissionHistory::create($data);
+                }
+            }
+        }
+    }
+
+    /**
+     * Get permission data of a specific system
+     * @param int $adminId
+     * @param int $systemId
+     * @return array
+     */
+    public static function getPermissionData($adminId, $systemId)
+    {
+        $date = date("Y-m-d", time());
+        $results = AdminPermission::query()
+            ->select("admin_perm_system_id","system_perm_id", "inv_rev_status")
+            ->where(["adminId" => $adminId, "admin_perm_system_id" => $systemId])
+            ->where("valid_from", "<=", $date)
+            ->where("valid_till", ">=", $date)
+            ->get();
+
+        $data = array();
+        if($results)
+        {
+            if(is_array($results) && count($results)>0)
+            {
+                foreach ($results as $result)
+                {
+                    $data[] = $result;
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get permission data of a specific system as JSON
+     * @param int $adminId
+     * @param int $systemId
+     * @return string
+     */
+    public static function getPermissionDataJson($adminId, $systemId)
+    {
+        $data = self::getPermissionData($adminId, $systemId);
+
+        return json_encode($data);
+    }
+
+    /**
+     * Get permission data of all systems
+     * @param int $adminId
+     * @return array
+     */
+    public static function getAllSystemPermissions($adminId)
+    {
+        $date = date("Y-m-d", time());
+        $results = AdminPermission::query()
+            ->select("admin_perm_system_id","system_perm_id", "inv_rev_status")
+            ->where("adminId", "=", $adminId)
+            ->where("valid_from", "<=", $date)
+            ->where("valid_till", ">=", $date)
+            ->get();
+
+        $data = array();
+        if($results)
+        {
+            $data = array();
+            foreach ($results as $result)
+            {
+                $data[$result["admin_perm_system_id"]][]=$result;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get permission data of all systems as JSON
+     * @param int $adminId
+     * @return string
+     */
+    public static function getAllSystemPermissionsJson($adminId)
+    {
+        $data = self::getAllSystemPermissions($adminId);
+
+        return json_encode($data);
     }
 }

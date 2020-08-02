@@ -29,9 +29,9 @@ class CreateAdminPermissionHistoriesTable extends Migration
             $table->index("admin_id");
             $table->index("admin_perm_system_id");
 
-            $table->unsignedInteger("updated_by");
-            $table->index("updated_by");
-            $table->foreign("updated_by")->references("admin_id")->on(Admin::class);
+            $table->unsignedInteger("created_by");
+            $table->index("created_by");
+            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
 
             $table->timestamps();
         });

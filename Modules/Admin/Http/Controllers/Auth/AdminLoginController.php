@@ -4,6 +4,8 @@ namespace Modules\Admin\Http\Controllers\Auth;
 
 use App\Country;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -12,8 +14,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\View;
 use Modules\Admin\Entities\AdminLoginHistory;
 use Modules\Admin\Entities\AdminRole;
-use Modules\Admin\Entities\PermissionValidate;
 use Modules\Admin\Services\Location;
+use Modules\Admin\Services\Permission;
 
 class AdminLoginController extends Controller
 {
@@ -26,7 +28,7 @@ class AdminLoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin:admin')->except('logout');
+        $this->middleware('admin:admin')->except('logout', 'logoutAuto');
 
         View::composer("*", function ($view){
 
@@ -110,7 +112,7 @@ class AdminLoginController extends Controller
                     $request->session()->flash("notify", $notify);
 
                     //this is a normal admin, we have to gather permission data of this user
-                    $permissions = PermissionValidate::getAdminPermissions($admin["admin_id"], $adminRole->admin_role_id);
+                    $permissions = Permission::getPermissions($admin->id, $adminRole->admin_role_id);
                     $request->session()->put("permissions", $permissions);
 
                     $this->recordLoginActivity($admin->id);
@@ -119,18 +121,21 @@ class AdminLoginController extends Controller
                 }
                 else
                 {
-                    if ($adminRole["reason"] != "") {
+                    if ($adminRole->disabled_reason != "")
+                    {
                         $notify["status"] = "failed";
                         $notify["notify"][] = "Your admin role has been disabled due to following reason.";
-                        $notify["notify"][] = $adminRole["reason"];
+                        $notify["notify"][] = $adminRole->disabled_reason;
 
                         $request->session()->flash("notify", $notify);
 
-                        $loginFailedReason = $adminRole["reason"];
-                    } else {
+                        $loginFailedReason = $adminRole["disabled_reason"];
+                    }
+                    else
+                    {
                         $notify["status"] = "failed";
                         $notify["notify"][] = "Your admin role has been disabled.";
-                        $notify["notify"][] = "Please contact system administrator.";
+                        $notify["notify"][] = "Please contact system administrator for more information.";
 
                         $loginFailedReason = "Admin role has been disabled";
 
@@ -150,12 +155,23 @@ class AdminLoginController extends Controller
             $request->session()->regenerateToken();
 
             $notify["status"]="failed";
-            $notify["notify"][]="Your account has been disabled.";
-            $notify["notify"][]="Please contact system administrator.";
+            if ($admin->disabled_reason!= "")
+            {
+                $notify["notify"][]="Your account has been disabled due to following reason";
+                $notify["notify"][]=$admin->disabled_reason;
+                $notify["notify"][]="Please contact system administrator for more information.";
+
+                $loginFailedReason = $admin->disabled_reason;
+            }
+            else
+            {
+                $notify["notify"][]="Your account has been disabled.";
+                $notify["notify"][]="Please contact system administrator for more information.";
+
+                $loginFailedReason = "Admin account has been disabled.";
+            }
 
             $request->session()->flash("notify", $notify);
-
-            $loginFailedReason = "Admin account has been disabled.";
             $this->recordLoginActivity($admin->id, true, $loginFailedReason);
 
             return redirect()->back();
@@ -180,18 +196,69 @@ class AdminLoginController extends Controller
         return redirect()->back();
     }
 
-    protected function loggedOut(Request $request)
+    /**
+     * Log the user out of the application.
+     *
+     * @param Request $request
+     * @param int $manual
+     * @return mixed
+     */
+    public function logout(Request $request, $manual=1)
     {
-        $notify["status"]="success";
-        $notify["notify"][]="You just signed out successfully.";
-        $notify["notify"][]="See you again soon.";
+        $adminLoginHistoryId = $request->session()->get("admin_login_history_id");
 
-        $request->session()->flash("notify", $notify);
+        $this->recordLogOutActivity($adminLoginHistoryId, $manual);
 
-        return redirect()->route('dashboard.login');
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        if($manual)
+        {
+            $notify["status"]="success";
+            $notify["notify"][]="You just signed out successfully.";
+            $notify["notify"][]="See you again soon.";
+        }
+        else
+        {
+            $notify["status"]="warning";
+            $notify["notify"][]="Your session has been expired due to inactivity.";
+        }
+
+        if($request->expectsJson())
+        {
+            $response["notify"]=$notify;
+            return response()->json($response, 201);
+        }
+        else
+        {
+            $request->session()->flash("notify", $notify);
+            return redirect()->route('dashboard.login');
+        }
     }
 
-    private function recordLoginActivity($admin_id, $failed=false, $loginFailedReason="")
+    /**
+     * Log the user out of the application.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function logoutAuto(Request $request)
+    {
+        return $this->logout($request, 0);
+    }
+
+    private function recordLogOutActivity($adminLoginHistoryId)
+    {
+        $lh = AdminLoginHistory::find($adminLoginHistoryId);
+        $lh->online_status = 0;
+        $lh->sign_out_type = 1; //manual sign out
+        $lh->sign_out_at = date("Y-m-d H:i:s", time());
+
+        $lh->save();
+    }
+
+    private function recordLoginActivity($adminId, $failed=false, $loginFailedReason="")
     {
         $ip = Location::getClientIP();
         $geoData = Location::getGeoData($ip);
@@ -200,16 +267,16 @@ class AdminLoginController extends Controller
 
         $country = Country::where("country_code", "=", $countryCode)->first();
 
-        $country_id = null;
+        $countryId = null;
         if($country)
         {
-            $country_id = $country->country_id;
+            $countryId = $country->country_id;
         }
 
         $adminLH = new AdminLoginHistory();
-        $adminLH->admin_id = $admin_id;
+        $adminLH->admin_id = $adminId;
         $adminLH->login_ip = $ip;
-        $adminLH->country_id = $country_id;
+        $adminLH->country_id = $countryId;
         $adminLH->city = $geoData["city"];
         if($failed)
         {

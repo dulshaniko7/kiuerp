@@ -1,16 +1,15 @@
 <?php
 
-namespace Modules\Admin\Entities;
+namespace Modules\Admin\Services;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
-use Nwidart\Modules\Facades\Module;
 
 class PermissionValidate
 {
     private $adminPermissions = null;
     private $defaultPermissions = null;
     private $modulePermissions = [];
+    private $currentPermission = null;
 
     /**
     * This function is for load the permission for the default controller path
@@ -18,19 +17,9 @@ class PermissionValidate
     */
     public function loadDefaultPermissions()
     {
-        $permissions = array();
-
         if($this->defaultPermissions === null)
         {
-            if(Config::get('permissions.groups'))
-            {
-                $permissionGroups = Config::get('permissions.groups');
-
-                $permissions = $this->extractPermissions($permissionGroups);
-            }
-
-            $this->defaultPermissions = $permissions;
-            unset($permissions);
+            $this->defaultPermissions = Permission::loadDefaultPermissions();
         }
 
         return $this->defaultPermissions;
@@ -45,68 +34,17 @@ class PermissionValidate
     {
         if(!isset($this->modulePermissions[$module]))
         {
-            $filePath = Module::getModulePath($module)."Config/permissions.php";
-
-            $permissionGroups = array();
-            if(file_exists($filePath))
-            {
-                $permissionsArray=include($filePath);
-                $permissionGroups = $permissionsArray["groups"];
-
-                if(isset($permissionsArray["groups"]) && is_array($permissionsArray["groups"]))
-                {
-                    $permissionGroups = $permissionsArray["groups"];
-                }
-            }
-
-            $permissionGroups = $this->extractPermissions($permissionGroups);
-
-            $this->modulePermissions[$module] = $permissionGroups;
-            unset($permissionGroups);
+            $this->modulePermissions[$module] = Permission::loadSingleModulePermissions($module);
         }
 
         return $this->modulePermissions[$module];;
     }
 
     /**
-     * Extract permissions for the required format
-     * @param array $permissionGroups
-     * @return array
-     */
-    public function extractPermissions($permissionGroups)
-    {
-        $permissions = array();
-
-        if(is_array($permissionGroups) && count($permissionGroups)>0)
-        {
-            foreach($permissionGroups as $group => $pG)
-            {
-                if(isset($pG["permissions"]) && is_array($pG["permissions"]) && count($pG["permissions"])>0)
-                {
-                    $permissionActions = [];
-
-                    foreach($pG["permissions"] as $permission)
-                    {
-                        //trim trailing slashes;
-                        $del = "/";
-                        $action = rtrim($permission["action"], $del);
-
-                        $permissionActions[]=$action;
-                    }
-
-                    $permissions = array_merge($permissionActions, $permissions);
-                }
-            }
-        }
-
-        return $permissions;
-    }
-
-    /**
      * Get currently logged in user's permissions list
      * @return array
      */
-    public function getAdminPermissions()
+    public function getCurrentAdminPermissions()
     {
         if($this->adminPermissions === null)
         {
@@ -128,9 +66,10 @@ class PermissionValidate
      * Check permissions if this user has access to a selected area
      * @param boolean $module module name
      * @param string $urlPath URL path
+     * @param int $permId
      * @return boolean
      */
-    public function checkHavePermission($module, $urlPath)
+    public function checkHavePermission($module, $urlPath, $permId)
     {
         //get required permission list
         if(!empty($module))
@@ -145,19 +84,27 @@ class PermissionValidate
         }
 
         //get admin's permission list
-        $adminPermissions = request()->session()->get("permissions");
+        $adminPermissions = $this->getCurrentAdminPermissions();
 
-        //trim leading and trailing slashes;
+        //trim trailing slashes;
         $del = "/";
-        $urlPath = trim($urlPath, $del);
+        $urlPath = rtrim($urlPath, $del);
 
         //check if this url path has been set in required permissions list
         if(in_array($urlPath, $requiredPermissions))
         {
-            //check if this permission has been set in user's permission
-            if(in_array($urlPath, $adminPermissions))
+            if($permId)
             {
-                $have_permission=true;
+                //check if this permission has been set in user's permission
+                if(in_array($permId, $adminPermissions))
+                {
+                    $have_permission=true;
+                }
+                else
+                {
+                    //this user has no permission to perform this operation
+                    $have_permission=false;
+                }
             }
             else
             {
@@ -175,27 +122,6 @@ class PermissionValidate
     }
 
     /**
-     * Check permissions if this user to the passed url
-     * @param string $uri - Path this user need to access
-     * @return boolean
-     */
-    public function haveUrlPermission($uri="")
-    {
-        $defaultAdmin = request()->session()->get("default_admin");
-
-        if($defaultAdmin)
-        {
-            return true;
-        }
-        else
-        {
-            $module = $this->getModuleFromUri($uri);
-
-            return $this->checkHavePermission($module, $uri);
-        }
-    }
-
-    /**
      * Check permissions if this user have permission to current route
      * @return bool
      */
@@ -203,58 +129,82 @@ class PermissionValidate
     {
         $defaultAdmin = request()->session()->get("default_admin");
 
+        $urlPath = request()->getPathInfo();
+        $urlPath = $this->getRouteUri($urlPath);
+        $permission = Permission::getRoutePermission($urlPath);
+
         if($defaultAdmin)
         {
+            $this->setCurrentActivity($permission);
             return true;
         }
         else
         {
-            $uri = request()->getPathInfo();
-            $uri = $this->getRouteUri($uri);
+            $module = $this->getModuleFromUri($urlPath);
 
-            $module = $this->getModuleFromUri($uri);
+            $permId = false;
+            if($permission)
+            {
+                $permId = $permission["system_perm_id"];
+            }
 
-            return $this->checkHavePermission($module, $uri);
+            $this->setCurrentActivity($permission);
+
+            return $this->checkHavePermission($module, $urlPath, $permId);
         }
+    }
+
+    public function setCurrentActivity($permission)
+    {
+        $permission_title = "";
+        if($permission)
+        {
+            $permission_title = $permission["permission_title"];
+        }
+
+        request()->session()->put("currentActivity", $permission_title);
     }
 
     /**
      * Get correct route URI which matched with the system routes
-     * @param string $uri
+     * @param string $urlPath
      * @return string
      */
-    public function getRouteUri($uri)
+    public function getRouteUri($urlPath)
     {
         //extract URL
-        $route = collect(\Route::getRoutes())->first(function($route) use($uri){
+        $route = collect(\Route::getRoutes())->first(function($route) use($urlPath){
 
             $method = request()->method();
-            return $route->matches(request()->create($uri, $method));
+            return $route->matches(request()->create($urlPath, $method));
         });
 
-        $uri = $route->uri;
+        $urlPath = $route->uri;
 
         //check for url params
-        $paramStart = strpos($uri, "{");
+        $paramStart = strpos($urlPath, "{");
         if($paramStart)
         {
             //get rest of the URL without URL params
-            $uri = substr($uri, 0, $paramStart);
+            $urlPath = substr($urlPath, 0, $paramStart);
         }
 
-        return URL::to($uri);
+        $slash = "/";
+        $urlPath = $slash.ltrim($urlPath, $slash);
+
+        return $urlPath;
     }
 
     /**
      * Get controller of the specific URI
-     * @param string $uri
+     * @param string $urlPath
      * @return string|null
      */
-    public function getControllerFromRoute($uri)
+    public function getControllerFromRoute($urlPath)
     {
-        $route = collect(\Route::getRoutes())->first(function($route) use($uri){
+        $route = collect(\Route::getRoutes())->first(function($route) use($urlPath){
 
-            return $route->matches(request()->create($uri));
+            return $route->matches(request()->create($urlPath));
         });
 
         if($route)
@@ -294,7 +244,7 @@ class PermissionValidate
     }
 
     /**
-     * Check if have permissions for set of URLs/URIs and then return formatted urls according to the permissions
+     * Check if have permissions for set of URLs/URIs and then return prepared urls array according to the permissions
      * @param array $urls
      * @return array
      */
@@ -302,9 +252,13 @@ class PermissionValidate
     {
         if (is_array($urls) && count($urls)>0)
         {
+            $urls = Permission::validateUrls($urls);
+
             foreach ($urls as $key => $url)
             {
-                if($this->haveUrlPermission($url))
+                $module = $this->getModuleFromUri($url);
+
+                if($this->checkHavePermission($module, $url, $permId))
                 {
                     //set requested url since have permission
                     $urls[$key]=$url;

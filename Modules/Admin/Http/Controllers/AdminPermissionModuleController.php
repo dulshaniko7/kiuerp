@@ -213,6 +213,7 @@ class AdminPermissionModuleController extends Controller
 
         if($model)
         {
+            $record = $model;
             $formMode = "edit";
             $formSubmitUrl = request()->getPathInfo();
 
@@ -240,7 +241,6 @@ class AdminPermissionModuleController extends Controller
         if($model)
         {
             $model = $this->repository->getValidatedData($model, [
-                "admin_perm_system_id" => "required|exists:admin_permission_systems,admin_perm_system_id",
                 "module_name" => "required|min:3",
                 "module_status" => "required|digits:1",
                 "remarks" => "",

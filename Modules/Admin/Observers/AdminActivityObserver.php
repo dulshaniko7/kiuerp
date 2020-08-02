@@ -81,10 +81,13 @@ class AdminActivityObserver
         {
             if ($model->trashed())
             {
-                $columns = ["deleted_by" => auth("admin")->user()->admin_id];
-                $query = $model->newQueryWithoutScopes()->where($model->getKeyName(), $model->getKey());
+                if(isset(auth("admin")->user()->admin_id))
+                {
+                    $columns = ["deleted_by" => auth("admin")->user()->admin_id];
+                    $query = $model->newQueryWithoutScopes()->where($model->getKeyName(), $model->getKey());
 
-                $query->update($columns);
+                    $query->update($columns);
+                }
             }
         }
 
@@ -145,7 +148,10 @@ class AdminActivityObserver
     {
         if(in_array("created_by", $model->getFillable()))
         {
-            $model->created_by = auth("admin")->user()->admin_id;
+            if(isset(auth("admin")->user()->admin_id))
+            {
+                $model->created_by = auth("admin")->user()->admin_id;
+            }
         }
     }
 
@@ -159,7 +165,10 @@ class AdminActivityObserver
     {
         if(in_array("created_by", $model->getFillable()))
         {
-            $model->updated_by = auth("admin")->user()->admin_id;
+            if(isset(auth("admin")->user()->admin_id))
+            {
+                $model->updated_by = auth("admin")->user()->admin_id;
+            }
         }
     }
 
@@ -172,26 +181,36 @@ class AdminActivityObserver
      */
     private function recordActivity($model, $event, $oldData=[], $newData=[], $activity="")
     {
-        $primaryKey = $model->getKeyName();
-        $modelName = $className = get_class($model);
-        $modelId = $model->$primaryKey;
+        if(isset(auth("admin")->user()->admin_id))
+        {
+            $primaryKey = $model->getKeyName();
+            $modelName = $className = get_class($model);
+            $modelId = $model->$primaryKey;
 
-        $request = request();
+            $request = request();
 
-        $admin_login_history_id = $request->session()->get("admin_login_history_id");
-        $admin_id = auth("admin")->user()->admin_id;
+            $admin_id = auth("admin")->user()->admin_id;
+            $admin_login_history_id = $request->session()->get("admin_login_history_id");
 
-        $adminActModel = new AdminActivity();
-        $adminActModel->admin_login_history_id = $admin_login_history_id;
-        $adminActModel->admin_id = $admin_id;
-        $adminActModel->activity = $activity;
-        $adminActModel->event = $event;
-        $adminActModel->activity_old_data = json_encode($oldData);
-        $adminActModel->activity_new_data = json_encode($newData);
-        $adminActModel->activity_model_name = $modelName;
-        $adminActModel->activity_model = $modelId;
-        $adminActModel->activity_at = date("Y-m-d H:i:s", time());
+            //set real activity from system if exists
+            $currentActivity = request()->session()->get("currentActivity");
+            if($currentActivity!="")
+            {
+                $activity = $currentActivity;
+            }
 
-        $adminActModel->save();
+            $adminActModel = new AdminActivity();
+            $adminActModel->admin_login_history_id = $admin_login_history_id;
+            $adminActModel->admin_id = $admin_id;
+            $adminActModel->activity = $activity;
+            $adminActModel->event = $event;
+            $adminActModel->activity_old_data = json_encode($oldData);
+            $adminActModel->activity_new_data = json_encode($newData);
+            $adminActModel->activity_model_name = $modelName;
+            $adminActModel->activity_model = $modelId;
+            $adminActModel->activity_at = date("Y-m-d H:i:s", time());
+
+            $adminActModel->save();
+        }
     }
 }

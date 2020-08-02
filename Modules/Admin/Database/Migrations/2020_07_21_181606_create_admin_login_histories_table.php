@@ -24,7 +24,7 @@ class CreateAdminLoginHistoriesTable extends Migration
             $table->unsignedTinyInteger("online_status");
             $table->dateTime("last_activity_at");
             $table->dateTime("sign_in_at");
-            $table->unsignedTinyInteger("sign_out_type")->nullable();
+            $table->unsignedTinyInteger("sign_out_type")->nullable()->comment("Manual or Auto; Manual:1, Auto:0");
             $table->dateTime("sign_out_at")->nullable();
 
             $table->foreign("admin_id")->references("admin_id")->on(Admin::class);

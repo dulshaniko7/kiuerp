@@ -17,7 +17,7 @@ class CreateAdminPermissionSystemsTable extends Migration
         Schema::create('admin_permission_systems', function (Blueprint $table) {
             $table->smallIncrements('admin_perm_system_id');
             $table->string("system_name", 255);
-            $table->string("system_slug", 255);
+            $table->string("system_slug", 255)->unique();
             $table->unsignedTinyInteger("system_status");
             $table->text("remarks")->nullable();
 

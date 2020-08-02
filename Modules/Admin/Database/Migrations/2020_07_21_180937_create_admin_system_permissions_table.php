@@ -38,6 +38,8 @@ class CreateAdminSystemPermissionsTable extends Migration
             $table->index("updated_by");
             $table->index("deleted_by");
 
+            $table->unique(["system_perm_id", "permission_key"]);
+
             $table->timestamps();
             $table->softDeletes();
         });
