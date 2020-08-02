@@ -12,13 +12,17 @@
         </tr>
         </thead>
         <tbody>
+        @foreach($idRanges as $idRange)
         <tr>
-            <td>Nursing</td>
-            <td>1000</td>
-            <td>1500</td>
-            <td><a href="/slo/idRange/edit"><div class="btn btn-sm"><span class="fa fa-edit"></span> Edit</div></a></td>
+            <td>{{$idRange->course->course_id}}</td>
+            <td>{{$idRange->start}}</td>
+            <td>{{$idRange->end}}</td>
+            <td>
+                <div class="btn btn-xs"><span class="fa fa-edit"></span><a href="{{ route('idRange.edit',$idRange->id)}}"> Edit</a></div>
+                <div class="btn btn-xs"><span class="fa fa-trash"></span><a href="{{ route('idRange.delete',$idRange->id)}}"> Delete</a></div>
+            </td>
         </tr>
-
+@endforeach
         </tbody>
         <tfoot>
         </tfoot>

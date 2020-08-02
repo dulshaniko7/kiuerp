@@ -13,11 +13,15 @@
         <tbody>
         @foreach($batchTypes as $batchType)
         <tr>
-            <td>1</td>
+            <td>{{$batchType->id}}</td>
             <td>{{$batchType->description}}</td>
-            <td><a href="{{ route('batchType.edit',$batchType->id)}}">
-                    <div class="btn btn-sm"><span class="fa fa-edit"></span> Edit</div>
-                </a></td>
+            <td>
+
+                <div class="btn btn-sm"><span class="fa fa-edit"></span><a
+                        href="{{ route('batchType.edit',$batchType->id)}}"> Edit</a></div>
+                <div class="btn btn-xs"><span class="fa fa-trash"></span><a
+                        href="{{ route('batchType.delete',$batchType->id)}}"> Delete</a></div>
+            </td>
         </tr>
         @endforeach
 

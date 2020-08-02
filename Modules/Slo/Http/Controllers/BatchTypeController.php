@@ -105,4 +105,13 @@ class BatchTypeController extends Controller
     {
         //
     }
+
+    public function softDelete($id)
+    {
+
+        // $batches = Batch::withoutTrashed();
+        $batchType = BatchType::findOrFail($id);
+        $batchType->delete();
+        return redirect()->route('batchType.index');
+    }
 }

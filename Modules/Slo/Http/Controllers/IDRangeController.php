@@ -101,6 +101,15 @@ class IDRangeController extends Controller
         //
     }
 
+    public function softDelete($id)
+    {
+
+        // $batches = Batch::withoutTrashed();
+        $idRange = IdRange::findOrFail($id);
+        $idRange->delete();
+        return redirect()->route('idRange.index');
+    }
+
     public function start($id)
     {
 

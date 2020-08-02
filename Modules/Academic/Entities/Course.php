@@ -7,7 +7,7 @@ use Modules\Slo\Entities\IdRange;
 
 class Course extends Model
 {
-    protected $fillable = [];
+    protected $guarded=[];
 
     protected $primaryKey = 'course_id';
 

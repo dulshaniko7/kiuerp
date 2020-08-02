@@ -75,7 +75,7 @@ class BatchController extends Controller
      */
     public function show($id)
     {
-        $batch = Batch::findOrFail();
+        // $batch = Batch::findOrFail();
 
         return view('slo::batch.show');
 
@@ -119,6 +119,14 @@ class BatchController extends Controller
      */
     public function destroy($id)
     {
-        //
+    }
+
+    public function softDelete($id)
+    {
+
+        // $batches = Batch::withoutTrashed();
+        $batch = Batch::findOrFail($id);
+        $batch->delete();
+        return redirect()->route('batch.index');
     }
 }

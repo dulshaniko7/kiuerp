@@ -19,6 +19,7 @@
             <td>{{$batch->batch_name}}</td>
             <td>
                 <div class="btn btn-xs"><span class="fa fa-edit"></span><a href="{{ route('batch.edit',$batch->batch_id)}}"> Edit</a></div>
+                <div class="btn btn-xs"><span class="fa fa-trash"></span><a href="{{ route('batch.delete',$batch->batch_id)}}"> Delete</a></div>
             </td>
         </tr>
         @endforeach
