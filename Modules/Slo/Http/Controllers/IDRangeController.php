@@ -125,4 +125,18 @@ class IDRangeController extends Controller
             });
         return response()->json(['end' => $end]);
     }
+
+    public function search($id)
+    {
+        $course = Course::findOrFail($id);
+
+        $course_name = $course->course_name;
+
+
+        return response()->json(['course_name' => $course_name]);
+
+
+    }
+
+
 }

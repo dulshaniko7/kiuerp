@@ -2,7 +2,21 @@
 @section('content')
 
 <div class="card-body">
-    <table id="data-table" class="table table-bordered table-striped">
+
+    <div class="form-group">
+        <label for="course_id">Select Course</label>
+        <select class="form-control " name="course_id" id="course_id" required data-dependent="start">
+            <option>Select Course</option>
+            @foreach($courses as $course)
+            <option value="{{$course->course_id}}">{{$course->course_name}}</option>
+            @endforeach
+        </select>
+
+    </div>
+
+    <a class="btn btn-primary float-right" href="{{ route('idRange.create',)}}" role="button">Add New ID Range</a>
+
+    <table id="data-table" class="table table-bordered table-striped" >
         <thead class="thead-dark">
         <tr>
             <th>Course</th>
@@ -14,7 +28,7 @@
         <tbody>
         @foreach($idRanges as $idRange)
         <tr>
-            <td>{{$idRange->course->course_id}}</td>
+            <td>{{$idRange->course->course_name}}</td>
             <td>{{$idRange->start}}</td>
             <td>{{$idRange->end}}</td>
             <td>
@@ -31,7 +45,11 @@
 
 
 <script>
+
+
     $(document).ready(function () {
+
+
         $('#data-table').DataTable({
             "responsive": true,
             "paging": true,
@@ -42,7 +60,14 @@
                 "orderTable": false
             }]
         });
+
+/*
+
+
+            //$('.dataTables_filter input').val(id)
+*/
     });
 </script>
+<script src="{{ asset('js/com/idRange1.js')}}"></script>
 @endsection
 

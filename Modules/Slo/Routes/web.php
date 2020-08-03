@@ -41,7 +41,7 @@ Route::put('/slo/idRange/{id}', 'IDRangeController@update')->name('idRange.updat
 Route::get('/slo/idRangeDelete/{id}', 'IDRangeController@softDelete')->name('idRange.delete');
 
 Route::get('/slo/idRange/start/{id}', 'IDRangeController@start')->name('idRange.start');
-
+Route::get('/slo/idRange/search/{id}', 'IDRangeController@search')->name('idRange.search');
 
 Route::get('/slo/studentRegisters', 'StudentController@index')->name('registers');
 
