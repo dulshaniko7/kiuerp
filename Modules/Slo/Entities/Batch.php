@@ -23,6 +23,10 @@ class Batch extends Model
         return $this->belongsTo(BatchType::class, 'id', 'id');
     }
 
+    public function stdRegisters(){
+        return $this->hasMany(StdRegister::class,'batch_id','batch_id');
+    }
+
     public static function boot()
     {
         parent::boot();

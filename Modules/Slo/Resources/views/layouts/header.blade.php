@@ -51,7 +51,7 @@
                                 Student
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/academic/faculty/create">Add New Student</a>
+                                <a class="dropdown-item" href="{{ route('register.create')}}">Add New Student</a>
                                 <a class="dropdown-item" href="/academic/faculty/trash">Update Student Full Details</a>
                                 <a class="dropdown-item" href="/academic/faculty">Edit Student Details</a>
                             </div>
