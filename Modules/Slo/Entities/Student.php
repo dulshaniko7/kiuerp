@@ -14,15 +14,26 @@ class Student extends Model
 
     public function StdRegisters()
     {
-        return $this->hasMany(StdRegister::class,'student_id','student_id');
+        return $this->hasMany(StdRegister::class, 'student_id', 'student_id');
     }
 
-    public function stdExperiences(){
-        return $this->hasMany(StdExperience::class);
+    public function stdExperiences()
+    {
+        return $this->hasMany(StdExperience::class, 'student_id', 'student_id');
     }
 
-    public function stdExtraDetails(){
-        return $this->hasMany(StdExtraDetail::class,'student_id','student_id');
+    public function stdExtraDetails()
+    {
+        return $this->hasMany(StdExtraDetail::class, 'student_id', 'student_id');
     }
 
+    public function nursings()
+    {
+        return $this->hasMany(StdNursing::class, 'student_id', 'student_id');
+    }
+
+    public function stdQualifications()
+    {
+        return $this->hasMany(StdQualification::class, 'student_id', 'student_id');
+    }
 }
