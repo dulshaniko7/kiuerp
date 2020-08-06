@@ -80,13 +80,21 @@ class AdminRoleController extends Controller
      */
     public function create()
     {
+        $this->repository->setPageTitle("Administrator Roles | Add New");
+
+        $model = new AdminRole();
+        $record = $model;
+        $record->allowedRoles = [];
+
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
         $urls = [];
         $urls["listUrl"]=URL::to("/admin/admin_role");
 
-        return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'urls'));
+        $this->repository->setPageUrls($urls);
+
+        return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
@@ -126,7 +134,9 @@ class AdminRoleController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin_role/create");
             $urls["listUrl"]=URL::to("/admin/admin_role");
 
-            return view('admin::admin_role.view', compact('data', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('admin::admin_role.view', compact('data', 'record'));
         }
         else
         {
@@ -143,8 +153,6 @@ class AdminRoleController extends Controller
     {
         $model = AdminRole::find($id);
 
-        //dd(get_class($model));
-
         if($model)
         {
             $record = $model;
@@ -155,7 +163,9 @@ class AdminRoleController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin_role/create");
             $urls["listUrl"]=URL::to("/admin/admin_role");
 
-            return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {

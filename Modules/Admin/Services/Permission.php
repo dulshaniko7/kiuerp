@@ -3,6 +3,7 @@
 namespace Modules\Admin\Services;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\URL;
 use Modules\Admin\Repositories\AdminPermissionSystemRepository;
 use Modules\Admin\Repositories\AdminRepository;
 use Modules\Admin\Repositories\AdminRoleRepository;
@@ -15,7 +16,7 @@ class Permission
      * Get all the permission handling system labels
      * @return array
      */
-    public static function getPermSystemLabels()
+    public static function getPermSystemSlugs()
     {
         $systems = self::getPermSystems();
 
@@ -39,80 +40,38 @@ class Permission
     }
 
     /**
-     * Load the permission for a single module
-     * @param string $system
+     * Get all the permission handling system labels
+     * @param string $slug
      * @return array
      */
-    public static function loadSingleSystemPermissions($system)
+    public static function getSystemBySlug($slug)
     {
-        $permissions = array();
+        $systems = self::getPermSystems();
 
-        if($system == "default")
+        $name = "";
+        if(is_array($systems) && count($systems)>0)
         {
-            $permissions = self::loadDefaultSystemPermissions();
-        }
-        else
-        {
-            $filePath = Module::getModulePath("admin")."Config/permissions/".$system.".php";
-            if(file_exists($filePath))
+            foreach ($systems as $system => $systemName)
             {
-                $permissionsArray=include($filePath);
-
-                if(isset($permissionsArray["groups"]))
+                if($slug == $system)
                 {
-                    $permissions = $permissionsArray["groups"];
+                    $name = $systemName;
+                    break;
                 }
             }
         }
 
-        return $permissions;
-    }
-
-    /**
-     * Load the permission for a single module
-     * @return array
-     */
-    public static function loadDefaultSystemPermissions()
-    {
-        $permissions = array();
-
-        //get module permissions first
-        $modules = Module::allEnabled();
-
-        if(is_array($modules) && count($modules)>0)
-        {
-            foreach ($modules as $module)
-            {
-                $filePath = Module::getModulePath($module)."Config/permissions.php";
-
-                if(file_exists($filePath))
-                {
-                    $permissionsArray=include($filePath);
-
-                    if(isset($permissionsArray["groups"]))
-                    {
-                        $permissions = array_merge($permissions, $permissionsArray);
-                    }
-                }
-            }
-        }
-
-        //load default config path permissions
-        $permissionsArray=config('permissions.groups');
-
-        if(isset($permissionsArray["groups"]))
-        {
-            $permissions = array_merge($permissions, $permissionsArray);
-        }
-
-        return $permissions;
+        return $name;
     }
 
     /**
      * Load the permissions of all systems
+     * @param bool $withHash
+     * @param bool $exclude
+     * @param array $excludeHashes
      * @return array
      */
-    public static function getAllSystemPermissions()
+    public static function getAllSystemPermissions($withHash=false, $exclude=false, $excludeHashes=[])
     {
         $systems = self::getPermSystems();
         $systemPermissions = array();
@@ -124,13 +83,209 @@ class Permission
                 $systemPermission = array();
                 $systemPermission["name"] = $system;
                 $systemPermission["label"] = $label;
-                $systemPermission["groups"] = self::loadSingleSystemPermissions($system);
+                $systemPermission["modules"] = self::getSingleSystemPermissions($system, $withHash, $exclude, $excludeHashes);
 
                 $systemPermissions[]=$systemPermission;
             }
         }
 
         return $systemPermissions;
+    }
+
+    /**
+     * Load the permission of a single system
+     * @param string $system
+     * @param bool $withHash
+     * @param bool $exclude
+     * @param array $excludeHashes
+     * @return array
+     */
+    public static function getSingleSystemPermissions($system, $withHash=false, $exclude=false, $excludeHashes=[])
+    {
+        if($system == "default")
+        {
+            $permModules = self::getDefaultSystemPermissions();
+        }
+        else
+        {
+            $permModules = array();
+
+            $filePath = Module::getModulePath("admin")."Config/permissions/".$system.".php";
+            if(file_exists($filePath))
+            {
+                $configArray=include($filePath);
+                if(isset($configArray["modules"]))
+                {
+                    $permModules = $configArray["modules"];
+                }
+            }
+        }
+
+        $permModules = self::prepareModules($permModules, $withHash, $exclude, $excludeHashes);
+
+        $permissions = array();
+        if(count($permModules)>0)
+        {
+            $permissions = $permModules;
+        }
+
+        return $permissions;
+    }
+
+    /**
+     * Load the permission for a single module
+     * @return array
+     */
+    public static function getDefaultSystemPermissions()
+    {
+        //get module permissions first
+        $modules = Module::allEnabled();
+
+        $permModules = [];
+        if(is_array($modules) && count($modules)>0)
+        {
+            foreach ($modules as $module)
+            {
+                $filePath = Module::getModulePath($module)."Config/permissions.php";
+
+                if(file_exists($filePath))
+                {
+                    $permModule=include($filePath);
+
+                    if($permModule)
+                    {
+                        $permModules[] = $permModule;
+                    }
+                }
+            }
+        }
+
+        //load default config path permissions
+        $permissionModule=config('permissions.module');
+        $permissionModuleName=config('permissions.name');
+        $permissionModuleGroups=config('permissions.groups');
+
+        if($permissionModule != "" && $permissionModuleName !="")
+        {
+            $module = [
+                "module" => $permissionModule,
+                "name" => $permissionModuleName,
+                "groups" => $permissionModuleGroups["groups"]
+            ];
+
+            $permModules[] = $module;
+        }
+
+        return $permModules;
+    }
+
+    /**
+     * @param array $modules
+     * @param bool $withHash
+     * @param bool $exclude
+     * @param array $excludeHashes
+     * @return array
+     */
+    public static function prepareModules($modules=array(), $withHash=false, $exclude=false, $excludeHashes=[])
+    {
+        $prepared = [];
+
+        if(is_array($modules) && count($modules)>0)
+        {
+            foreach ($modules as $module)
+            {
+                if(isset($module["module"]) && isset($module["name"]) && isset($module["groups"]))
+                {
+                    $groups = self::prepareGroups($module["groups"], $withHash, $exclude, $excludeHashes);
+                    if(count($groups)>0)
+                    {
+                        $module["groups"] = $groups;
+                        $prepared[]=$module;
+                    }
+                }
+            }
+        }
+
+        return $prepared;
+    }
+
+    /**
+     * @param array $groups
+     * @param bool $withHash
+     * @param bool $exclude
+     * @param array $excludeHashes
+     * @return array
+     */
+    public static function prepareGroups($groups=array(), $withHash=false, $exclude=false, $excludeHashes=[])
+    {
+        $prepared = [];
+
+        if(is_array($groups) && count($groups)>0)
+        {
+            foreach ($groups as $group)
+            {
+                if(isset($group["name"]) && isset($group["group"]) && isset($group["permissions"]))
+                {
+                    $permissions = self::preparePermissions($group["permissions"], $withHash, $exclude, $excludeHashes);
+
+                    if(is_array($permissions) && count($permissions)>0)
+                    {
+                        $group["permissions"]=$permissions;
+
+                        $prepared[]=$group;
+                    }
+                }
+            }
+        }
+
+        return $prepared;
+    }
+
+    /**
+     * @param array $permissions
+     * @param bool $withHash
+     * @param bool $exclude
+     * @param array $excludeHashes
+     * @return array
+     */
+    public static function preparePermissions($permissions=array(), $withHash=false, $exclude=false, $excludeHashes=[])
+    {
+        $prepared = [];
+        if(is_array($permissions) && count($permissions)>0)
+        {
+            foreach ($permissions as $perm)
+            {
+                if(isset($perm["action"]) && isset($perm["label"]))
+                {
+                    //remove trailing slashes
+                    $del = "/";
+                    $perm["action"] = rtrim($perm["action"], $del);
+
+                    if($withHash)
+                    {
+                        $perm["hash"] = self::getPermissionHash($perm["action"]);
+
+                        if($exclude)
+                        {
+                            if(!in_array($perm["hash"], $excludeHashes))
+                            {
+                                $prepared[]=$perm;
+                            }
+                        }
+                        else
+                        {
+                            $prepared[]=$perm;
+                        }
+                    }
+                    else
+                    {
+                        $prepared[]=$perm;
+                    }
+                }
+            }
+        }
+
+        return $prepared;
     }
 
     /**
@@ -163,10 +318,14 @@ class Permission
     {
         $permissions = array();
 
-        if(Config::get('permissions.groups'))
+        $permissionModuleGroups=config('permissions.groups');
+
+        if(is_array($permissionModuleGroups))
         {
-            $permissionGroups = Config::get('permissions.groups');
-            $permissions = self::extractPermissions($permissionGroups);
+            if(count($permissionModuleGroups["groups"])>0)
+            {
+                $permissions = self::extractPermissions($permissionModuleGroups);
+            }
         }
 
         return $permissions;
@@ -184,18 +343,18 @@ class Permission
         $permissionGroups = array();
         if(file_exists($filePath))
         {
-            $permissionsArray=include($filePath);
-            $permissionGroups = $permissionsArray["groups"];
+            $configArray=include($filePath);
 
-            if(isset($permissionsArray["groups"]) && is_array($permissionsArray["groups"]))
+            if(isset($configArray["groups"]))
             {
-                $permissionGroups = $permissionsArray["groups"];
+                if(is_array($configArray["groups"]) && count($configArray["groups"])>0)
+                {
+                    $permissionGroups = $configArray["groups"];
+                }
             }
         }
 
-        $permissionGroups = self::extractPermissions($permissionGroups);
-
-        return $permissionGroups;;
+        return self::extractPermissions($permissionGroups);
     }
 
     /**
@@ -245,7 +404,8 @@ class Permission
         $system = config('admin.system');
         if($system != "")
         {
-            $systemId = AdminPermissionSystemRepository::getSystemId($system);
+            $adminPermRepo = new AdminPermissionSystemRepository();
+            $systemId = $adminPermRepo->getSystemId($system);
 
             $adminPermissions = self::getAdminPermissions($adminId, $systemId);
             $adminRolePermissions = AdminRoleRepository::getPermissionData($adminRoleId, $systemId);
@@ -309,11 +469,15 @@ class Permission
                 $permValidate = new PermissionValidate();
                 $permRepo = new AdminSystemPermissionRepository();
 
+                $baseUrl = URL::to('/');
+
                 $hashes = [];
                 $preparedUrls = [];
                 foreach ($urls as $key => $url)
                 {
-                    $route = $permValidate->getRouteUri($url);
+                    $routeUrl = str_replace($baseUrl, "", $url);
+
+                    $route = $permValidate->getRouteUri($routeUrl);
                     $module = $permValidate->getModuleFromUri($route);
                     $hash = $permRepo->generatePermissionHash($route);
 
@@ -363,7 +527,7 @@ class Permission
     }
 
     /**
-     * Check permissions if this user have permission to current route
+     * Check permissions if this user have permission to requested route
      * @param string $url
      * @return bool
      */
@@ -377,10 +541,14 @@ class Permission
         }
         else
         {
+            $baseUrl = URL::to('/');
+
+            $routeUrl = str_replace($baseUrl, "", $url);
+
             $permValidate = new PermissionValidate();
             $permRepo = new AdminSystemPermissionRepository();
 
-            $route = $permValidate->getRouteUri($url);
+            $route = $permValidate->getRouteUri($routeUrl);
             $module = $permValidate->getModuleFromUri($route);
             $permission = $permRepo->getPermissionFromAction($route);
 
@@ -391,6 +559,36 @@ class Permission
             }
 
             return $permValidate->checkHavePermission($module, $route, $permId);
+        }
+    }
+
+    /**
+     * Check permissions if this user have permission to requested action
+     * @param string $module
+     * @param string $action
+     * @return bool
+     */
+    public static function haveActionPermission($module, $action)
+    {
+        $defaultAdmin = request()->session()->get("default_admin");
+
+        if($defaultAdmin)
+        {
+            return true;
+        }
+        else
+        {
+            $permValidate = new PermissionValidate();
+            $permRepo = new AdminSystemPermissionRepository();
+            $permission = $permRepo->getPermissionFromAction($action);
+
+            $permId = false;
+            if(isset($permission["system_perm_id"]))
+            {
+                $permId = $permission["system_perm_id"];
+            }
+
+            return $permValidate->checkHavePermission($module, $action, $permId);
         }
     }
 
@@ -416,12 +614,13 @@ class Permission
     }
 
     /**
-     * Check permissions if this user have permission to current route
+     * Get permission data from database for a specific route or url path
+     * @param string $route
      * @return bool
      */
-    public static function getPermissionIds($routes=[])
+    public static function getPermissionHash($route)
     {
-        $permValidate = new PermissionValidate();
-        return $permValidate->haveCurrentUrlPermission();
+        $permRepo = new AdminSystemPermissionRepository();
+        return $permRepo->generatePermissionHash($route);
     }
 }

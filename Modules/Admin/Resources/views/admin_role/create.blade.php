@@ -13,13 +13,13 @@
                                 if($formMode == "add")
                                 {
                                     ?>
-                                    <h4 class="header-title">Add New Permission Module</h4>
+                                    <h4 class="header-title">Add New Administrator Role</h4>
                                     <?php
                                 }
                                 else
                                 {
                                     ?>
-                                    <h4 class="header-title">Edit Permission Module</h4>
+                                    <h4 class="header-title">Edit Administrator Role</h4>
                                     <?php
                                 }
                                 ?>
@@ -43,7 +43,7 @@
                                     {
                                         ?>
                                         <a href="{{$urls["listUrl"]}}">
-                                            <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Modules</div>
+                                            <div class="btn btn-info btn-sm"><span class="fa fa-list"></span> List Administrator Roles</div>
                                         </a>
                                         <?php
                                     }
@@ -54,38 +54,36 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Permission System</label>
-                                    <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" value="<?php echo $record["permissionSystem"]["system_name"]; ?>" readonly>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Administrator Role Name</label>
+                                            <hr class="mt-1 mb-2">
+                                            <input type="text" class="form-control" name="role_name" placeholder="Administrator Role Name" value="<?php echo $record["role_name"]; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <hr class="mt-1 mb-2">
+                                            <textarea class="form-control" name="description" placeholder="Description"><?php echo $record["description"]; ?></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Allowed Roles To Handle</label>
+                                            <hr class="mt-1 mb-2">
+                                            <input type="text" class="form-control" name="allowed_roles">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label>Permission Module Name</label>
-                                    <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="module_name" placeholder="Permission Module Name" value="<?php echo $record["module_name"]; ?>">
-                                </div>
-                            </div>
-                        </div>
+                            <div class="col-md-6">
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Permission Module Slug</label>
-                                    <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="module_slug" placeholder="Permission Module Name" value="<?php echo $record["module_slug"]; ?>">
-                                </div>
-                            </div>
-
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label>Remarks</label>
-                                    <hr class="mt-1 mb-2">
-                                    <textarea class="form-control" name="remarks" placeholder="Remarks"><?php echo $record["remarks"]; ?></textarea>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,13 +99,13 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group mb-3">
-                                    <label>Enable/Disable Permission Module<span
+                                    <label>Enable/Disable Administrator Role<span
                                             class="text-danger">*</span></label>
-                                    <select name="module_status" class="form-control">
-                                        <option value="1" <?php if ($record["module_status"] == "1") { ?> selected="selected" <?php } ?>>
+                                    <select name="role_status" class="form-control">
+                                        <option value="1" <?php if ($record["role_status"] == "1") { ?> selected="selected" <?php } ?>>
                                             Enable
                                         </option>
-                                        <option value="0" <?php if ($record["module_status"] == "0") { ?> selected="selected" <?php } ?>>
+                                        <option value="0" <?php if ($record["role_status"] == "0") { ?> selected="selected" <?php } ?>>
                                             Disable
                                         </option>
                                     </select>
@@ -127,10 +125,26 @@
         </div>
     </form>
 
+    <?php
+    $admin_role_id = [];
+    if(isset($record["allowed_roles"]))
+    {
+        $admin_role_id=$record["allowed_roles"];
+    }
+    ?>
     <script>
+        let admin_role_id_ms=null;
         window.onload = function()
         {
             submitCreateForm();
+
+            admin_role_id_ms = $("input[name='allowed_roles']").magicSuggest({
+                allowFreeEntries: false,
+                maxSelection:999,
+                data: "/admin/admin_role/search_data",
+                dataUrlParams:{"_token":"{{ csrf_token() }}"},
+                value:<?php echo json_encode($admin_role_id) ?>,
+            });
         };
 
         function submitCreateForm()
@@ -152,21 +166,14 @@
             let errors=0;
             let errorText=[];
 
-            let module_name=form.module_name.value;
-            let module_slug=form.module_slug.value;
+            let role_name=form.role_name.value;
 
             errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occurred while submitting the form</strong><br/>");
 
-            if(module_name === "")
+            if(role_name === "")
             {
                 errors++;
-                errorText.push('Permission Module Name Required.');
-            }
-
-            if(module_slug === "")
-            {
-                errors++;
-                errorText.push('Permission Module Slug Required.');
+                errorText.push('Administrator Role Name Required.');
             }
 
             if(errors > 0)

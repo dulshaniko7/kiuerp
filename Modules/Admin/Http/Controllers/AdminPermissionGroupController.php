@@ -134,7 +134,9 @@ class AdminPermissionGroupController extends Controller
             $urls = [];
             $urls["listUrl"]=URL::to("/admin/admin_permission_group/".$admin_perm_module_id);
 
-            return view('admin::admin_perm_group.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('admin::admin_perm_group.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {
@@ -198,7 +200,9 @@ class AdminPermissionGroupController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin_permission_group/create/".$model["admin_perm_module_id"]);
             $urls["listUrl"]=URL::to("/admin/admin_permission_group/".$model["admin_perm_module_id"]);
 
-            return view('admin::admin_perm_group.view', compact('data', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('admin::admin_perm_group.view', compact('data', 'record'));
         }
         else
         {
@@ -232,7 +236,9 @@ class AdminPermissionGroupController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin_permission_group/create/".$model["permissionModule"]["admin_perm_module_id"]);
             $urls["listUrl"]=URL::to("/admin/admin_permission_group/".$model["permissionModule"]["admin_perm_module_id"]);
 
-            return view('admin::admin_perm_group.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('admin::admin_perm_group.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {

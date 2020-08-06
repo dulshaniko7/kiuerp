@@ -19,6 +19,7 @@ class CreateAdminPermissionModulesTable extends Migration
             $table->integerIncrements('admin_perm_module_id');
             $table->unsignedSmallInteger("admin_perm_system_id");
             $table->string("module_name", 255);
+            $table->string("module_slug", 255);
             $table->unsignedTinyInteger("module_status");
             $table->text("remarks")->nullable();
 

@@ -50,6 +50,7 @@
                                 <a class="dropdown-item" href="/admin/admin_permission_system/create">Add New Admin Permission Systems</a>
                                 <a class="dropdown-item" href="/admin/admin_permission_system">List Admin Permission Systems</a>
                                 <a class="dropdown-item" href="/admin/admin_permission_system/trash">List Admin Permission Systems in Trash</a>
+                                <a class="dropdown-item" href="/admin/admin_permission_system/import_permissions">Import Permissions</a>
                             </div>
                         </li>
                     </ul>

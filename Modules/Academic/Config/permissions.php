@@ -3,6 +3,7 @@ $groups = [];
 
 $permGroup = [];
 $permGroup["name"] = "Faculty Manager";
+$permGroup["group"] = "faculty";
 $permGroup["permissions"][]=["action"=>"/academic/faculty", "label"=>"List Faculties"];
 $permGroup["permissions"][]=["action"=>"/academic/faculty/trash", "label"=>"List Faculties in Trash"];
 $permGroup["permissions"][]=["action"=>"/academic/faculty/create", "label"=>"Add New Faculty"];
@@ -17,6 +18,7 @@ $groups[]=$permGroup;
 
 $permGroup = [];
 $permGroup["name"] = "Department Manager";
+$permGroup["group"] = "department";
 $permGroup["permissions"][]=["action"=>"/academic/department", "label"=>"List Departments"];
 $permGroup["permissions"][]=["action"=>"/academic/department/trash", "label"=>"List Departments in Trash"];
 $permGroup["permissions"][]=["action"=>"/academic/department/create", "label"=>"Add New Department"];
@@ -30,6 +32,8 @@ $permGroup["permissions"][]=["action"=>"/academic/department/restore", "label"=>
 $groups[]=$permGroup;
 
 return [
+    "module" => "academic",
+    "name" => "Academic Operations Manager",
     "groups" => $groups
 ];
 

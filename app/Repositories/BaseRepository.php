@@ -5,12 +5,13 @@ use ArrayObject;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use App\Traits\Datatable;
+use Modules\Admin\Services\Permission;
 
 class BaseRepository
 {
     use Datatable;
 
-    private $pageUrls = [];
+    private $urls = [];
     private $pageTitle = "";
     public $isValidData = false;
 
@@ -27,20 +28,15 @@ class BaseRepository
     {
         View::composer("*", function ($view){
 
-            $data = array();
-            if(isset($view->getData()["data"]))
+            if(!isset($view->getData()["pageTitle"]))
             {
-                $data = $view->getData()["data"];
+                $view->with("pageTitle", $this->pageTitle);
             }
 
-            if(!isset($data["pageUrls"]))
+            if(!isset($view->getData()["urls"]))
             {
-                $data["pageUrls"]=$this->getPageUrls();
+                $view->with("urls", $this->getPageUrls());
             }
-
-            $view->with("data", $data);
-            $view->with("pageTitle", $this->pageTitle);
-            $view->with("pageUrls", $this->getPageUrls());
         });
     }
 
@@ -60,20 +56,20 @@ class BaseRepository
      */
     public function setPageUrl($accessKey, $url)
     {
-        $this->pageUrls[$accessKey] = $url;
+        $this->urls[$accessKey] = $url;
     }
 
     /**
-     * @param array $pageUrls List of URLs with array
+     * @param array $urls List of URLs with array
      * @return void
      */
-    public function setPageUrls($pageUrls)
+    public function setPageUrls($urls)
     {
-        if(is_array($pageUrls) && count($pageUrls)>0)
+        if(is_array($urls) && count($urls)>0)
         {
-            foreach ($pageUrls as $key => $url)
+            foreach ($urls as $key => $url)
             {
-                $this->pageUrls[$key] = $url;
+                $this->urls[$key] = $url;
             }
         }
     }
@@ -83,14 +79,13 @@ class BaseRepository
      */
     private function getPageUrls()
     {
-        $pageUrls = array();
-        if(count($this->pageUrls)>0)
+        $urls = array();
+        if(count($this->urls)>0)
         {
-            $pageUrls = $this->pageUrls;
-            //$pageUrls = PermissionValidate::getPermissionValidated($this->pageUrls);
+            $urls = $this->validateUrls($this->urls);
         }
 
-        return new ArrayObject($pageUrls);
+        return $urls;
     }
 
     /**
@@ -197,5 +192,14 @@ class BaseRepository
             request()->session()->flash("response", $response);
             return redirect()->back();
         }
+    }
+
+    /**
+     * @param array $urls
+     * @return array
+     */
+    public function validateUrls($urls=[])
+    {
+        return Permission::validateUrls($urls);
     }
 }

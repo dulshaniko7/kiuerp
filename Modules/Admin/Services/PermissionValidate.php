@@ -2,14 +2,11 @@
 
 namespace Modules\Admin\Services;
 
-use Illuminate\Support\Facades\URL;
-
 class PermissionValidate
 {
     private $adminPermissions = null;
     private $defaultPermissions = null;
     private $modulePermissions = [];
-    private $currentPermission = null;
 
     /**
     * This function is for load the permission for the default controller path
@@ -154,7 +151,12 @@ class PermissionValidate
         }
     }
 
-    public function setCurrentActivity($permission)
+    /**
+     * Set as current activity of the user in the session
+     * @param $permission
+     * @return void
+     */
+    private function setCurrentActivity($permission)
     {
         $permission_title = "";
         if($permission)
@@ -196,6 +198,27 @@ class PermissionValidate
     }
 
     /**
+     * Get module name if current controller belongs to a module
+     * @param string $url
+     * @return string
+     */
+    public function getModuleFromUri($url)
+    {
+        $controller = $this->getControllerFromRoute($url);
+
+        $del = '\\';
+        $controllerExp = @explode($del, $controller);
+
+        $module = "";
+        if($controllerExp[0] == "Modules")
+        {
+            $module = strtolower($controllerExp[1]);
+        }
+
+        return $module;
+    }
+
+    /**
      * Get controller of the specific URI
      * @param string $urlPath
      * @return string|null
@@ -220,57 +243,5 @@ class PermissionValidate
         {
             return null;
         }
-    }
-
-    /**
-     * Get module name if current controller belongs to a module
-     * @param string $url
-     * @return string
-     */
-    public function getModuleFromUri($url)
-    {
-        $controller = $this->getControllerFromUri($url);
-
-        $del = '\\';
-        $controllerExp = @explode($del, $controller);
-
-        $module = "";
-        if($controllerExp[0] == "Modules")
-        {
-            $module = strtolower($controllerExp[1]);
-        }
-
-        return $module;
-    }
-
-    /**
-     * Check if have permissions for set of URLs/URIs and then return prepared urls array according to the permissions
-     * @param array $urls
-     * @return array
-     */
-    public function getPermissionValidated($urls)
-    {
-        if (is_array($urls) && count($urls)>0)
-        {
-            $urls = Permission::validateUrls($urls);
-
-            foreach ($urls as $key => $url)
-            {
-                $module = $this->getModuleFromUri($url);
-
-                if($this->checkHavePermission($module, $url, $permId))
-                {
-                    //set requested url since have permission
-                    $urls[$key]=$url;
-                }
-                else
-                {
-                    //set url as false since have no permission
-                    $urls[$key]=false;
-                }
-            }
-        }
-
-        return $urls;
     }
 }

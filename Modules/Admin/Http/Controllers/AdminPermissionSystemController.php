@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Modules\Admin\Entities\AdminPermissionSystem;
 use Modules\Admin\Repositories\AdminPermissionSystemRepository;
+use Modules\Admin\Services\Permission;
 
 class AdminPermissionSystemController extends Controller
 {
@@ -95,7 +96,9 @@ class AdminPermissionSystemController extends Controller
         $urls = [];
         $urls["listUrl"]=URL::to("/admin/admin_permission_system");
 
-        return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+        $this->repository->setPageUrls($urls);
+
+        return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
@@ -144,7 +147,9 @@ class AdminPermissionSystemController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin_permission_system/create");
             $urls["listUrl"]=URL::to("/admin/admin_permission_system");
 
-            return view('admin::admin_perm_system.view', compact('data', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('admin::admin_perm_system.view', compact('data', 'record'));
         }
         else
         {
@@ -175,7 +180,9 @@ class AdminPermissionSystemController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin_permission_system/create");
             $urls["listUrl"]=URL::to("/admin/admin_permission_system");
 
-            return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('admin::admin_perm_system.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {
@@ -336,5 +343,42 @@ class AdminPermissionSystemController extends Controller
         }
 
         abort("403", "You are not allowed to access this data");
+    }
+
+    /**
+     * @param string $system
+     * @return Factory|View
+     */
+    public function importPermissions($system="")
+    {
+        $formSubmitUrl = "/".request()->path();
+
+        $permSystems = Permission::getPermSystems();
+        $systemSlugs = Permission::getPermSystemSlugs();
+
+        if($system != "" && in_array($system, $systemSlugs))
+        {
+            $systemName = $permSystems[$system];
+
+            $currPermissionHashes = $this->repository->getSystemPermissionHashes($system);
+            $systemPermissions = Permission::getSingleSystemPermissions($system, true, true, $currPermissionHashes);
+
+            return view("admin::admin_perm_system.import", compact('formSubmitUrl', 'permSystems', 'systemPermissions', 'currSystemPermissions', 'systemName'));
+        }
+        else
+        {
+            return view("admin::admin_perm_system.import_select", compact('formSubmitUrl', 'permSystems'));
+        }
+    }
+
+    /**
+     * @param string $system
+     * @return Factory|View
+     */
+    public function importSubmit($system)
+    {
+        $response = $this->repository->importPermissions($system);
+
+        return $this->repository->handleResponse($response);
     }
 }

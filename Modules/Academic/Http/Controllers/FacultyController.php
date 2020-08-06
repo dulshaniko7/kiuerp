@@ -92,7 +92,9 @@ class FacultyController extends Controller
         $urls = [];
         $urls["listUrl"]=URL::to("/academic/faculty");
 
-        return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+        $this->repository->setPageUrls($urls);
+
+        return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
@@ -141,7 +143,9 @@ class FacultyController extends Controller
             $urls["addUrl"]=URL::to("/academic/faculty/create");
             $urls["listUrl"]=URL::to("/academic/faculty");
 
-            return view('academic::faculty.view', compact('data', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('academic::faculty.view', compact('data', 'record'));
         }
         else
         {
@@ -170,7 +174,9 @@ class FacultyController extends Controller
             $urls["addUrl"]=URL::to("/academic/faculty/create");
             $urls["listUrl"]=URL::to("/academic/faculty");
 
-            return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('academic::faculty.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {

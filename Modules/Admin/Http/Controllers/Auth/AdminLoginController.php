@@ -250,12 +250,19 @@ class AdminLoginController extends Controller
 
     private function recordLogOutActivity($adminLoginHistoryId)
     {
-        $lh = AdminLoginHistory::find($adminLoginHistoryId);
-        $lh->online_status = 0;
-        $lh->sign_out_type = 1; //manual sign out
-        $lh->sign_out_at = date("Y-m-d H:i:s", time());
+        if($adminLoginHistoryId!="")
+        {
+            $lh = AdminLoginHistory::find($adminLoginHistoryId);
 
-        $lh->save();
+            if($lh)
+            {
+                $lh->online_status = 0;
+                $lh->sign_out_type = 1; //manual sign out
+                $lh->sign_out_at = date("Y-m-d H:i:s", time());
+
+                $lh->save();
+            }
+        }
     }
 
     private function recordLoginActivity($adminId, $failed=false, $loginFailedReason="")

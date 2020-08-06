@@ -75,6 +75,9 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/admin_permission_system/delete/{id}','AdminPermissionSystemController@delete')->name('admin_permission_system.delete');
         Route::post('/admin_permission_system/restore/{id}','AdminPermissionSystemController@restore')->name('admin_permission_system.restore');
         Route::post('/admin_permission_system/search_data','AdminPermissionSystemController@searchData')->name('admin_permission_system.search.data');
+        Route::get('/admin_permission_system/import_permissions','AdminPermissionSystemController@importPermissions')->name('admin_permission_system.import');
+        Route::get('/admin_permission_system/import_permissions/{system}','AdminPermissionSystemController@importPermissions')->name('admin_permission_system.import.system');
+        Route::post('/admin_permission_system/import_permissions/{system}','AdminPermissionSystemController@importSubmit')->name('admin_permission_system.import.system');
 
         Route::get('/admin_permission_module/{admin_perm_system_id}','AdminPermissionModuleController@index')->name('admin_permission_module.index');
         Route::post('/admin_permission_module/{admin_perm_system_id}','AdminPermissionModuleController@index')->name('admin_permission_module.fetch');

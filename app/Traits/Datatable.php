@@ -14,6 +14,7 @@ trait Datatable
     private $tableColumns = null;
     private $columns = array();
     private $exportFormats = array("copy", "csv", "excel", "pdf", "print");
+    private $operations = array("add", "edit", "list", "view", "delete", "trash", "trashList", "restore"); //default operations
     private $buttons = array();
 
     public $viewData = null;
@@ -593,6 +594,7 @@ trait Datatable
         }
         else
         {
+            $this->prepareValidatedUrls();
             $this->viewData->columns=$this->getColumns();
 
             $viewData = $this->viewData;
@@ -607,6 +609,116 @@ trait Datatable
 
             return view($this->viewPath, compact("extendViewPath", "viewData", "buttons"));
         }
+    }
+
+    /**
+     * Validate Urls and set to pass to the view
+     * @return array
+     */
+    private function prepareValidatedUrls()
+    {
+        $btnUrls = $this->getButtonUrls();
+        $viewUrls= $this->getViewDataUrls();
+
+        $urls = array_merge($btnUrls, $viewUrls);
+
+        $urls = $this->validateUrls($urls);
+        $this->setButtonUrls($urls);
+        $this->setViewDataUrls($urls);
+
+        return $urls;
+    }
+
+    /**
+     * Set validated button URLs to pass to the view
+     * @param $urls
+     */
+    private function setButtonUrls($urls)
+    {
+        $urls = [];
+
+        $buttons = $this->buttons;
+        $validatedButtons = [];
+
+        if(count($buttons)>0)
+        {
+            foreach ($buttons as $key => $button)
+            {
+                if(isset($urls["btn_".$key]) && $urls["btn_".$key] != "")
+                {
+                    $validatedButtons[]=$button;
+                }
+            }
+        }
+
+        $this->buttons = $validatedButtons;
+    }
+
+    /**
+     * Return URLs of the additional buttons which have been set to pass to the view
+     * @return array
+     */
+    private function getButtonUrls()
+    {
+        $urls = [];
+
+        $buttons = $this->buttons;
+
+        if(count($buttons)>0)
+        {
+            foreach ($buttons as $key => $button)
+            {
+                $urls["btn_".$key]=$button["url"];
+            }
+        }
+
+        return $urls;
+    }
+
+    /**
+     * Set validated button URLs to pass to the view
+     * @param $urls
+     */
+    private function setViewDataUrls($urls)
+    {
+        foreach ($this->operations as $operation)
+        {
+            $enabledOp = "enable".ucfirst($operation);
+
+            if($this->viewData->$enabledOp)
+            {
+                $urlKey = $operation."Url";
+
+                if(!isset($urls[$urlKey]) || $urls[$urlKey]== "")
+                {
+                    $this->viewData->$enabledOp = false;
+                }
+            }
+        }
+    }
+
+    /**
+     * Return default URLs which have been set to pass to the view
+     * @return array
+     */
+    private function getViewDataUrls()
+    {
+        $urls = [];
+
+        foreach ($this->operations as $operation)
+        {
+            $enabledOp = "enable".ucfirst($operation);
+
+            if($this->viewData->$enabledOp)
+            {
+                $urlKey = $operation."Url";
+                $url = $this->viewData->$urlKey;
+
+                $urls[$urlKey]=$url;
+            }
+        }
+
+        return $urls;
     }
 
     /**

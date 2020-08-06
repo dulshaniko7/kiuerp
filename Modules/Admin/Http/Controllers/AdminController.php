@@ -96,7 +96,9 @@ class AdminController extends Controller
         $urls = [];
         $urls["listUrl"]=URL::to("/admin/admin");
 
-        return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'urls'));
+        $this->repository->setPageUrls($urls);
+
+        return view('academic::admin.create', compact('formMode', 'formSubmitUrl'));
     }
 
     /**
@@ -146,7 +148,9 @@ class AdminController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin/create");
             $urls["listUrl"]=URL::to("/admin/admin");
 
-            return view('academic::admin.view', compact('data', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('academic::admin.view', compact('data', 'record'));
         }
         else
         {
@@ -173,7 +177,9 @@ class AdminController extends Controller
             $urls["addUrl"]=URL::to("/admin/admin/create");
             $urls["listUrl"]=URL::to("/admin/admin");
 
-            return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'record', 'urls'));
+            $this->repository->setPageUrls($urls);
+
+            return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {

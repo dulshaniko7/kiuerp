@@ -70,11 +70,19 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label>Permission Group Name</label>
                                     <hr class="mt-1 mb-2">
                                     <input type="text" class="form-control" name="group_name" placeholder="Permission Group Name" value="<?php echo $record["group_name"]; ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Permission Group Name</label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" name="group_slug" placeholder="Permission Group Slug" value="<?php echo $record["group_slug"]; ?>">
                                 </div>
                             </div>
                         </div>
@@ -153,6 +161,7 @@
             let errorText=[];
 
             let group_name=form.group_name.value;
+            let group_slug=form.group_slug.value;
 
             errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occurred while submitting the form</strong><br/>");
 
@@ -160,6 +169,12 @@
             {
                 errors++;
                 errorText.push('Permission Group Name Required.');
+            }
+
+            if(group_slug === "")
+            {
+                errors++;
+                errorText.push('Permission Group Slug Required.');
             }
 
             if(errors > 0)
