@@ -43,6 +43,9 @@ Route::get('/slo/idRangeDelete/{id}', 'IDRangeController@softDelete')->name('idR
 Route::get('/slo/idRange/start/{id}', 'IDRangeController@start')->name('idRange.start');
 Route::get('/slo/idRange/search/{id}', 'IDRangeController@search')->name('idRange.search');
 
+//course req controller
+Route::get('/slo/courseReq', 'CourseRequirementController@create')->name('courseReq.create');
+
 Route::get('/slo/studentRegisters', 'StudentController@index')->name('register.index');
 Route::get('/slo/studentRegister', 'StudentController@create')->name('register.create');
 Route::post('/slo/studentRegister', 'StudentController@store')->name('register.create');
