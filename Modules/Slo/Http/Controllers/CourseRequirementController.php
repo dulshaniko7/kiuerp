@@ -16,7 +16,7 @@ class CourseRequirementController extends Controller
      */
     public function index()
     {
-        return view('slo::courseReq.index');
+        return view('slo::courseReq.index1');
     }
 
     /**

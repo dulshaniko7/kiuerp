@@ -45,9 +45,11 @@ Route::get('/slo/idRange/search/{id}', 'IDRangeController@search')->name('idRang
 
 //course req controller
 Route::get('/slo/courseReqs', 'CourseRequirementController@index')->name('courseReq.index');
+Route::get('/slo/courseReq', 'CourseRequirementController@create')->name('courseReq.create');
 Route::post('/slo/courseReq/{id}/edit', 'CourseRequirementController@edit')->name('courseReq.edit');
 Route::get('/slo/courseReq/search/{id}', 'CourseRequirementController@search')->name('courseReq.search');
 Route::post('/slo/courseReq', 'CourseRequirementController@store')->name('courseReq.store');
+
 
 Route::get('/slo/studentRegisters', 'StudentController@index')->name('register.index');
 Route::get('/slo/studentRegister', 'StudentController@create')->name('register.create');

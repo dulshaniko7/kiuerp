@@ -33,7 +33,7 @@ class CreateCourseRequirementsTable extends Migration
             $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedInteger("deleted_by")->nullable();
             $table->softDeletes();
-            $table->foreignId('course_id')->constrained('courses','course_id');
+            $table->foreignId('course_id')->unique()->constrained('courses','course_id');
             $table->timestamps();
         });
     }
