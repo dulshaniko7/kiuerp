@@ -17,7 +17,7 @@ class CreateStdNursingsTable extends Migration
             $table->bigIncrements('std_nursing_id');
             $table->string('ward', 100);
             $table->string('nts', 100);
-
+            $table->softDeletes();
             $table->foreignId('student_id')->constrained('students', 'student_id');
             $table->foreignId('hospital_id')->constrained('gen_hospitals', 'gen_hospital_id');
 

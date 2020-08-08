@@ -27,7 +27,7 @@ class CreateStdQualificationsTable extends Migration
             $table->unsignedInteger("created_by")->nullable();
             $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedInteger("deleted_by")->nullable();
-
+            $table->softDeletes();
 
             $table->timestamps();
         });

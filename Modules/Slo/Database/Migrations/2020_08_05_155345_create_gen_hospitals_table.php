@@ -16,7 +16,7 @@ class CreateGenHospitalsTable extends Migration
         Schema::create('gen_hospitals', function (Blueprint $table) {
             $table->bigIncrements('gen_hospital_id');
             $table->string('hospital_name', 200);
-
+            $table->softDeletes();
 
             $table->dateTime("updated_on")->nullable();
             $table->unsignedInteger("created_by")->nullable();

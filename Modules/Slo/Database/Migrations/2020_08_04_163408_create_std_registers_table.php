@@ -18,7 +18,7 @@ class CreateStdRegistersTable extends Migration
             $table->foreignId('batch_id')->constrained('batches', 'batch_id');
             $table->foreignId('student_id')->constrained('students','student_id');
             $table->integer('reg_no')->nullable();
-
+            $table->softDeletes();
             $table->dateTime("updated_on")->nullable();
             $table->unsignedInteger("created_by")->nullable();
             $table->unsignedInteger("updated_by")->nullable();

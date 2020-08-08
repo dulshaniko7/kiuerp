@@ -2,7 +2,7 @@
 @section('content')
 
 
-<form class="form-label-left input_mask" method="post" action={{route('batch.store')}}>
+<form class="form-label-left input_mask" method="post" action={{route('courseReq.store')}}>
     @csrf
 
 
@@ -99,9 +99,9 @@
             html += ' <th>Action</th></tr>';
 
             html += '</thead><tbody><tr>';
-            html += ' <td><input type="text" name="q[]" class="form-control"></td>';
-            html += '<td><input type="text" name="res[]" class="form-control"></td>';
-            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1"></span>delete</div></td>';
+            html += ' <td><input type="text" name="e_req[]" class="form-control"></td>';
+            //html += '<td><input type="text" name="e_res[]" class="form-control"></td>';
+            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>';
             html += '</tr></tbody>';
             $('#one').append(html);
         });
@@ -115,9 +115,9 @@
             html += ' <th>Action</th></tr>';
 
             html += '</thead><tbody><tr>';
-            html += ' <td><input type="text" name="q[]" class="form-control"></td>';
-            html += '<td><input type="text" name="res[]" class="form-control"></td>';
-            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1"></span>delete</div></td>';
+            html += ' <td><input type="text" name="p_req[]" class="form-control"></td>';
+            html += '<td><input type="text" name="p_res[]" class="form-control"></td>';
+            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>';
             html += '</tr></tbody>';
             $('#two').append(html);
         });
@@ -131,9 +131,9 @@
             html += ' <th>Action</th></tr>';
 
             html += '</thead><tbody><tr>';
-            html += ' <td><input type="text" name="q[]" class="form-control"></td>';
-            html += '<td><input type="text" name="res[]" class="form-control"></td>';
-            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1"></span>delete</div></td>';
+            html += ' <td><input type="text" name=w_req[]" class="form-control"></td>';
+            html += '<td><input type="text" name="w_res[]" class="form-control"></td>';
+            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>';
             html += '</tr></tbody>';
             $('#three').append(html);
         });
@@ -147,15 +147,16 @@
             html += ' <th>Action</th></tr>';
 
             html += '</thead><tbody><tr>';
-            html += ' <td><input type="text" name="q[]" class="form-control"></td>';
-            html += '<td><input type="text" name="res[]" class="form-control"></td>';
-            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1"></span>delete</div></td>';
+            html += ' <td><input type="text" name="r_req[]" class="form-control"></td>';
+            html += '<td><input type="text" name="r_res[]" class="form-control"></td>';
+            html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>';
             html += '</tr></tbody>';
             $('#four').append(html);
         });
 
-        $('#remove1').on('click', function () {
-            $(this).closest('tr').remove()
+        $(document).on('click','#remove1', function () {
+            $(this).closest('tr').remove();
+
         })
     });
 

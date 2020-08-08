@@ -10,6 +10,7 @@ use Modules\Slo\Entities\BatchType;
 use Modules\Slo\Http\View\Composers\BatchComposer;
 use Modules\Slo\Http\View\Composers\BatchTypeComposer;
 use Modules\Slo\Http\View\Composers\CourseComposer;
+use Modules\Slo\Http\View\Composers\CourseReqComposer;
 use Modules\Slo\Http\View\Composers\IdRangeComposer;
 
 class SloServiceProvider extends ServiceProvider
@@ -51,11 +52,14 @@ class SloServiceProvider extends ServiceProvider
          //   $view->with('batches',Batch::orderBy('batch_code')->get());
        // });
         //Option 2
+
         View::composer(['slo::batch.*'],CourseComposer::class);
         View::composer(['slo::batch.*'], BatchComposer::class);
         View::composer(['slo::batch.*'], BatchTypeComposer::class);
         View::composer(['slo::idRange.*'], CourseComposer::class);
         View::composer(['slo::idRange.*'], IdRangeComposer::class);
+        View::composer(['slo::courseReq.*'], CourseComposer::class);
+        View::composer(['slo::courseReq.*'], CourseReqComposer::class);
         //or
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);

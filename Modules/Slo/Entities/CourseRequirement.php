@@ -13,7 +13,15 @@ class CourseRequirement extends Model
     use SoftDeletes;
     protected $primaryKey = "id";
 
+    protected $casts = [
+        'edu_req' => 'array',
+        'pro_req' => 'array',
+        'work_req' => 'array',
+        'ref_req' => 'array'
+    ];
+
+
     public function course(){
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class,'course_id','course_id');
     }
 }

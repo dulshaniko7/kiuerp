@@ -5,6 +5,8 @@ namespace Modules\Slo\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Academic\Entities\Course;
+use Modules\Slo\Entities\CourseRequirement;
 
 class CourseRequirementController extends Controller
 {
@@ -14,7 +16,7 @@ class CourseRequirementController extends Controller
      */
     public function index()
     {
-        return view('slo::index');
+        return view('slo::courseReq.index');
     }
 
     /**
@@ -33,7 +35,17 @@ class CourseRequirementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requirement = new CourseRequirement();
+        $requirement->edu_req = $request->e_req;
+        $requirement->pro_req = $request->p_req;
+        $requirement->work_req = $request->w_req;
+        $requirement->ref_req = $request->r_req;
+        $requirement->course_id = $request->course_id;
+
+        if($requirement->save()){
+            return redirect()->route('courseReq.index');
+        }
+
     }
 
     /**
@@ -75,5 +87,16 @@ class CourseRequirementController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function search($id)
+    {
+        $course = Course::findOrFail($id);
+
+        $course_name = $course->course_name;
+
+
+        return response()->json(['course_name' => $course_name]);
+
+
     }
 }

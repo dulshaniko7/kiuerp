@@ -72,7 +72,7 @@
                                 Admin
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('courseReq.create')}}">Course Requirements</a>
+                                <a class="dropdown-item" href="{{route('courseReq.index')}}">Course Requirements</a>
                                 <a class="dropdown-item" href="/academic/department">List Departments</a>
                                 <a class="dropdown-item" href="/academic/department/trash">List Departments in Trash</a>
                             </div>

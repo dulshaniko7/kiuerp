@@ -17,7 +17,7 @@ class CreateSloHallsTable extends Migration
             $table->bigIncrements('slo_halls_id');
             $table->string('hall_name', 50);
             $table->integer('hall_max_capacity');
-
+            $table->softDeletes();
             $table->dateTime("updated_on")->nullable();
             $table->unsignedInteger("created_by")->nullable();
             $table->unsignedInteger("updated_by")->nullable();
