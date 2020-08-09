@@ -1,19 +1,10 @@
 @extends('slo::layouts.master')
 @section('content')
+<div class="card">
 <div class="card-body">
 
-    <div class="form-group">
-        <label for="course_id">Select Course</label>
-        <select class="form-control " name="course_id" id="course_id">
-            <option>Select Course</option>
-            @foreach($courses as $course)
-            <option value="{{$course->course_id}}">{{$course->course_name}}</option>
-            @endforeach
-        </select>
 
-    </div>
-
-
+<h1>{{ $courseReq->course->course_name}} Entry Requirements</h1>
 
     <div class="card">
         <div class="card-body">
@@ -27,14 +18,7 @@
                         <div class="card">
 
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="course_id">Select Course</label>
-                                            @include('slo::partials.Course.dropdown')
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -42,10 +26,19 @@
                                             <label for="Education">Education Qualification</label>
                                             <button type="button" id="add_edu">+</button>
                                             <table>
-
+                                                @foreach($courseReq as $r)
+                                                @if(empty($r->edu_req))
+                                                @else
                                                 <tr>
-                                                    <td><input type="text" name="e_req[]" class="form-control"></td>
+                                                @foreach($r->edu_req as $er)
+
+                                                    <td><input type="text" name="e_req[]" value="$er" class="form-control"></td>
+
                                                 </tr>
+                                                @endforeach
+
+                                                @endif
+                                                @endforeach
                                                 <table class="table table-bordered">
                                                     <thead id="one">
 
@@ -111,6 +104,8 @@
             </form>
         </div>
     </div>
+</div>
+</div>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#add_edu').on('click', function () {
@@ -139,7 +134,7 @@
 
                 html += '</thead><tbody><tr>';
                 html += ' <td><input type="text" name="p_req[]" class="form-control"></td>';
-                html += '<td><input type="text" name="p_res[]" class="form-control"></td>';
+                //html += '<td><input type="text" name="p_res[]" class="form-control"></td>';
                 html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>';
                 html += '</tr></tbody>';
                 $('#two').append(html);
@@ -155,7 +150,7 @@
 
                 html += '</thead><tbody><tr>';
                 html += ' <td><input type="text" name=w_req[]" class="form-control"></td>';
-                html += '<td><input type="text" name="w_res[]" class="form-control"></td>';
+                //html += '<td><input type="text" name="w_res[]" class="form-control"></td>';
                 html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>';
                 html += '</tr></tbody>';
                 $('#three').append(html);
@@ -171,7 +166,7 @@
 
                 html += '</thead><tbody><tr>';
                 html += ' <td><input type="text" name="r_req[]" class="form-control"></td>';
-                html += '<td><input type="text" name="r_res[]" class="form-control"></td>';
+                //html += '<td><input type="text" name="r_res[]" class="form-control"></td>';
                 html += '<td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>';
                 html += '</tr></tbody>';
                 $('#four').append(html);

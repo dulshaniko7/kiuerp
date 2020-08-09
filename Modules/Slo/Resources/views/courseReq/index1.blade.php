@@ -13,6 +13,32 @@
 
     </div>
 
+    <table id="data-table" class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th> Code</th>
+            <th>Course</th>
+
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($courses as $course)
+        <tr>
+            <td>{{$course->course_id}}</td>
+            <td>{{$course->course_name}}</td>
+
+            <td>
+                <div class="btn btn-xs"><span class="fa fa-edit"></span><a href="{{ route('courseReq.edit',$course->course_id)}}"> Edit</a></div>
+                <div class="btn btn-xs"><span class="fa fa-trash"></span><a href=""> Delete</a></div>
+            </td>
+        </tr>
+        @endforeach
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+
 
 
 <div class="card">

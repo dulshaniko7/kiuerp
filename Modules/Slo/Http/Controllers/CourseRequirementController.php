@@ -65,7 +65,9 @@ class CourseRequirementController extends Controller
      */
     public function edit($id)
     {
-        return view('slo::edit');
+        $courseReq = CourseRequirement::findOrFail($id);
+        //dd($courseReq);
+        return view('slo::courseReq.edit1')->with('courseReq',$courseReq);
     }
 
     /**
