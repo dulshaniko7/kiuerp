@@ -41,12 +41,7 @@
 
 
 
-<div class="card">
-    <div class="card-body">
-        <a href="{{ route('courseReq.create', $course->course_id) }}">Add</a>
 
-    </div>
-</div>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#add_edu').on('click', function () {

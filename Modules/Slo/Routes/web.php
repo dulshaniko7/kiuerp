@@ -49,7 +49,7 @@ Route::get('/slo/courseReq', 'CourseRequirementController@create')->name('course
 Route::get('/slo/courseReq/{id}/edit', 'CourseRequirementController@edit')->name('courseReq.edit');
 Route::get('/slo/courseReq/search/{id}', 'CourseRequirementController@search')->name('courseReq.search');
 Route::post('/slo/courseReq', 'CourseRequirementController@store')->name('courseReq.store');
-
+Route::put('/slo/courseReq/{id}', 'CourseRequirementController@update')->name('courseReq.update');
 
 Route::get('/slo/studentRegisters', 'StudentController@index')->name('register.index');
 Route::get('/slo/studentRegister', 'StudentController@create')->name('register.create');

@@ -78,7 +78,16 @@ class CourseRequirementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $requirement = CourseRequirement::findOrFail($id);
+        $requirement->edu_req = $request->e_req;
+        $requirement->pro_req = $request->p_req;
+        $requirement->work_req = $request->w_req;
+        $requirement->ref_req = $request->r_req;
+        $requirement->course_id = $request->course_id;
+
+        if($requirement->save()){
+            return redirect()->route('courseReq.index');
+        }
     }
 
     /**
