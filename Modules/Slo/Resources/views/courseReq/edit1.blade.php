@@ -31,9 +31,7 @@
                                                 @else
                                                 <tr>
                                                 @foreach($r->edu_req as $er)
-
                                                     <td><input type="text" name="e_req[]" value="$er" class="form-control"></td>
-
                                                 </tr>
                                                 @endforeach
 
