@@ -4,7 +4,6 @@
     <div class="card-body">
 
 
-
         <div class="card">
             <div class="card-body">
                 <h3>Current Requirements for {{ $courseReq->course->course_name}}</h3>
@@ -34,15 +33,16 @@
                                                 <label for="Education">Education Qualification</label>
                                                 <button type="button" id="add_edu">+</button>
                                                 <table class="table table-bordered">
+                                                    @if(empty($courseReq->edu_req))
+                                                    @else
                                                     @foreach($courseReq->edu_req as $r)
                                                     <tr>
-
-                                                        <td><input type="text" name="e_req[]" value="{{$r}}" class="form-control"></td>
+                                                        <td><input type="text" name="e_req[]" value="{{$r}}"
+                                                                   class="form-control"></td>
+                                                        <td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>
                                                     </tr>
-
-
                                                     @endforeach
-
+                                                    @endif
                                                     <table class="table table-bordered">
                                                         <thead id="one">
 
@@ -59,6 +59,18 @@
                                                 <label for="professional">professional Qualification</label>
                                                 <button type="button" id="add_pro">+</button>
                                                 <table class="table table-bordered">
+                                                    @if(empty($courseReq->pro_req))
+                                                    @else
+                                                    @foreach($courseReq->pro_req as $r)
+                                                    <tr>
+                                                        <td><input type="text" name="p_req[]" value="{{$r}}"
+                                                                   class="form-control"></td>
+                                                        <td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif
+
+                                                <table class="table table-bordered">
                                                     <thead id="two">
 
                                                 </table>
@@ -72,6 +84,18 @@
                                                 <label for="working">Working Qualification</label>
                                                 <button type="button" id="add_work">+</button>
                                                 <table class="table table-bordered">
+                                                    @if(empty($courseReq->pro_req))
+                                                    @else
+                                                    @foreach($courseReq->work_req as $r)
+                                                    <tr>
+                                                        <td><input type="text" name="w_req[]" value="{{$r}}"
+                                                                   class="form-control"></td>
+                                                        <td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif
+
+                                                <table class="table table-bordered">
                                                     <thead id="three">
 
                                                 </table>
@@ -84,6 +108,18 @@
                                             <div class="form-group">
                                                 <label for="batch_name">References Qualification</label>
                                                 <button type="button" id="add_ref">+</button>
+                                                <table class="table table-bordered">
+                                                    @if(empty($courseReq->ref_req))
+                                                    @else
+                                                    @foreach($courseReq->wref_req as $r)
+                                                    <tr>
+                                                        <td><input type="text" name="w_req[]" value="{{$r}}"
+                                                                   class="form-control"></td>
+                                                        <td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>
+                                                    </tr>
+                                                    @endforeach
+                                                    @endif
+
                                                 <table class="table table-bordered">
                                                     <thead id="four">
 

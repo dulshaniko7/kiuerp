@@ -30,7 +30,7 @@
 
             <td>
                 <div class="btn btn-xs"><span class="fa fa-edit"></span><a href="{{ route('courseReq.edit',$course->course_id)}}"> Edit</a></div>
-                <div class="btn btn-xs"><span class="fa fa-trash"></span><a href=""> Delete</a></div>
+
             </td>
         </tr>
         @endforeach
