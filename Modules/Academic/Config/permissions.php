@@ -3,36 +3,36 @@ $groups = [];
 
 $permGroup = [];
 $permGroup["name"] = "Faculty Manager";
-$permGroup["group"] = "faculty";
-$permGroup["permissions"][]=["action"=>"/academic/faculty", "label"=>"List Faculties"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/trash", "label"=>"List Faculties in Trash"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/create", "label"=>"Add New Faculty"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/edit", "label"=>"Edit Faculty"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/view", "label"=>"View Faculty"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/activate", "label"=>"Activate Faculty"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/deactivate", "label"=>"Deactivate Faculty"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/delete", "label"=>"Move To Faculty Trash"];
-$permGroup["permissions"][]=["action"=>"/academic/faculty/restore", "label"=>"Restore From Faculty Trash"];
+$permGroup["slug"] = "faculty";
+$permGroup["permissions"][]=["action"=>"/academic/faculty", "name"=>"List Faculties"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/trash", "name"=>"List Faculties in Trash"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/create", "name"=>"Add New Faculty"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/edit", "name"=>"Edit Faculty"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/view", "name"=>"View Faculty"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/activate", "name"=>"Activate Faculty"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/deactivate", "name"=>"Deactivate Faculty"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/delete", "name"=>"Move To Faculty Trash"];
+$permGroup["permissions"][]=["action"=>"/academic/faculty/restore", "name"=>"Restore From Faculty Trash"];
 
 $groups[]=$permGroup;
 
 $permGroup = [];
 $permGroup["name"] = "Department Manager";
-$permGroup["group"] = "department";
-$permGroup["permissions"][]=["action"=>"/academic/department", "label"=>"List Departments"];
-$permGroup["permissions"][]=["action"=>"/academic/department/trash", "label"=>"List Departments in Trash"];
-$permGroup["permissions"][]=["action"=>"/academic/department/create", "label"=>"Add New Department"];
-$permGroup["permissions"][]=["action"=>"/academic/department/edit", "label"=>"Edit Department"];
-$permGroup["permissions"][]=["action"=>"/academic/department/view", "label"=>"View Department"];
-$permGroup["permissions"][]=["action"=>"/academic/department/activate", "label"=>"Activate Department"];
-$permGroup["permissions"][]=["action"=>"/academic/department/deactivate", "label"=>"Deactivate Department"];
-$permGroup["permissions"][]=["action"=>"/academic/department/delete", "label"=>"Move To Departments Trash"];
-$permGroup["permissions"][]=["action"=>"/academic/department/restore", "label"=>"Restore From Departments Trash"];
+$permGroup["slug"] = "department";
+$permGroup["permissions"][]=["action"=>"/academic/department", "name"=>"List Departments"];
+$permGroup["permissions"][]=["action"=>"/academic/department/trash", "name"=>"List Departments in Trash"];
+$permGroup["permissions"][]=["action"=>"/academic/department/create", "name"=>"Add New Department"];
+$permGroup["permissions"][]=["action"=>"/academic/department/edit", "name"=>"Edit Department"];
+$permGroup["permissions"][]=["action"=>"/academic/department/view", "name"=>"View Department"];
+$permGroup["permissions"][]=["action"=>"/academic/department/activate", "name"=>"Activate Department"];
+$permGroup["permissions"][]=["action"=>"/academic/department/deactivate", "name"=>"Deactivate Department"];
+$permGroup["permissions"][]=["action"=>"/academic/department/delete", "name"=>"Move To Departments Trash"];
+$permGroup["permissions"][]=["action"=>"/academic/department/restore", "name"=>"Restore From Departments Trash"];
 
 $groups[]=$permGroup;
 
 return [
-    "module" => "academic",
+    "slug" => "academic",
     "name" => "Academic Operations Manager",
     "groups" => $groups
 ];

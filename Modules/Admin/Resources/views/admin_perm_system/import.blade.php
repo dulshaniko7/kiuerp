@@ -9,7 +9,8 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h4 class="header-title"><?php echo $systemName; ?> | Import Permissions</h4>
+                                <h4 class="header-title"><?php echo $permissionSystem["system_name"]; ?> | Import Permissions</h4>
+                                <input type="hidden" name="admin_perm_system_id" value="<?php echo $permissionSystem["admin_perm_system_id"]; ?>">
                             </div>
                         </div>
                     </div>
@@ -24,15 +25,27 @@
                                 {
                                     foreach ($systemPermissions as $modKey => $module)
                                     {
+                                        $modName = $module["name"];
+                                        $modSlug = $module["slug"];
+                                        $moduleId = $module["module_id"];
                                         $groups = $module["groups"];
                                         ?>
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <input type="checkbox" name="permission[]" class="pull-left mr-3">
-
-                                                        <?php echo $module["name"]; ?>
+                                                        <input type="hidden" name="modules[]" value="<?php echo $modKey; ?>">
+                                                        <input type="hidden" name="<?php echo $modKey; ?>_module_slug" value="<?php echo $modSlug; ?>">
+                                                        <input type="hidden" name="<?php echo $modKey; ?>_module_id" value="<?php echo $moduleId; ?>">
+                                                        <p class="text-muted">Permission Module</p>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">
+                                                                    <input type="checkbox" name="<?php echo $modKey; ?>_checked" value="1" onchange="return onChangeModule(<?php echo $modKey; ?>);">
+                                                                </span>
+                                                            </div>
+                                                            <input type="text" name="<?php echo $modKey; ?>_module_name" value="<?php echo $modName; ?>" class="form-control">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -42,40 +55,65 @@
                                                 {
                                                     foreach ($groups as $groupKey => $group)
                                                     {
+                                                        $groupName = $group["name"];
+                                                        $groupSlug = $group["slug"];
+                                                        $groupId = $group["group_id"];
                                                         $permissions = $group["permissions"];
                                                         ?>
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class="col-md-12">
-                                                                    <input type="checkbox" name="permission[]" class="pull-left mr-3">
-
-                                                                    <?php echo $group["name"]; ?>
+                                                                    <input type="hidden" name="<?php echo $modKey; ?>_groups[]" value="<?php echo $groupKey; ?>">
+                                                                    <input type="hidden" name="<?php echo $modKey."_".$groupKey; ?>_group_slug" value="<?php echo $groupSlug; ?>">
+                                                                    <input type="hidden" name="<?php echo $modKey."_".$groupKey; ?>_group_id" value="<?php echo $groupId; ?>">
+                                                                    <p class="text-muted">Permission Module Group</p>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class="input-group-text">
+                                                                                <input type="checkbox" name="<?php echo $modKey."_".$groupKey; ?>_checked" value="1" onchange="return onChangeGroup(<?php echo $modKey; ?>, <?php echo $groupKey; ?>);">
+                                                                            </span>
+                                                                        </div>
+                                                                        <input type="text" name="<?php echo $modKey."_".$groupKey; ?>_group_name" value="<?php echo $groupName; ?>" class="form-control">
+                                                                    </div>
                                                                 </div>
                                                                 <hr>
 
-                                                                <?php
-                                                                if(is_array($permissions) && count($permissions)>0)
-                                                                {
-                                                                    foreach ($permissions as $permKey => $permission)
-                                                                    {
-                                                                        ?>
-                                                                        <div class="row">
-                                                                            <div class="col-md-7">
-                                                                                <input type="checkbox" name="permission[]" class="pull-left mr-3">
-
-                                                                                <div class="pull-left">
-                                                                                    <input type="text" value="<?php echo $permission["label"]; ?>" name="permission_title" class="form-control" readonly>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-5">
-                                                                                <input type="text" value="<?php echo $permission["action"]; ?>" name="permission_action" class="form-control" readonly>
-                                                                                <input type="hidden" value="<?php echo $permission["hash"]; ?>"  name="permission_key">
-                                                                            </div>
-                                                                        </div>
+                                                                <div class="card">
+                                                                    <div class="card-body">
                                                                         <?php
-                                                                    }
-                                                                }
-                                                                ?>
+                                                                        if(is_array($permissions) && count($permissions)>0)
+                                                                        {
+                                                                            foreach ($permissions as $permKey => $permission)
+                                                                            {
+                                                                                $permName = $permission["name"];
+                                                                                $hash = $permission["hash"];
+                                                                                $action = $permission["action"];
+                                                                                $permId = $permission["perm_id"];
+                                                                                ?>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <input type="hidden" name="<?php echo $modKey."_".$groupKey; ?>_permissions[]" value="<?php echo $permKey; ?>">
+                                                                                        <div class="input-group mb-3">
+                                                                                            <div class="input-group-prepend">
+                                                                                                <span class="input-group-text">
+                                                                                                    <input type="checkbox" name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_checked" value="1" onchange="return onChangePerm(<?php echo $modKey; ?>, <?php echo $groupKey; ?>, <?php echo $permKey; ?>);">
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            <input type="text" value="<?php echo $permName; ?>" name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_permission_title" class="form-control">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <input type="text" value="<?php echo $action; ?>" name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_permission_action" class="form-control" readonly>
+                                                                                        <input type="hidden" value="<?php echo $hash; ?>"  name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_permission_key">
+                                                                                        <input type="hidden" value="<?php echo $permId; ?>"  name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_perm_id">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <?php
@@ -94,7 +132,6 @@
                                     <?php
                                 }
                                 ?>
-
                             </div>
                         </div>
                     </div>
@@ -128,6 +165,128 @@
         {
             submitCreateForm();
         };
+
+        function onChangeModule(module)
+        {
+            let groupElems = $("input[name='"+module+"_groups[]']");
+            if($("input[name='"+module+"_checked']").prop("checked"))
+            {
+                if(groupElems.length>0)
+                {
+                    $(groupElems).each(function (index, gElem) {
+
+                        let group = $(this).val();
+                        $("input[name='"+module+"_"+group+"_checked']").prop("checked", true);
+
+                        let permElems = $("input[name='"+module+"_"+group+"_permissions[]']");
+                        if(permElems.length>0)
+                        {
+                            $(permElems).each(function (index, pElem) {
+
+                                let perm = $(this).val();
+                                $("input[name='"+module+"_"+group+"_"+perm+"_checked']").prop("checked", true);
+                            });
+                        }
+                    });
+                }
+            }
+            else
+            {
+                if(groupElems.length>0)
+                {
+                    $(groupElems).each(function (index, gElem) {
+
+                        let group = $(this).val();
+                        $("input[name='"+module+"_"+group+"_checked']").prop("checked", false);
+
+                        let permElems = $("input[name='"+module+"_"+group+"_permissions[]']");
+                        if(permElems.length>0)
+                        {
+                            $(permElems).each(function (index, pElem) {
+
+                                let perm = $(this).val();
+                                $("input[name='"+module+"_"+group+"_"+perm+"_checked']").prop("checked", false);
+                            });
+                        }
+                    });
+                }
+            }
+        }
+
+        function onChangeGroup(module, group)
+        {
+            if($("input[name='"+module+"_"+group+"_checked']").prop("checked"))
+            {
+                let permElems = $("input[name='"+module+"_"+group+"_permissions[]']");
+                if(permElems.length>0)
+                {
+                    $(permElems).each(function (index, pElem) {
+
+                        let perm = $(this).val();
+                        $("input[name='"+module+"_"+group+"_"+perm+"_checked']").prop("checked", true);
+                    });
+                }
+            }
+            else
+            {
+                let permElems = $("input[name='"+module+"_"+group+"_permissions[]']");
+                if(permElems.length>0)
+                {
+                    $(permElems).each(function (index, pElem) {
+
+                        let perm = $(this).val();
+                        $("input[name='"+module+"_"+group+"_"+perm+"_checked']").prop("checked", false);
+                    });
+                }
+            }
+            triggerModuleCheck(module);
+        }
+
+        function onChangePerm(module, group, perm)
+        {
+            triggerGroupCheck(module, group);
+        }
+
+        function triggerGroupCheck(module, group)
+        {
+            let groupChecked = true;
+
+            let permElems = $("input[name='"+module+"_"+group+"_permissions[]']");
+            if(permElems.length>0)
+            {
+                $(permElems).each(function (index, pElem) {
+
+                    let perm = $(this).val();
+                    if(!$("input[name='"+module+"_"+group+"_"+perm+"_checked']").prop("checked"))
+                    {
+                        groupChecked = false;
+                    }
+                });
+            }
+
+            $("input[name='"+module+"_"+group+"_checked']").prop("checked", groupChecked);
+            triggerModuleCheck(module);
+        }
+
+        function triggerModuleCheck(module)
+        {
+            let moduleChecked = true;
+
+            let groupElems = $("input[name='"+module+"_groups[]']");
+            if(groupElems.length>0)
+            {
+                $(groupElems).each(function (index, gElem) {
+
+                    let group = $(this).val();
+                    if(!$("input[name='"+module+"_"+group+"_checked']").prop("checked"))
+                    {
+                        moduleChecked = false;
+                    }
+                });
+            }
+
+            $("input[name='"+module+"_checked']").prop("checked", moduleChecked);
+        }
 
         function submitCreateForm()
         {

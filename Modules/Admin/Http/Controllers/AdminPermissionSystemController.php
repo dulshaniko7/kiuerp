@@ -346,38 +346,75 @@ class AdminPermissionSystemController extends Controller
     }
 
     /**
-     * @param string $system
+     * @param string $systemId
      * @return Factory|View
      */
-    public function importPermissions($system="")
+    public function importPermissions($systemId="")
     {
         $formSubmitUrl = "/".request()->path();
 
-        $permSystems = Permission::getPermSystems();
-        $systemSlugs = Permission::getPermSystemSlugs();
-
-        if($system != "" && in_array($system, $systemSlugs))
+        if($systemId != "")
         {
-            $systemName = $permSystems[$system];
+            $permissionSystem = AdminPermissionSystem::find($systemId);
 
-            $currPermissionHashes = $this->repository->getSystemPermissionHashes($system);
-            $systemPermissions = Permission::getSingleSystemPermissions($system, true, true, $currPermissionHashes);
+            if($permissionSystem)
+            {
+                $systemSlug = $permissionSystem["system_slug"];
+                $currModules = $permissionSystem->permissionModules()->get()->toArray();
+                $currModules = $this->repository->getSystemPermissionModules($currModules);
 
-            return view("admin::admin_perm_system.import", compact('formSubmitUrl', 'permSystems', 'systemPermissions', 'currSystemPermissions', 'systemName'));
+                $systemPermissions = Permission::getSingleSystemPermissions($systemSlug, $currModules, true);
+
+                return view("admin::admin_perm_system.import", compact('formSubmitUrl', 'permSystems', 'systemPermissions', 'permissionSystem'));
+            }
+            else
+            {
+                $response["status"]="failed";
+                $response["notify"][]="Please select a system to proceed with the import.";
+
+                $this->repository->handleResponse($response, false);
+
+                $del = "/";
+                $formSubmitUrl = explode($del, $formSubmitUrl);
+                array_pop($formSubmitUrl);
+                $formSubmitUrl = implode($del, $formSubmitUrl);
+
+                $permSystems = AdminPermissionSystem::query()->get();
+                return view("admin::admin_perm_system.import_select", compact('formSubmitUrl', 'permSystems'));
+            }
         }
         else
         {
+            $permSystems = AdminPermissionSystem::query()->get()->toArray();
             return view("admin::admin_perm_system.import_select", compact('formSubmitUrl', 'permSystems'));
         }
     }
 
     /**
-     * @param string $system
+     * @param $systemId
      * @return Factory|View
      */
-    public function importSubmit($system)
+    public function importSubmit($systemId)
     {
-        $response = $this->repository->importPermissions($system);
+        if($systemId != "")
+        {
+            $permissionSystem = AdminPermissionSystem::find($systemId);
+
+            if($permissionSystem)
+            {
+                $response = $this->repository->importPermissions($this->repository);
+            }
+            else
+            {
+                $response["status"]="failed";
+                $response["notify"][]="Please select a system before import.";
+            }
+        }
+        else
+        {
+            $response["status"]="failed";
+            $response["notify"][]="Please select a system before import.";
+        }
 
         return $this->repository->handleResponse($response);
     }

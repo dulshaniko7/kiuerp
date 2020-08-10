@@ -179,18 +179,42 @@ class BaseRepository
 
     /**
      * @param array $response
+     * @param bool $redirect
+     * @param string $url
      * @return mixed
      */
-    public function handleResponse($response)
+    public function handleResponse($response, $redirect=true, $url="")
     {
+        if(isset($response["status"]) && isset($response["notify"]))
+        {
+            $status = $response["status"];
+            $notify = $response["notify"];
+
+            $response["notify"]["status"]=$status;
+            $response["notify"]["notify"]=$notify;
+        }
+
         if(request()->expectsJson())
         {
             return response()->json($response, 201);
         }
         else
         {
-            request()->session()->flash("response", $response);
-            return redirect()->back();
+            if($redirect)
+            {
+                if($url != "")
+                {
+                    return redirect()->back();
+                }
+                else
+                {
+                    return redirect()->to($url);
+                }
+            }
+            else
+            {
+                request()->session()->flash("response", $response);
+            }
         }
     }
 

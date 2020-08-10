@@ -22,18 +22,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <?php
+                            $disabledStatus = "disabled";
                             if(isset($permSystems) && is_array($permSystems) && count($permSystems)>0)
                             {
+                                $disabledStatus = "";
                                 ?>
                                 <div class="form-group">
                                     <label for="system">Select Permission System To Import Permissions From</label>
                                     <select name="system" id="system" class="form-control">
                                         <option value="">Select System</option>
                                         <?php
-                                        foreach ($permSystems as $system => $systemName)
+                                        foreach ($permSystems as $system)
                                         {
                                             ?>
-                                            <option value="<?php echo $system; ?>"><?php echo $systemName; ?></option>
+                                            <option value="<?php echo $system["admin_perm_system_id"]; ?>"><?php echo $system["system_name"]; ?></option>
                                             <?php
                                         }
                                         ?>
@@ -46,7 +48,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group" style="margin-top: 30px;">
-                                <button type="button" class="btn btn-success btn-add-row" onclick="return loadSystem();">Load Permissions</button>
+                                <button type="button" <?php echo $disabledStatus; ?> class="btn btn-success btn-add-row" onclick="return loadSystem();">Load Permissions</button>
                             </div>
                         </div>
                     </div>
