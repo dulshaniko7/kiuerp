@@ -145,7 +145,7 @@
         <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="269">
-              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+              <caret line="92" selection-start-line="92" selection-end-line="92" />
             </state>
           </provider>
         </entry>
@@ -530,19 +530,19 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\Migrations" />
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\Migrations\old" />
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\public\js" />
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Admin\Database\Migrations\old" />
-      <recent name="D:\wamp64\www\kiuerp\Modules\Admin" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Resources\views\partials\Course" />
       <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Resources\views\sub\BatchType" />
       <recent name="D:\wamp64\www\kiuerp\app\Repositories" />
       <recent name="D:\wamp64\www\kiuerp\database\seeds" />
       <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\layouts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\Migrations" />
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\Migrations\old" />
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\public\js" />
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Admin\Database\Migrations\old" />
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -612,7 +612,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1633888" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1081,7 +1080,7 @@
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
-          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
         </state>
       </provider>
     </entry>

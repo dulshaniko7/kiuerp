@@ -49,15 +49,15 @@ $('#dept_id').change(function () {
     }
 })
 
-$('#batch_id').change(function () {
+$('#course_id').change(function () {
 
-    var batch_id = $(this).val();
+    var course_id = $(this).val();
 
     if(batch_id){
-        console.log('hii batch'+batch_id);
+        console.log('hii batch'+course_id);
         console.log('working batch');
         $.ajax({
-            url: '/slo/getBatches/'+batch_id,
+            url: '/slo/getBatches/'+course_id,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
