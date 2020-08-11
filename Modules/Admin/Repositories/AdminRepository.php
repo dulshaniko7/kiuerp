@@ -143,7 +143,7 @@ class AdminRepository extends BaseRepository
             ->where(["adminId" => $adminId, "admin_perm_system_id" => $systemId])
             ->where("valid_from", "<=", $date)
             ->where("valid_till", ">=", $date)
-            ->get();
+            ->get()->toArray();
 
         $data = array();
         if($results)
@@ -186,7 +186,7 @@ class AdminRepository extends BaseRepository
             ->where("adminId", "=", $adminId)
             ->where("valid_from", "<=", $date)
             ->where("valid_till", ">=", $date)
-            ->get();
+            ->get()->toArray();
 
         $data = array();
         if($results)

@@ -264,7 +264,7 @@ class Permission
                     if(isset($slugGroups[$slug]))
                     {
                         $group = $slugGroups[$slug];
-                        $currPerms = $group["perms"];
+                        $currPerms = $group["permissions"];
                     }
                     else
                     {

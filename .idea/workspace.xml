@@ -3,9 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="f87a49ec-cf3d-4fc4-8f21-8176d8269ba0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_095623_create_faculties_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_22_095623_create_faculties_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_180753_create_departments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_22_180753_create_departments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170325_create_admins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170344_create_admins_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170344_create_admin_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170325_create_admin_roles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminRoleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminRoleRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_system/import.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_system/import.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_role/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_role/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Services/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Services/Permission.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,15 +165,15 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\wamp64\www\kiuerp\Modules\Admin" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\admin_perm_system" />
       <recent name="D:\wamp64\www\kiuerp\config" />
       <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\admin_role" />
       <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\admin" />
       <recent name="C:\Users\chami\Desktop" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin" />
     </key>
   </component>
   <component name="RunManager">
@@ -195,7 +201,7 @@
       <workItem from="1596643005709" duration="5446000" />
       <workItem from="1596726165732" duration="24585000" />
       <workItem from="1596910609480" duration="25780000" />
-      <workItem from="1597156769468" duration="1950000" />
+      <workItem from="1597156769468" duration="14163000" />
     </task>
     <servers />
   </component>
@@ -211,10 +217,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="926" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595780571209" />
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1596923598168">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597174209678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596923598168" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597174209678" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1596330408812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -247,9 +253,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1596326900844" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596929821145">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1597184027163">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1596929821145" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1597184027163" />
   </component>
 </project>

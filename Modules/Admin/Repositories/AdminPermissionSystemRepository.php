@@ -125,7 +125,7 @@ class AdminPermissionSystemRepository extends BaseRepository
                     $perm["action"]=$perm["permission_action"];
                     $perm["hash"]=$perm["permission_key"];
 
-                    $group["perms"][]=$perm;
+                    $group["permissions"][]=$perm;
                     $module["groups"][$groupId]= $group;
 
                     $modules[$moduleId]=$module;

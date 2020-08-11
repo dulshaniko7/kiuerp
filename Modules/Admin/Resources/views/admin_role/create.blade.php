@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -82,8 +82,189 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
+                                <?php
+                                if(is_array($systemPermissions) && count($systemPermissions)>0)
+                                {
+                                    ?>
+                                    <div class="card card-primary card-outline card-outline-tabs">
+                                        <div class="card-header p-0 border-bottom-0">
+                                            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                                                <?php
+                                                $i=0;
+                                                foreach ($systemPermissions as $system)
+                                                {
+                                                    $i++;
 
+                                                    $active = "";
+                                                    if($i == 1)
+                                                    {
+                                                        $active = "active";
+                                                    }
+                                                    ?>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link <?php echo $active; ?>" id="custom-tabs-<?php echo $system["system_slug"] ?>-tab" data-toggle="pill" href="#custom-tabs-<?php echo $system["system_slug"] ?>" role="tab" aria-controls="custom-tabs-<?php echo $system["system_slug"] ?>" aria-selected="true"><?php echo $system["system_name"] ?></a>
+                                                    </li>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </ul>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="tab-content" id="custom-tabs-four-tabContent">
+                                                <?php
+                                                $i=0;
+                                                foreach ($systemPermissions as $system)
+                                                {
+                                                    $i++;
+
+                                                    $active = "";
+                                                    if($i == 1)
+                                                    {
+                                                        $active = "show active";
+                                                    }
+
+                                                    $modules = $system["modules"];
+                                                    $curr_permissions = $system["curr_permissions"];
+                                                    $systemId = $system["id"];
+                                                    ?>
+                                                    <div class="tab-pane fade <?php echo $active; ?>" id="custom-tabs-<?php echo $system["system_slug"] ?>" role="tabpanel" aria-labelledby="custom-tabs-<?php echo $system["system_slug"] ?>-tab">
+                                                    <input type="hidden" name="system_id[]" value="<?php echo $systemId; ?>">
+
+                                                        <?php
+                                                        if(is_array($modules) && count($modules)>0)
+                                                        {
+                                                            foreach ($modules as $modKey => $module)
+                                                            {
+                                                                $modName = $module["name"];
+                                                                $modSlug = $module["slug"];
+                                                                $moduleId = $module["module_id"];
+                                                                $groups = $module["groups"];
+                                                                ?>
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <input type="hidden" name="modules[]" value="<?php echo $systemId; ?>_<?php echo $modKey; ?>">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <p class="text-muted">Permission Module</p>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text">
+                                                                                    <input type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey; ?>_checked" value="1" onchange="return onChangeModule(<?php echo $systemId; ?>, <?php echo $modKey; ?>, false);">
+                                                                                </span>
+                                                                                            </div>
+                                                                                            <input type="text" value="<?php echo $modName; ?>" class="form-control" readonly>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr>
+
+                                                                        <?php
+                                                                        if(is_array($groups) && count($groups)>0)
+                                                                        {
+                                                                            foreach ($groups as $groupKey => $group)
+                                                                            {
+                                                                                $groupName = $group["name"];
+                                                                                $groupSlug = $group["slug"];
+                                                                                $groupId = $group["group_id"];
+                                                                                $permissions = $group["permissions"];
+                                                                                ?>
+                                                                                <div class="card">
+                                                                                    <div class="card-body">
+                                                                                        <div class="col-md-12">
+                                                                                            <input type="hidden" name="<?php echo $systemId; ?>_<?php echo $modKey; ?>_groups[]" value="<?php echo $groupKey; ?>">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <p class="text-muted">Permission Module Group</p>
+                                                                                                    <div class="input-group">
+                                                                                                        <div class="input-group-prepend">
+                                                                                                    <span class="input-group-text">
+                                                                                                        <input type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey."_".$groupKey; ?>_checked" value="1" onchange="return onChangeGroup(<?php echo $systemId; ?>, <?php echo $modKey; ?>, <?php echo $groupKey; ?>, false);">
+                                                                                                    </span>
+                                                                                                        </div>
+                                                                                                        <input type="text" value="<?php echo $groupName; ?>" class="form-control" readonly>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <hr>
+
+                                                                                        <div class="card">
+                                                                                            <div class="card-body">
+                                                                                                <?php
+                                                                                                if(is_array($permissions) && count($permissions)>0)
+                                                                                                {
+                                                                                                    foreach ($permissions as $permKey => $permission)
+                                                                                                    {
+                                                                                                        $permName = $permission["name"];
+                                                                                                        $hash = $permission["hash"];
+                                                                                                        $action = $permission["action"];
+                                                                                                        $permId = $permission["perm_id"];
+
+                                                                                                        $checked = "";
+                                                                                                        if(in_array($permId, $curr_permissions))
+                                                                                                        {
+                                                                                                            $checked = "checked";
+                                                                                                        }
+                                                                                                        ?>
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-md-12">
+                                                                                                                <input type="hidden" name="<?php echo $systemId; ?>_perm_id[]" value="<?php echo $permId; ?>">
+                                                                                                                <input type="hidden" name="<?php echo $systemId; ?>_<?php echo $modKey."_".$groupKey; ?>_permissions[]" value="<?php echo $permKey; ?>">
+                                                                                                                <div class="input-group mb-3">
+                                                                                                                    <div class="input-group-prepend">
+                                                                                                                        <span class="input-group-text">
+                                                                                                                            <input type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey."_".$groupKey."_".$permKey; ?>_checked" value="1" onchange="return onChangePerm(<?php echo $systemId; ?>, <?php echo $modKey; ?>, <?php echo $groupKey; ?>, false);" <?php echo $checked; ?> class="perm_<?php echo $systemId; ?>_<?php echo $permId; ?>_checked">
+                                                                                                                        </span>
+                                                                                                                    </div>
+                                                                                                                    <input type="text" value="<?php echo $permName; ?>" class="form-control" readonly>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    <script>
+                                                                                                        window.onload = function()
+                                                                                                        {
+                                                                                                            onChangePerm(<?php echo $systemId; ?>, <?php echo $modKey; ?>, <?php echo $groupKey; ?>, true);
+                                                                                                        }
+                                                                                                    </script>
+                                                                                                        <?php
+                                                                                                    }
+                                                                                                }
+                                                                                                ?>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        window.onload = function()
+                                        {
+                                            udpatePermissions(<?php echo $systemId; ?>);
+                                        }
+                                    </script>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -134,6 +315,8 @@
     ?>
     <script>
         let admin_role_id_ms=null;
+        let permissions=[];
+
         window.onload = function()
         {
             submitCreateForm();
@@ -146,6 +329,163 @@
                 value:<?php echo json_encode($admin_role_id) ?>,
             });
         };
+
+        function udpatePermissions(systemId)
+        {
+            let perms = $("input[name='"+systemId+"_perm_id[]']");
+
+            if(perms.length>0)
+            {
+                permissions[systemId]=[];
+                $(perms).each(function (pI, pElem) {
+
+                    let perm_id = $(this).val();
+                    if($(".perm_"+systemId+"_"+perm_id+"_checked").prop("checked"))
+                    {
+                        permissions[systemId].push(perm_id);
+                    }
+                });
+            }
+
+            console.log(permissions);
+        }
+
+        function onChangeModule(systemId, module, initial)
+        {
+            let groupElems = $("input[name='"+systemId+"_"+module+"_groups[]']");
+            if($("input[name='"+systemId+"_"+module+"_checked']").prop("checked"))
+            {
+                if(groupElems.length>0)
+                {
+                    $(groupElems).each(function (index, gElem) {
+
+                        let group = $(this).val();
+                        $("input[name='"+systemId+"_"+module+"_"+group+"_checked']").prop("checked", true);
+
+                        let permElems = $("input[name='"+systemId+"_"+module+"_"+group+"_permissions[]']");
+                        if(permElems.length>0)
+                        {
+                            $(permElems).each(function (index, pElem) {
+
+                                let perm = $(this).val();
+                                $("input[name='"+systemId+"_"+module+"_"+group+"_"+perm+"_checked']").prop("checked", true);
+                            });
+                        }
+                    });
+                }
+            }
+            else
+            {
+                if(groupElems.length>0)
+                {
+                    $(groupElems).each(function (index, gElem) {
+
+                        let group = $(this).val();
+                        $("input[name='"+systemId+"_"+module+"_"+group+"_checked']").prop("checked", false);
+
+                        let permElems = $("input[name='"+systemId+"_"+module+"_"+group+"_permissions[]']");
+                        if(permElems.length>0)
+                        {
+                            $(permElems).each(function (index, pElem) {
+
+                                let perm = $(this).val();
+                                $("input[name='"+systemId+"_"+module+"_"+group+"_"+perm+"_checked']").prop("checked", false);
+                            });
+                        }
+                    });
+                }
+            }
+
+            if(!initial)
+            {
+                udpatePermissions(systemId);
+            }
+        }
+
+        function onChangeGroup(systemId, module, group, initial)
+        {
+            if($("input[name='"+systemId+"_"+module+"_"+group+"_checked']").prop("checked"))
+            {
+                let permElems = $("input[name='"+systemId+"_"+module+"_"+group+"_permissions[]']");
+                if(permElems.length>0)
+                {
+                    $(permElems).each(function (index, pElem) {
+
+                        let perm = $(this).val();
+                        $("input[name='"+systemId+"_"+module+"_"+group+"_"+perm+"_checked']").prop("checked", true);
+                    });
+                }
+            }
+            else
+            {
+                let permElems = $("input[name='"+systemId+"_"+module+"_"+group+"_permissions[]']");
+                if(permElems.length>0)
+                {
+                    $(permElems).each(function (index, pElem) {
+
+                        let perm = $(this).val();
+                        $("input[name='"+systemId+"_"+module+"_"+group+"_"+perm+"_checked']").prop("checked", false);
+                    });
+                }
+            }
+            triggerModuleCheck(systemId, module);
+
+            if(!initial)
+            {
+                udpatePermissions(systemId);
+            }
+        }
+
+        function onChangePerm(systemId, module, group, initial)
+        {
+            triggerGroupCheck(systemId, module, group);
+
+            if(!initial)
+            {
+                udpatePermissions(systemId);
+            }
+        }
+
+        function triggerGroupCheck(systemId, module, group)
+        {
+            let groupChecked = true;
+
+            let permElems = $("input[name='"+systemId+"_"+module+"_"+group+"_permissions[]']");
+            if(permElems.length>0)
+            {
+                $(permElems).each(function (index, pElem) {
+
+                    let perm = $(this).val();
+                    if(!$("input[name='"+systemId+"_"+module+"_"+group+"_"+perm+"_checked']").prop("checked"))
+                    {
+                        groupChecked = false;
+                    }
+                });
+            }
+
+            $("input[name='"+systemId+"_"+module+"_"+group+"_checked']").prop("checked", groupChecked);
+            triggerModuleCheck(systemId, module);
+        }
+
+        function triggerModuleCheck(systemId, module)
+        {
+            let moduleChecked = true;
+
+            let groupElems = $("input[name='"+systemId+"_"+module+"_groups[]']");
+            if(groupElems.length>0)
+            {
+                $(groupElems).each(function (index, gElem) {
+
+                    let group = $(this).val();
+                    if(!$("input[name='"+systemId+"_"+module+"_"+group+"_checked']").prop("checked"))
+                    {
+                        moduleChecked = false;
+                    }
+                });
+            }
+
+            $("input[name='"+systemId+"_"+module+"_checked']").prop("checked", moduleChecked);
+        }
 
         function submitCreateForm()
         {
@@ -161,6 +501,9 @@
 
         function validateForm(formData, jqForm)
         {
+            let perms = JSON.stringify(permissions);
+            formData.push({permissions:perms});
+
             let form = jqForm[0];
 
             let errors=0;

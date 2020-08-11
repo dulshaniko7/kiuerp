@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
+use Modules\Admin\Entities\AdminPermissionSystem;
 use Modules\Admin\Entities\AdminRole;
+use Modules\Admin\Repositories\AdminPermissionSystemRepository;
 use Modules\Admin\Repositories\AdminRoleRepository;
 
 class AdminRoleController extends Controller
@@ -94,7 +96,27 @@ class AdminRoleController extends Controller
 
         $this->repository->setPageUrls($urls);
 
-        return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record'));
+        $systems = AdminPermissionSystem::query()->where("system_status", "=", "1")->get();
+
+        $systemPermissions = [];
+        if(count($systems)>0)
+        {
+            $adminPermSysRepo = new AdminPermissionSystemRepository();
+            foreach ($systems as $key => $system)
+            {
+                $currModules = $system->permissionModules()->get()->toArray();
+                $currModules = $adminPermSysRepo->getSystemPermissionModules($currModules);
+
+                $system["modules"] = $currModules;
+                $system["curr_permissions"] = [];
+
+                $systems->$key = $system;
+            }
+
+            $systemPermissions = $systems->toArray();
+        }
+
+        return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record', 'systemPermissions'));
     }
 
     /**
@@ -107,12 +129,16 @@ class AdminRoleController extends Controller
 
         $model = $this->repository->getValidatedData($model, [
             "role_name" => "required|min:3",
-            "system_slug" => "required|min:3",
-            "role_status" => "required|digits:1",
-            "remarks" => "",
+            "description" => "",
+            "role_status" => "required|digits:1"
         ]);
 
         $dataResponse = $this->repository->saveModel($model);
+
+        if($dataResponse["notify"]["status"] == "success")
+        {
+            AdminRoleRepository::updatePermission($model->id);
+        }
 
         return $this->repository->handleResponse($dataResponse);
     }
@@ -165,7 +191,32 @@ class AdminRoleController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record'));
+            $systems = AdminPermissionSystem::query()->where("system_status", "=", "1")->get();
+
+            $systemPermissions = [];
+            if(count($systems)>0)
+            {
+                $adminPermSysRepo = new AdminPermissionSystemRepository();
+                $allSystemCurrPerms = AdminRoleRepository::getAllSystemPermissionData($id);
+                foreach ($systems as $key => $system)
+                {
+                    $currModules = $system->permissionModules()->get()->toArray();
+                    $currModules = $adminPermSysRepo->getSystemPermissionModules($currModules);
+
+                    $system["modules"] = $currModules;
+                    $system["curr_permissions"] = [];
+                    if(isset($allSystemCurrPerms[$system->id]))
+                    {
+                        $system["curr_permissions"] = $allSystemCurrPerms[$system->id];
+                    }
+
+                    $systems->$key = $system;
+                }
+
+                $systemPermissions = $systems->toArray();
+            }
+
+            return view('admin::admin_role.create', compact('formMode', 'formSubmitUrl', 'record', 'systemPermissions'));
         }
         else
         {
@@ -186,14 +237,18 @@ class AdminRoleController extends Controller
         {
             $model = $this->repository->getValidatedData($model, [
                 "role_name" => "required|min:3",
-                "system_slug" => "required|min:3",
-                "role_status" => "required|digits:1",
-                "remarks" => "",
+                "description" => "",
+                "role_status" => "required|digits:1"
             ]);
 
             if($this->repository->isValidData)
             {
                 $response = $this->repository->saveModel($model);
+
+                if($response["notify"]["status"] == "success")
+                {
+                    AdminRoleRepository::updatePermission($model->id);
+                }
             }
             else
             {

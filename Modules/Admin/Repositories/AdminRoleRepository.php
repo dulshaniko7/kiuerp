@@ -12,6 +12,8 @@ class AdminRoleRepository extends BaseRepository
     {
         $systemsPermissions = Permission::getPermissionFormData();
 
+        dd($systemsPermissions);
+
         $systems = array();
         $invokedPermissions = array();
         $revokedPermissions = array();
@@ -95,7 +97,7 @@ class AdminRoleRepository extends BaseRepository
 
     public static function getAllSystemPermissionData($admin_role_id)
     {
-        $results = AdminRolePermission::query()->select("admin_perm_system_id, permissions")->where(["admin_role_id" => $admin_role_id])->get();
+        $results = AdminRolePermission::query()->select("admin_perm_system_id", "permissions")->where(["admin_role_id" => $admin_role_id])->get()->toArray();
 
         $data = array();
         if($results)

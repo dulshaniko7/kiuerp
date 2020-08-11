@@ -112,7 +112,7 @@
                                                                                         <div class="input-group mb-3">
                                                                                             <div class="input-group-prepend">
                                                                                                 <span class="input-group-text">
-                                                                                                    <input type="checkbox" name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_checked" value="1" onchange="return onChangePerm(<?php echo $modKey; ?>, <?php echo $groupKey; ?>, <?php echo $permKey; ?>);">
+                                                                                                    <input type="checkbox" name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_checked" value="1" onchange="return onChangePerm(<?php echo $modKey; ?>, <?php echo $groupKey; ?>);">
                                                                                                 </span>
                                                                                             </div>
                                                                                             <input type="text" value="<?php echo $permName; ?>" name="<?php echo $modKey."_".$groupKey."_".$permKey; ?>_permission_title" class="form-control">
@@ -258,7 +258,7 @@
             triggerModuleCheck(module);
         }
 
-        function onChangePerm(module, group, perm)
+        function onChangePerm(module, group)
         {
             triggerGroupCheck(module, group);
         }
