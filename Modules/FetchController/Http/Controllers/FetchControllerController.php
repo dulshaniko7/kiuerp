@@ -1,14 +1,12 @@
 <?php
 
-namespace Modules\Slo\Http\Controllers;
+namespace Modules\FetchController\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Academic\Entities\Course;
-use Modules\Academic\Entities\Department;
 
-class StudentController extends Controller
+class FetchControllerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('slo::index');
+        return view('fetchcontroller::index');
     }
 
     /**
@@ -25,7 +23,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('slo::student.create');
+        return view('fetchcontroller::create');
     }
 
     /**
@@ -45,7 +43,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        return view('slo::show');
+        return view('fetchcontroller::show');
     }
 
     /**
@@ -55,7 +53,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        return view('slo::edit');
+        return view('fetchcontroller::edit');
     }
 
     /**
@@ -78,11 +76,4 @@ class StudentController extends Controller
     {
         //
     }
-
-    public function getDep($id)
-    {
-        $departments = Department::where('faculty_id', $id)->pluck('dept_name', 'dept_code', 'dept_id', 'faculty_id');
-        return json_encode($departments);
-    }
-
 }

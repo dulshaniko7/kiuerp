@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Academic\Entities\Course;
-use Modules\Academic\Entities\Department;
+use Modules\Slo\Entities\Batch;
 
-class StudentController extends Controller
+class FetchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('slo::student.create');
+        return view('slo::create');
     }
 
     /**
@@ -79,10 +79,18 @@ class StudentController extends Controller
         //
     }
 
-    public function getDep($id)
+
+    public function getCourse($id)
     {
-        $departments = Department::where('faculty_id', $id)->pluck('dept_name', 'dept_code', 'dept_id', 'faculty_id');
-        return json_encode($departments);
+        $courses = Course::where('dept_id', $id)->pluck('course_name', 'course_code', 'course_id', 'dept_id');
+
+        return json_encode($courses);
     }
 
+    public function getBatch($id)
+    {
+        $batches = Batch::where('course_id', $id)->pluck('batch_name', 'batch_code', 'batch_id','course_id');
+
+        return json_encode($batches);
+    }
 }

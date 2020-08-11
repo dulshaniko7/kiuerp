@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/public/js/com/idRange.js" line="6" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f87a49ec-cf3d-4fc4-8f21-8176d8269ba0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Modules/Slo/Http/View/Composers/DepartmentComposer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modules/Slo/Http/View/Composers/FacultyComposer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modules/Slo/Http/View/Composers/StudentComposer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Department/dropdown.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Faculty/dropdown.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/com/student_req.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchTypeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Department/dropdown.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Department/dropdown.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules_statuses.json" beforeDir="false" afterPath="$PROJECT_DIR$/modules_statuses.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/com/idRange.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/com/idRange.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/com/student_req.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/com/student_req.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/asm89/stack-cors/" />
     <ignored path="$PROJECT_DIR$/vendor/brick/math/" />
@@ -137,46 +136,54 @@
         <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
-              <caret line="36" column="61" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+              <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/View/Composers/FacultyComposer.php">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+            <state relative-caret-position="269">
+              <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="245">
+              <caret line="61" column="57" selection-start-line="61" selection-start-column="57" selection-end-line="61" selection-end-column="57" />
               <folding>
-                <element signature="e#53#78#0#PHP" expanded="true" />
+                <element signature="e#7#389#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Faculty/dropdown.blade.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="365">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/batch/create.blade.php">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="55" column="30" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
+            <state relative-caret-position="149">
+              <caret line="83" column="115" selection-start-line="83" selection-start-column="115" selection-end-line="83" selection-end-column="115" />
+              <folding>
+                <element signature="e#48#76#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -197,10 +204,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/idRange/create.blade.php" />
-        <option value="$PROJECT_DIR$/public/js/com/idRange.js" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/batch/index.blade.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchController.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/batchType/index.blade.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/View/Composers/CourseComposer.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/View/Composers/IdRangeComposer.php" />
@@ -209,7 +212,6 @@
         <option value="$PROJECT_DIR$/public/js/com/idange1.js" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/IDRangeController.php" />
         <option value="$PROJECT_DIR$/public/js/com/idRange1.js" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Entities/StdRegister.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Entities/StdExtraDetail.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Entities/Batch.php" />
@@ -242,12 +244,17 @@
         <option value="$PROJECT_DIR$/public/js/com/requirement.js" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_07_053153_create_course_requirements_table.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/CourseRequirementController.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Routes/web.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/courseReq/index1.blade.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/courseReq/edit1.blade.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchTypeController.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Department/dropdown.blade.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/com/idRange.js" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Routes/web.php" />
+        <option value="$PROJECT_DIR$/public/js/com/student_req.js" />
       </list>
     </option>
   </component>
@@ -405,7 +412,7 @@
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
               <item name="Slo" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Composers" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
@@ -456,7 +463,7 @@
               <item name="Resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="partials" type="462c0819:PsiDirectoryNode" />
-              <item name="Faculty" type="462c0819:PsiDirectoryNode" />
+              <item name="Course" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
@@ -466,6 +473,31 @@
               <item name="Resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="student" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
+              <item name="Modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Slo" type="462c0819:PsiDirectoryNode" />
+              <item name="Routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
@@ -498,19 +530,19 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Resources\views\partials\Course" />
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Resources\views\sub\BatchType" />
-      <recent name="D:\wamp64\www\kiuerp\app\Repositories" />
-      <recent name="D:\wamp64\www\kiuerp\database\seeds" />
-      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\layouts" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\Migrations" />
       <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\Migrations\old" />
       <recent name="C:\xampp\htdocs\kiu vui\kiuerp\public\js" />
       <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Admin\Database\Migrations\old" />
       <recent name="D:\wamp64\www\kiuerp\Modules\Admin" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Resources\views\partials\Course" />
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Resources\views\sub\BatchType" />
+      <recent name="D:\wamp64\www\kiuerp\app\Repositories" />
+      <recent name="D:\wamp64\www\kiuerp\database\seeds" />
+      <recent name="D:\wamp64\www\kiuerp\Modules\Admin\Resources\views\layouts" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -576,12 +608,40 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215251000" />
+    <option name="totallyTimeSpent" value="225336000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1633888" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3296" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.31282052" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+    </layout>
+    <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28971255" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
@@ -598,34 +658,6 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.21025641" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="right" id="Database" order="7" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20045386" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3296" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.30769232" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -687,43 +719,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/StdQualification.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
-          <folding>
-            <element signature="e#40#79#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/SloHalls.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#40#79#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/Batch.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-          <folding>
-            <element signature="e#40#79#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Course/dropdown.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="36" selection-start-column="36" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Academic/Entities/Course.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -738,13 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="72" column="11" selection-start-line="72" selection-end-line="72" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/com/idRange.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="41" lean-forward="true" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -827,23 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_03_150219_create_students_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
-          <folding>
-            <element signature="e#7#45#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_04_163408_create_std_registers_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -952,16 +923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="51" column="88" selection-start-line="51" selection-start-column="88" selection-end-line="51" selection-end-column="88" />
-          <folding>
-            <element signature="e#7#389#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/courseReq/index1.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1032">
@@ -1062,6 +1023,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Department/dropdown.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="36" lean-forward="true" selection-start-column="36" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/com/idRange.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Faculty/dropdown.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1072,14 +1054,51 @@
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
-          <caret line="36" column="61" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
+          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php">
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+        <state relative-caret-position="149">
+          <caret line="83" column="115" selection-start-line="83" selection-start-column="115" selection-end-line="83" selection-end-column="115" />
+          <folding>
+            <element signature="e#48#76#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Course/dropdown.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="61" column="57" selection-start-line="61" selection-start-column="57" selection-end-line="61" selection-end-column="57" />
+          <folding>
+            <element signature="e#7#389#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
         </state>
       </provider>
     </entry>

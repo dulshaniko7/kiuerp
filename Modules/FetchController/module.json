@@ -1,0 +1,13 @@
+{
+    "name": "FetchController",
+    "alias": "fetchcontroller",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\FetchController\\Providers\\FetchControllerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -55,6 +55,12 @@ Route::get('/slo/studentRegisters', 'StudentController@index')->name('register.i
 Route::get('/slo/studentRegister', 'StudentController@create')->name('register.create');
 Route::post('/slo/studentRegister', 'StudentController@store')->name('register.create');
 
+
+//ajax routes
+Route::get('/slo/getDepartments/{id}', 'StudentController@getDep')->name('department.get');
+Route::get('/slo/getCourses/{id}', 'FetchController@getCourse')->name('course.get');
+Route::get('/slo/getBatches/{id}', 'FetchController@getBatch')->name('batch.get');
+
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
 Route::get('/slo/transfers', 'BatchController@index')->name('transfers');
 

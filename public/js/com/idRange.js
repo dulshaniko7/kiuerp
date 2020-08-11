@@ -4,7 +4,7 @@ $("#course_id").change(function () {
     if (id) {
         $.ajax({
             type: 'GET',
-            url: "/slo/idRange/start/" + id,
+            url:"/slo/idRange/start/" + id,
             success: function (response) {
                 console.log(response.end)
                 let value = (response.end[0].end)
