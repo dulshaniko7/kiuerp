@@ -3,18 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f87a49ec-cf3d-4fc4-8f21-8176d8269ba0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Academic/Config/permissions.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Config/permissions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Config/permissions.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Config/permissions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Config/permissions/sample.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Config/permissions/sample.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionGroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionGroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionSystemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionSystemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_095623_create_faculties_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_22_095623_create_faculties_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_14_180753_create_departments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_22_180753_create_departments_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_system/import.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_system/import.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_system/import_select.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_system/import_select.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Services/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Services/Permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/permissions.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/permissions.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +194,8 @@
       <workItem from="1596546061738" duration="16137000" />
       <workItem from="1596643005709" duration="5446000" />
       <workItem from="1596726165732" duration="24585000" />
-      <workItem from="1596910609480" duration="24748000" />
+      <workItem from="1596910609480" duration="25780000" />
+      <workItem from="1597156769468" duration="1950000" />
     </task>
     <servers />
   </component>

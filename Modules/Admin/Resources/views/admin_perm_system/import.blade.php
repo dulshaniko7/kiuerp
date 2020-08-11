@@ -37,14 +37,22 @@
                                                         <input type="hidden" name="modules[]" value="<?php echo $modKey; ?>">
                                                         <input type="hidden" name="<?php echo $modKey; ?>_module_slug" value="<?php echo $modSlug; ?>">
                                                         <input type="hidden" name="<?php echo $modKey; ?>_module_id" value="<?php echo $moduleId; ?>">
-                                                        <p class="text-muted">Permission Module</p>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    <input type="checkbox" name="<?php echo $modKey; ?>_checked" value="1" onchange="return onChangeModule(<?php echo $modKey; ?>);">
-                                                                </span>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p class="text-muted">Permission Module</p>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-prepend">
+                                                                        <span class="input-group-text">
+                                                                            <input type="checkbox" name="<?php echo $modKey; ?>_checked" value="1" onchange="return onChangeModule(<?php echo $modKey; ?>);">
+                                                                        </span>
+                                                                    </div>
+                                                                    <input type="text" name="<?php echo $modKey; ?>_module_name" value="<?php echo $modName; ?>" class="form-control">
+                                                                </div>
                                                             </div>
-                                                            <input type="text" name="<?php echo $modKey; ?>_module_name" value="<?php echo $modName; ?>" class="form-control">
+                                                            <div class="col-md-6">
+                                                                <p class="text-muted">Module Slug</p>
+                                                                <input type="text" value="<?php echo $modSlug; ?>" class="form-control" readonly>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -66,14 +74,22 @@
                                                                     <input type="hidden" name="<?php echo $modKey; ?>_groups[]" value="<?php echo $groupKey; ?>">
                                                                     <input type="hidden" name="<?php echo $modKey."_".$groupKey; ?>_group_slug" value="<?php echo $groupSlug; ?>">
                                                                     <input type="hidden" name="<?php echo $modKey."_".$groupKey; ?>_group_id" value="<?php echo $groupId; ?>">
-                                                                    <p class="text-muted">Permission Module Group</p>
-                                                                    <div class="input-group">
-                                                                        <div class="input-group-prepend">
-                                                                            <span class="input-group-text">
-                                                                                <input type="checkbox" name="<?php echo $modKey."_".$groupKey; ?>_checked" value="1" onchange="return onChangeGroup(<?php echo $modKey; ?>, <?php echo $groupKey; ?>);">
-                                                                            </span>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <p class="text-muted">Permission Module Group</p>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span class="input-group-text">
+                                                                                        <input type="checkbox" name="<?php echo $modKey."_".$groupKey; ?>_checked" value="1" onchange="return onChangeGroup(<?php echo $modKey; ?>, <?php echo $groupKey; ?>);">
+                                                                                    </span>
+                                                                                </div>
+                                                                                <input type="text" name="<?php echo $modKey."_".$groupKey; ?>_group_name" value="<?php echo $groupName; ?>" class="form-control">
+                                                                            </div>
                                                                         </div>
-                                                                        <input type="text" name="<?php echo $modKey."_".$groupKey; ?>_group_name" value="<?php echo $groupName; ?>" class="form-control">
+                                                                        <div class="col-md-6">
+                                                                            <p class="text-muted">Module Group Slug</p>
+                                                                            <input type="text" value="<?php echo $groupSlug; ?>" class="form-control" readonly>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <hr>
