@@ -53,7 +53,7 @@ $('#course_id').change(function () {
 
     var course_id = $(this).val();
 
-    if(batch_id){
+    if(course_id){
         console.log('hii batch'+course_id);
         console.log('working batch');
         $.ajax({
