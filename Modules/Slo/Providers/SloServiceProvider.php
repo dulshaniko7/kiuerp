@@ -11,6 +11,8 @@ use Modules\Slo\Http\View\Composers\BatchComposer;
 use Modules\Slo\Http\View\Composers\BatchTypeComposer;
 use Modules\Slo\Http\View\Composers\CourseComposer;
 use Modules\Slo\Http\View\Composers\CourseReqComposer;
+use Modules\Slo\Http\View\Composers\DepartmentComposer;
+use Modules\Slo\Http\View\Composers\FacultyComposer;
 use Modules\Slo\Http\View\Composers\IdRangeComposer;
 
 class SloServiceProvider extends ServiceProvider
@@ -42,25 +44,31 @@ class SloServiceProvider extends ServiceProvider
         // View::composer(['slo::batch.*'],function ($view){
         //     $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
         // });
-      // View::composer(['slo::batch.*'],function ($view){
+        // View::composer(['slo::batch.*'],function ($view){
         //       $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
-          //   });
-        View::composer(['slo::batchType.*'],function ($view){
-            $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
+        //   });
+        View::composer(['slo::batchType.*'], function ($view) {
+            $view->with('batchTypes', BatchType::orderBy('batch_type')->get());
         });
-       // View::composer(['slo::batch.*'],function ($view){
-         //   $view->with('batches',Batch::orderBy('batch_code')->get());
-       // });
+        // View::composer(['slo::batch.*'],function ($view){
+        //   $view->with('batches',Batch::orderBy('batch_code')->get());
+        // });
         //Option 2
 
-        View::composer(['slo::batch.*'],CourseComposer::class);
+        View::composer(['slo::batch.*'], CourseComposer::class);
         View::composer(['slo::batch.*'], BatchComposer::class);
         View::composer(['slo::batch.*'], BatchTypeComposer::class);
         View::composer(['slo::idRange.*'], CourseComposer::class);
         View::composer(['slo::idRange.*'], IdRangeComposer::class);
         View::composer(['slo::courseReq.*'], CourseComposer::class);
         View::composer(['slo::courseReq.*'], CourseReqComposer::class);
+
+
         //or
+
+        View::composer('slo::partials.Batch.*', BatchComposer::class);
+        View::composer('slo::partials.Department.*', DepartmentComposer::class);
+        View::composer('slo::partials.Faculty.*', FacultyComposer::class);
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);
     }

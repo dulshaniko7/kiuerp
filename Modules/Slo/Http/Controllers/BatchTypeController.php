@@ -42,7 +42,7 @@ class BatchTypeController extends Controller
 
         $validate = Validator::make($request->all(),
             [
-                'batch_type' => 'required|int',
+                'batch_type' => 'required',
                 'description' => 'required'
             ]);
         if ($validate->fails()) {
