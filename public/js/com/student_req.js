@@ -32,7 +32,7 @@ $('#dept_id').change(function () {
     var dept_id = $(this).val();
 
     if(dept_id){
-        console.log('hiiiii dep'+dept_id);
+        console.log('hiiiiiiiii dep'+dept_id);
         console.log('working');
         $.ajax({
             url: '/slo/getCourses/'+dept_id,
