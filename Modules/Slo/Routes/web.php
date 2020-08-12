@@ -57,9 +57,11 @@ Route::post('/slo/studentRegister', 'StudentController@store')->name('register.c
 
 
 //ajax routes
-Route::get('/slo/getDepartments/{id}', 'StudentController@getDep')->name('department.get');
+Route::get('/slo/getDepartments/{id}', 'StudentController@getDeps')->name('departments.get');
 Route::get('/slo/getCourses/{id}', 'FetchController@getCourse')->name('course.get');
 Route::get('/slo/getBatches/{id}', 'FetchController@getBatch')->name('batch.get');
+Route::get('/slo/getBatchType/{id}', 'FetchController@getBatchType')->name('batchType.get');
+Route::get('/slo/getDepartment/{id}', 'FetchController@getDep')->name('department.get');
 
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
 Route::get('/slo/transfers', 'BatchController@index')->name('transfers');

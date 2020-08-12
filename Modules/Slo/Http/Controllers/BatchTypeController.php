@@ -114,4 +114,6 @@ class BatchTypeController extends Controller
         $batchType->delete();
         return redirect()->route('batchType.index');
     }
+
+
 }

@@ -78,7 +78,7 @@
                     <span class="info-box-icon"><i class="fas fa-fw fa-user-graduate "></i></span>
                     <div class="info-box-content">
             <span class="info-box-number">
-              <h4>0000 0000 000000</h4>
+              <h4><span id="dep_code">00</span><span id="slqf_code">00</span> <span id="batch_type_code">00</span><span id="batch_code">000</span> 000000</h4>
             </span>
 
                         <div class="progress">

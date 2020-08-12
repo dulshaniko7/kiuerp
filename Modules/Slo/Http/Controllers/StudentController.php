@@ -79,7 +79,7 @@ class StudentController extends Controller
         //
     }
 
-    public function getDep($id)
+    public function getDeps($id)
     {
         $departments = Department::where('faculty_id', $id)->pluck('dept_name', 'dept_code', 'dept_id', 'faculty_id');
         return json_encode($departments);
