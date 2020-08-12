@@ -18,10 +18,10 @@ class AcademicDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        factory(Faculty::class, 5)->create();
-        factory(Department::class,10)->create();
+        factory(Faculty::class, 2)->create();
+        factory(Department::class,4)->create();
 
-        factory(Course::class,20)->create();
+        factory(Course::class,10)->create();
         // $this->call("OthersTableSeeder");
     }
 }

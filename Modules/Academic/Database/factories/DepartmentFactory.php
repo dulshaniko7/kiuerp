@@ -9,7 +9,7 @@ $factory->define(\Modules\Academic\Entities\Department::class, function (Faker $
     $suffix = 'department';
 
     return [
-        'dept_code' => $faker->postcode,
+        'dept_code' => $faker->numberBetween(10,100),
         'dept_name' => $faker->word . ' ' . $suffix,
         'color_code' => $faker->colorName,
         'dept_status' => 0,
