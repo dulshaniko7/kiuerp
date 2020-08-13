@@ -57,16 +57,17 @@ $('#dept_id').click(function () {
 
 $('#course_id').click(function () {
 
-    var course_id = $(this).val();
-
-    if (course_id) {
+    var course = $(this).val();
+    console.log('course id ' + course);
+    if (course) {
 
         $.ajax({
-            url: '/slo/getBatches/' + course_id,
+            url: '/slo/getBatches/' + course,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                console.log("course id is last" + course_id);
+                console.log("course id is" + course);
                 $('#batch_id').empty();
                 $.each(data, function (key, value) {
                     $('#batch_id').append('<option value="' + key + '">' + value + '</option>');

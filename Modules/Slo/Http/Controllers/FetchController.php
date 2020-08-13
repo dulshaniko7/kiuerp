@@ -19,7 +19,7 @@ class FetchController extends Controller
 
     public function getCourse($id)
     {
-        $courses = Course::where('dept_id', $id)->pluck('course_name', 'course_code', 'course_id', 'dept_id');
+        $courses = Course::where('dept_id', $id)->pluck('course_name','course_id');
 
         return json_encode($courses);
     }
