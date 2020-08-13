@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
 use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\Student;
 
 class FetchController extends Controller
 {
@@ -44,6 +45,12 @@ class FetchController extends Controller
 
 
         return json_encode($department);
+    }
+
+    public function getStdId(){
+
+        $student = Student::orderBy('student_id','desc')->first()->pluck('student_id');
+        return json_encode($student);
     }
 
 }

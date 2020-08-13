@@ -9,6 +9,7 @@ use Modules\Slo\Entities\Batch;
 use Modules\Slo\Entities\BatchType;
 use Modules\Slo\Http\View\Composers\BatchComposer;
 use Modules\Slo\Http\View\Composers\BatchTypeComposer;
+use Modules\Slo\Http\View\Composers\CountryComposer;
 use Modules\Slo\Http\View\Composers\CourseComposer;
 use Modules\Slo\Http\View\Composers\CourseReqComposer;
 use Modules\Slo\Http\View\Composers\DepartmentComposer;
@@ -71,6 +72,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer('slo::partials.Faculty.*', FacultyComposer::class);
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);
+       View::composer('slo::partials.Country.*',CountryComposer::class);
     }
 
     /**

@@ -16,6 +16,6 @@ class SloDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+         $this->call(CountrySeedTableSeeder::class);
     }
 }

@@ -5,8 +5,10 @@ namespace Modules\Slo\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
+use Modules\Slo\Entities\Student;
 
 class StudentController extends Controller
 {
@@ -35,7 +37,37 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validate = Validator::make($request->all(),
+            [
+                'gen_id' => 'required',
+                'std_title' => 'required',
+                'name_initials' => 'required',
+                'gender' => 'required',
+                'tel_mobile1' => 'required',
+                'nic_passport' => 'required',
+
+                'full_name' => 'required',
+                'course_id' => 'required',
+                'reg_date' => 'required'
+            ]);
+        if ($validate->fails()) {
+            return view('slo::error');
+        }
+        $student = new Student();
+        $student->gen_id = $request->gen_id;
+        $student->std_title = $request->std_title;
+        $student->name_initials = $request->name_initials;
+        $student->gender = $request->gender;
+        $student->tel_mobile1 = $request->tel_mobile1;
+        $student->nic_passport = $request->nic_passport;
+        $student->full_name = $request->full_name;
+        $student->course_id = $request->course_id;
+        $student->reg_date = $request->reg_date;
+        $student->gen_id = $request->gen_id;
+        if($student->save()){
+            return redirect()->route('register.create');
+        }
     }
 
     /**

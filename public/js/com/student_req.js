@@ -1,10 +1,58 @@
 let dep_code = document.querySelector('#dep_code');
 let batchType_code = document.querySelector('#batch_type_code');
 let batch_code = document.querySelector('#batch_code');
+let nic = document.querySelector('#nic');
+let passport = document.querySelector('#passport');
+let country = document.querySelector('#country');
+var std_id = document.querySelector('#std_id');
+let gen_id = document.querySelector('#gen_id');
+
+var d_code = null
+var bt_code = null
+var b_code = null
+var s_code = null
+
+
+country.style.visibility = "hidden"
+
+
+$(document).ready(function () {
+    //student id
+    $.ajax({
+        url: '/slo/getStudentId',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            let id = null
+            getId = null
+            console.log('data  ' + data)
+
+            if (data < 10) {
+                id = '0000' + data
+            } else if (data < 100) {
+                id = '000' + data
+            } else if (data < 1000) {
+                id = '00' + data
+            } else if (data < 10000) {
+                id = '0' + data
+            } else {
+                id = data
+            }
+
+            std_id.textContent = ' ' + id
+            s_code = id;
+            console.log('id ' + id)
+            console.log('s code' + s_code)
+        }
+    })
+
+})
+
 
 $('#faculty_id').click(function () {
 
     let faculty_id = $(this).val();
+
 
     if (faculty_id) {
         console.log('hii' + faculty_id);
@@ -35,6 +83,9 @@ $('#dept_id').click(function () {
             console.log(data['dept_code'])
             code = data['dept_code'];
             dep_code.innerText = code;
+            d_code = code;
+            console.log('d code ' + d_code)
+
         }
     })
 
@@ -97,11 +148,38 @@ $('#batch_id').click(function () {
                     t_code = t_code;
                 }
                 batchType_code.innerText = t_code;
+                bt_code = t_code
+                console.log('bt code' + bt_code)
+
                 code = data['batch_code'];
                 batch_code.innerText = code
+                b_code = code
+                console.log('b code' + b_code)
+
+                let sss = document.getElementById("std_id").innerHTML;
+
+                //s_code = $('#std_id').val()
+                console.log('s code is ' + sss);
+
+                //create the std code
+                let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + sss
+                console.log(std_code)
+                gen_id.value = std_code;
+
             }
         })
     }
+})
+
+
+passport.addEventListener('click', function () {
+    country.style.visibility = 'visible';
+
+})
+
+nic.addEventListener('click', function () {
+    country.style.visibility = 'hidden';
+
 })
 
 

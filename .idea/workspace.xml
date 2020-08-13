@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f91179a0-b708-4a7d-aff1-7bbcc028224a" name="Default Changelist" comment="">
+    <list default="true" id="bfbb9643-2bfa-4b2e-9222-5f684e654824" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Config/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Config/config.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Console/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Database/Migrations/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Database/Seeders/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Database/Seeders/ControllerDatabaseSeeder.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Database/factories/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Entities/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Http/Controllers/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Http/Controllers/ControllerController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Http/Middleware/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Http/Requests/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Providers/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Providers/ControllerServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Providers/RouteServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Resources/assets/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Resources/assets/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Resources/assets/sass/app.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Resources/lang/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Resources/views/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Resources/views/index.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Resources/views/layouts/master.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Routes/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Routes/api.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Routes/web.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Tests/Feature/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/Tests/Unit/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/composer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/module.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Controller/webpack.mix.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Config/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Config/config.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Console/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Database/Migrations/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Database/Seeders/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Database/Seeders/FetchControllerDatabaseSeeder.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Database/factories/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Entities/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Http/Controllers/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Http/Controllers/FetchControllerController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Http/Middleware/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Http/Requests/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Providers/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Providers/FetchControllerServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Providers/RouteServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Resources/assets/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Resources/assets/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Resources/assets/sass/app.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Resources/lang/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Resources/views/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Resources/views/index.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Resources/views/layouts/master.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Routes/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Routes/api.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Routes/web.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Tests/Feature/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/Tests/Unit/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/composer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/module.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/FetchController/webpack.mix.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Database/Seeders/SloDatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Database/Seeders/SloDatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Database/factories/BatchFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Database/factories/old/BatchFactory.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/com/student_req.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/com/student_req.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
@@ -129,37 +198,67 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="30" column="45" lean-forward="true" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1499">
-              <caret line="80" column="158" selection-start-line="80" selection-start-column="158" selection-end-line="80" selection-end-column="158" />
+            <state relative-caret-position="168">
+              <caret line="208" column="52" selection-start-line="208" selection-start-column="50" selection-end-line="208" selection-end-column="56" />
+              <folding>
+                <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Course/dropdown.blade.php">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201219_create_students_table.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="120">
+              <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_193552_change_students_table.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="26" column="33" lean-forward="true" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+            <state relative-caret-position="240">
+              <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/batch/create.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-652">
+              <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="167" selection-start-line="167" selection-end-line="167" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="312">
+              <caret line="55" column="84" selection-start-line="55" selection-start-column="84" selection-end-line="55" selection-end-column="84" />
             </state>
           </provider>
         </entry>
@@ -172,28 +271,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchTypeController.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Entities/Country.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Seeders/CountrySeedTableSeeder.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Seeders/SloDatabaseSeeder.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Routes/web.php" />
-        <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/Modules/Academic/Database/Seeders/AcademicDatabaseSeeder.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_200739_create_batch_types_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_200847_create_batches_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201028_create_id_ranges_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201219_create_students_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201356_create_std_registers_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201454_create_std_extra_details_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201545_create_std_experiences_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201654_create_std_emgs_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201812_create_gen_hospitals_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201909_create_std_nursings_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_202010_create_std_qualifications_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_202117_create_course_requirements_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Academic/Database/factories/DepartmentFactory.php" />
-        <option value="$PROJECT_DIR$/public/js/com/student_req.js" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_071452_create_countries_table.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Http/View/Composers/CountryComposer.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Country/dropdown.blade.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_170712_add_col_to_students_table.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_171205_change_students_table.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_175101_add_col_to_students_table.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Routes/web.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_181523_add_col_to_students_table.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/com/student_req.js" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" />
       </list>
     </option>
   </component>
@@ -304,8 +398,8 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-32" />
+    <option name="y" value="40" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
@@ -317,7 +411,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -325,11 +418,6 @@
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
               <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
@@ -354,6 +442,14 @@
               <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
               <item name="Slo" type="462c0819:PsiDirectoryNode" />
+              <item name="Database" type="462c0819:PsiDirectoryNode" />
+              <item name="Migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
+              <item name="Modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Slo" type="462c0819:PsiDirectoryNode" />
               <item name="Http" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -369,6 +465,13 @@
               <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
               <item name="Slo" type="462c0819:PsiDirectoryNode" />
+              <item name="Providers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
+              <item name="Modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Slo" type="462c0819:PsiDirectoryNode" />
               <item name="Resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -386,26 +489,7 @@
               <item name="Slo" type="462c0819:PsiDirectoryNode" />
               <item name="Resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="partials" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
-              <item name="Modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Slo" type="462c0819:PsiDirectoryNode" />
-              <item name="Resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="partials" type="462c0819:PsiDirectoryNode" />
-              <item name="Course" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
-              <item name="Modules" type="462c0819:PsiDirectoryNode" />
-              <item name="Slo" type="462c0819:PsiDirectoryNode" />
-              <item name="Resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="student" type="462c0819:PsiDirectoryNode" />
+              <item name="batch" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
@@ -425,35 +509,25 @@
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Country" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Resources\views\partials\Country" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Academic\Database\Migrations" />
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\Migrations\old" />
-      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Academic\Database\Migrations\old" />
+      <recent name="C:\xampp\htdocs\kiu vui\kiuerp\Modules\Slo\Database\factories\old" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -473,23 +547,23 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f91179a0-b708-4a7d-aff1-7bbcc028224a" name="Default Changelist" comment="" />
-      <created>1597289527210</created>
+      <changelist id="bfbb9643-2bfa-4b2e-9222-5f684e654824" name="Default Changelist" comment="" />
+      <created>1597331319453</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1597289527210</updated>
-      <workItem from="1597289538625" duration="2665000" />
+      <updated>1597331319453</updated>
+      <workItem from="1597331330496" duration="15194000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17019000" />
+    <option name="totallyTimeSpent" value="21259000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27382752" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27836612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -504,7 +578,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.051282052" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.26324788" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -517,7 +591,7 @@
       <window_info anchor="right" id="Database" order="7" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28971255" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27836612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -532,7 +606,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.21025641" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.191453" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -549,361 +623,203 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/courseReq/edit1.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1632">
-          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/factories/old/BatchFactory.php">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/CourseRequirementController.php">
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Seeders/CountrySeedTableSeeder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-72">
-          <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/courseReq/index1.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Academic/Database/Migrations/2020_07_29_075945_create_courses_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/IDRangeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-480">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/Batch.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="13" column="39" lean-forward="true" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/BatchType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-586">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchTypeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2688">
-          <caret line="117" selection-start-line="117" selection-end-line="117" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1896">
-          <caret line="83" column="113" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="118" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/factories/BatchFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#66#103#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Academic/Database/factories/CourseFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-          <folding>
-            <element signature="e#67#96#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Seeders/SloDatabaseSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="115">
+          <caret line="1224" selection-start-line="1224" selection-end-line="1224" />
           <folding>
             <element signature="e#48#79#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Academic/Database/factories/CourseRequirementFactory.php">
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Seeders/SloDatabaseSeeder.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+        <state relative-caret-position="238">
+          <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/CourseRequirement.php">
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/Country.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-208">
-          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201028_create_id_ranges_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201219_create_students_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="48" column="33" selection-start-line="48" selection-start-column="33" selection-end-line="48" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_03_150219_create_students_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="44" column="22" selection-start-line="16" selection-start-column="12" selection-end-line="48" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_07_31_031817_create_id_ranges_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="26" column="23" selection-start-line="16" selection-start-column="12" selection-end-line="30" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_200847_create_batches_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="40" column="33" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_07_29_091346_create_batches_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="40" column="33" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="40" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_200739_create_batch_types_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_07_29_111919_create_batch_types_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="19" column="24" selection-start-line="16" selection-start-column="11" selection-end-line="23" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_05_023611_create_std_extra_details_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="25" column="26" selection-start-line="16" selection-start-column="12" selection-end-line="28" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201454_create_std_extra_details_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201356_create_std_registers_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201654_create_std_emgs_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_05_072211_create_std_emgs_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="18" column="16" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="23" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201545_create_std_experiences_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_05_055804_create_std_experiences_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="24" column="25" lean-forward="true" selection-start-line="16" selection-start-column="11" selection-end-line="29" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_04_163408_create_std_registers_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="20" column="17" selection-start-line="16" selection-start-column="12" selection-end-line="26" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Academic/Database/Seeders/AcademicDatabaseSeeder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-          <folding>
-            <element signature="e#53#84#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_05_155345_create_gen_hospitals_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="21" column="22" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="24" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201812_create_gen_hospitals_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201909_create_std_nursings_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_05_171320_create_std_qualifications_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="27" column="31" selection-start-line="16" selection-start-column="11" selection-end-line="31" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Academic/Database/factories/DepartmentFactory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="19" column="3" lean-forward="true" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_202117_create_course_requirements_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="36" column="33" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_07_053153_create_course_requirements_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="32" column="22" selection-start-line="16" selection-start-column="12" selection-end-line="36" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_202010_create_std_qualifications_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_05_170318_create_slo_halls_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/old/2020_08_05_134133_create_std_nursings_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="25" column="33" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="28" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1499">
-          <caret line="80" column="158" selection-start-line="80" selection-start-column="158" selection-end-line="80" selection-end-column="158" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="61" column="60" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
-          <folding>
-            <element signature="e#7#389#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="190">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Course/dropdown.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Batch/dropdown.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_07_26_163328_create_countries_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="30" column="45" lean-forward="true" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+        <state relative-caret-position="360">
+          <caret line="20" column="35" selection-start-line="19" selection-start-column="12" selection-end-line="23" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Country.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/View/Composers/BatchComposer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding>
+            <element signature="e#53#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1488">
+          <caret line="74" column="72" selection-start-line="74" selection-start-column="72" selection-end-line="74" selection-end-column="72" />
+          <folding>
+            <element signature="e#41#77#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/View/Composers/CountryComposer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#53#78#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Country/dropdown.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_071452_create_countries_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="26" column="33" lean-forward="true" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+        <state relative-caret-position="336">
+          <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-24">
+          <caret line="49" column="8" selection-start-line="42" selection-start-column="7" selection-end-line="53" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201356_create_std_registers_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="18" column="82" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_171205_change_students_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="55" column="84" selection-start-line="55" selection-start-column="84" selection-end-line="55" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_175101_add_col_to_students_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_170712_add_col_to_students_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_181523_add_col_to_students_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="17" column="11" lean-forward="true" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/batch/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-652">
+          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="167" selection-start-line="167" selection-end-line="167" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="208" column="52" selection-start-line="208" selection-start-column="50" selection-end-line="208" selection-end-column="56" />
+          <folding>
+            <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#form#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201219_create_students_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="21" column="12" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_193552_change_students_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="10" />
         </state>
       </provider>
     </entry>
