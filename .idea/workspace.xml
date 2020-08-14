@@ -3,14 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="bfbb9643-2bfa-4b2e-9222-5f684e654824" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_170712_add_col_to_students_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_170712_add_col_to_students_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Entities/Course.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Entities/Course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Entities/IdRange.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Entities/IdRange.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Entities/Student.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Entities/Student.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/batchType/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/batchType/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/idRange/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/idRange/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/layouts/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/layouts/header.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/com/idRange.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/com/idRange.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/com/student_req.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/com/student_req.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
@@ -138,17 +137,38 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2001">
-              <caret line="210" selection-start-line="210" selection-end-line="210" />
+            <state relative-caret-position="226">
+              <caret line="209" column="62" selection-start-line="209" selection-start-column="62" selection-end-line="209" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_193843_add_col_to_students_table.php">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="346">
+              <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="546">
+              <caret line="76" column="45" selection-start-line="76" selection-start-column="45" selection-end-line="76" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="81" column="34" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
+              <folding>
+                <element signature="e#48#76#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -156,42 +176,53 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/Student.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="308">
+              <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_193552_change_students_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/idRange/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-864" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="187" column="41" selection-start-line="187" selection-start-column="41" selection-end-line="187" selection-end-column="41" />
+            <state relative-caret-position="474">
+              <caret line="213" column="35" selection-start-line="213" selection-start-column="35" selection-end-line="213" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_14_124802_create_course_student_table.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+            <state relative-caret-position="312">
+              <caret line="18" column="53" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Academic/Entities/Course.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/Batch.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="13" column="39" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1560">
+              <caret line="55" column="29" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -219,7 +250,6 @@
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/partials/Country/dropdown.blade.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_171205_change_students_table.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_175101_add_col_to_students_table.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Routes/web.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_181523_add_col_to_students_table.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_193552_change_students_table.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_193843_add_col_to_students_table.php" />
@@ -229,10 +259,15 @@
         <option value="$PROJECT_DIR$/public/js/com/idRange.js" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_170712_add_col_to_students_table.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_14_082830_change_students_table.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Entities/IdRange.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_14_124802_create_course_student_table.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Routes/web.php" />
+        <option value="$PROJECT_DIR$/Modules/Academic/Entities/Course.php" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Entities/Student.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" />
         <option value="$PROJECT_DIR$/public/js/com/student_req.js" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" />
       </list>
     </option>
   </component>
@@ -356,8 +391,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -381,15 +414,24 @@
               <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
               <item name="Slo" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
               <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
               <item name="Slo" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kiuerp" type="462c0819:PsiDirectoryNode" />
+              <item name="Modules" type="462c0819:PsiDirectoryNode" />
+              <item name="Slo" type="462c0819:PsiDirectoryNode" />
+              <item name="Resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="student" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kiuerp" type="b2602c69:ProjectViewProjectNode" />
@@ -413,6 +455,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -452,18 +496,19 @@
       <option name="presentableId" value="Default" />
       <updated>1597331319453</updated>
       <workItem from="1597331330496" duration="15516000" />
-      <workItem from="1597383331759" duration="11867000" />
+      <workItem from="1597383331759" duration="12399000" />
+      <workItem from="1597404818448" duration="20476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33448000" />
+    <option name="totallyTimeSpent" value="54456000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28290468" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28744328" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -478,7 +523,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.26324788" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.16752137" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -622,24 +667,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-24">
-          <caret line="49" column="8" selection-start-line="42" selection-start-column="7" selection-end-line="53" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_12_201356_create_std_registers_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="18" column="82" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="55" column="84" selection-start-line="55" selection-start-column="84" selection-end-line="55" selection-end-column="84" />
         </state>
       </provider>
     </entry>
@@ -692,11 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/idRange/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-864" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_170712_add_col_to_students_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -739,45 +765,93 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/idRange/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_13_193843_add_col_to_students_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
+        <state relative-caret-position="322">
           <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/IdRange.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/BatchController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1560">
+          <caret line="55" column="29" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/Batch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="13" column="39" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Database/Migrations/2020_08_14_124802_create_course_student_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="18" column="53" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Academic/Entities/Course.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Entities/Student.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        <state relative-caret-position="308">
+          <caret line="44" column="1" selection-start-line="44" selection-start-column="1" selection-end-line="44" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2001">
-          <caret line="210" selection-start-line="210" selection-end-line="210" />
+        <state relative-caret-position="226">
+          <caret line="209" column="62" selection-start-line="209" selection-start-column="62" selection-end-line="209" selection-end-column="62" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+        <state relative-caret-position="346">
+          <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="187" column="41" selection-start-line="187" selection-start-column="41" selection-end-line="187" selection-end-column="41" />
+        <state relative-caret-position="474">
+          <caret line="213" column="35" selection-start-line="213" selection-start-column="35" selection-end-line="213" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="76" column="45" selection-start-line="76" selection-start-column="45" selection-end-line="76" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="81" column="34" selection-start-line="81" selection-start-column="34" selection-end-line="81" selection-end-column="34" />
+          <folding>
+            <element signature="e#48#76#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

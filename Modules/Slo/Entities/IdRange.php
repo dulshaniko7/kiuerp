@@ -11,7 +11,7 @@ class IdRange extends Model
     protected $guarded = [];
 
     use SoftDeletes;
-
+    protected $primaryKey = "id";
     public function course(){
         return $this->belongsTo(Course::class,'course_id','course_id');
     }

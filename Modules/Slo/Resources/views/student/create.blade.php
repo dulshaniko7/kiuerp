@@ -207,7 +207,7 @@
                         </div>
 
                         <input type="hidden"  name="gen_id" id="gen_id">
-
+                        <input type="text"  name="student_id" >
 
                         <div class="row">
                             <div class="col-md-6 col-sm-6  form-group has-feedback">

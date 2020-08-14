@@ -4,6 +4,7 @@ namespace Modules\Slo\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Academic\Entities\Course;
 
 class Student extends Model
 {
@@ -36,4 +37,9 @@ class Student extends Model
     {
         return $this->hasMany(StdQualification::class, 'student_id', 'student_id');
     }
+
+    public function courses(){
+        return $this->belongsToMany(Course::class,'course_student','student_id','course_id',);
+    }
+
 }

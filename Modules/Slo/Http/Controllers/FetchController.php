@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
 use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\IdRange;
 use Modules\Slo\Entities\Student;
 
 class FetchController extends Controller
@@ -55,6 +56,31 @@ class FetchController extends Controller
         $new_id = $student->student_id;
         $new_id++;
         return json_encode($new_id);
+
+
+    }
+
+    public function getIdRange($id)
+    {
+        // $course = Course::findOrFail($id);
+
+
+        // dd($idRangeObject->get()->pluck('start'));
+
+        // $course = Course::findOrFail($id);
+        //  $course_id = $course->course_id;
+        $course = Course::where('course_id', $id)->orderBy('course_id', 'desc')->first();
+        $idRangeObject = IdRange::where('course_id', $id)->orderBy('id')->latest();
+        //  dd($course->students()->get()->toArray()->pluck('student_id'));
+        // dd($idRangeObject->course_id);
+        $need_course_start = $idRangeObject->get()->pluck('start');
+        $need_course_end = $idRangeObject->get()->pluck('end');
+        dd($need_course_end);
+      //  $last = $need_course->students()->get()->pluck('student_id');
+        //  $last_id = $course->students()->get()->pluck('student_id');
+
+        return $need_course_start;
+        //return $last_id;
     }
 
 }

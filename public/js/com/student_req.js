@@ -106,10 +106,20 @@ $('#dept_id').click(function () {
     }
 })
 
+var course;
 $('#course_id').click(function () {
 
-    var course = $(this).val();
+    course = $(this).val();
     console.log('course id ' + course);
+
+
+    /*
+    let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + id
+    console.log(std_code)
+    std_id.textContent = ' ' + id;
+    gen_id.value = std_code;
+*/
+
     if (course) {
 
         $.ajax({
@@ -155,37 +165,61 @@ $('#batch_id').click(function () {
                 batch_code.innerText = code
                 b_code = code
                 console.log('b code' + b_code)
+                /*
+                                $.ajax({
+                                    url: '/slo/getStudentId',
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        let code1;
+                                        getId = null
+                                        console.log('00' + data);
 
+                                        if (data < 10) {
+                                            id = '0000' + data
+                                        } else if (data < 100) {
+                                            id = '000' + data
+                                        } else if (data < 1000) {
+                                            id = '00' + data
+                                        } else if (data < 10000) {
+                                            id = '0' + data
+                                        } else {
+                                            id = data
+                                            console.log(id)
+                                        }
+
+                                    }
+                                })
+                */
                 $.ajax({
-                    url: '/slo/getStudentId',
+                    url: '/slo/getIdRange/' + course,
                     type: 'GET',
                     dataType: 'json',
                     success: function (data) {
-                        let code1;
-                        getId = null
-                        console.log('00' + data);
 
-                        if (data < 10) {
-                            id = '0000' + data
-                        } else if (data < 100) {
-                            id = '000' + data
-                        } else if (data < 1000) {
-                            id = '00' + data
-                        } else if (data < 10000) {
-                            id = '0' + data
+
+                        console.log((data + 1));
+                        let no = parseInt((data));
+                        no = no + 1
+                        console.log('no is' + no)
+                        if (no < 10) {
+                            id = '0000' + no
+                        } else if (no < 100) {
+                            id = '000' + no
+                        } else if (no < 1000) {
+                            id = '00' + no
+                        } else if (no < 10000) {
+                            id = '0' + no
                         } else {
-                            id = data
+                            id = no
                             console.log(id)
                         }
-
                     }
                 })
-
-
                 //create the std code
                 let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + id
                 console.log(std_code)
-                std_id.textContent = ' '+id;
+                std_id.textContent = ' ' + id;
                 gen_id.value = std_code;
 
 
@@ -204,6 +238,8 @@ nic.addEventListener('click', function () {
     country.style.visibility = 'hidden';
 
 })
+
+
 
 
 

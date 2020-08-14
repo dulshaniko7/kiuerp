@@ -13,6 +13,7 @@
 
 Route::prefix('slo')->group(function () {
     Route::get('/', 'SloController@index');
+
 });
 
 Route::get('/slo/batchTypes', 'BatchTypeController@index')->name('batchType.index');
@@ -63,7 +64,7 @@ Route::get('/slo/getBatches/{id}', 'FetchController@getBatch')->name('batch.get'
 Route::get('/slo/getBatchType/{id}', 'FetchController@getBatchType')->name('batchType.get');
 Route::get('/slo/getDepartment/{id}', 'FetchController@getDep')->name('department.get');
 Route::get('/slo/getStudentId', 'FetchController@getStdId')->name('studentId.get');
-
+Route::get('/slo/getIdRange/{id}', 'FetchController@getIdRange')->name('idRange.get');
 
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
 Route::get('/slo/transfers', 'BatchController@index')->name('transfers');

@@ -65,9 +65,20 @@ class StudentController extends Controller
 
         $student->reg_date = $request->reg_date;
         $student->gen_id = $request->gen_id;
-        if($student->save()){
-            return redirect()->route('register.create');
-        }
+        $course_id = $request->course_id;
+
+
+       // $student->courses()->sync($course_id);
+
+
+
+        $student->save() ;
+        $course = Course::find($course_id);
+        $student->courses()->attach($course);
+
+        return redirect()->route('register.create');
+
+
     }
 
     /**
