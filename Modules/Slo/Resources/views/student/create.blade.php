@@ -206,7 +206,7 @@
 
                         </div>
 
-                        <input type="text"  name="gen_id" id="gen_id">
+                        <input type="hidden"  name="gen_id" id="gen_id">
 
 
                         <div class="row">

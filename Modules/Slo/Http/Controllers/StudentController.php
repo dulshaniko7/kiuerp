@@ -62,7 +62,7 @@ class StudentController extends Controller
         $student->tel_mobile1 = $request->tel_mobile1;
         $student->nic_passport = $request->nic_passport;
         $student->full_name = $request->full_name;
-        $student->course_id = $request->course_id;
+
         $student->reg_date = $request->reg_date;
         $student->gen_id = $request->gen_id;
         if($student->save()){

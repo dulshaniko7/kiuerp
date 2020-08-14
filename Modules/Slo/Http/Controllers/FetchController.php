@@ -20,14 +20,14 @@ class FetchController extends Controller
 
     public function getCourse($id)
     {
-        $courses = Course::where('dept_id', $id)->pluck('course_name','course_id');
+        $courses = Course::where('dept_id', $id)->pluck('course_name', 'course_id');
 
         return json_encode($courses);
     }
 
     public function getBatch($id)
     {
-        $batches = Batch::where('course_id', $id)->pluck('batch_name', 'batch_code', 'batch_id','course_id');
+        $batches = Batch::where('course_id', $id)->pluck('batch_name', 'batch_code', 'batch_id', 'course_id');
 
         return json_encode($batches);
     }
@@ -39,6 +39,7 @@ class FetchController extends Controller
 
         return json_encode($batch_type);
     }
+
     public function getDep($id)
     {
         $department = Department::findOrFail($id);
@@ -47,10 +48,13 @@ class FetchController extends Controller
         return json_encode($department);
     }
 
-    public function getStdId(){
+    public function getStdId()
+    {
 
-        $student = Student::orderBy('student_id','desc')->first()->pluck('student_id');
-        return json_encode($student);
+        $student = Student::orderBy('student_id', 'desc')->first();
+        $new_id = $student->student_id;
+        $new_id++;
+        return json_encode($new_id);
     }
 
 }

@@ -12,10 +12,10 @@ var bt_code = null
 var b_code = null
 var s_code = null
 
-
+console.log(gen_id);
 country.style.visibility = "hidden"
 
-
+/*
 $(document).ready(function () {
     //student id
     $.ajax({
@@ -25,7 +25,7 @@ $(document).ready(function () {
         success: function (data) {
             let id = null
             getId = null
-            console.log('data  ' + data)
+            console.log('data'+data)
 
             if (data < 10) {
                 id = '0000' + data
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
 })
 
-
+*/
 $('#faculty_id').click(function () {
 
     let faculty_id = $(this).val();
@@ -156,15 +156,38 @@ $('#batch_id').click(function () {
                 b_code = code
                 console.log('b code' + b_code)
 
-                let sss = document.getElementById("std_id").innerHTML;
+                $.ajax({
+                    url: '/slo/getStudentId',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        let code1;
+                        getId = null
+                        console.log('00' + data);
 
-                //s_code = $('#std_id').val()
-                console.log('s code is ' + sss);
+                        if (data < 10) {
+                            id = '0000' + data
+                        } else if (data < 100) {
+                            id = '000' + data
+                        } else if (data < 1000) {
+                            id = '00' + data
+                        } else if (data < 10000) {
+                            id = '0' + data
+                        } else {
+                            id = data
+                            console.log(id)
+                        }
+
+                    }
+                })
+
 
                 //create the std code
-                let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + sss
+                let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + id
                 console.log(std_code)
+                std_id.textContent = ' '+id;
                 gen_id.value = std_code;
+
 
             }
         })

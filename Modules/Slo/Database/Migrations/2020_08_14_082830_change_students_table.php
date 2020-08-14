@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColToStudentsTable extends Migration
+class ChangeStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddColToStudentsTable extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->string('gen_id',255);
+            $table->dropForeign(['course_id']);
+            $table->dropColumn('course_id');
         });
     }
 
@@ -25,8 +26,6 @@ class AddColToStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('students', function (Blueprint $table) {
-
-        });
+        //
     }
 }
