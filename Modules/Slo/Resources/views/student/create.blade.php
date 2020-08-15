@@ -29,7 +29,12 @@
                         <div class="form-group row">
                             <label class="col-form-label col-md-2 col-sm-2 ">Course</label>
                             <div class="col-md-10 col-sm-10 ">
-                                @include('slo::partials.Course.dropdown')
+                                <select class="form-control " name="course_id" id="course_id" required onchange="getStudentCount(this.value),getCgsid(this.value),group(this.value)" >
+                                    <option>Select Course</option>
+                                    @foreach($courses as $course)
+                                    <option value="{{$course->course_id}}">{{$course->course_name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -89,6 +94,7 @@
                     </div>
                     <!-- /.info-box-content -->
                 </div>
+                <p id="noti"></p>
                 <!-- /.info-box -->
             </div>
         </div>
@@ -207,7 +213,7 @@
                         </div>
 
                         <input type="hidden"  name="gen_id" id="gen_id">
-                        <input type="text"  name="student_id" >
+                        <input type="text"  name="cgsid" id="cgsid">
 
                         <div class="row">
                             <div class="col-md-6 col-sm-6  form-group has-feedback">

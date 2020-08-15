@@ -12,9 +12,9 @@ class Course extends Model
 
     protected $primaryKey = 'course_id';
 
-    public function idRange()
+    public function idRanges()
     {
-        return $this->hasMany(IdRange::class);
+        return $this->hasMany(IdRange::class,'id','id');
     }
 
     public function students()

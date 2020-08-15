@@ -5,9 +5,11 @@ namespace Modules\Slo\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
 use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
 use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\CourseStudent;
 use Modules\Slo\Entities\IdRange;
 use Modules\Slo\Entities\Student;
 
@@ -76,11 +78,51 @@ class FetchController extends Controller
         $need_course_start = $idRangeObject->get()->pluck('start');
         $need_course_end = $idRangeObject->get()->pluck('end');
         dd($need_course_end);
-      //  $last = $need_course->students()->get()->pluck('student_id');
+        //  $last = $need_course->students()->get()->pluck('student_id');
         //  $last_id = $course->students()->get()->pluck('student_id');
 
         return $need_course_start;
         //return $last_id;
     }
+
+    public function getCgsid($id)
+    {
+        $course = Course::findOrFail($id);
+        $course_id = $course->course_id;
+        //dd($course_id);
+
+        // $r = $course->idRange()->get();
+
+        //start id
+        // $idRangeStart = IdRange::where('course_id', $id)->orderBy('id')->latest()->get()->pluck('start');
+        //return $idRangeStart;
+
+        $idRangeCourse = IdRange::where('course_id', $id)->orderBy('id')->latest()->get()->toArray();
+        //dd($idRangeCourse[0]['id']);
+        return ($idRangeCourse[0]['id']);
+    }
+
+    public function courseStudentCount($id)
+    {
+        $course = Course::find($id);
+        $students = $course->students()->orderBy('student_id')->get();
+        $student_count = $students->count();
+        return $student_count;
+
+    }
+
+    public function courseGroup($id)
+    {
+        $course = Course::find($id);
+        $idRange = IdRange::where('course_id', $course->course_id)->orderBy('id')->latest()->get()->pluck('start');
+        return $idRange;
+
+
+
+
+        //return $student_count;
+
+    }
+
 
 }

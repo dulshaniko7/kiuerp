@@ -6,13 +6,20 @@ let passport = document.querySelector('#passport');
 let country = document.querySelector('#country');
 var std_id = document.querySelector('#std_id');
 let gen_id = document.querySelector('#gen_id');
+let cgsid = document.querySelector('#cgsid');
+let notification = document.querySelector('#noti');
 
 var d_code = null
-var bt_code = null
-var b_code = null
+let bt_code = null
+let b_code = null
 var s_code = null
 
-console.log(gen_id);
+let d
+let bt
+let b
+let qid
+
+
 country.style.visibility = "hidden"
 
 /*
@@ -73,7 +80,7 @@ $('#faculty_id').click(function () {
 $('#dept_id').click(function () {
     let code = null;
     var dept_id = $(this).val();
-
+    d = $(this).val();
 
     $.ajax({
         url: '/slo/getDepartment/' + dept_id,
@@ -111,7 +118,7 @@ $('#course_id').click(function () {
 
     course = $(this).val();
     console.log('course id ' + course);
-
+    console.log('d is ' + d)
 
     /*
     let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + id
@@ -135,12 +142,15 @@ $('#course_id').click(function () {
                 });
             }
         })
+
+
     }
 })
 
 $('#batch_id').click(function () {
 
     var batch_id = $(this).val();
+    console.log('d is ' + d)
     let code = null;
     if (batch_id) {
 
@@ -160,11 +170,15 @@ $('#batch_id').click(function () {
                 batchType_code.innerText = t_code;
                 bt_code = t_code
                 console.log('bt code' + bt_code)
-
+                bt = bt_code;
                 code = data['batch_code'];
                 batch_code.innerText = code
                 b_code = code
+                b = b_code
                 console.log('b code' + b_code)
+
+
+                // console.log('bt'+ bt)
                 /*
                                 $.ajax({
                                     url: '/slo/getStudentId',
@@ -217,10 +231,10 @@ $('#batch_id').click(function () {
                     }
                 })
                 //create the std code
-                let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + id
-                console.log(std_code)
-                std_id.textContent = ' ' + id;
-                gen_id.value = std_code;
+                //  let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + id
+                // console.log(std_code)
+                // std_id.textContent = ' ' + id;
+                //  gen_id.value = std_code;
 
 
             }
@@ -228,6 +242,19 @@ $('#batch_id').click(function () {
     }
 })
 
+let courseId = document.querySelector('#course_id');
+
+let title = document.querySelector('#std_title');
+title.addEventListener('click', function () {
+    console.log(d)
+    console.log(bt)
+    console.log(b)
+    console.log(qid)
+
+    gen = d +'00'+' '+ bt + b +' '+ qid
+    console.log(gen)
+        gen_id.value = gen
+})
 
 passport.addEventListener('click', function () {
     country.style.visibility = 'visible';
@@ -240,6 +267,64 @@ nic.addEventListener('click', function () {
 })
 
 
+function getCgsid(id) {
+    fetch('/slo/getIdStart/' + id)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+            cgsid.value = data;
+            console.log(cgsid.value);
+            cgsid.textContent = cgsid.value;
+
+
+        })
+        .catch(err => console.log(err));
+
+}
+
+function getStudentCount(id) {
+    fetch('/slo/getStudentCount/' + id)
+        .then(res => res.json())
+        .then(data => {
+            console.log("course student count" + data);
+            let last = data;
+            console.log(last);
+            lastNo = parseInt(last);
+            lastNo++;
+            console.log(lastNo)
+        })
+
+}
+
+
+function group(id) {
+
+    console.log('d is ' + d)
+
+    fetch('/slo/group/' + id)
+        .then(res => res.json())
+        .then(data => {
+            console.log(' id group starting no' + data)
+            let groupStart = data;
+
+            console.log(data)
+            let no = parseInt((data));
+            console.log(lastNo);
+            req_id = no + lastNo
+            console.log(req_id)
+            qid = req_id
+            console.log(qid)
+            bt_code = batchType_code.textContent
+            console.log('bt' + bt_code)
+
+            let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + req_id
+            console.log(std_code)
+            std_id.textContent = ' ' + req_id;
+            //  gen_id.value = std_code;
+
+        })
+}
 
 
 

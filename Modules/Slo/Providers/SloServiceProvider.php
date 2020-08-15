@@ -63,7 +63,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::idRange.*'], IdRangeComposer::class);
         View::composer(['slo::courseReq.*'], CourseComposer::class);
         View::composer(['slo::courseReq.*'], CourseReqComposer::class);
-
+        View::composer(['slo::student.*'], CourseComposer::class);
 
         //or
 
@@ -72,7 +72,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer('slo::partials.Faculty.*', FacultyComposer::class);
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);
-       View::composer('slo::partials.Country.*',CountryComposer::class);
+        View::composer('slo::partials.Country.*', CountryComposer::class);
     }
 
     /**

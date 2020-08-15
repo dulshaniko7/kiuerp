@@ -40,7 +40,7 @@ class StudentController extends Controller
 
         $validate = Validator::make($request->all(),
             [
-                'gen_id' => 'required',
+
                 'std_title' => 'required',
                 'name_initials' => 'required',
                 'gender' => 'required',
@@ -55,7 +55,7 @@ class StudentController extends Controller
             return view('slo::error');
         }
         $student = new Student();
-        $student->gen_id = $request->gen_id;
+        //$student->gen_id = $request->gen_id;
         $student->std_title = $request->std_title;
         $student->name_initials = $request->name_initials;
         $student->gender = $request->gender;
@@ -67,12 +67,16 @@ class StudentController extends Controller
         $student->gen_id = $request->gen_id;
         $course_id = $request->course_id;
 
+        //get the course id range
+        // $ccc = Course::find($course_id);
 
-       // $student->courses()->sync($course_id);
+      //  $c_start_no = $ccc->idRanges()->get()->pluck('id');
+       // $student->cgsid = $c_start_no;
+        // $student->courses()->sync($course_id);
 
+        $student->cgsid = $request->cgsid;
 
-
-        $student->save() ;
+        $student->save();
         $course = Course::find($course_id);
         $student->courses()->attach($course);
 

@@ -65,6 +65,10 @@ Route::get('/slo/getBatchType/{id}', 'FetchController@getBatchType')->name('batc
 Route::get('/slo/getDepartment/{id}', 'FetchController@getDep')->name('department.get');
 Route::get('/slo/getStudentId', 'FetchController@getStdId')->name('studentId.get');
 Route::get('/slo/getIdRange/{id}', 'FetchController@getIdRange')->name('idRange.get');
+Route::get('/slo/getIdStart/{id}', 'FetchController@getCgsid')->name('idRange1.get');
+Route::get('/slo/getStudentCount/{id}', 'FetchController@courseStudentCount');
+Route::get('/slo/group/{id}', 'FetchController@courseGroup');
+
 
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
 Route::get('/slo/transfers', 'BatchController@index')->name('transfers');
