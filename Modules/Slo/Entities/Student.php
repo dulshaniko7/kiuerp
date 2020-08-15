@@ -38,8 +38,14 @@ class Student extends Model
         return $this->hasMany(StdQualification::class, 'student_id', 'student_id');
     }
 
-    public function courses(){
-        return $this->belongsToMany(Course::class,'course_student','student_id','course_id',);
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_student', 'student_id', 'course_id',);
+    }
+
+    public function idRange()
+    {
+        return $this->belongsTo(IdRange::class, 'id', 'id');
     }
 
 }

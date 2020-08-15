@@ -12,7 +12,14 @@ class IdRange extends Model
 
     use SoftDeletes;
     protected $primaryKey = "id";
-    public function course(){
-        return $this->belongsTo(Course::class,'course_id','course_id');
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'course_id');
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'student_id', 'student_id');
     }
 }
