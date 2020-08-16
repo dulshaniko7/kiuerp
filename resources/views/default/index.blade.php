@@ -102,61 +102,61 @@ $exportFormats = $viewData->exportFormats;
                     <div class="adv-table table-responsive dataTables_wrapper dt-bootstrap4 no-footer">
                         <table class="display table" id="results">
                             <thead>
-                            <tr>
-                                <th class="text-left" style="max-width:50px;">No</th>
-                                <?php
-                                if(is_array($columns) && count($columns) > 0)
-                                {
-                                    foreach($columns as $column => $column_data)
+                                <tr>
+                                    <th class="text-left" style="max-width:50px;">No</th>
+                                    <?php
+                                    if(is_array($columns) && count($columns) > 0)
                                     {
-                                        if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                        foreach($columns as $column => $column_data)
                                         {
-                                            $label=$column_data["label"];
-                                            ?>
-                                            <th class="text-left"><?php echo $label; ?></th>
-                                            <?php
+                                            if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                            {
+                                                $label=$column_data["label"];
+                                                ?>
+                                                <th class="text-left"><?php echo $label; ?></th>
+                                                <?php
+                                            }
                                         }
                                     }
-                                }
-                                ?>
-                                <?php
-                                if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
-                                {
                                     ?>
-                                    <th class="text-center" style="min-width:180px;">Actions</th>
                                     <?php
-                                }
-                                ?>
-                            </tr>
+                                    if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
+                                    {
+                                        ?>
+                                        <th class="text-center" style="min-width:180px;">Actions</th>
+                                        <?php
+                                    }
+                                    ?>
+                                </tr>
                             </thead>
 
                             <tfoot>
-                            <tr>
-                                <th class="text-left">No</th>
-                                <?php
-                                if(is_array($columns) && count($columns) > 0)
-                                {
-                                    foreach($columns as $column => $column_data)
+                                <tr>
+                                    <th class="text-left">No</th>
+                                    <?php
+                                    if(is_array($columns) && count($columns) > 0)
                                     {
-                                        if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                        foreach($columns as $column => $column_data)
                                         {
-                                            $label=$column_data["label"];
-                                            ?>
-                                            <th class="text-left"><?php echo $label; ?></th>
-                                            <?php
+                                            if($column != "id" && isset($column_data["visible"]) && $column_data["visible"])
+                                            {
+                                                $label=$column_data["label"];
+                                                ?>
+                                                <th class="text-left"><?php echo $label; ?></th>
+                                                <?php
+                                            }
                                         }
                                     }
-                                }
-                                ?>
-                                <?php
-                                if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
-                                {
                                     ?>
-                                    <th class="text-center" style="min-width:180px;">Actions</th>
                                     <?php
-                                }
-                                ?>
-                            </tr>
+                                    if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
+                                    {
+                                        ?>
+                                        <th class="text-center" style="min-width:180px;">Actions</th>
+                                        <?php
+                                    }
+                                    ?>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -174,24 +174,22 @@ $exportFormats = $viewData->exportFormats;
     <?php
     if(is_array($columns) && count($columns) > 0)
     {
-    foreach($columns as $column => $column_data)
-    {
-    ?>
-    columns.push(<?php echo json_encode($column_data); ?>);
-    <?php
-    if($column_data["visible"])
-    {
-    ?>
-    columnsVisible.push(<?php echo json_encode($column_data); ?>);
-    <?php
+        foreach($columns as $column => $column_data)
+        {
+            ?>
+            columns.push(<?php echo json_encode($column_data); ?>);
+            <?php
+            if($column_data["visible"])
+            {
+                ?>
+                columnsVisible.push(<?php echo json_encode($column_data); ?>);
+                <?php
+            }
+        }
     }
-    }
-    }
     ?>
-    window.onload = function()
+    $(document).ready(function()
     {
-
-        let start=0;
         window.start=0;
 
         <?php
@@ -218,10 +216,14 @@ $exportFormats = $viewData->exportFormats;
         let exportableColumns = <?php echo json_encode($exportable); ?>;
 
         table = $('#results').DataTable({
-            processing	: true,
+            lengthChange: true,
+            responsive: true,
+            paging      : true,
+            processing	: false,
             serverSide	: true,
-            "autoWidth"	: true,
-            "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
+            autoWidth	: true,
+            pagingType  : "full_numbers",
+            lengthMenu  : [[10, 25, 50, 100], [10, 25, 50, 100]],
             ajax	: {
                 url 	: "<?php echo $viewData->thisUrl; ?>",
                 type	: "POST",
@@ -236,23 +238,23 @@ $exportFormats = $viewData->exportFormats;
                 <?php
                 if(is_array($columns) && count($columns) > 0)
                 {
-                $columns_count=count($columns);
+                    $columns_count=count($columns);
 
-                $i=-1;
-                foreach($columns as $column => $column_data)
-                {
-                if($column_data["visible"])
-                {
-                $i++;
+                    $i=-1;
+                    foreach($columns as $column => $column_data)
+                    {
+                        if($column_data["visible"])
+                        {
+                            $i++;
 
-                if($column_data["orderable"])
-                {
-                ?>
-                [ <?php echo $i; ?>, "<?php echo strtolower($column_data["order"]); ?>" ],
-                <?php
-                }
-                }
-                }
+                            if($column_data["orderable"])
+                            {
+                                ?>
+                                [ <?php echo $i; ?>, "<?php echo strtolower($column_data["order"]); ?>" ],
+                                <?php
+                            }
+                        }
+                    }
                 }
                 ?>
             ],
@@ -260,213 +262,213 @@ $exportFormats = $viewData->exportFormats;
                 <?php
                 if(isset($columns["id"]) && $columns["id"]["visible"] )
                 {
-                if(isset($columns["id"]["orderable"]) && $columns["id"]["orderable"])
-                {
-                    $orderable="true";
-                    $order=$columns["id"]["order"];
-                }
-                else
-                {
-                    $orderable="false";
-                    $order=$columns["id"]["order"];
-                }
-                ?>
-                {
-                    data		: "id",
-                    searchable	: false,
-                    orderable	: <?php echo $orderable; ?>,
-                    order		: "<?php echo $order; ?>",
-                    render		: function ( data, type, full, meta )
+                    if(isset($columns["id"]["orderable"]) && $columns["id"]["orderable"])
                     {
-                        return "";
+                        $orderable="true";
+                        $order=$columns["id"]["order"];
                     }
-                },
-                <?php
+                    else
+                    {
+                        $orderable="false";
+                        $order=$columns["id"]["order"];
+                    }
+                    ?>
+                    {
+                        data		: "id",
+                        searchable	: false,
+                        orderable	: <?php echo $orderable; ?>,
+                        order		: "<?php echo $order; ?>",
+                        render		: function ( data, type, full, meta )
+                        {
+                            return "";
+                        }
+                    },
+                    <?php
                 }
                 ?>
                 <?php
                 if(is_array($columns) && count($columns) > 0)
                 {
-                $columns_count=count($columns);
+                    $columns_count=count($columns);
 
-                $i=0;
-                foreach($columns as $column => $column_data)
-                {
-                $i++;
-
-                if($column != "id")
-                {
-                $visible=$column_data["visible"];
-                $searchable=$column_data["searchable"];
-                $orderable=$column_data["orderable"];
-                $order=$column_data["order"];
-                $filterMethod=$column_data["filterMethod"];
-                $filterOptions=$column_data["filterOptions"];
-
-                //echo json_encode($column_data);
-
-                if($visible)
-                {
-                    $visible="true";
-                }
-                else
-                {
-                    $visible="false";
-                }
-
-                if($searchable)
-                {
-                    $searchable="true";
-                }
-                else
-                {
-                    $searchable="false";
-                }
-
-                if($orderable)
-                {
-                    $orderable="true";
-                }
-                else
-                {
-                    $orderable="false";
-                }
-
-                $search = "";
-                if($filterMethod == "date_between")
-                {
-                    $date_from = "";
-                    $date_till = "";
-                    if(is_array($filterOptions) && count($filterOptions)>0)
+                    $i=0;
+                    foreach($columns as $column => $column_data)
                     {
-                        if(isset($filterOptions["date_from"]))
-                        {
-                            $date_from = $filterOptions["date_from"];
-                        }
+                        $i++;
 
-                        if(isset($filterOptions["date_till"]))
+                        if($column != "id")
                         {
-                            $date_till = $filterOptions["date_till"];
-                        }
+                            $visible=$column_data["visible"];
+                            $searchable=$column_data["searchable"];
+                            $orderable=$column_data["orderable"];
+                            $order=$column_data["order"];
+                            $filterMethod=$column_data["filterMethod"];
+                            $filterOptions=$column_data["filterOptions"];
 
-                        if(isset($filterOptions["max_dates"]))
-                        {
-                            $max_dates = $filterOptions["max_dates"];
+                            //echo json_encode($column_data);
+
+                            if($visible)
+                            {
+                                $visible="true";
+                            }
+                            else
+                            {
+                                $visible="false";
+                            }
+
+                            if($searchable)
+                            {
+                                $searchable="true";
+                            }
+                            else
+                            {
+                                $searchable="false";
+                            }
+
+                            if($orderable)
+                            {
+                                $orderable="true";
+                            }
+                            else
+                            {
+                                $orderable="false";
+                            }
+
+                            $search = "";
+                            if($filterMethod == "date_between")
+                            {
+                                $date_from = "";
+                                $date_till = "";
+                                if(is_array($filterOptions) && count($filterOptions)>0)
+                                {
+                                    if(isset($filterOptions["date_from"]))
+                                    {
+                                        $date_from = $filterOptions["date_from"];
+                                    }
+
+                                    if(isset($filterOptions["date_till"]))
+                                    {
+                                        $date_till = $filterOptions["date_till"];
+                                    }
+
+                                    if(isset($filterOptions["max_dates"]))
+                                    {
+                                        $max_dates = $filterOptions["max_dates"];
+                                    }
+                                }
+
+                                if($date_from!="" && $date_till!="")
+                                {
+                                    $search = array();
+                                    $search["type"] = "date_between";
+                                    $search["date_from"] = $date_from;
+                                    $search["date_till"] = $date_till;
+
+                                    $search = json_encode($search);
+                                }
+                            }
+
+                            if(isset($column_data["render"]))
+                            {
+                                ?>
+                                {
+                                    data		: "<?php echo $column; ?>",
+                                    searchable	: <?php echo $searchable; ?>,
+                                    orderable	: <?php echo $orderable; ?>,
+                                    order		: "<?php echo $order; ?>",
+                                    search		: "<?php echo $search; ?>",
+                                    render		: function ( data, type, full, meta )
+                                    {
+                                        <?php echo $column_data["render"]; ?>
+                                    }
+                                },
+                                <?php
+                            }
+                            else if(isset($column_data["visible"]) && $column_data["visible"])
+                            {
+                                ?>
+                                {
+                                    data		: "<?php echo $column; ?>",
+                                    searchable	: <?php echo $searchable; ?>,
+                                    orderable	: <?php echo $orderable; ?>,
+                                    order		: "<?php echo $order; ?>",
+                                    search		: '<?php echo $search; ?>'
+                                },
+                                <?php
+                            }
                         }
                     }
-
-                    if($date_from!="" && $date_till!="")
-                    {
-                        $search = array();
-                        $search["type"] = "date_between";
-                        $search["date_from"] = $date_from;
-                        $search["date_till"] = $date_till;
-
-                        $search = json_encode($search);
-                    }
-                }
-
-                if(isset($column_data["render"]))
-                {
-                ?>
-                {
-                    data		: "<?php echo $column; ?>",
-                    searchable	: <?php echo $searchable; ?>,
-                    orderable	: <?php echo $orderable; ?>,
-                    order		: "<?php echo $order; ?>",
-                    search		: "<?php echo $search; ?>",
-                    render		: function ( data, type, full, meta )
-                    {
-                        <?php echo $column_data["render"]; ?>
-                    }
-                },
-                <?php
-                }
-                else if(isset($column_data["visible"]) && $column_data["visible"])
-                {
-                ?>
-                {
-                    data		: "<?php echo $column; ?>",
-                    searchable	: <?php echo $searchable; ?>,
-                    orderable	: <?php echo $orderable; ?>,
-                    order		: "<?php echo $order; ?>",
-                    search		: '<?php echo $search; ?>'
-                },
-                <?php
-                }
-                }
-                }
                 }
                 ?>
                 <?php
                 if($viewData->enableView || $viewData->enableEdit || $viewData->enableDelete || $viewData->enableRestore)
                 {
-                if(isset($columns["id"]))
-                {
-                if(isset($columns["id"]["render"]))
-                {
-                ?>
-                {
-                    data		: "id",
-                    orderable	: false,
-                    searchable	: false,
-                    render		: function ( data, type, full, meta )
+                    if(isset($columns["id"]))
                     {
-                        <?php echo $columns["id"]["render"]; ?>
+                        if(isset($columns["id"]["render"]))
+                        {
+                            ?>
+                            {
+                                data		: "id",
+                                orderable	: false,
+                                searchable	: false,
+                                render		: function ( data, type, full, meta )
+                                {
+                                    <?php echo $columns["id"]["render"]; ?>
+                                }
+                            }
+                            <?php
+                        }
+                        else
+                        {
+                            ?>
+                            {
+                                data		: "id",
+                                orderable	: false,
+                                searchable	: false,
+                                render		: function (data, type, full, meta)
+                                {
+                                    let uiText = "";
+                                    uiText+='<div class="index-actions pull-right d-flex justify-content-center">';
+
+                                    <?php if($viewData->enableView && isset($viewData->viewUrl)){ ?>
+                                    uiText+='<a href="<?php echo $viewData->viewUrl; ?>'+full["id"]+'">';
+                                    uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->viewUrlIcon; ?>"></span> <?php echo $viewData->viewUrlLabel; ?></div>';
+                                    uiText+='</a>';
+                                    <?php } ?>
+
+                                    <?php if($viewData->enableEdit && isset($viewData->editUrl)){ ?>
+                                    uiText+='<a href="<?php echo $viewData->editUrl; ?>'+full["id"]+'">';
+                                    uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->editUrlIcon; ?>"></span> <?php echo $viewData->editUrlLabel; ?></div>';
+                                    uiText+='</a>';
+                                    <?php } ?>
+
+                                    <?php if($viewData->enableTrash && isset($viewData->trashUrl)){ ?>
+                                    uiText+='<a href="javascript:;" onclick="return trashConfirm('+full["id"]+')">';
+                                    uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->trashUrlIcon; ?>"></span> <?php echo $viewData->trashUrlLabel; ?></div>';
+                                    uiText+='</a>';
+                                    <?php } ?>
+
+                                    <?php if($viewData->enableDelete && isset($viewData->deleteUrl)){ ?>
+                                    uiText+='<a href="javascript:;" onclick="return deleteConfirm('+full["id"]+')">';
+                                    uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->deleteUrlIcon; ?>"></span> <?php echo $viewData->deleteUrlLabel; ?></div>';
+                                    uiText+='</a>';
+                                    <?php } ?>
+
+                                    <?php if($viewData->enableRestore && isset($viewData->restoreUrl)){ ?>
+                                    uiText+='<a href="javascript:;" onclick="return restoreConfirm('+full["id"]+')">';
+                                    uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->restoreUrlIcon; ?>"></span> <?php echo $viewData->restoreUrlLabel; ?></div>';
+                                    uiText+='</a>';
+                                    <?php } ?>
+                                    uiText+='</div>';
+                                    uiText+='<input type="hidden" value="'+data+'" class="row-id row-id-'+full["id"]+'">';
+
+                                    return uiText;
+                                }
+                            }
+                            <?php
+                        }
                     }
-                }
-                <?php
-                }
-                else
-                {
-                ?>
-                {
-                    data		: "id",
-                    orderable	: false,
-                    searchable	: false,
-                    render		: function ( data, type, full, meta )
-                    {
-                        let uiText = "";
-                        uiText+='<div class="index-actions pull-right d-flex justify-content-center">';
-
-                        <?php if($viewData->enableView && isset($viewData->viewUrl)){ ?>
-                        uiText+='<a href="<?php echo $viewData->viewUrl; ?>'+full["id"]+'">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->viewUrlIcon; ?>"></span> <?php echo $viewData->viewUrlLabel; ?></div>';
-                        uiText+='</a>';
-                        <?php } ?>
-
-                        <?php if($viewData->enableEdit && isset($viewData->editUrl)){ ?>
-                        uiText+='<a href="<?php echo $viewData->editUrl; ?>'+full["id"]+'">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->editUrlIcon; ?>"></span> <?php echo $viewData->editUrlLabel; ?></div>';
-                        uiText+='</a>';
-                        <?php } ?>
-
-                        <?php if($viewData->enableTrash && isset($viewData->trashUrl)){ ?>
-                        uiText+='<a href="javascript:;" onclick="return trashConfirm('+full["id"]+')">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->trashUrlIcon; ?>"></span> <?php echo $viewData->trashUrlLabel; ?></div>';
-                        uiText+='</a>';
-                        <?php } ?>
-
-                        <?php if($viewData->enableDelete && isset($viewData->deleteUrl)){ ?>
-                        uiText+='<a href="javascript:;" onclick="return deleteConfirm('+full["id"]+')">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->deleteUrlIcon; ?>"></span> <?php echo $viewData->deleteUrlLabel; ?></div>';
-                        uiText+='</a>';
-                        <?php } ?>
-
-                        <?php if($viewData->enableRestore && isset($viewData->restoreUrl)){ ?>
-                        uiText+='<a href="javascript:;" onclick="return restoreConfirm('+full["id"]+')">';
-                        uiText+='<div class="btn btn-xs"><span class="<?php echo $viewData->restoreUrlIcon; ?>"></span> <?php echo $viewData->restoreUrlLabel; ?></div>';
-                        uiText+='</a>';
-                        <?php } ?>
-                        uiText+='</div>';
-                        uiText+='<input type="hidden" value="'+data+'" class="row-id row-id-'+full["id"]+'">';
-
-                        return uiText;
-                    }
-                }
-                <?php
-                }
-                }
                 }
                 ?>
             ],
@@ -483,7 +485,7 @@ $exportFormats = $viewData->exportFormats;
                     {
                         incr++;
 
-                        if(incr == 1)
+                        if(incr === 1)
                         {
                             let uiTop = '<div class="clearfix"></div><div class="container-fluid" style="padding-left: 2px; padding-right: 2px;"><div class="row"><div class="col-lg-12">';
                             uiTop+='<h5>Filter Results</h5>';
@@ -495,7 +497,7 @@ $exportFormats = $viewData->exportFormats;
                         let label = columnsVisible[i].label;
                         let filterMethod = columnsVisible[i].filterMethod;
 
-                        if(filterMethod == "select")
+                        if(filterMethod === "select")
                         {
                             let filterOptions = columnsVisible[i].filterOptions;
 
@@ -550,7 +552,7 @@ $exportFormats = $viewData->exportFormats;
                                 });
                             }
                         }
-                        else if(filterMethod == "date")
+                        else if(filterMethod === "date")
                         {
                             let format = "yyyy-mm-dd";
 
@@ -568,7 +570,7 @@ $exportFormats = $viewData->exportFormats;
                                 column.search( val ? val : "", true, false ).draw();
                             });
                         }
-                        else if(filterMethod == "date_between")
+                        else if(filterMethod === "date_between")
                         {
                             let filterOptions = columnsVisible[i].filterOptions;
 
@@ -618,7 +620,7 @@ $exportFormats = $viewData->exportFormats;
                                 let val_1 = $(date1).val();
                                 let val_2 = $(date2).val();
 
-                                if(val_1 != "" && val_2 != "")
+                                if(val_1 !== "" && val_2 !== "")
                                 {
                                     if(val_1<=val_2)
                                     {
@@ -657,7 +659,7 @@ $exportFormats = $viewData->exportFormats;
                                 let val_1 = $(date1).val();
                                 let val_2 = $(date2).val();
 
-                                if(val_1 != "" && val_2 != "")
+                                if(val_1 !== "" && val_2 !== "")
                                 {
                                     if(val_1<=val_2)
                                     {
@@ -677,7 +679,7 @@ $exportFormats = $viewData->exportFormats;
                                 }
                             });
 
-                            if(date_from!="" && date_till!="")
+                            if(date_from!=="" && date_till!=="")
                             {
                                 max_dates = parseInt(max_dates);
 
@@ -685,7 +687,7 @@ $exportFormats = $viewData->exportFormats;
                                 $(date2).datepicker("setEndDate", new Date(new Date(date_from).setDate(new Date(date_from).getDate() + max_dates)));
                             }
                         }
-                        else if(filterMethod == "text")
+                        else if(filterMethod === "text")
                         {
                             let uiText = '<div class="col-lg-3 col-md-3 col-sm-3 filter-by-label">Filter By '+label+'<br><div class="form-group" id="dt-search-col-'+i+'"></div></div>';
                             $("#results_wrapper .filter-bar").append(uiText);
@@ -704,83 +706,82 @@ $exportFormats = $viewData->exportFormats;
         <?php
         if($viewData->enableExport && count($viewData->exportFormats)>0)
         {
-        ?>
-        new $.fn.dataTable.Buttons(table, {
-            "buttons": [
-                <?php
-                if(in_array("copy", $exportFormats))
-                {
-                ?>
-                {
-                    extend: 'copyHtml5',
-                    exportOptions: {
-                        columns: exportableColumns,
-                    },
-                    className	: "btn btn-info btn-sm mb-2",
-                },
-                <?php
-                }
-                if(in_array("excel", $exportFormats))
-                {
-                ?>
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: exportableColumns,
-                    },
-                    className	: "btn btn-info btn-sm mb-2",
-                },
-                <?php
-                }
-                if(in_array("csv", $exportFormats))
-                {
-                ?>
-                {
-                    extend: 'csvHtml5',
-                    exportOptions: {
-                        columns: exportableColumns,
-                    },
-                    className	: "btn btn-info btn-sm mb-2",
-                },
-                <?php
-                }
-                if(in_array("pdf", $exportFormats))
-                {
-                ?>
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: exportableColumns,
-                    },
-                    className	: "btn btn-info btn-sm mb-2",
-                },
-                <?php
-                }
-                if(in_array("print", $exportFormats))
-                {
-                ?>
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: exportableColumns,
-                    },
-                    className	: "btn btn-info btn-sm mb-2",
-                },
-                <?php
-                }
-                ?>
-            ]
-        }).container().appendTo($('#export'));
+            ?>
+            new $.fn.dataTable.Buttons(table, {
+                "buttons": [
+                    <?php
+                    if(in_array("copy", $exportFormats))
+                    {
+                        ?>
+                        {
+                            extend: 'copyHtml5',
+                            exportOptions: {
+                                columns: exportableColumns,
+                            },
+                            className	: "btn btn-info btn-sm mb-2",
+                        },
+                        <?php
+                    }
+                    if(in_array("excel", $exportFormats))
+                    {
+                        ?>
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: exportableColumns,
+                            },
+                            className	: "btn btn-info btn-sm mb-2",
+                        },
+                        <?php
+                    }
+                    if(in_array("csv", $exportFormats))
+                    {
+                        ?>
+                        {
+                            extend: 'csvHtml5',
+                            exportOptions: {
+                                columns: exportableColumns,
+                            },
+                            className	: "btn btn-info btn-sm mb-2",
+                        },
+                        <?php
+                    }
+                    if(in_array("pdf", $exportFormats))
+                    {
+                        ?>
+                        {
+                            extend: 'pdfHtml5',
+                            exportOptions: {
+                                columns: exportableColumns,
+                            },
+                            className	: "btn btn-info btn-sm mb-2",
+                        },
+                        <?php
+                    }
+                    if(in_array("print", $exportFormats))
+                    {
+                        ?>
+                        {
+                            extend: 'print',
+                            exportOptions: {
+                                columns: exportableColumns,
+                            },
+                            className	: "btn btn-info btn-sm mb-2",
+                        },
+                        <?php
+                    }
+                    ?>
+                ]
+            }).container().appendTo($('#export'));
 
-        <?php
+            <?php
         }
         ?>
-
 
         setTableRowNumbers();
         setLinkTooltips();
         callOnDraw();
-    };
+    });
 
     function callOnDraw()
     {

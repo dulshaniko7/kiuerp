@@ -17,4 +17,6 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
 
     Route::get('/', 'DashboardController@index')->name('dashboard.home');
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.home');
+
+    Route::post('/country/search_data', 'CountryController@searchData')->name('country.search.data');
 });

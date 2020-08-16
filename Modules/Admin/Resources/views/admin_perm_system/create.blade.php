@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label>Permission System Name</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="system_name" placeholder="Permission System Name" value="<?php echo $record["system_name"]; ?>">
+                                    <input type="text" class="form-control" name="system_name" placeholder="Permission System Name; Ex: Default System" value="<?php echo $record["system_name"]; ?>">
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label>Permission System Slug</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="system_slug" placeholder="Permission System Name" value="<?php echo $record["system_slug"]; ?>">
+                                    <input type="text" class="form-control" name="system_slug" placeholder="Permission System Slug; Ex:default" value="<?php echo $record["system_slug"]; ?>">
                                 </div>
                             </div>
                         </div>

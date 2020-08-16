@@ -12,8 +12,6 @@ class AdminRoleRepository extends BaseRepository
     {
         $systemsPermissions = Permission::getPermissionFormData();
 
-        dd($systemsPermissions);
-
         $systems = array();
         $invokedPermissions = array();
         $revokedPermissions = array();
@@ -33,8 +31,18 @@ class AdminRoleRepository extends BaseRepository
                                                          ->where("admin_perm_system_id", "=", $systemId)
                                                          ->first();
 
-                $revokedPermissions[$systemId] = array_diff($currPerms["permissions"], $permissions);
-                $invokedPermissions[$systemId] = array_diff($permissions, $currPerms["permissions"]);
+                if ($currPerms)
+                {
+                    $currPerms = $currPerms->toArray();
+                }
+
+                if(!is_array($currPerms["permissions"]))
+                {
+                    $currPerms["permissions"] = [];
+                }
+
+                $revokedPermissions[$systemId] = array_values(array_diff($currPerms["permissions"], $permissions));
+                $invokedPermissions[$systemId] = array_values(array_diff($permissions, $currPerms["permissions"]));
 
                 $data["admin_perm_system_id"]=$systemId;
                 $data["permissions"]=$permissions;

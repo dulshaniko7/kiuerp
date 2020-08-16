@@ -347,12 +347,13 @@ class Permission
 
         $request = request();
         $permissions = $request->post("permissions");
+        $permissions = json_decode($permissions, true);
 
         if(is_array($permissions) && count($permissions)>0)
         {
-            foreach($permissions as $permission)
+            foreach($permissions as $system => $perms)
             {
-                $formData[$permission["system"]]=$permission["permissions"];
+                $formData[$system]=$perms;
             }
         }
 
@@ -509,6 +510,15 @@ class Permission
 
         if($defaultAdmin)
         {
+            if(is_array($urls) && count($urls)>0)
+            {
+                $slash = "/";
+                foreach ($urls as $key => $url)
+                {
+                    $urls[$key]= rtrim($url, $slash).$slash;
+                }
+            }
+
             return $urls;
         }
         else

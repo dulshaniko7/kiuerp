@@ -53,6 +53,23 @@
                                 <a class="dropdown-item" href="/admin/admin_permission_system/import_permissions">Import Permissions</a>
                             </div>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                System Access IP Addresses
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/admin/system_access_ip_restriction/create">Add New System Access IP Addresses</a>
+                                <a class="dropdown-item" href="/admin/system_access_ip_restriction">List System Access IP Addresses</a>
+                                <a class="dropdown-item" href="/admin/system_access_ip_restriction/trash">List System Access IP Addresses in Trash</a>
+                                <hr>
+                                <a class="dropdown-item" href="/admin/system_access_admin_ip_restriction/create">Add New Admin System Access IP Addresses</a>
+                                <a class="dropdown-item" href="/admin/system_access_admin_ip_restriction">List Admin System Access IP Addresses</a>
+                                <a class="dropdown-item" href="/admin/system_access_admin_ip_restriction/trash">List Admin System Access IP Addresses in Trash</a>
+                            </div>
+                        </li>
+                        <li class="nav-item d-sm-inline-block">
+                            <a href="/admin/admin_login_history" class="nav-link">Admin Login History</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

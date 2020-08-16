@@ -47,7 +47,7 @@ class AdminPermissionGroup extends Model
 
         //Use this code block to track activities regarding this model
         //Use this code block in every model you need to record
-        //This will record created_by, updated_by, deleted_by admins to, if you have set those fields in your model
+        //This will record created_by, updated_by, deleted_by admins too, if you have set those fields in your model
         self::observe(AdminActivityObserver::class);
     }
 }

@@ -14,6 +14,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\View;
 use Modules\Admin\Entities\AdminLoginHistory;
 use Modules\Admin\Entities\AdminRole;
+use Modules\Admin\Entities\SystemAccessAdminIpRestriction;
+use Modules\Admin\Entities\SystemAccessIpRestriction;
+use Modules\Admin\Repositories\SystemAccessIpRestrictionRepository;
 use Modules\Admin\Services\Location;
 use Modules\Admin\Services\Permission;
 
@@ -105,19 +108,40 @@ class AdminLoginController extends Controller
 
                 if ($adminRole->role_status == "1")
                 {
-                    $notify["status"] = "success";
-                    $notify["notify"][] = "You just signed in successfully.";
-                    $notify["notify"][] = "You are welcome " . $admin["name"] . ".";
+                    //validate system accessed IP
+                    $ip = Location::getClientIP();
 
-                    $request->session()->flash("notify", $notify);
+                    if($this->isValidIP($admin->admin_id, $ip))
+                    {
+                        $notify["status"] = "success";
+                        $notify["notify"][] = "You just signed in successfully.";
+                        $notify["notify"][] = "You are welcome " . $admin["name"] . ".";
 
-                    //this is a normal admin, we have to gather permission data of this user
-                    $permissions = Permission::getPermissions($admin->id, $adminRole->admin_role_id);
-                    $request->session()->put("permissions", $permissions);
+                        $request->session()->flash("notify", $notify);
 
-                    $this->recordLoginActivity($admin->id);
+                        //this is a normal admin, we have to gather permission data of this user
+                        $permissions = Permission::getPermissions($admin->id, $adminRole->admin_role_id);
+                        $request->session()->put("permissions", $permissions);
 
-                    return redirect()->intended(route('dashboard.home'));
+                        $this->recordLoginActivity($admin->id);
+
+                        return redirect()->intended(route('dashboard.home'));
+                    }
+                    else
+                    {
+                        $notify["status"] = "failed";
+                        $notify["notify"][] = "Your current network IP address is not allowed to access the system.";
+                        $notify["notify"][] = "Please contact system administrator for more information with following IP address.";
+                        $notify["notify"][] = "Your current IP address: ".$ip;
+
+                        $loginFailedReason = "Tried to access system from unknown location.";
+
+                        $request->session()->flash("notify", $notify);
+
+                        $this->recordLoginActivity($admin->id, true, $loginFailedReason);
+
+                        return redirect()->back();
+                    }
                 }
                 else
                 {
@@ -176,6 +200,32 @@ class AdminLoginController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    protected function isValidIP($adminId, $ip)
+    {
+        $ipRepo = new SystemAccessIpRestrictionRepository();
+        $ipHash = $ipRepo->generateIPHash($ip);
+
+        //check if this IP exists in the system
+        $sysIP = SystemAccessIpRestriction::query()->where(["ip_address_key" => $ipHash])->first();
+
+        if($sysIP && $sysIP->access_status == "1")
+        {
+            return true;
+        }
+        else
+        {
+            //check if this Admin have special access to this IP
+            $adminIP = SystemAccessAdminIpRestriction::query()->where(["ip_address_key" => $ipHash])->first();
+
+            if($adminIP && $adminIP->access_status == "1")
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

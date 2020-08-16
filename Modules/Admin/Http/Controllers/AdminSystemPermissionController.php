@@ -85,6 +85,7 @@ class AdminSystemPermissionController extends Controller
                     ->setUrl("add",$this->repository->getUrl("add")."/".$admin_perm_group_id);
             }
 
+            $query = $query->with([]);
             $query->where("admin_perm_group_id", "=", $admin_perm_group_id);
 
             return $this->repository->render("admin::layouts.master")->index($query);
@@ -173,35 +174,6 @@ class AdminSystemPermissionController extends Controller
         }
 
         return $this->repository->handleResponse($response);
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Factory|View
-     */
-    public function show($id)
-    {
-        $this->repository->setPageTitle("Admin System Permissions | View");
-
-        $model = AdminSystemPermission::find($id);
-
-        if($model)
-        {
-            $record = $model;
-
-            $urls = [];
-            $urls["addUrl"]=URL::to("/admin/admin_system_permission/create/".$model["admin_perm_group_id"]);
-            $urls["listUrl"]=URL::to("/admin/admin_system_permission/".$model["admin_perm_group_id"]);
-
-            $this->repository->setPageUrls($urls);
-
-            return view('admin::admin_system_perm.view', compact('data', 'record'));
-        }
-        else
-        {
-            abort(404, "Requested record does not exist.");
-        }
     }
 
     /**
@@ -372,7 +344,7 @@ class AdminSystemPermissionController extends Controller
     {
         if($request->expectsJson())
         {
-            $searchText = $request->post("searchText");
+            $searchText = $request->post("query");
             $idNot = $request->post("idNot");
 
             $query = AdminSystemPermission::query()

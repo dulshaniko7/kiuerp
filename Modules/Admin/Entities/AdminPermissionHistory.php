@@ -14,7 +14,9 @@ class AdminPermissionHistory extends Model
     const UPDATED_AT = null;
 
     protected $casts = [
-        'invoked_permissions' => 'revoked_permissions',
+        'invoked_permissions' => 'array',
+        'revoked_permissions' => 'array',
+        'created_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public static function boot()
@@ -23,7 +25,7 @@ class AdminPermissionHistory extends Model
 
         //Use this code block to track activities regarding this model
         //Use this code block in every model you need to record
-        //This will record created_by, updated_by, deleted_by admins to, if you have set those fields in your model
+        //This will record created_by, updated_by, deleted_by admins too, if you have set those fields in your model
         self::observe(AdminActivityObserver::class);
     }
 }

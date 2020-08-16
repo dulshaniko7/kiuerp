@@ -2,6 +2,7 @@
 namespace Modules\Admin\Observers;
 
 use Modules\Admin\Entities\AdminActivity;
+use Modules\Admin\Entities\AdminLoginHistory;
 
 class AdminActivityObserver
 {
@@ -211,6 +212,14 @@ class AdminActivityObserver
             $adminActModel->activity_at = date("Y-m-d H:i:s", time());
 
             $adminActModel->save();
+
+            //update last activity time
+            $data["last_activity_at"]=$adminActModel->activity_at;
+
+            $adminLH = AdminLoginHistory::find($admin_login_history_id);
+            $adminLH->last_activity_at = $adminActModel->activity_at;
+
+            $adminLH->save();
         }
     }
 }

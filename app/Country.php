@@ -13,4 +13,16 @@ class Country extends Model
     protected $primaryKey = "country_id";
 
     public $timestamps = false;
+
+    protected $appends = ["id", "name"];
+
+    public function getIdAttribute()
+    {
+        return $this->{$this->primaryKey};
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->country_name;
+    }
 }

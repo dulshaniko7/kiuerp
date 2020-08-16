@@ -8,18 +8,12 @@ use Modules\Admin\Observers\AdminActivityObserver;
 class AdminRolePermission extends Model
 {
     protected $fillable = [
-        "admin_role_id", "admin_perm_system_id", "permissions", "created_by", "updated_by"
+        "admin_role_id", "admin_perm_system_id", "permissions"
     ];
 
     protected $with = [];
 
-    public static function boot()
-    {
-        parent::boot();
+    protected $casts = ["permissions" => "array"];
 
-        //Use this code block to track activities regarding this model
-        //Use this code block in every model you need to record
-        //This will record created_by, updated_by, deleted_by admins to, if you have set those fields in your model
-        self::observe(AdminActivityObserver::class);
-    }
+    public $timestamps = false;
 }

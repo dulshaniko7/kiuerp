@@ -53,14 +53,14 @@ class AdminRoleController extends Controller
 
             $this->repository->setTableTitle("Administrator Roles | Trashed")
                 ->enableViewData("list", "restore", "export")
-                ->disableViewData("view", "edit", "delete");
+                ->disableViewData("edit", "delete");
         }
         else
         {
             $query = $this->repository->model;
 
             $this->repository->setTableTitle("Administrator Roles")
-                ->enableViewData("trashList", "trash", "export");
+                ->enableViewData("view", "trashList", "trash", "export");
         }
 
         return $this->repository->render("admin::layouts.master")->index($query);
@@ -104,10 +104,10 @@ class AdminRoleController extends Controller
             $adminPermSysRepo = new AdminPermissionSystemRepository();
             foreach ($systems as $key => $system)
             {
-                $currModules = $system->permissionModules()->get()->toArray();
-                $currModules = $adminPermSysRepo->getSystemPermissionModules($currModules);
+                $systemModules = $system->permissionModules()->get()->toArray();
+                $systemModules = $adminPermSysRepo->getSystemPermissionModules($systemModules);
 
-                $system["modules"] = $currModules;
+                $system["modules"] = $systemModules;
                 $system["curr_permissions"] = [];
 
                 $systems->$key = $system;
@@ -154,15 +154,44 @@ class AdminRoleController extends Controller
 
         if($model)
         {
+            $this->repository->setPageTitle("Administrator Role | ".$model["role_name"]);
+
             $record = $model;
 
             $urls = [];
             $urls["addUrl"]=URL::to("/admin/admin_role/create");
+            $urls["editUrl"]=URL::to("/admin/admin_role/edit/");
             $urls["listUrl"]=URL::to("/admin/admin_role");
+            $urls["historyUrl"]=URL::to("/admin/admin_role_permission_history/");
 
             $this->repository->setPageUrls($urls);
 
-            return view('admin::admin_role.view', compact('data', 'record'));
+            $systems = AdminPermissionSystem::query()->where("system_status", "=", "1")->get();
+
+            $systemPermissions = [];
+            if(count($systems)>0)
+            {
+                $adminPermSysRepo = new AdminPermissionSystemRepository();
+                $allSystemCurrPerms = AdminRoleRepository::getAllSystemPermissionData($id);
+                foreach ($systems as $key => $system)
+                {
+                    $systemModules = $system->permissionModules()->get()->toArray();
+                    $systemModules = $adminPermSysRepo->getSystemPermissionModules($systemModules);
+
+                    $system["modules"] = $systemModules;
+                    $system["curr_permissions"] = [];
+                    if(isset($allSystemCurrPerms[$system->id]))
+                    {
+                        $system["curr_permissions"] = $allSystemCurrPerms[$system->id];
+                    }
+
+                    $systems->$key = $system;
+                }
+
+                $systemPermissions = $systems->toArray();
+            }
+
+            return view('admin::admin_role.view', compact('data', 'record', 'systemPermissions'));
         }
         else
         {
@@ -188,6 +217,7 @@ class AdminRoleController extends Controller
             $urls = [];
             $urls["addUrl"]=URL::to("/admin/admin_role/create");
             $urls["listUrl"]=URL::to("/admin/admin_role");
+            $urls["historyUrl"]=URL::to("/admin/history/");
 
             $this->repository->setPageUrls($urls);
 
@@ -200,10 +230,10 @@ class AdminRoleController extends Controller
                 $allSystemCurrPerms = AdminRoleRepository::getAllSystemPermissionData($id);
                 foreach ($systems as $key => $system)
                 {
-                    $currModules = $system->permissionModules()->get()->toArray();
-                    $currModules = $adminPermSysRepo->getSystemPermissionModules($currModules);
+                    $systemModules = $system->permissionModules()->get()->toArray();
+                    $systemModules = $adminPermSysRepo->getSystemPermissionModules($systemModules);
 
-                    $system["modules"] = $currModules;
+                    $system["modules"] = $systemModules;
                     $system["curr_permissions"] = [];
                     if(isset($allSystemCurrPerms[$system->id]))
                     {
@@ -356,7 +386,7 @@ class AdminRoleController extends Controller
     {
         if($request->expectsJson())
         {
-            $searchText = $request->post("searchText");
+            $searchText = $request->post("query");
             $idNot = $request->post("idNot");
 
             $query = AdminRole::query()

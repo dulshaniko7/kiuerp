@@ -308,7 +308,7 @@ class AdminController extends Controller
     {
         if($request->expectsJson())
         {
-            $searchText = $request->post("searchText");
+            $searchText = $request->post("query");
             $idNot = $request->post("idNot");
 
             $query = Admin::query()

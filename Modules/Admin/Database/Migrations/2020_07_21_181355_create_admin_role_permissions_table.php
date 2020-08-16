@@ -28,17 +28,6 @@ class CreateAdminRolePermissionsTable extends Migration
 
             $table->index("admin_role_id");
             $table->index("admin_perm_system_id");
-
-            $table->unsignedInteger("created_by");
-            $table->unsignedInteger("updated_by");
-
-            $table->index("created_by");
-            $table->index("updated_by");
-
-            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
-            $table->foreign("updated_by")->references("admin_id")->on(Admin::class);
-
-            $table->timestamps();
         });
     }
 

@@ -21,6 +21,7 @@ class CreateSystemAccessAdminIpRestrictionsTable extends Migration
             $table->string("ip_address", 50);
             $table->string("ip_address_key", 32);
             $table->text("remarks");
+            $table->unsignedTinyInteger("access_status");
 
             $table->unsignedInteger("created_by");
             $table->unsignedInteger("updated_by")->nullable();

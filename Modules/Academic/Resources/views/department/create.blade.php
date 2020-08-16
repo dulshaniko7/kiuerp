@@ -97,7 +97,7 @@
             </div>
         </div>
 
-        <input type="hidden" name="faculty_id" value="<?php echo $record["color_code"]; ?>">
+        <input type="hidden" name="faculty_id" value="<?php echo $record["faculty_id"]; ?>">
     </form>
 
     <?php
@@ -168,13 +168,13 @@
 
             errorText.push("<strong> <span class='glyphicon glyphicon-warning-sign'></span> Following errors occurred while submitting the form</strong><br/>");
 
-            if(faculty_id_ms.getValue() == "")
+            if(faculty_id_ms.getValue() === "")
             {
                 errors++;
                 errorText.push('Faculty Name required.');
             }
 
-            if(dept_name == "")
+            if(dept_name === "")
             {
                 errors++;
                 errorText.push('Department Name Required.');

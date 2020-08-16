@@ -437,6 +437,7 @@ trait Datatable
             $columns=$request->post("columns");
             $order=$request->post("order");
             $search_get=$request->post("search");
+            $search_get=$request->post("search");
             $model_columns=$this->getColumns();
 
             $main_search_value = "";
@@ -479,7 +480,7 @@ trait Datatable
                                         $date_from = $search_value_arr["date_from"];
                                         $date_till = $search_value_arr["date_till"];
 
-                                        $qBuilder->whereBetween("LEFT(".$db_field.",10)", [$date_from, $date_till]);
+                                        $qBuilder->whereBetween(DB::raw("LEFT(".$db_field.",10)"), [$date_from, $date_till]);
                                     }
                                 }
                             }
@@ -579,7 +580,7 @@ trait Datatable
 
                 $data_output["draw"]=$draw;
                 $data_output["recordsTotal"]=$all_count;
-                $data_output["recordsFiltered"]=$filtered_count;
+                $data_output["recordsFiltered"]=$all_count;
                 $data_output["data"]=$results;
             }
             else
@@ -790,7 +791,7 @@ trait Datatable
         $this->viewData->trashListUrlLabel="View Trash";
         $this->viewData->trashListUrlIcon="fa fa-trash";
 
-        $this->viewData->restoreUrl = str_replace(["/trash", "/trash/"], ["/restore/"], $listUrl);
+        $this->viewData->restoreUrl = $listUrl."/restore/";
         $this->viewData->restoreUrlLabel="Restore";
         $this->viewData->restoreUrlIcon="fas fa-trash-restore";
     }

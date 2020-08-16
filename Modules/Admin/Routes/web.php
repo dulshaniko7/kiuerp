@@ -63,6 +63,10 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/admin_role/restore/{id}','AdminRoleController@restore')->name('admin_role.restore');
         Route::post('/admin_role/search_data','AdminRoleController@searchData')->name('admin_role.search.data');
 
+        Route::get('/admin_role_permission_history/{adminRoleId}','AdminRolePermissionHistoryController@index')->name('admin_role_permission_history.index');
+        Route::post('/admin_role_permission_history/{adminRoleId}','AdminRolePermissionHistoryController@index')->name('admin_role_permission_history.fetch');
+        Route::get('/admin_role_permission_history/view/{id}','AdminRolePermissionHistoryController@show')->name('admin_role_permission_history.view');
+
         Route::get('/admin_permission_system','AdminPermissionSystemController@index')->name('admin_permission_system.index');
         Route::post('/admin_permission_system','AdminPermissionSystemController@index')->name('admin_permission_system.fetch');
         Route::get('/admin_permission_system/trash', 'AdminPermissionSystemController@trash')->name('admin_permission_system.list.trash');
@@ -111,11 +115,35 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/admin_system_permission/trash/{admin_perm_group_id}', 'AdminSystemPermissionController@trash')->name('admin_system_permission.list.trash');
         Route::get('/admin_system_permission/create/{admin_perm_group_id}','AdminSystemPermissionController@create')->name('admin_system_permission.create');
         Route::post('/admin_system_permission/create/{admin_perm_group_id}','AdminSystemPermissionController@store')->name('admin_system_permission.store');
-        Route::get('/admin_system_permission/view/{id}','AdminSystemPermissionController@show')->name('admin_system_permission.view');
         Route::get('/admin_system_permission/edit/{id}','AdminSystemPermissionController@edit')->name('admin_system_permission.edit');
         Route::post('/admin_system_permission/edit/{id}','AdminSystemPermissionController@update')->name('admin_system_permission.update');
         Route::post('/admin_system_permission/delete/{id}','AdminSystemPermissionController@delete')->name('admin_system_permission.delete');
         Route::post('/admin_system_permission/restore/{id}','AdminSystemPermissionController@restore')->name('admin_system_permission.restore');
         Route::post('/admin_system_permission/search_data','AdminSystemPermissionController@searchData')->name('admin_system_permission.search.data');
+
+        Route::get('/system_access_ip_restriction','SystemAccessIpRestrictionController@index')->name('system_access_ip_restriction.index');
+        Route::post('/system_access_ip_restriction','SystemAccessIpRestrictionController@index')->name('system_access_ip_restriction.fetch');
+        Route::get('/system_access_ip_restriction/trash', 'SystemAccessIpRestrictionController@trash')->name('system_access_ip_restriction.list.trash');
+        Route::post('/system_access_ip_restriction/trash', 'SystemAccessIpRestrictionController@trash')->name('system_access_ip_restriction.list.trash');
+        Route::get('/system_access_ip_restriction/create','SystemAccessIpRestrictionController@create')->name('system_access_ip_restriction.create');
+        Route::post('/system_access_ip_restriction/create','SystemAccessIpRestrictionController@store')->name('system_access_ip_restriction.store');
+        Route::get('/system_access_ip_restriction/edit/{id}','SystemAccessIpRestrictionController@edit')->name('system_access_ip_restriction.edit');
+        Route::post('/system_access_ip_restriction/edit/{id}','SystemAccessIpRestrictionController@update')->name('system_access_ip_restriction.update');
+        Route::post('/system_access_ip_restriction/delete/{id}','SystemAccessIpRestrictionController@delete')->name('system_access_ip_restriction.delete');
+        Route::post('/system_access_ip_restriction/restore/{id}','SystemAccessIpRestrictionController@restore')->name('system_access_ip_restriction.restore');
+
+        Route::get('/system_access_admin_ip_restriction','SystemAccessAdminIpRestrictionController@index')->name('system_access_admin_ip_restriction.index');
+        Route::post('/system_access_admin_ip_restriction','SystemAccessAdminIpRestrictionController@index')->name('system_access_admin_ip_restriction.fetch');
+        Route::get('/system_access_admin_ip_restriction/trash', 'SystemAccessAdminIpRestrictionController@trash')->name('system_access_admin_ip_restriction.list.trash');
+        Route::post('/system_access_admin_ip_restriction/trash', 'SystemAccessAdminIpRestrictionController@trash')->name('system_access_admin_ip_restriction.list.trash');
+        Route::get('/system_access_admin_ip_restriction/create','SystemAccessAdminIpRestrictionController@create')->name('system_access_admin_ip_restriction.create');
+        Route::post('/system_access_admin_ip_restriction/create','SystemAccessAdminIpRestrictionController@store')->name('system_access_admin_ip_restriction.store');
+        Route::get('/system_access_admin_ip_restriction/edit/{id}','SystemAccessAdminIpRestrictionController@edit')->name('system_access_admin_ip_restriction.edit');
+        Route::post('/system_access_admin_ip_restriction/edit/{id}','SystemAccessAdminIpRestrictionController@update')->name('system_access_admin_ip_restriction.update');
+        Route::post('/system_access_admin_ip_restriction/delete/{id}','SystemAccessAdminIpRestrictionController@delete')->name('system_access_admin_ip_restriction.delete');
+        Route::post('/system_access_admin_ip_restriction/restore/{id}','SystemAccessAdminIpRestrictionController@restore')->name('system_access_admin_ip_restriction.restore');
+
+        Route::get('/admin_login_history','AdminLoginHistoryController@index')->name('admin_login_history.index');
+        Route::post('/admin_login_history','AdminLoginHistoryController@index')->name('admin_login_history.fetch');
     });
 });
