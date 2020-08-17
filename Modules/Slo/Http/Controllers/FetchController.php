@@ -12,6 +12,7 @@ use Modules\Slo\Entities\Batch;
 use Modules\Slo\Entities\CourseStudent;
 use Modules\Slo\Entities\IdRange;
 use Modules\Slo\Entities\Student;
+use function MongoDB\BSON\toJSON;
 
 class FetchController extends Controller
 {
@@ -117,12 +118,40 @@ class FetchController extends Controller
         $idRange = IdRange::where('course_id', $course->course_id)->orderBy('id')->latest()->get()->pluck('start');
         return $idRange;
 
-
-
-
         //return $student_count;
 
     }
 
+    public function incrementId($id)
+    {
+        $genId = $id;
+        $genId++;
+
+    }
+
+    public function repeatId()
+    {
+        $lastId = Student::where('student_id','>',1)->orderBy('student_id', 'desc')->first();
+
+      //  dd($lastId->gen_id);
+
+
+      // dd($last);
+        return $lastId->gen_id;
+    }
+
+    public function repeatGenId()
+    {
+        $lastId = Student::where('student_id','>',1)->orderBy('student_id', 'desc')->first();
+
+        //  dd($lastId->gen_id);
+
+
+        // dd($last);
+        return $lastId->cgsid;
+    }
 
 }
+
+
+

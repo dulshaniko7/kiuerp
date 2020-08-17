@@ -63,8 +63,11 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::idRange.*'], IdRangeComposer::class);
         View::composer(['slo::courseReq.*'], CourseComposer::class);
         View::composer(['slo::courseReq.*'], CourseReqComposer::class);
-        View::composer(['slo::student.*'], CourseComposer::class);
 
+        View::composer(['slo::student.*'], CourseComposer::class);
+        View::composer(['slo::student.*'], FacultyComposer::class);
+        View::composer(['slo::student.*'], BatchComposer::class);
+        View::composer(['slo::student.*'], DepartmentComposer::class);
         //or
 
         View::composer('slo::partials.Batch.*', BatchComposer::class);

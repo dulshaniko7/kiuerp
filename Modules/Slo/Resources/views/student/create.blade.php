@@ -1,38 +1,65 @@
 @extends('slo::layouts.master')
 @section('content')
-<h1>Student Registration</h1>
 
 
-<div class="container-fluid">
 
-    <form class="form-label-left input_mask" method="post" action="{{ route('register.store')}}">
+<div class="container-fluid behind">
+
+    <form class="form-label-left input_mask z" method="post" action="{{ route('register.store')}}">
         @csrf
         <div class="row">
             <div class="col-md-8">
-                <div class="card card-primary">
+                <div class="card card-navy">
                     <div class="card-header">
-                        <h3 class="card-title">Course / Batch / Identity Selection</h3>
+                        <h3 class="card-title myTitle">Course / Batch / Identity Selection</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
                             <label class="col-form-label col-md-2 col-sm-2 ">Faculty</label>
-                            <div class="col-md-10 col-sm-10 ">
-                                @include('slo::partials.Faculty.dropdown')
+                            <div class="col-md-10 col-sm-10">
+                                <select class="form-control myDropdown" name="faculty_id" id="faculty_id" required>
+                                    <option>Select Faculty</option>
+                                    @foreach($faculties as $faculty)
+                                    @if(old('faculty_id') == $faculty->faculty_id)
+                                    <option value="{{$faculty->faculty_id}}" selected>{{$faculty->faculty_name}}
+                                    </option>
+                                    @else
+                                    <option value="{{$faculty->faculty_id}}">{{$faculty->faculty_name}}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-form-label col-md-2 col-sm-2 ">Department </label>
                             <div class="col-md-10 col-sm-10 ">
-                                @include('slo::partials.Department.dropdown')
+                                <select class="form-control myDropdown" name="dept_id" id="dept_id" required>
+                                    <option>Select Department</option>
+                                    @foreach($departments as $department)
+                                    @if(old('dept_id') == $department->dept_id)
+                                    <option value="{{$department->dept_id}}" selected>{{$department->dept_name}}
+                                    </option>
+                                    @else
+                                    <option value="{{$department->dept_id}}">{{$department->dept_name}}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-md-2 col-sm-2 ">Course</label>
                             <div class="col-md-10 col-sm-10 ">
-                                <select class="form-control " name="course_id" id="course_id" required onchange="getStudentCount(this.value),getCgsid(this.value),group(this.value)" >
+                                <select class="form-control myDropdown" name="course_id" id="course_id" required
+                                        onchange="getStudentCount(this.value),getCgsid(this.value),group(this.value)">
                                     <option>Select Course</option>
                                     @foreach($courses as $course)
+                                    @if(old('course_id') == $course->course_id)
+                                    <option value="{{$course->course_id}}" selected>{{$course->course_name}}</option>
+                                    @else
                                     <option value="{{$course->course_id}}">{{$course->course_name}}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -41,7 +68,16 @@
                             <label class="col-form-label col-md-2 col-sm-2 ">Batch <span class="required">*</span>
                             </label>
                             <div class="col-md-10 col-sm-10 ">
-                                @include('slo::partials.Batch.dropdown')
+                                <select class="form-control myDropdown" name="batch_id" id="batch_id" required>
+                                    <option>Select Batch</option>
+                                    @foreach($batches as $batch)
+                                    @if(old('batch_id') == $batch->batch_id)
+                                    <option value="{{$batch->batch_id}}" selected>{{$batch->batch_name}}</option>
+                                    @else
+                                    <option value="{{$batch->batch_id}}">{{$batch->batch_name}}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -54,10 +90,12 @@
                                     <div class="col-md-6 col-sm-6 ">
                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                             <label class="btn btn-secondary">
-                                                <input type="radio" name="country" value="nic" checked="checked" id="nic"> NIC
+                                                <input type="radio" name="country" value="nic" checked="checked"
+                                                       id="nic"> NIC
                                             </label>
                                             <label class="btn btn-secondary">
-                                                <input type="radio" name="country" value="passport" id="passport"> PASSPORT
+                                                <input type="radio" name="country" value="passport" id="passport">
+                                                PASSPORT
                                             </label>
                                         </div>
                                     </div>
@@ -78,11 +116,12 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-8 col-12">
-                <div class="info-box bg-gradient-success">
+                <div class="info-box bg-gradient-info">
                     <span class="info-box-icon"><i class="fas fa-fw fa-user-graduate "></i></span>
                     <div class="info-box-content">
             <span class="info-box-number">
-              <h4><span id="dep_code">00</span><span id="slqf_code">00</span> <span id="batch_type_code">00</span><span id="batch_code">000</span><span id="std_id"> 00001</span></h4>
+              <h4><span id="dep_code">00</span><span id="slqf_code">00</span> <span id="batch_type_code">00</span><span
+                      id="batch_code">000</span><span id="std_id"> 00001</span></h4>
             </span>
 
                         <div class="progress">
@@ -95,6 +134,8 @@
                     <!-- /.info-box-content -->
                 </div>
                 <p id="noti"></p>
+
+
                 <!-- /.info-box -->
             </div>
         </div>
@@ -102,9 +143,9 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="card card-primary">
+                <div class="card card-navy">
                     <div class="card-header">
-                        <h3 class="card-title">Student Main Details</h3>
+                        <h3 class="card-title myTitle">Student Main Details</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -112,7 +153,8 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span></div>
-                                    <select class="form-control col-lg-12" required="required" name="std_title" id="std_title"
+                                    <select class="form-control col-lg-12 myDropdown" required="required" name="std_title"
+                                            id="std_title"
                                             style="width:144px">
                                         <option>Select Title</option>
                                         <option value="Mr">Mr.</option>
@@ -137,6 +179,16 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-7" align="right">
+                                <div id="genderContainer">
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <button class="btn btn-secondary" id="gen_button" type="button">Generate Student Id
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -144,14 +196,14 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
-                                    <textarea class="form-control" name="full_name" placeholder="Full Name"
+                                    <textarea class="form-control myDropdown" name="full_name" placeholder="Full Name"
                                               required="required" rows="1" cols="50"></textarea>
                                 </div>
                                 <div class=" input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
                                     </div>
-                                    <input type="text" class="form-control nic-pass" id="nicpass" name="nic_passport"
+                                    <input type="text" class="form-control nic-pass myDropdown" id="nicpass" name="nic_passport"
                                            placeholder="NIC/Passport" pattern="[0-9]{9}[x|X|v|V]|[0-9]{12}"
                                            required="required">
                                 </div>
@@ -160,14 +212,14 @@
                                         <span class="input-group-text"><i
                                                 class="fas fa-dollar-sign"></i>&nbsp;&nbsp;</span>
                                     </div>
-                                    <input type="text" class="form-control"  id="select-payment-plan" disabled
-                                           >
+                                    <input type="text" class="form-control myDropdown" id="select-payment-plan" disabled
+                                    >
                                 </div>
                                 <div class=" input-group md-3">
                                     <div class="input-group-prepend">
                                         \ <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Initial Starting Date"
+                                    <input type="date" class="form-control myDropdown" placeholder="Initial Starting Date"
                                            name="reg_date">
                                 </div>
                                 <br>
@@ -175,14 +227,14 @@
 
                             <div class="col-md-6">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="name_initials"
+                                    <input type="text" class="form-control myDropdown" name="name_initials"
                                            placeholder="Name with Initials" required="required">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control mobile" name="tel_mobile1"
+                                    <input type="text" class="form-control mobile myDropdown" name="tel_mobile1"
                                            placeholder="Mobile No eg:0711234567" pattern="[0]{1}[0-9]{9}"
                                            required="required">
                                     <div class="input-group-append">
@@ -190,13 +242,14 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" id="select-discounts" disabled>
+                                    <input type="text" class="form-control myDropdown" id="select-discounts" disabled>
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-file-invoice-dollar"></i>&nbsp;</span>
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <select class="form-control" required="required" name="grace_period[]" id="select" disabled>
+                                    <select class="form-control myDropdown" required="required" name="grace_period[]" id="select"
+                                            disabled>
                                         <option>Select Grace Period</option>
                                         <option value="0">Not Applicable</option>
                                         <option value="1">1 Months</option>
@@ -212,8 +265,8 @@
 
                         </div>
 
-                        <input type="hidden"  name="gen_id" id="gen_id">
-                        <input type="text"  name="cgsid" id="cgsid">
+                        <input type="hidden" name="gen_id" id="gen_id">
+                        <input type="hidden" name="cgsid" id="cgsid">
 
                         <div class="row">
                             <div class="col-md-6 col-sm-6  form-group has-feedback">
@@ -222,12 +275,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="form-group row">
-                            <div class="col-md-2 col-sm-2">
-                                <button type="button" class="btn btn-dark">Reset All</button>
-                                <!-- <button type="submit" name="submit" id="btnSubmit" class="btn btn-info">Submit</button> -->
-                            </div>
-                        </div>
+
 
 
                     </div>
@@ -239,9 +287,6 @@
 
 <script src="{{ asset('js/com/student_req.js')}}"></script>
 <script>
-
-
-
 
 
     $(function () {

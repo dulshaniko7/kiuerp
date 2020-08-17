@@ -8,12 +8,14 @@ var std_id = document.querySelector('#std_id');
 let gen_id = document.querySelector('#gen_id');
 let cgsid = document.querySelector('#cgsid');
 let notification = document.querySelector('#noti');
+let gen_button = document.querySelector('#gen_button');
 
 var d_code = null
 let bt_code = null
 let b_code = null
 var s_code = null
 
+let incrementId
 let d
 let bt
 let b
@@ -243,18 +245,58 @@ $('#batch_id').click(function () {
 })
 
 let courseId = document.querySelector('#course_id');
-
+let idLast
 let title = document.querySelector('#std_title');
+
 title.addEventListener('click', function () {
     console.log(d)
     console.log(bt)
     console.log(b)
     console.log(qid)
 
-    gen = d +'00'+' '+ bt + b +' '+ qid
+    gen = d + '00' + ' ' + bt + b + ' ' + qid
     console.log(gen)
-        gen_id.value = gen
+    gen_id.value = gen
+
 })
+
+$('#gen_button').click(function () {
+
+    fetch('/slo/repeatId')
+        .then(res => res.text())
+        .then(data => {
+            console.log(data)
+            str = data
+            newText = str.split(' ')
+            num = newText[2]
+            num1 = parseInt(num)
+            num1++
+            console.log(num1)
+            s1 = newText[0]
+            s2 = newText[1]
+            gen_id.value = s1+' '+s2+' '+num1
+
+        })
+        .catch(err => console.log(err));
+
+})
+
+function repeatGenId () {
+
+    fetch('/slo/repeatGenId')
+        .then(res => res.text())
+        .then(data => {
+            console.log(data)
+
+            num1 = parseInt(data)
+
+            console.log(num1)
+            cgsid.value = num1
+
+        })
+        .catch(err => console.log(err));
+}
+
 
 passport.addEventListener('click', function () {
     country.style.visibility = 'visible';
@@ -314,6 +356,7 @@ function group(id) {
             req_id = no + lastNo
             console.log(req_id)
             qid = req_id
+            incrementId = qid
             console.log(qid)
             bt_code = batchType_code.textContent
             console.log('bt' + bt_code)
@@ -327,4 +370,7 @@ function group(id) {
 }
 
 
+function repeat() {
 
+
+}

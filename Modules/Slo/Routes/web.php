@@ -68,6 +68,8 @@ Route::get('/slo/getIdRange/{id}', 'FetchController@getIdRange')->name('idRange.
 Route::get('/slo/getIdStart/{id}', 'FetchController@getCgsid')->name('idRange1.get');
 Route::get('/slo/getStudentCount/{id}', 'FetchController@courseStudentCount');
 Route::get('/slo/group/{id}', 'FetchController@courseGroup');
+Route::get('/slo/repeatId', 'FetchController@repeatId');
+Route::get('/slo/repeatGenId', 'FetchController@repeatGenId');
 
 
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');

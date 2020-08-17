@@ -79,8 +79,8 @@ class StudentController extends Controller
         $student->save();
         $course = Course::find($course_id);
         $student->courses()->attach($course);
-
-        return redirect()->route('register.create');
+        $request->flash();
+        return redirect()->route('register.create')->withInput();
 
 
     }
