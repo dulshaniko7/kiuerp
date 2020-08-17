@@ -58,7 +58,7 @@ class FacultyController extends Controller
         }
         else
         {
-            $query = $this->repository->model;
+            $query = $this->repository->model::query();
 
             $this->repository->setTableTitle("Faculties")
                 ->enableViewData("trashList", "trash", "export");

@@ -62,7 +62,7 @@ class DepartmentController extends Controller
         }
         else
         {
-            $query = $this->repository->model;
+            $query = $this->repository->model::query();
 
             $this->repository->setTableTitle("Departments")
                 ->enableViewData("trashList", "trash", "export");

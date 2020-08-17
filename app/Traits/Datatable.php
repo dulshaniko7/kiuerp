@@ -572,11 +572,13 @@ trait Datatable
 
             $results=$qBuilder->limit($length)->offset($start)->get();
 
+            //dd($qBuilder->toSql());
+
             $data_output=[];
 
             if($results)
             {
-                $filtered_count=count($results);
+                //$filtered_count=count($results);
 
                 $data_output["draw"]=$draw;
                 $data_output["recordsTotal"]=$all_count;

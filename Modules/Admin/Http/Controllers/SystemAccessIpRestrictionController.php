@@ -50,7 +50,7 @@ class SystemAccessIpRestrictionController extends Controller
         }
         else
         {
-            $query = $this->repository->model;
+            $query = $this->repository->model::query();
 
             $this->repository->setTableTitle("System Access IP Addresses")
                 ->enableViewData("trashList", "trash", "export");

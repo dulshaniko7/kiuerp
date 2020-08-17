@@ -51,7 +51,7 @@ class AdminRolePermissionHistoryController extends Controller
                 ->setColumnFKeyField("permission_system", "admin_perm_system_id")
                 ->setColumnRelation("permission_system", "permissionSystem", "system_name");
 
-            $query = $this->repository->model;
+            $query = $this->repository->model::query();
 
             $this->repository->enableViewData("view", "export")
                  ->disableViewData("add","edit", "delete")

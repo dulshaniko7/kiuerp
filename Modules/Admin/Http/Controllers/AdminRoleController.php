@@ -57,7 +57,7 @@ class AdminRoleController extends Controller
         }
         else
         {
-            $query = $this->repository->model;
+            $query = $this->repository->model::query();
 
             $this->repository->setTableTitle("Administrator Roles")
                 ->enableViewData("view", "trashList", "trash", "export");

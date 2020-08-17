@@ -63,7 +63,7 @@ class AdminController extends Controller
         }
         else
         {
-            $query = $this->repository->model;
+            $query = $this->repository->model::query();
 
             $this->repository->setTableTitle("System Administrators")
                 ->enableViewData("trashList", "trash", "export");

@@ -77,7 +77,7 @@ class AdminPermissionGroupController extends Controller
             }
             else
             {
-                $query = $this->repository->model;
+                $query = $this->repository->model::query();
 
                 $this->repository->setTableTitle($tableTitle)
                     ->enableViewData("trashList", "trash", "export")

@@ -233,6 +233,50 @@ $exportFormats = $viewData->exportFormats;
                     data.submit = "submit";
                     data._token = "{{ csrf_token() }}";
                 },
+                error:function ()
+                {
+                    let errorText=[];
+                    let errorData={};
+                    errorText.push("Something went wrong. Please refresh the page.");
+
+                    errorData.status="warning";
+                    errorData.notify=errorText;
+
+                    showNotifications(errorData);
+                },
+                /*success:function (theResponse)
+                {
+                    if(theResponse.data)
+                    {
+                        window.start=data.start;
+                        data.submit = "submit";
+                        data._token = "{{ csrf_token() }}";
+                    }
+                    else
+                    {
+                        let errorText=[];
+                        let errorData={};
+
+                        if(data.message && data.message === "CSRF token mismatch.")
+                        {
+                            errorText.push("This page has been expired due to inactivity. Please refresh the page.");
+
+                            errorData.status="warning";
+                            errorData.notify=errorText;
+                        }
+                        else
+                        {
+                            errorText.push("Something went wrong. Please refresh the page.");
+
+                            errorData.status="warning";
+                            errorData.notify=errorText;
+                        }
+
+                        showNotifications(errorData);
+                    }
+
+                    return theResponse;
+                },*/
             },
             order: [
                 <?php
