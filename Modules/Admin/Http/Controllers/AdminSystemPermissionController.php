@@ -126,10 +126,11 @@ class AdminSystemPermissionController extends Controller
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
 
             $model = new AdminSystemPermission();
-            $record = $model;
-            $record->permissionGroup = $permissionGroup;
-            $record->permissionModule = $permissionModule;
-            $record->permissionSystem = $permissionSystem;
+            $model->permissionGroup = $permissionGroup;
+            $model->permissionModule = $permissionModule;
+            $model->permissionSystem = $permissionSystem;
+
+            $record = $model->toArray();
 
             $formMode = "add";
             $formSubmitUrl = "/".request()->path();
@@ -194,9 +195,10 @@ class AdminSystemPermissionController extends Controller
             $admin_perm_system_id = $permissionModule["admin_perm_system_id"];
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
 
-            $record = $model;
-            $record->permissionModule = $permissionModule;
-            $record->permissionSystem = $permissionSystem;
+            $model->permissionModule = $permissionModule;
+            $model->permissionSystem = $permissionSystem;
+
+            $record = $model->toArray();
 
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();

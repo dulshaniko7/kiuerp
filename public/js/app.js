@@ -43865,6 +43865,29 @@ window.hidePreloader = function (elem) {
   $(elem).find('.preloader').remove();
 };
 
+window.validateSession = function () {
+  var timeSecs = 10 * 60 * 1000;
+  var sessionTO = window.setInterval(function () {
+    $.ajax({
+      url: "/dashboard/validate_session",
+      type: "POST",
+      dataType: "JSON",
+      //data: {_token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+      success: function success(theResponse) {
+        if (theResponse.notify.status !== "success") {
+          window.clearInterval(sessionTO);
+          showNotifications(theResponse.notify);
+        }
+      },
+      error: function error() {}
+    });
+  }, 5000);
+};
+
+$(document).ready(function () {
+  validateSession();
+});
+
 /***/ }),
 
 /***/ "./resources/sass/app.scss":

@@ -132,7 +132,7 @@ class SystemAccessIpRestrictionController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 

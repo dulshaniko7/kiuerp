@@ -39,6 +39,7 @@ $permGroup["slug"] = "admin_permission_system";
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system", "name"=>"List Admin Permission Systems"];
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/trash", "name"=>"List Admin Permission Systems in Trash"];
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/create", "name"=>"Add New Admin Permission System"];
+$permGroup["permissions"][]=["action"=>"/admin/import_permissions", "name"=>"Import permissions to the system"];
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/edit", "name"=>"Edit Admin Permission System"];
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/view", "name"=>"View Admin Permission System"];
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/activate", "name"=>"Activate Admin Permission System"];

@@ -16,4 +16,9 @@ class AdminLoginHistoryRepository extends BaseRepository
     {
         return view("admin::admin_login_history.datatable.country_ui");
     }
+
+    public function display_sign_in_out_as()
+    {
+        return view("admin::admin_login_history.datatable.sign_in_out_ui");
+    }
 }

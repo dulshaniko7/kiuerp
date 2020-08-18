@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label>Permission Group</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" value="<?php echo $record["permissionGroup"]["group_name"]; ?>" readonly>
+                                    <input type="text" class="form-control" value="<?php echo $record["permission_group"]["group_name"]; ?>" readonly>
                                 </div>
                             </div>
 
@@ -91,16 +91,6 @@
                                     <label>Permission Action</label>
                                     <hr class="mt-1 mb-2">
                                     <input type="text" class="form-control" name="permission_action" placeholder="Permission Action" value="<?php echo $record["permission_action"]; ?>">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Remarks</label>
-                                    <hr class="mt-1 mb-2">
-                                    <textarea class="form-control" name="remarks" placeholder="Remarks"><?php echo $record["remarks"]; ?></textarea>
                                 </div>
                             </div>
                         </div>

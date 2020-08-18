@@ -90,6 +90,9 @@ class AdminController extends Controller
      */
     public function create()
     {
+        $model = new Admin();
+        $record = $model;
+
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
 
@@ -98,7 +101,7 @@ class AdminController extends Controller
 
         $this->repository->setPageUrls($urls);
 
-        return view('academic::admin.create', compact('formMode', 'formSubmitUrl'));
+        return view('admin::admin.create', compact('formMode', 'formSubmitUrl', 'record'));
     }
 
     /**
@@ -113,14 +116,13 @@ class AdminController extends Controller
             "admin_role_id" => "required|exists:admin_roles,admin_role_id",
             "name" => "required|min:3",
             "email" => "unique:Modules\Admin\Entities\Admin,email",
+            "password" => "required",
             "status" => "required|digits:1",
-        ], [], ["admin_role_id" => "Faculty", "name" => "Admin name"]);
+            "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->status == "0";})],
+        ], [], ["admin_role_id" => "Administrator Role", "name" => "Administrator name"]);
 
         if($this->repository->isValidData)
         {
-            //set status as 0 when inserting the record
-            $model->status = 0;
-
             $response = $this->repository->saveModel($model);
         }
         else
@@ -142,7 +144,7 @@ class AdminController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
 
             $urls = [];
             $urls["addUrl"]=URL::to("/admin/admin/create");
@@ -150,7 +152,7 @@ class AdminController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('academic::admin.view', compact('data', 'record'));
+            return view('admin::admin.view', compact('data', 'record'));
         }
         else
         {
@@ -169,7 +171,7 @@ class AdminController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 
@@ -179,7 +181,7 @@ class AdminController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('academic::admin.create', compact('formMode', 'formSubmitUrl', 'record'));
+            return view('admin::admin.create', compact('formMode', 'formSubmitUrl', 'record'));
         }
         else
         {
@@ -201,9 +203,10 @@ class AdminController extends Controller
             $model = $this->repository->getValidatedData($model, [
                 "admin_role_id" => "required|exists:admin_roles,admin_role_id",
                 "name" => "required|min:3",
-                "email" => [Rule::requiredIf(function () use ($model) { return $model->default_admin == "0";}), Rule::unique('admins', "email")->ignore($model->admin_id, $model->getKeyName())],
+                "email" => [Rule::unique(Admin::class, "email")->ignore($model->admin_id, $model->getKeyName())],
                 "status" => "required|digits:1",
-            ], [], ["admin_role_id" => "Admin role", "name" => "Admin name"]);
+                "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->status == "0";})],
+            ], [], ["admin_role_id" => "Administrator Role", "name" => "Administrator name"]);
 
             $dataResponse = $this->repository->saveModel($model);
         }

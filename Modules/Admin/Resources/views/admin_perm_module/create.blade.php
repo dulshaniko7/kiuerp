@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label>Permission System</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" value="<?php echo $record["permissionSystem"]["system_name"]; ?>" readonly>
+                                    <input type="text" class="form-control" value="<?php echo $record["permission_system"]["system_name"]; ?>" readonly>
                                 </div>
                             </div>
 

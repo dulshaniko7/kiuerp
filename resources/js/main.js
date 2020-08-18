@@ -108,3 +108,34 @@ window.hidePreloader = function(elem)
 {
     $(elem).find('.preloader').remove();
 }
+
+window.validateSession = function()
+{
+    let timeSecs = 10*60*1000;
+    let sessionTO = window.setInterval(function (){
+
+        $.ajax({
+            url : "/dashboard/validate_session",
+            type: "POST",
+            dataType: "JSON",
+            //data: {_token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+            success: function (theResponse)
+            {
+                if(theResponse.notify.status !== "success")
+                {
+                    window.clearInterval(sessionTO);
+                    showNotifications(theResponse.notify);
+                }
+            },
+            error: function ()
+            {
+
+            }
+        });
+    }, 5000);
+}
+
+$(document).ready(function(){
+
+    validateSession();
+})

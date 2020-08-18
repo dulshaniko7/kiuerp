@@ -31,7 +31,7 @@ class AdminLoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin:admin')->except('logout', 'logoutAuto');
+        $this->middleware('admin:admin')->except('logout', 'validateSession');
 
         View::composer("*", function ($view){
 
@@ -257,6 +257,14 @@ class AdminLoginController extends Controller
     {
         $adminLoginHistoryId = $request->session()->get("admin_login_history_id");
 
+        if($adminLoginHistoryId == "")
+        {
+            if(isset($_COOKIE["adminLoginHistoryId"]))
+            {
+                $adminLoginHistoryId = $_COOKIE["adminLoginHistoryId"];
+            }
+        }
+
         $this->recordLogOutActivity($adminLoginHistoryId, $manual);
 
         $this->guard()->logout();
@@ -293,9 +301,47 @@ class AdminLoginController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function logoutAuto(Request $request)
+    public function validateSession(Request $request)
     {
-        return $this->logout($request, 0);
+        if(isset($_COOKIE["adminLoginHistoryId"]) && isset($_COOKIE["adminLastActivityAt"]))
+        {
+            $adminLastActivityAt = strtotime($_COOKIE["adminLastActivityAt"]);
+
+            $sessionTime = config("session.lifetime");
+            $sessionTime = intval($sessionTime)*60;
+
+            if($adminLastActivityAt<=time()-$sessionTime)
+            {
+                return $this->logout($request, 0);
+            }
+            else
+            {
+                $adminLoginHistoryId = $_COOKIE["adminLoginHistoryId"];
+                $adminLH = AdminLoginHistory::find($adminLoginHistoryId);
+
+                if($adminLH)
+                {
+                    if($adminLH["sign_out_at"] == "")
+                    {
+                        $notify["status"]="success";
+                        $notify["notify"][]="In session.";
+                    }
+                    else
+                    {
+                        $notify["status"]="failed";
+                        $notify["notify"][]="Your session has been expired.";
+                    }
+                }
+                else
+                {
+                    $notify["status"]="failed";
+                    $notify["notify"][]="Your session has been expired.";
+                }
+
+                $response["notify"]=$notify;
+                return response()->json($response, 201);
+            }
+        }
     }
 
     private function recordLogOutActivity($adminLoginHistoryId)
@@ -311,6 +357,11 @@ class AdminLoginController extends Controller
                 $lh->sign_out_at = date("Y-m-d H:i:s", time());
 
                 $lh->save();
+
+                if(isset($_COOKIE["adminLoginHistoryId"]))
+                {
+                    setcookie("adminLoginHistoryId", "", time()- 60, "/", "", 0);
+                }
             }
         }
     }
@@ -354,6 +405,12 @@ class AdminLoginController extends Controller
             $admin_login_history_id = $adminLH->$primaryKey;
 
             request()->session()->put("admin_login_history_id", $admin_login_history_id);
+
+            $sessionTime = config("session.lifetime");
+            $sessionTime = intval($sessionTime)*60;
+
+            setcookie("adminLoginHistoryId", $admin_login_history_id, time()+$sessionTime+3600);
+            setcookie("adminLastActivityAt", $adminLH->last_activity_at, time()+$sessionTime+3600);
         }
     }
 }

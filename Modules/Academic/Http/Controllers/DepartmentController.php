@@ -144,7 +144,7 @@ class DepartmentController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
 
             $urls = [];
             $urls["addUrl"]=URL::to("/academic/department/create");
@@ -171,7 +171,7 @@ class DepartmentController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 

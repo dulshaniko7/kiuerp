@@ -15,7 +15,8 @@ class AdminActivity extends Model
     public $timestamps = false;
 
     protected $casts = [
-        'activity_old_data' => 'activity_new_data',
+        'activity_old_data' => 'array',
+        'activity_new_data' => 'array',
     ];
 
     public function setActivityAtAttribute($value)

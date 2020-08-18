@@ -125,8 +125,8 @@ class AdminPermissionGroupController extends Controller
 
             $model = new AdminPermissionGroup();
             $record = $model;
-            $record->permissionModule = $permissionModule;
-            $record->permissionSystem = $permissionSystem;
+            $model->permissionModule = $permissionModule;
+            $model->permissionSystem = $permissionSystem;
 
             $formMode = "add";
             $formSubmitUrl = request()->getPathInfo();
@@ -194,7 +194,7 @@ class AdminPermissionGroupController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
 
             $urls = [];
             $urls["addUrl"]=URL::to("/admin/admin_permission_group/create/".$model["admin_perm_module_id"]);
@@ -223,22 +223,22 @@ class AdminPermissionGroupController extends Controller
         {
             $this->repository->setPageTitle("Admin Permission Groups | Edit");
 
-            $record = $model;
-            $record->permissionSystem = AdminPermissionSystem::find($model["permissionModule"]["admin_perm_system_id"]);
+            $record = $model->toArray();
+            $model->permissionSystem = AdminPermissionSystem::find($model["permission_module"]["admin_perm_system_id"]);
 
             $formMode = "edit";
             $formSubmitUrl = request()->getPathInfo();
 
-            $admin_perm_system_id = $record["permissionModule"]["admin_perm_system_id"];
+            $admin_perm_system_id = $record["permission_module"]["admin_perm_system_id"];
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
 
             $urls = [];
-            $urls["addUrl"]=URL::to("/admin/admin_permission_group/create/".$model["permissionModule"]["admin_perm_module_id"]);
-            $urls["listUrl"]=URL::to("/admin/admin_permission_group/".$model["permissionModule"]["admin_perm_module_id"]);
+            $urls["addUrl"]=URL::to("/admin/admin_permission_group/create/".$model["permission_module"]["admin_perm_module_id"]);
+            $urls["listUrl"]=URL::to("/admin/admin_permission_group/".$model["permission_module"]["admin_perm_module_id"]);
 
             $this->repository->setPageUrls($urls);
 
-            return view('admin::admin_perm_group.create', compact('formMode', 'formSubmitUrl', 'record'));
+            return view('admin::admin_perm_group.create', compact('formMode', 'formSubmitUrl', 'record', 'permissionSystem'));
         }
         else
         {

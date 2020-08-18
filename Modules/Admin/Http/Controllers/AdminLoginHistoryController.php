@@ -28,12 +28,14 @@ class AdminLoginHistoryController extends Controller
 
         $this->repository->initDatatable(new AdminLoginHistory());
 
-        $this->repository->setColumns("id", "admin", "country", "city", "online_status", "last_activity_at", "sign_in_at", "sign_out_at", "sign_out_type", "login_failed_reason")
-            ->setColumnLabel("sign_out_type", "Sign Out Method")
+        $this->repository->setColumns("id", "admin", "country", "online_status", "sign_in_at", "last_activity_at")
+            ->setColumnLabel("country", "Location")
+            ->setColumnLabel("sign_in_at", "Sign In/Out")
             ->setColumnLabel("online_status", "Online Status")
             ->setColumnDisplay("online_status", array($this->repository, 'display_status_as'), array([["id" =>"1", "name" =>"Online", "label"=>"success"], ["id" =>"0", "name" =>"Offline", "label"=>"danger"]]))
             ->setColumnDisplay("admin", array($this->repository, 'display_admin_as'))
             ->setColumnDisplay("country", array($this->repository, 'display_country_as'))
+            ->setColumnDisplay("sign_in_at", array($this->repository, 'display_sign_in_out_as'))
 
             ->setColumnFilterMethod("admin", "select", URL::to("/admin/admin/search_data"))
             ->setColumnFilterMethod("country", "select", URL::to("/country/search_data"))
@@ -59,7 +61,8 @@ class AdminLoginHistoryController extends Controller
         $this->repository->setTableTitle("Admin Login History")
             ->enableViewData("list", "view", "export")
             ->disableViewData("add", "edit", "trashList", "trash", "delete")
-            ->setUrlLabel("view", "View Activities");
+            ->setUrlLabel("view", "View Activities")
+            ->setUrl("view", "/admin/admin_activity/");
 
         return $this->repository->render("admin::layouts.master")->index($query);
     }

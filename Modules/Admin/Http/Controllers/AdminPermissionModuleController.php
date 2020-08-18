@@ -117,7 +117,7 @@ class AdminPermissionModuleController extends Controller
 
             $model = new AdminPermissionModule();
             $record = $model;
-            $record->permissionSystem = $permissionSystem;
+            $model->permissionSystem = $permissionSystem;
 
             $formMode = "add";
             $formSubmitUrl = request()->getPathInfo();
@@ -188,7 +188,7 @@ class AdminPermissionModuleController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
 
             $urls = [];
             $urls["addUrl"]=URL::to("/admin/admin_permission_module/create/".$model["admin_perm_system_id"]);
@@ -217,7 +217,7 @@ class AdminPermissionModuleController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
             $formMode = "edit";
             $formSubmitUrl = request()->getPathInfo();
 

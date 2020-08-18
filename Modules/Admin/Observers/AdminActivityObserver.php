@@ -205,8 +205,8 @@ class AdminActivityObserver
             $adminActModel->admin_id = $admin_id;
             $adminActModel->activity = $activity;
             $adminActModel->event = $event;
-            $adminActModel->activity_old_data = json_encode($oldData);
-            $adminActModel->activity_new_data = json_encode($newData);
+            $adminActModel->activity_old_data = $oldData;
+            $adminActModel->activity_new_data = $newData;
             $adminActModel->activity_model_name = $modelName;
             $adminActModel->activity_model = $modelId;
             $adminActModel->activity_at = date("Y-m-d H:i:s", time());
@@ -220,6 +220,14 @@ class AdminActivityObserver
             $adminLH->last_activity_at = $adminActModel->activity_at;
 
             $adminLH->save();
+
+            //update login history id cookie with session time
+
+            $sessionTime = config("session.lifetime");
+            $sessionTime = intval($sessionTime)*60;
+
+            setcookie("adminLoginHistoryId", $admin_login_history_id, time()+$sessionTime+3600);
+            setcookie("adminLastActivityAt", $adminLH->last_activity_at, time()+$sessionTime+3600);
         }
     }
 }

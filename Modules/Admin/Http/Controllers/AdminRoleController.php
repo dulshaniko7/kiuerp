@@ -86,7 +86,7 @@ class AdminRoleController extends Controller
 
         $model = new AdminRole();
         $record = $model;
-        $record->allowedRoles = [];
+        $model->allowedRoles = [];
 
         $formMode = "add";
         $formSubmitUrl = "/".request()->path();
@@ -156,7 +156,7 @@ class AdminRoleController extends Controller
         {
             $this->repository->setPageTitle("Administrator Role | ".$model["role_name"]);
 
-            $record = $model;
+            $record = $model->toArray();
 
             $urls = [];
             $urls["addUrl"]=URL::to("/admin/admin_role/create");
@@ -210,7 +210,7 @@ class AdminRoleController extends Controller
 
         if($model)
         {
-            $record = $model;
+            $record = $model->toArray();
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
 

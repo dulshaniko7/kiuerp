@@ -19,7 +19,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function() {
         Route::get('/login', 'AdminLoginController@showLoginForm')->name('login');
         Route::post('/login', 'AdminLoginController@login');
         Route::get('/logout', 'AdminLoginController@logout')->name('logout');
-        Route::get('/logout_auto', 'AdminLoginController@logoutAuto')->name('logout.auto');
+        Route::post('/validate_session', 'AdminLoginController@validateSession')->name('logout.auto');
 
         //Forgot Password Routes
         Route::get('/password/reset', 'AdminForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -145,5 +145,8 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
 
         Route::get('/admin_login_history','AdminLoginHistoryController@index')->name('admin_login_history.index');
         Route::post('/admin_login_history','AdminLoginHistoryController@index')->name('admin_login_history.fetch');
+        Route::get('/admin_activity/{admin_login_history_id}','AdminActivityController@index')->name('admin_activity.index');
+        Route::post('/admin_activity/{admin_login_history_id}','AdminActivityController@index')->name('admin_activity.fetch');
+        Route::get('/admin_activity/view/{id}','AdminActivityController@show')->name('admin_activity.view');
     });
 });
