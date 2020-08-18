@@ -11,6 +11,6 @@ class StudentComposer
 {
     public function compose(View $view)
     {
-        $view->with('students', Student::orderBy('student_id')->get());
+        $view->with('students', Student::orderBy('student_id','desc')->get());
     }
 }

@@ -121,7 +121,7 @@
                     <div class="info-box-content">
             <span class="info-box-number">
               <h4><span id="dep_code">00</span><span id="slqf_code">00</span> <span id="batch_type_code">00</span><span
-                      id="batch_code">000</span><span id="std_id"> 00001</span></h4>
+                      id="batch_code">000</span><span id="std_id"> 00000</span></h4>
             </span>
 
                         <div class="progress">

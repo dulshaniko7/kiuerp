@@ -15,6 +15,7 @@ use Modules\Slo\Http\View\Composers\CourseReqComposer;
 use Modules\Slo\Http\View\Composers\DepartmentComposer;
 use Modules\Slo\Http\View\Composers\FacultyComposer;
 use Modules\Slo\Http\View\Composers\IdRangeComposer;
+use Modules\Slo\Http\View\Composers\StudentComposer;
 
 class SloServiceProvider extends ServiceProvider
 {
@@ -68,6 +69,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::student.*'], FacultyComposer::class);
         View::composer(['slo::student.*'], BatchComposer::class);
         View::composer(['slo::student.*'], DepartmentComposer::class);
+        View::composer(['slo::student.*'], StudentComposer::class);
         //or
 
         View::composer('slo::partials.Batch.*', BatchComposer::class);

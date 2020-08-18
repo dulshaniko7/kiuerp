@@ -23,14 +23,21 @@ class Batch extends Model
         return $this->belongsTo(BatchType::class, 'id', 'id');
     }
 
-    public function stdRegisters(){
-        return $this->hasMany(StdRegister::class,'batch_id','batch_id');
+    public function stdRegisters()
+    {
+        return $this->hasMany(StdRegister::class, 'batch_id', 'batch_id');
     }
 
     public static function boot()
     {
         parent::boot();
     }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'batch_student', 'batch_id', 'student_id');
+    }
+
 
     public function generateBatchCode()
     {
@@ -47,9 +54,6 @@ class Batch extends Model
             if (($batch_code > 10) && ($batch_code < 100)) {
                 $batch_code = '0' . $batch_code;
             }
-
-
-
 
 
         } else {

@@ -13,7 +13,7 @@ class Student extends Model
     protected $guarded = [];
     protected $primaryKey = 'student_id';
 
-    public function StdRegisters()
+    public function stdRegisters()
     {
         return $this->hasMany(StdRegister::class, 'student_id', 'student_id');
     }
@@ -43,9 +43,14 @@ class Student extends Model
         return $this->belongsToMany(Course::class, 'course_student', 'student_id', 'course_id');
     }
 
+    public function batches()
+    {
+        return $this->belongsToMany(Batch::class, 'batch_student', 'student_id', 'batch_id');
+    }
     public function idRange()
     {
         return $this->belongsTo(IdRange::class, 'id', 'id');
     }
+
 
 }

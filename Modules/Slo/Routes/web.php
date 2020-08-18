@@ -55,6 +55,7 @@ Route::put('/slo/courseReq/{id}', 'CourseRequirementController@update')->name('c
 Route::get('/slo/studentRegisters', 'StudentController@index')->name('register.index');
 Route::get('/slo/studentRegister', 'StudentController@create')->name('register.create');
 Route::post('/slo/studentRegister', 'StudentController@store')->name('register.store');
+//Route::post('/slo/studentRegister', 'StudentController@store')->name('register.store');
 
 
 //ajax routes

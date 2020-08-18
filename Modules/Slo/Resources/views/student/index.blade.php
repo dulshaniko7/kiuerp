@@ -2,26 +2,34 @@
 @section('content')
 
 <div class="card-body">
-    <table id="data-table" class="table table-bordered table-striped">
+    <table id="data-table" class="table table-bordered table-striped myTable">
         <thead class="thead-dark">
         <tr>
-            <th>Batch Code</th>
+            <th>Student Admission Number</th>
+            <th>Student Name</th>
             <th>Course</th>
             <th>Batch</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($batches as $batch)
+        @foreach($students as $s)
         <tr>
-            <td>{{$batch->batch_code}}</td>
-            <td>{{$batch->course->course_name}}</td>
+            <td>{{$s->gen_id}}</td>
+
+            <td>{{$s->name_initials}}</td>
+
+            @foreach($s->courses as $course)
+            <td>{{$course->course_name}}</td>
+            @endforeach
+
+            @foreach($s->batches as $batch)
             <td>{{$batch->batch_name}}</td>
+            @endforeach
+
             <td>
-                <div class="btn btn-xs"><span class="fa fa-edit"></span><a
-                        href="{{ route('batch.edit',$batch->batch_id)}}"> Edit</a></div>
-                <div class="btn btn-xs"><span class="fa fa-trash"></span><a
-                        href="{{ route('batch.delete',$batch->batch_id)}}"> Delete</a></div>
+                <div class="btn btn-outline-dark"><span class="fa fa-address-card"></span><a
+                        href=""> Edit</a></div>
             </td>
         </tr>
         @endforeach
@@ -47,3 +55,4 @@
     });
 </script>
 @endsection
+

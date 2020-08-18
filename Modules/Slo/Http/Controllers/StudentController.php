@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
+use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\StdRegister;
 use Modules\Slo\Entities\Student;
 
 class StudentController extends Controller
@@ -18,7 +20,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('slo::index');
+        $students = Student::with('courses')->get();
+
+        return view('slo::student.index', compact('students'));
     }
 
     /**
@@ -46,16 +50,18 @@ class StudentController extends Controller
                 'gender' => 'required',
                 'tel_mobile1' => 'required',
                 'nic_passport' => 'required',
-
                 'full_name' => 'required',
                 'course_id' => 'required',
+                'batch_id' => 'required',
                 'reg_date' => 'required'
             ]);
         if ($validate->fails()) {
             return view('slo::error');
         }
         $student = new Student();
+        $stdReg = new StdRegister();
         //$student->gen_id = $request->gen_id;
+
         $student->std_title = $request->std_title;
         $student->name_initials = $request->name_initials;
         $student->gender = $request->gender;
@@ -66,20 +72,24 @@ class StudentController extends Controller
         $student->reg_date = $request->reg_date;
         $student->gen_id = $request->gen_id;
         $course_id = $request->course_id;
-
-        //get the course id range
-        // $ccc = Course::find($course_id);
-
-      //  $c_start_no = $ccc->idRanges()->get()->pluck('id');
-       // $student->cgsid = $c_start_no;
-        // $student->courses()->sync($course_id);
+        $batch_id = $request->batch_id;
 
         $student->cgsid = $request->cgsid;
-
         $student->save();
+
+        $stdReg->batch_id = $request->batch_id;
+        $stdReg->student_id = $student->student_id;
+        $stdReg->save();
+
+
         $course = Course::find($course_id);
         $student->courses()->attach($course);
+
+        $batch = Batch::find($batch_id);
+        $student->batches()->attach($batch);
         $request->flash();
+
+
         return redirect()->route('register.create')->withInput();
 
 
