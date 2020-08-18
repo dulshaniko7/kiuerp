@@ -103,6 +103,7 @@ class FetchController extends Controller
         return ($idRangeCourse[0]['id']);
     }
 
+
     public function courseStudentCount($id)
     {
         $course = Course::find($id);
@@ -131,18 +132,18 @@ class FetchController extends Controller
 
     public function repeatId()
     {
-        $lastId = Student::where('student_id','>',1)->orderBy('student_id', 'desc')->first();
+        $lastId = Student::where('student_id', '>', 1)->orderBy('student_id', 'desc')->first();
 
-      //  dd($lastId->gen_id);
+        //  dd($lastId->gen_id);
 
 
-      // dd($last);
+        // dd($last);
         return $lastId->gen_id;
     }
 
     public function repeatGenId()
     {
-        $lastId = Student::where('student_id','>',1)->orderBy('student_id', 'desc')->first();
+        $lastId = Student::where('student_id', '>', 1)->orderBy('student_id', 'desc')->first();
 
         //  dd($lastId->gen_id);
 

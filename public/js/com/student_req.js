@@ -8,6 +8,8 @@ var std_id = document.querySelector('#std_id');
 let gen_id = document.querySelector('#gen_id');
 let cgsid = document.querySelector('#cgsid');
 let notification = document.querySelector('#noti');
+let notifications_card = document.querySelector('#notifications');
+let idBox = document.querySelector('#idBox');
 let gen_button = document.querySelector('#gen_button');
 
 var d_code = null
@@ -22,7 +24,7 @@ let b
 let qid
 
 gen_button.disabled = true;
-
+notifications_card.style.display = 'none'
 country.style.visibility = "hidden"
 
 /*
@@ -256,9 +258,19 @@ title.addEventListener('click', function () {
     console.log(b)
     console.log(qid)
 
-    gen = d + '00' + ' ' + bt + b + ' ' + qid
-    console.log(gen)
-    gen_id.value = gen
+    //new
+    if(qid <10000){
+        std_id.textContent =" 0"+qid
+        gen = d + '00' + ' ' + bt + b + ' ' +'0'+ qid
+        gen_id.value = gen
+        console.log('less'+gen)
+    }
+    else {
+
+        gen = d + '00' + ' ' + bt + b + ' ' + qid
+        console.log(gen)
+        gen_id.value = gen
+    }
 
 })
 
@@ -274,16 +286,30 @@ $('#gen_button').click(function () {
             num1 = parseInt(num)
             num1++
             console.log(num1)
-            s1 = newText[0]
-            s2 = newText[1]
-            gen_id.value = s1+' '+s2+' '+num1
+            var s1 = newText[0]
+            var s2 = newText[1]
+            var s3 = newText[2]
 
+
+            //new
+
+            if (num1 < 10000) {
+              //  idBox.style.display = "none"
+                //notifications_card.style.display = "block"
+                //notification.textContent = " Please create a new course id range before continue "
+                 gen_id.value = s1+' '+s2+' '+'0'+num1
+                console.log(s1+' '+s2+' '+'0'+num1)
+            }
+            else {
+                gen_id.value = s1 + ' ' + s2 + ' ' + num1
+                console.log(s1+' '+s2+' '+num1)
+            }
         })
         .catch(err => console.log(err));
 
 })
 
-function repeatGenId () {
+function repeatGenId() {
 
     fetch('/slo/repeatGenId')
         .then(res => res.text())
@@ -318,7 +344,6 @@ faculty.addEventListener('click', function () {
 })
 
 
-
 function getCgsid(id) {
     fetch('/slo/getIdStart/' + id)
         .then(res => res.json())
@@ -340,11 +365,26 @@ function getStudentCount(id) {
         .then(res => res.json())
         .then(data => {
             console.log("course student count" + data);
+
             let last = data;
+
+
             console.log(last);
             lastNo = parseInt(last);
-            lastNo++;
-            console.log(lastNo)
+
+            if (lastNo > 1000) {
+                idBox.style.display = "none"
+                notifications_card.style.display = "block"
+                notification.textContent = " Please create a new course id range before continue "
+
+            } else {
+                idBox.style.display = "block"
+                notifications_card.style.display = "none"
+                notification.innerHTML = ''
+                lastNo++;
+                console.log(lastNo)
+            }
+
         })
 
 }
@@ -373,6 +413,11 @@ function group(id) {
 
             let std_code = d_code + '00' + ' ' + bt_code + b_code + ' ' + req_id
             console.log(std_code)
+
+            //new
+            //if(req_id<10000){
+            //  std_id.textContent = ' '+'0'+req_id;
+            //}
             std_id.textContent = ' ' + req_id;
             //  gen_id.value = std_code;
 

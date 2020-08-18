@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bfbb9643-2bfa-4b2e-9222-5f684e654824" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/com/student_req.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/com/student_req.js" afterDir="false" />
     </list>
@@ -126,47 +128,64 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="185" column="90" selection-start-line="185" selection-start-column="90" selection-end-line="185" selection-end-column="90" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="253" column="19" lean-forward="true" selection-start-line="253" selection-start-column="19" selection-end-line="253" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3528">
-              <caret line="147" selection-start-line="147" selection-end-line="147" />
-              <folding>
-                <element signature="e#48#76#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1488">
-              <caret line="71" column="28" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.46686566">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="346">
+                  <caret line="123" column="41" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="624">
+                  <caret line="26" column="41" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="2256">
+                  <caret line="104" selection-start-line="104" selection-end-line="104" />
+                  <folding>
+                    <element signature="e#48#76#0#PHP" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1488">
+                  <caret line="71" column="28" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="28" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="121">
+                  <caret line="411" column="11" selection-start-line="411" selection-start-column="11" selection-end-line="411" selection-end-column="11" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -182,6 +201,16 @@
       <find>gen_b</find>
       <find>gen_id</find>
       <find>std_t</find>
+      <find>std_id</find>
+      <find>gets</find>
+      <find>get</find>
+      <find>cgsid</find>
+      <find>getCg</find>
+      <find>course</find>
+      <find>courseStude</find>
+      <find>not</find>
+      <find>courseS</find>
+      <find>dep_code</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -216,12 +245,12 @@
         <option value="$PROJECT_DIR$/Modules/Slo/Providers/SloServiceProvider.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/StudentController.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Routes/web.php" />
-        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" />
         <option value="$PROJECT_DIR$/public/css/slo.css" />
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/layouts/master.blade.php" />
         <option value="$PROJECT_DIR$/public/dist/css/myStyle.css" />
-        <option value="$PROJECT_DIR$/public/js/com/student_req.js" />
+        <option value="$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php" />
         <option value="$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/com/student_req.js" />
       </list>
     </option>
   </component>
@@ -332,10 +361,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1358" />
-    <option name="y" value="-328" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -345,7 +374,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -416,6 +444,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -463,18 +492,18 @@
       <workItem from="1597609098934" duration="4219000" />
       <workItem from="1597634330762" duration="7327000" />
       <workItem from="1597674748494" duration="6939000" />
-      <workItem from="1597720071053" duration="2436000" />
+      <workItem from="1597720071053" duration="13765000" />
+      <workItem from="1597756733400" duration="610000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146146000" />
+    <option name="totallyTimeSpent" value="158085000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-328" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10714286" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15431164" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -489,7 +518,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49924356" visible="true" weight="0.14492753" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49924356" visible="true" weight="0.22222222" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.21880342" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.3296" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -863,13 +892,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1488">
-          <caret line="71" column="28" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/dist/css/myStyle.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -877,27 +899,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="123" column="41" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Modules/Slo/Http/Controllers/FetchController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3528">
-          <caret line="147" selection-start-line="147" selection-end-line="147" />
+        <state relative-caret-position="2256">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
           <folding>
             <element signature="e#48#76#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
+    <entry file="file://$PROJECT_DIR$/Modules/Slo/Routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="253" column="19" lean-forward="true" selection-start-line="253" selection-start-column="19" selection-end-line="253" selection-end-column="19" />
+        <state relative-caret-position="1488">
+          <caret line="71" column="28" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Modules/Slo/Resources/views/student/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/js/com/student_req.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="185" column="90" selection-start-line="185" selection-start-column="90" selection-end-line="185" selection-end-column="90" />
+        <state relative-caret-position="121">
+          <caret line="411" column="11" selection-start-line="411" selection-start-column="11" selection-end-line="411" selection-end-column="11" />
         </state>
       </provider>
     </entry>

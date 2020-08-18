@@ -116,7 +116,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-8 col-12">
-                <div class="info-box bg-gradient-info">
+                <div class="info-box bg-gradient-info" id="idBox">
                     <span class="info-box-icon"><i class="fas fa-fw fa-user-graduate "></i></span>
                     <div class="info-box-content">
             <span class="info-box-number">
@@ -133,7 +133,16 @@
                     </div>
                     <!-- /.info-box-content -->
                 </div>
-                <p id="noti"></p>
+
+                <div class="info-box bg-gradient-danger" id="notifications">
+                    <span class="info-box-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <div class="info-box-content">
+                        <span id="noti"></span>
+
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+
 
 
                 <!-- /.info-box -->
