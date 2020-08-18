@@ -183,7 +183,7 @@
                             <div class="col-md-7" align="right">
                                 <div id="genderContainer">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <button class="btn btn-secondary" id="gen_button" type="button" onclick="repeatGenId()">Generate Student Id
+                                        <button class="btn btn-secondary" id="gen_button"  type="button" onclick="repeatGenId()">Generate Student Id
                                         </button>
                                     </div>
 

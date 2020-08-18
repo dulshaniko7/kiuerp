@@ -21,6 +21,7 @@ let bt
 let b
 let qid
 
+gen_button.disabled = true;
 
 country.style.visibility = "hidden"
 
@@ -249,6 +250,7 @@ let idLast
 let title = document.querySelector('#std_title');
 
 title.addEventListener('click', function () {
+    gen_button.disabled = false
     console.log(d)
     console.log(bt)
     console.log(b)
