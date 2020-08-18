@@ -308,6 +308,14 @@ nic.addEventListener('click', function () {
 
 })
 
+let faculty = document.querySelector('#faculty_id');
+
+faculty.addEventListener('click', function () {
+    gen_button.style.visibility = 'hidden';
+
+})
+
+
 
 function getCgsid(id) {
     fetch('/slo/getIdStart/' + id)
