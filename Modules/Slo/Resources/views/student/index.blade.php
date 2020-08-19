@@ -29,7 +29,7 @@
 
             <td>
                 <div class="btn btn-outline-dark"><span class="fa fa-address-card"></span><a
-                        href=""> Edit</a></div>
+                        href="{{ route('register.edit',$s->student_id)}}"> Edit</a></div>
             </td>
         </tr>
         @endforeach

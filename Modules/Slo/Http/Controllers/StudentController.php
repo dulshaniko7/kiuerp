@@ -112,7 +112,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        return view('slo::edit');
+        $student = Student::find($id);
+        return view('slo::student.edit',compact('student'));
     }
 
     /**
@@ -123,7 +124,9 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = Student::find($id);
+
+
     }
 
     /**
