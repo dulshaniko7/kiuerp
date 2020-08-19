@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\App;
 use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
 use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\CourseRequirement;
 use Modules\Slo\Entities\CourseStudent;
 use Modules\Slo\Entities\IdRange;
 use Modules\Slo\Entities\Student;
@@ -150,6 +151,14 @@ class FetchController extends Controller
 
         // dd($last);
         return $lastId->cgsid;
+    }
+
+    public function getCourseRequirements($id)
+    {
+        $course = Course::find($id);
+        $reqs = CourseRequirement::where('course_id',$course->course_id)->orderBy('id')->get()->toArray();
+
+        return $reqs;
     }
 
 }

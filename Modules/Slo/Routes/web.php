@@ -72,7 +72,7 @@ Route::get('/slo/getStudentCount/{id}', 'FetchController@courseStudentCount');
 Route::get('/slo/group/{id}', 'FetchController@courseGroup');
 Route::get('/slo/repeatId', 'FetchController@repeatId');
 Route::get('/slo/repeatGenId', 'FetchController@repeatGenId');
-
+Route::get('/slo/getCourseRequirements/{id}', 'FetchController@getCourseRequirements');
 
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
 Route::get('/slo/transfers', 'BatchController@index')->name('transfers');

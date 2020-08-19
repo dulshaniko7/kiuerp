@@ -35,6 +35,7 @@
                                 <input type="text" class="form-control myDropdown" name="name_initials"
                                        id="name_initials"
                                        placeholder="Batch Name" value="{{$course->course_name}}">
+                                <input type="hidden" id="course_id" name="course_id" value="{{$course->course_id}}">
                             </div>
                         </div>
                         @endforeach
@@ -60,24 +61,7 @@
                         </div>
                     </div>
 
-                    <h6 id="req"><span class="fas fa-plus">Requirements</span></h6>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <h6 id="req"><span class="fas fa-plus"></span></h6><h6 id="newHtml">Requirements</h6></span>
 
 
                     <hr class="mt-1 mb-2">
