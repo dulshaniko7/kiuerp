@@ -250,10 +250,10 @@ class AdminLoginController extends Controller
      * Log the user out of the application.
      *
      * @param Request $request
-     * @param int $manual
+     * @param int $method
      * @return mixed
      */
-    public function logout(Request $request, $manual=1)
+    public function logout(Request $request, $method=1)
     {
         $adminLoginHistoryId = $request->session()->get("admin_login_history_id");
 
@@ -265,13 +265,13 @@ class AdminLoginController extends Controller
             }
         }
 
-        $this->recordLogOutActivity($adminLoginHistoryId, $manual);
+        $this->recordLogOutActivity($adminLoginHistoryId, $method);
 
         $this->guard()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        if($manual)
+        if($method)
         {
             $notify["status"]="success";
             $notify["notify"][]="You just signed out successfully.";
@@ -344,7 +344,7 @@ class AdminLoginController extends Controller
         }
     }
 
-    private function recordLogOutActivity($adminLoginHistoryId)
+    private function recordLogOutActivity($adminLoginHistoryId, $method)
     {
         if($adminLoginHistoryId!="")
         {
@@ -353,7 +353,7 @@ class AdminLoginController extends Controller
             if($lh)
             {
                 $lh->online_status = 0;
-                $lh->sign_out_type = 1; //manual sign out
+                $lh->sign_out_type = $method; //manual or auto sign out; manual:1, auto:0
                 $lh->sign_out_at = date("Y-m-d H:i:s", time());
 
                 $lh->save();
