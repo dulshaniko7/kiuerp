@@ -156,11 +156,23 @@ class FetchController extends Controller
     public function getCourseRequirements($id)
     {
         $course = Course::find($id);
-        $reqs = CourseRequirement::where('course_id',$course->course_id)->orderBy('id')->get()->toArray();
+        $reqs = CourseRequirement::where('course_id', $course->course_id)->orderBy('id')->get()->toArray();
 
         return $reqs;
     }
 
+    public function isNursing($id)
+    {
+        $course = Course::find($id);
+
+        $name = $course->course_name;
+
+
+        // dd($course->course_id);
+        // Course::where('course_name', 'like', '%' . 'nursing' . '%')->get();
+        //dd($name);
+        return $name;
+    }
 }
 
 

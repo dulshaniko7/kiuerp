@@ -126,7 +126,6 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
 
-
     }
 
     /**

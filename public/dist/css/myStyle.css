@@ -61,10 +61,10 @@
 .sub-title {
     text-align: center;
     font-family: 'Merriweather', serif;
-    font-size: 80px;
+    font-size: 50px;
     color: #33331a;
 
-    margin: 250px auto;
+    margin: 350px auto;
 }
 
 form input, textarea {

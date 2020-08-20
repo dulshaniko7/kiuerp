@@ -26,9 +26,9 @@
                                        placeholder="Batch Name" value="{{$student->name_initials}}">
                             </div>
                         </div>
-                        @foreach($student->courses as $course)
-
-
+                    </div>
+                    @foreach($student->courses as $course)
+                    <div class="row">
                         <div class="col-md-10">
                             <div class="form-group">
                                 <label for="batch_name">Course:</label>
@@ -36,10 +36,13 @@
                                        id="name_initials"
                                        placeholder="Batch Name" value="{{$course->course_name}}">
                                 <input type="hidden" id="course_id" name="course_id" value="{{$course->course_id}}">
+                                <input type="hidden" id="isNurse" name="isNurse" value="{{$course->course_id}}">
                             </div>
                         </div>
-                        @endforeach
                     </div>
+                    @endforeach
+                    <div id="nurseHtml"></div>
+
                     <div class="row">
                         <div class="col-md-10">
                             <div class="form-group">
@@ -49,6 +52,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-md-10">
                             <div class="form-group">
@@ -62,10 +66,29 @@
                     </div>
 
 
-                    <h2 class="mb-4 mt-4 text-secondary">Student Qualifications Section<span class="fas fa-plus ml-4"
-                                                                                             id="req"></span></h2>
+                    <h2 class="mb-4 mt-4 text-secondary">Qualifications Section<span
+                            class="fas fa-plus ml-4"
+                            id="req"></span></h2>
 
                     <div id="newHtml"></div>
+
+                    <h2 class="mb-4 mt-4 text-secondary">Contact Section<span
+                            class="fas fa-plus ml-4"
+                            id="con"></span></h2>
+
+                    <div id="newHtmlContact"></div>
+
+                    <h2 class="mb-4 mt-4 text-secondary">Emergency Contact Section<span
+                            class="fas fa-plus ml-4"
+                            id="emg"></span></h2>
+
+                    <div id="newHtmlEmg"></div>
+
+                    <h2 class="mb-4 mt-4 text-secondary">Special Requirements Section<span
+                            class="fas fa-plus ml-4"
+                            id="spe"></span></h2>
+
+                    <div id="newHtmlSpe"></div>
 
                     <hr class="mt-1 mb-2">
 
@@ -90,5 +113,6 @@
 </form>
 
 <script src="{{ asset('js/com/student_req2.js')}}"></script>
+<script src="{{ asset('js/com/student_req3.js')}}"></script>
 @endsection
 
