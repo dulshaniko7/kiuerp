@@ -84,7 +84,7 @@
                                                 <label for="working">Working Qualification</label>
                                                 <button type="button" id="add_work">+</button>
                                                 <table class="table table-bordered">
-                                                    @if(empty($courseReq->pro_req))
+                                                    @if(empty($courseReq->work_req))
                                                     @else
                                                     @foreach($courseReq->work_req as $r)
                                                     <tr>

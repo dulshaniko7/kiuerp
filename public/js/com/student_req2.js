@@ -38,45 +38,81 @@ req.addEventListener('click', function () {
             //  let groupStart = data;
 
             console.log(data[0]['edu_req'])
-            if (data[0]['edu_req'].length > 0) {
-                console.log("this is edu")
-                let html = '';
-                html += '<br> Educational Qualifications'
-                html += ' <input type="text" name="" class="form-control"> ';
-                $('#newHtml').append(html)
-            } else {
-                console.log("no edu")
+            console.log(data[0]['pro_req'])
+            console.log(data[0]['work_req'])
+            console.log(data[0]['ref_req'])
+            if (data[0]['edu_req'])
+                if (data[0]['edu_req'].length > 0) {
+                    for (i = 0; i < data[0]['edu_req'].length; i++) {
+                        console.log("this is edu")
+                        let html = '';
+                        html += '<div class="row">'
+                        html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">Educational Qualifications:</label>'
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Year"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="School"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Qualification Obtained"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Results"></div></div></div> '
+                        $('#newHtml').append(html)
+                    }
+                } else {
+                    console.log("no edu")
+                }
+            console.log("no new")
+
+            if (data[0]['pro_req']) {
+                if (data[0]['pro_req'].length > 0) {
+                    for (i = 0; i < data[0]['pro_req'].length; i++) {
+                        console.log("this is pro")
+                        let html = '';
+                        html += '<div class="row">'
+                        html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">Professional Qualifications:</label>'
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Year"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Institute"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Qualification Obtained"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Results"></div></div></div> '
+                        $('#newHtml').append(html)
+                    }
+                } else {
+                    console.log("no pro")
+                }
+                console.log("no new")
             }
 
-            if (data[0]['pro_req'].length > 0) {
-                console.log("this is pro")
-                let html = '';
-                html += 'Professional Qualification'
-                html += ' <input type="text" name="" class="form-control"> ';
-                $('#newHtml').append(html)
-            } else {
-                console.log("no pro")
-            }
+            if (data[0]['work_req'])
+                if (data[0]['work_req'].length > 0) {
+                    for (i = 0; i < data[0]['work_req'].length; i++) {
+                        console.log("this is work")
+                        let html = '';
+                        html += '<div class="row">'
+                        html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">Working Experience:</label>'
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Year"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Institute"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Qualification Obtained"> '
+                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Results"></div></div></div> '
+                        $('#newHtml').append(html)
+                    }
+                } else {
+                    console.log("no work")
+                }
+            console.log("no new")
 
-            if (data[0]['work_req'].length > 0) {
-                console.log("this is work")
-                let html = '';
-                html += 'Working Experiences'
-                html += ' <input type="text" name="" class="form-control"> ';
-                $('#req').append(html)
-            } else {
-                console.log("no work")
-            }
-
-            if (data[0]['pro_req'].length > 0) {
-                let html = '';
-                html += 'References'
-                html += ' <input type="text" name="" class="form-control"> ';
-                $('#req').append(html)
-            } else {
-                console.log("no ref")
+            if (data[0]['ref_req']) {
+                if (data[0]['ref_req'].length > 0) {
+                    for (i = 0; i < data[0]['ref_req'].length; i++) {
+                        let html = '';
+                        html += '<div class="row">'
+                        html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">References:</label>'
+                        html += ' <textarea  name="" class="form-control mb-2" rows="5" placeholder="Reference"></textarea> '
+                        html += '</div></div></div> '
+                        $('#newHtml').append(html)
+                    }
+                } else {
+                    console.log("no ref")
+                }
+                console.log('no new')
             }
         })
+
 })
 
 

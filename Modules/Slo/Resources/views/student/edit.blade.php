@@ -61,8 +61,11 @@
                         </div>
                     </div>
 
-                    <h6 id="req"><span class="fas fa-plus"></span></h6><h6 id="newHtml">Requirements</h6></span>
 
+                    <h2 class="mb-4 mt-4 text-secondary">Student Qualifications Section<span class="fas fa-plus ml-4"
+                                                                                             id="req"></span></h2>
+
+                    <div id="newHtml"></div>
 
                     <hr class="mt-1 mb-2">
 
@@ -75,8 +78,10 @@
                 </div>
 
 
-                <div class="con-right">
-                    hi
+                <div class="con-right bg-warning">
+                    <div class="sub-title text-center">
+                        Student Update
+                    </div>
                 </div>
             </div>
 

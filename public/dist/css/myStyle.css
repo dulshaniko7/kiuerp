@@ -1,22 +1,25 @@
-.behind{
+.behind {
     font-size: small !important;
 }
-.z{
+
+.z {
     font-size: small !important;
 }
-.myTitle{
+
+.myTitle {
     font-size: small !important;
 }
+
 .myDropdown {
 
     height: 35px !important;
 
 
-
     font-size: 14px !important;
 
 }
-.myTable{
+
+.myTable {
     font-size: 14px !important;
 
 }
@@ -24,28 +27,52 @@
 .myTable th {
 }
 
-.my_container{
+.my_container {
     display: grid;
-    grid-template-columns: repeat(12,1fr);
+    grid-template-columns: repeat(12, 1fr);
 }
-.con-left{
+
+.con-left {
     grid-column: 1/4;
 }
-.con-right{
-    grid-column: 11/13;
+
+.con-right {
+    grid-column: 10/13;
 }
-.con-middle{
-    grid-column: 4/11;
+
+.con-middle {
+    grid-column: 4/10;
 }
-.img-preview{
-border-radius: 20%;
+
+.img-preview {
+    border-radius: 20%;
     width: 200px;
     min-height: 50px;
 
     margin: 2px auto;
     display: none;
 }
-.img{
+
+.img {
 
 
+}
+
+.sub-title {
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    font-size: 80px;
+    color: #33331a;
+
+    margin: 250px auto;
+}
+
+form input, textarea {
+    height: 35px !important;
+
+    font-size: 14px !important;
+}
+
+form label {
+    color: #4f5962;
 }
