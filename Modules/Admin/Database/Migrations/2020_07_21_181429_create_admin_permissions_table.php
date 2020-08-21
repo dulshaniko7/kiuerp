@@ -23,8 +23,8 @@ class CreateAdminPermissionsTable extends Migration
             $table->unsignedSmallInteger("admin_perm_system_id");
             $table->unsignedInteger("system_perm_id");
             $table->unsignedTinyInteger("inv_rev_status")->comment("Invoked or revoked status; Invoked:1, Revoked:0");
-            $table->date("valid_from");
-            $table->date("valid_till");
+            $table->date("valid_from")->nullable();
+            $table->date("valid_till")->nullable();
 
             $table->foreign("admin_id")->references("admin_id")->on(Admin::class);
             $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on(AdminPermissionSystem::class);

@@ -49,6 +49,12 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/admin/delete/{id}','AdminController@delete')->name('admin.delete');
         Route::post('/admin/restore/{id}','AdminController@restore')->name('admin.restore');
         Route::post('/admin/search_data','AdminController@searchData')->name('admin.search.data');
+        Route::get('/admin/grant_permissions','AdminController@grantPermissions')->name('admin.grant.permissions');
+        Route::get('/admin/grant_permissions/{adminId}/{systemId}','AdminController@grantPermissions')->name('admin.grant.select');
+        Route::post('/admin/grant_permissions/{adminId}/{systemId}','AdminController@grantRevokeSubmit')->name('admin.grant.submit');
+        Route::get('/admin/revoke_permissions','AdminController@revokePermissions')->name('admin.revoke.permissions');
+        Route::get('/admin/revoke_permissions/{adminId}/{systemId}','AdminController@revokePermissions')->name('admin.revoke.select');
+        Route::post('/admin/revoke_permissions/{adminId}/{systemId}','AdminController@grantRevokeSubmit')->name('admin.revoke.submit');
 
         Route::get('/admin_role','AdminRoleController@index')->name('admin_role.index');
         Route::post('/admin_role','AdminRoleController@index')->name('admin_role.fetch');
@@ -80,8 +86,8 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::post('/admin_permission_system/restore/{id}','AdminPermissionSystemController@restore')->name('admin_permission_system.restore');
         Route::post('/admin_permission_system/search_data','AdminPermissionSystemController@searchData')->name('admin_permission_system.search.data');
         Route::get('/admin_permission_system/import_permissions','AdminPermissionSystemController@importPermissions')->name('admin_permission_system.import');
-        Route::get('/admin_permission_system/import_permissions/{system}','AdminPermissionSystemController@importPermissions')->name('admin_permission_system.import.system');
-        Route::post('/admin_permission_system/import_permissions/{system}','AdminPermissionSystemController@importSubmit')->name('admin_permission_system.import.system');
+        Route::get('/admin_permission_system/import_permissions/{system}','AdminPermissionSystemController@importPermissions')->name('admin_permission_system.import.select');
+        Route::post('/admin_permission_system/import_permissions/{system}','AdminPermissionSystemController@importSubmit')->name('admin_permission_system.import.submit');
 
         Route::get('/admin_permission_module/{admin_perm_system_id}','AdminPermissionModuleController@index')->name('admin_permission_module.index');
         Route::post('/admin_permission_module/{admin_perm_system_id}','AdminPermissionModuleController@index')->name('admin_permission_module.fetch');

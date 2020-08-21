@@ -30,6 +30,8 @@
                                 <a class="dropdown-item" href="/admin/admin/create">Add New System Administrators</a>
                                 <a class="dropdown-item" href="/admin/admin">List System Administrators</a>
                                 <a class="dropdown-item" href="/admin/admin/trash">List System Administrators in Trash</a>
+                                <a class="dropdown-item" href="/admin/admin/grant_permissions">Grant Permissions To Administrators</a>
+                                <a class="dropdown-item" href="/admin/admin/revoke_permissions">Revoke Permissions From Administrators</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

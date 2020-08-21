@@ -4,8 +4,8 @@ $groups = [];
 $permGroup = [];
 $permGroup["name"] = "Administrator Manager";
 $permGroup["slug"] = "admin";
-$permGroup["permissions"][]=["action"=>"/admin/admin", "name"=>"List Faculties"];
-$permGroup["permissions"][]=["action"=>"/admin/admin/trash", "name"=>"List Faculties in Trash"];
+$permGroup["permissions"][]=["action"=>"/admin/admin", "name"=>"List Administrators"];
+$permGroup["permissions"][]=["action"=>"/admin/admin/trash", "name"=>"List Administrators in Trash"];
 $permGroup["permissions"][]=["action"=>"/admin/admin/create", "name"=>"Add New Administrator"];
 $permGroup["permissions"][]=["action"=>"/admin/admin/edit", "name"=>"Edit Administrator"];
 $permGroup["permissions"][]=["action"=>"/admin/admin/view", "name"=>"View Administrator"];
@@ -13,6 +13,8 @@ $permGroup["permissions"][]=["action"=>"/admin/admin/activate", "name"=>"Activat
 $permGroup["permissions"][]=["action"=>"/admin/admin/deactivate", "name"=>"Deactivate Administrator"];
 $permGroup["permissions"][]=["action"=>"/admin/admin/delete", "name"=>"Move To Administrator Trash"];
 $permGroup["permissions"][]=["action"=>"/admin/admin/restore", "name"=>"Restore From Administrator Trash"];
+$permGroup["permissions"][]=["action"=>"/admin/admin/grant_permissions", "name"=>"Grant Permissions To Administrators"];
+$permGroup["permissions"][]=["action"=>"/admin/admin/revoke_permissions", "name"=>"Revoke Permissions Of Administrators"];
 
 $groups[]=$permGroup;
 
@@ -46,6 +48,7 @@ $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/activate"
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/deactivate", "name"=>"Deactivate Admin Permission System"];
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/delete", "name"=>"Move To Admin Permission Systems Trash"];
 $permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/restore", "name"=>"Restore From Admin Permission Systems Trash"];
+$permGroup["permissions"][]=["action"=>"/admin/admin_permission_system/import_permissions", "name"=>"Bulk Import Permissions To The System"];
 
 $groups[]=$permGroup;
 

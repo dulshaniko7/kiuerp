@@ -132,7 +132,7 @@ window.validateSession = function()
 
             }
         });
-    }, 5000);
+    }, timeSecs);
 }
 
 $(document).ready(function(){

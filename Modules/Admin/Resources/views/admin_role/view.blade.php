@@ -126,7 +126,7 @@
                                                                                         <div class="input-group">
                                                                                             <div class="input-group-prepend">
                                                                                                 <span class="input-group-text custom-control custom-checkbox">
-                                                                                                    <input class="custom-control-input"  type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey; ?>_checked" value="1">
+                                                                                                    <input class="custom-control-input" type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey; ?>_checked" value="1">
                                                                                                     <label class="custom-control-label perm-cb-label"></label>
                                                                                                 </span>
                                                                                             </div>
@@ -166,7 +166,7 @@
                                                                                                         <div class="input-group">
                                                                                                             <div class="input-group-prepend">
                                                                                                                 <span class="input-group-text custom-control custom-checkbox">
-                                                                                                                    <input class="custom-control-input"  type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey."_".$groupKey; ?>_checked" value="1">
+                                                                                                                    <input class="custom-control-input" type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey."_".$groupKey; ?>_checked" value="1">
                                                                                                                     <label class="custom-control-label perm-cb-label"></label>
                                                                                                                 </span>
                                                                                                             </div>
@@ -211,7 +211,7 @@
                                                                                                                         <div class="input-group mb-3">
                                                                                                                             <div class="input-group-prepend">
                                                                                                                                 <span class="input-group-text custom-control custom-checkbox">
-                                                                                                                                    <input class="custom-control-input"  type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey."_".$groupKey."_".$permKey; ?>_checked" value="1" <?php echo $checked; ?> class="perm_<?php echo $systemId; ?>_<?php echo $permId; ?>_checked">
+                                                                                                                                    <input class="custom-control-input" type="checkbox" name="<?php echo $systemId; ?>_<?php echo $modKey."_".$groupKey."_".$permKey; ?>_checked" value="1" <?php echo $checked; ?> class="perm_<?php echo $systemId; ?>_<?php echo $permId; ?>_checked">
                                                                                                                                     <label class="custom-control-label perm-cb-label"></label>
                                                                                                                                 </span>
                                                                                                                             </div>

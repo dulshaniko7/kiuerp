@@ -149,7 +149,6 @@
         <input type="hidden" name="admin_role_id" value="<?php echo $record["admin_role_id"]; ?>">
     </form>
 
-
     <?php
     $admin_role_id = [];
     if(isset($record["admin_role"]))
@@ -158,6 +157,7 @@
     }
     ?>
     <script>
+        let admin_role_id_ms = null;
         window.onload = function()
         {
             submitCreateForm();

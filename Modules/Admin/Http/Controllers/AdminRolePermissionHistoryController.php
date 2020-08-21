@@ -82,7 +82,7 @@ class AdminRolePermissionHistoryController extends Controller
 
             $this->repository->setPageTitle($adminRole["role_name"]." | Changed Permissions");
 
-            $record = $model->toArray();
+            $record = $model;
 
             $urls = [];
             $urls["listUrl"]=URL::to("admin/admin_role_permission_history/".$record["admin_role_id"]);

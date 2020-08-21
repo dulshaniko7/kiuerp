@@ -126,11 +126,11 @@ class AdminSystemPermissionController extends Controller
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
 
             $model = new AdminSystemPermission();
-            $model->permissionGroup = $permissionGroup;
+            $model->permission_group = $permissionGroup;
             $model->permissionModule = $permissionModule;
             $model->permissionSystem = $permissionSystem;
 
-            $record = $model->toArray();
+            $record = $model;
 
             $formMode = "add";
             $formSubmitUrl = "/".request()->path();
@@ -229,11 +229,10 @@ class AdminSystemPermissionController extends Controller
         if($model)
         {
             $model = $this->repository->getValidatedData($model, [
-                "admin_perm_group_id" => "required|exists:admin_permission_groups,admin_perm_group_id",
                 "permission_title" => "required|min:3",
                 "permission_action" => "required|min:3",
                 "permission_status" => "required|digits:1",
-            ], [], ["admin_perm_group_id" => "Group name", "permission_title" => "Permission title", "permission_action" => "Permission action"]);
+            ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action"]);
 
             if($this->repository->isValidData)
             {

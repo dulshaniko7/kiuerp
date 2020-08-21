@@ -10,13 +10,19 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Modules\Admin\Entities\AdminPermissionSystem;
+use Modules\Admin\Entities\AdminRolePermission;
+use Modules\Admin\Repositories\AdminPermissionSystemRepository;
 use Modules\Admin\Repositories\AdminRepository;
 use Modules\Admin\Entities\Admin;
+use Modules\Admin\Repositories\AdminRoleRepository;
+use Modules\Admin\Services\Permission;
 
 class AdminController extends Controller
 {
     private $repository = null;
     private $trash = false;
+    private $invRevStatus = 1;
 
     public function __construct()
     {
@@ -33,7 +39,7 @@ class AdminController extends Controller
 
         $this->repository->initDatatable(new Admin());
 
-        $this->repository->setColumns("id", "name", "admin_role", "status", "created_at", "updated_at")
+        $this->repository->setColumns("id", "name", "email", "admin_role", "status", "created_at", "updated_at")
             ->setColumnLabel("name", "Admin")
             ->setColumnLabel("status", "Status")
             ->setColumnDisplay("status", array($this->repository, 'display_status_as'))
@@ -336,5 +342,104 @@ class AdminController extends Controller
         }
 
         abort("403", "You are not allowed to access this data");
+    }
+
+    /**
+     * @param string $adminId
+     * @param string $systemId
+     * @return Factory|View
+     */
+    public function grantPermissions($adminId="", $systemId="")
+    {
+        $formSubmitUrl = "/".request()->path();
+
+        if($adminId != "" && $systemId != "")
+        {
+            $admin = Admin::find($adminId);
+
+            $permissionSystem = AdminPermissionSystem::find($systemId);
+
+            if($permissionSystem)
+            {
+                $invRevStatus = $this->invRevStatus;
+
+                $aPSRepo = new AdminPermissionSystemRepository();
+                $permissionModules = $permissionSystem->permissionModules()->get()->toArray();
+                $systemPermissions = $aPSRepo->getSystemPermissionModules($permissionModules);
+
+                $permissionSystem = $permissionSystem->toArray();
+                $permissionSystem["modules"] = $systemPermissions;
+
+                $adminPermissions = AdminRepository::getPermissionData($adminId, $systemId);
+                $adminPermissions = AdminRepository::getPermissionDataExtract($adminPermissions, $invRevStatus);
+                $adminRolePermissions = AdminRoleRepository::getPermissionData($admin->admin_role_id, $systemId);
+
+                return view("admin::admin.grant", compact('formSubmitUrl', 'admin', 'permissionSystem', 'adminPermissions', 'adminRolePermissions', 'invRevStatus'));
+            }
+            else
+            {
+                $response["status"]="failed";
+                $response["notify"][]="Please select both admin & system to proceed with the permission management.";
+
+                $this->repository->handleResponse($response, false);
+
+                $del = "/";
+                $formSubmitUrl = explode($del, $formSubmitUrl);
+                array_pop($formSubmitUrl); //removes $systemId
+                array_pop($formSubmitUrl); //removes $adminId
+                $formSubmitUrl = implode($del, $formSubmitUrl);
+
+                $permSystems = AdminPermissionSystem::query()->get()->toArray();
+                return view("admin::admin.permission_select", compact('formSubmitUrl', 'admin', 'permSystems'));
+            }
+        }
+        else
+        {
+            $permSystems = AdminPermissionSystem::query()->get()->toArray();
+            return view("admin::admin.permission_select", compact('formSubmitUrl', 'permSystems'));
+        }
+    }
+
+    /**
+     * @param string $adminId
+     * @param string $systemId
+     * @return Factory|View
+     */
+    public function revokePermissions($adminId="", $systemId="")
+    {
+        $this->invRevStatus = 0;
+        return $this->grantPermissions($adminId, $systemId);
+    }
+
+    /**
+     * @param string $adminId
+     * @param string $systemId
+     * @return Factory|View
+     */
+    public function grantRevokeSubmit($adminId="", $systemId="")
+    {
+        if($adminId != "" && $systemId != "")
+        {
+            $admin = Admin::find($adminId);
+            $permissionSystem = AdminPermissionSystem::find($systemId);
+
+            if($admin && $permissionSystem)
+            {
+                $invRevStatus = request()->post("inv_rev_status");
+                $response = $this->repository->updatePermission($adminId, $admin->admin_role_id, $systemId, $invRevStatus);
+            }
+            else
+            {
+                $response["status"]="failed";
+                $response["notify"][]="Please select a system before import.";
+            }
+        }
+        else
+        {
+            $response["status"]="failed";
+            $response["notify"][]="Please select a system before import.";
+        }
+
+        return $this->repository->handleResponse($response);
     }
 }

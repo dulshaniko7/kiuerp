@@ -29,15 +29,17 @@ class AdminRepository extends BaseRepository
     /**
      * Update admin permissions
      * @param int $adminId
-     * @param int $inv_rev_status
+     * @param int $systemId
+     * @param int $invRevStatus
      */
-    public static function updatePermission($adminId, $inv_rev_status)
+    public static function updatePermission($adminId, $adminRoleId, $systemId, $invRevStatus)
     {
         $systemsPermissions = Permission::getPermissionFormData();
+        $adminRolePermissions = AdminRoleRepository::getPermissionData($adminRoleId, $systemId);
 
         $data = array();
         $data["admin_id"] = $adminId;
-        $data["inv_rev_status"] = $inv_rev_status;
+        $data["inv_rev_status"] = $invRevStatus;
 
         $valid_from = request()->post("valid_from");
         $valid_till = request()->post("valid_till");
@@ -52,34 +54,66 @@ class AdminRepository extends BaseRepository
         $updatedPermissions = array();
         $resetPermissions = array();
 
+        $permChangeDetected = [];
+
         if(is_array($systemsPermissions) && count($systemsPermissions)>0)
         {
-            foreach ($systemsPermissions as $systemId => $permissions)
+            foreach ($systemsPermissions as $sysId => $permissions)
             {
-                $data["admin_perm_system_id"]=$systemId;
-                $systems[]=$systemId;
-
-                if(is_array($permissions) && count($permissions)>0)
+                $permChangeDetected[$systemId] = false;
+                if($systemId == $sysId)
                 {
-                    foreach ($permissions as $permId => $permission)
-                    {
-                        $prevStatus= $permission["prevStatus"];
-                        $newStatus = $permission["newStatus"];
+                    $data["admin_perm_system_id"]=$systemId;
+                    $systems[]=$systemId;
 
-                        if($prevStatus != $newStatus)
+                    if(is_array($permissions) && count($permissions)>0)
+                    {
+                        foreach ($permissions as $key => $permission)
                         {
-                            if($newStatus == "1")
+                            $permId= $permission["perm_id"];
+                            $prevStatus= $permission["prev_tatus"];
+                            $newStatus = $permission["new_status"];
+
+                            if($prevStatus != $newStatus)
                             {
-                                $updatedPermissions[$systemId][]=$permId;
-                                $data["system_perm_id"]=$permId;
-                                AdminPermission::updateOrCreate(["admin_id" => $adminId, "admin_perm_system_id" => $systemId, "system_perm_id" => $permId], $data);
-                            }
-                            else
-                            {
-                                $resetPermissions[$systemId][]=$permId;
-                                AdminPermission::query()->where("admin_id", "=", $adminId)
-                                                        ->where("admin_perm_system_id", "=", $systemId)
-                                                        ->where("system_perm_id", "=", $permId)->delete();
+                                $permChangeDetected[$systemId] = true;
+                                if($newStatus == "1" || $newStatus == "0")
+                                {
+                                    $updatedPermissions[$systemId][]=$permId;
+                                    $data["system_perm_id"]=$permId;
+                                    AdminPermission::updateOrCreate(["admin_id" => $adminId, "admin_perm_system_id" => $systemId, "system_perm_id" => $permId, "inv_rev_status" => $invRevStatus], $data);
+                                }
+                                else
+                                {
+                                    if($newStatus == "1")
+                                    {
+                                        if(in_array($permId, $adminRolePermissions))
+                                        {
+                                            //this is not permission grant reverse
+                                            //this means it's inherited from admin role
+                                        }
+                                        else
+                                        {
+                                            $resetPermissions[$systemId][]=$permId;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if(!in_array($permId, $adminRolePermissions))
+                                        {
+                                            //this is not permission revoke reverse
+                                            //this means it's inherited from admin role
+                                        }
+                                        else
+                                        {
+                                            $resetPermissions[$systemId][]=$permId;
+                                        }
+                                    }
+
+                                    AdminPermission::query()->where("admin_id", "=", $adminId)
+                                        ->where("admin_perm_system_id", "=", $systemId)
+                                        ->where("system_perm_id", "=", $permId)->delete();
+                                }
                             }
                         }
                     }
@@ -87,7 +121,7 @@ class AdminRepository extends BaseRepository
             }
         }
 
-        if($inv_rev_status == "1")
+        if($invRevStatus == "1")
         {
             $invokedPermissions = $updatedPermissions;
             $revokedPermissions = $resetPermissions;
@@ -117,7 +151,7 @@ class AdminRepository extends BaseRepository
                     $revPerms = $revokedPermissions[$systemId];
                 }
 
-                if(count($invPerms)>0 || count($revPerms)>0)
+                if(count($invPerms)>0 || count($revPerms)>0 || $permChangeDetected[$systemId])
                 {
                     $data["admin_perm_system_id"] = $systemId;
                     $data["invoked_permissions"] = $invPerms;
@@ -126,7 +160,25 @@ class AdminRepository extends BaseRepository
                     AdminPermissionHistory::create($data);
                 }
             }
+
+            if(count($permChangeDetected)>0)
+            {
+                $response["status"]="success";
+                $response["notify"][]="Successfully saved the details.";
+            }
+            else
+            {
+                $response["status"]="failed";
+                $response["notify"][]="Details saving was failed. No any permission change detected.";
+            }
         }
+        else
+        {
+            $response["status"]="failed";
+            $response["notify"][]="Details saving was failed. No any permission change detected.";
+        }
+
+        return $response;
     }
 
     /**
@@ -140,10 +192,17 @@ class AdminRepository extends BaseRepository
         $date = date("Y-m-d", time());
         $results = AdminPermission::query()
             ->select("admin_perm_system_id","system_perm_id", "inv_rev_status")
-            ->where(["adminId" => $adminId, "admin_perm_system_id" => $systemId])
-            ->where("valid_from", "<=", $date)
-            ->where("valid_till", ">=", $date)
-            ->get()->toArray();
+            ->where(["admin_id" => $adminId, "admin_perm_system_id" => $systemId])
+            ->where(function ($query) use($date) {
+
+                $query->where(function ($query) use($date) {
+
+                    $query->where("valid_from", "<=", $date)->where("valid_till", ">=", $date);
+                })->orWhere(function ($query) use($date) {
+
+                    $query->where(["valid_from" => null, "valid_till" => null]);
+                });
+            })->get()->toArray();
 
         $data = array();
         if($results)
@@ -153,6 +212,32 @@ class AdminRepository extends BaseRepository
                 foreach ($results as $result)
                 {
                     $data[] = $result;
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Extract permission data of a specific system
+     * @param array $permissions
+     * @param int $invRevStatus
+     * @return array
+     */
+    public static function getPermissionDataExtract($permissions, $invRevStatus)
+    {
+        $data = [];
+        if($permissions)
+        {
+            if(is_array($permissions) && count($permissions)>0)
+            {
+                foreach ($permissions as $permission)
+                {
+                    if($permission["inv_rev_status"] == $invRevStatus)
+                    {
+                        $data[]=$permission["system_perm_id"];
+                    }
                 }
             }
         }

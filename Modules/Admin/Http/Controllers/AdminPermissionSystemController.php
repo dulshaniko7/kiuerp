@@ -379,7 +379,7 @@ class AdminPermissionSystemController extends Controller
                 array_pop($formSubmitUrl);
                 $formSubmitUrl = implode($del, $formSubmitUrl);
 
-                $permSystems = AdminPermissionSystem::query()->get();
+                $permSystems = AdminPermissionSystem::query()->get()->toArray();
                 return view("admin::admin_perm_system.import_select", compact('formSubmitUrl', 'permSystems'));
             }
         }
