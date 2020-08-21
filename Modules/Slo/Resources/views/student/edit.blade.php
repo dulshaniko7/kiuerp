@@ -1,7 +1,8 @@
 @extends('slo::layouts.master')
 @section('content')
 
-<form class="form-label-left input_mask" action="" id="create_form" method="post">
+<form class="form-label-left input_mask" action="{{route('register.update',$student->student_id)}}" id="add_form"
+      method="post">
     @csrf
     <input type="hidden" name="_method" value="PUT">
     <div class="card">
@@ -24,6 +25,7 @@
                                 <input type="text" class="form-control myDropdown" name="name_initials"
                                        id="name_initials"
                                        placeholder="Batch Name" value="{{$student->name_initials}}">
+                                <input type="text" id="student_id" name="student_id" value="{{$student->student_id}}">
                             </div>
                         </div>
                     </div>
@@ -34,15 +36,43 @@
                                 <label for="batch_name">Course:</label>
                                 <input type="text" class="form-control myDropdown" name="name_initials"
                                        id="name_initials"
-                                       placeholder="Batch Name" value="{{$course->course_name}}">
+                                       placeholder="Course Name" value="{{$course->course_name}}">
                                 <input type="hidden" id="course_id" name="course_id" value="{{$course->course_id}}">
-                                <input type="hidden" id="isNurse" name="isNurse" value="{{$course->course_id}}">
+
                             </div>
                         </div>
                     </div>
                     @endforeach
                     <div id="nurseHtml"></div>
+                    <input type="hidden" id="isNurse" value="">
 
+                    <div id="nurse">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="batch_name">Hospital:</label>
+                                    @include('slo::partials.Hospital.dropdown')
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <input type="text" class="form-control myDropdown" name="" id="" placeholder="Ward">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <input type="text" class="form-control myDropdown" name="" id="" placeholder="NTS">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-10">
                             <div class="form-group">
@@ -65,6 +95,10 @@
                         </div>
                     </div>
 
+
+                    <input type="text" id="year1" value="">
+                    <button id="getQ">Get Q</button>
+                    <button id="getYear">Get year</button>
 
                     <h2 class="mb-4 mt-4 text-secondary">Qualifications Section<span
                             class="fas fa-plus ml-4"
@@ -114,5 +148,6 @@
 
 <script src="{{ asset('js/com/student_req2.js')}}"></script>
 <script src="{{ asset('js/com/student_req3.js')}}"></script>
+<script src="{{ asset('js/com/student_req4.js')}}"></script>
 @endsection
 

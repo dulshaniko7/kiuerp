@@ -12,6 +12,7 @@ use Modules\Slo\Entities\Batch;
 use Modules\Slo\Entities\CourseRequirement;
 use Modules\Slo\Entities\CourseStudent;
 use Modules\Slo\Entities\IdRange;
+use Modules\Slo\Entities\StdQualification;
 use Modules\Slo\Entities\Student;
 use function MongoDB\BSON\toJSON;
 
@@ -172,6 +173,21 @@ class FetchController extends Controller
         // Course::where('course_name', 'like', '%' . 'nursing' . '%')->get();
         //dd($name);
         return $name;
+    }
+
+    public function addQualification(Request $request)
+    {
+
+
+        $qualification = new StdQualification();
+        $qualification->year = $request->year;
+        $qualification->school = $request->school;
+        $qualification->qualification = $request->qualification;
+        $qualification->results = $request->results;
+        $qualification->student_id = $request->input('student_id');
+
+        $qualification->save();
+
     }
 }
 

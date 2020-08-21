@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
 use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\CourseRequirement;
+use Modules\Slo\Entities\StdQualification;
 use Modules\Slo\Entities\StdRegister;
 use Modules\Slo\Entities\Student;
 
@@ -113,7 +115,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
-        return view('slo::student.edit',compact('student'));
+        return view('slo::student.edit', compact('student'));
     }
 
     /**
@@ -125,7 +127,39 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $student = Student::find($id);
+        $student->date_of_birth = $request->date_of_birth;
+        $student->nationality = $request->nationality;
+        $student->update($request->only('date_of_birth', 'nationality'));
 
+        // get the course
+        $course_id = $request->course_id;
+        $course = Course::find($course_id);
+        $reqs = CourseRequirement::where('course_id', $course_id)->get()->pluck('edu_req');
+        // dd(count($reqs[0]));
+        $eduCount = count($reqs[0]);
+       // dd($eduCount);
+        $qualification = new StdQualification();
+        $qualification->year = $request->year;
+        $qualification->school = $request->school;
+        $qualification->qualification = $request->qualification;
+        $qualification->results = $request->results;
+        $qualification->student_id = $request->input('student_id');
+
+        $qualification->save();
+
+        return redirect()->route('index');
+
+/*
+        $qualification = new StdQualification();
+        $qualification->year = $request->year;
+        $qualification->school = $request->school;
+        $qualification->qualification = $request->qualification;
+        $qualification->results = $request->results;
+        $qualification->student_id = $student->student_id;
+        $qualification->save();
+
+        return redirect()->route('index');
+*/
     }
 
     /**

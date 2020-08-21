@@ -12,7 +12,7 @@
 */
 
 Route::prefix('slo')->group(function () {
-    Route::get('/', 'SloController@index');
+    Route::get('/', 'SloController@index')->name('index');
 
 });
 
@@ -56,7 +56,12 @@ Route::get('/slo/studentRegisters', 'StudentController@index')->name('register.i
 Route::get('/slo/studentRegister', 'StudentController@create')->name('register.create');
 Route::post('/slo/studentRegister', 'StudentController@store')->name('register.store');
 Route::get('/slo/studentRegister/{id}/edit', 'StudentController@edit')->name('register.edit');
-//Route::post('/slo/studentRegister', 'StudentController@store')->name('register.store');
+Route::put('/slo/studentRegister/{id}', 'StudentController@update')->name('register.update');
+
+Route::get('/slo/hospitals', 'HospitalController@index')->name('hospital.index');
+Route::get('/slo/hospital', 'HospitalController@create')->name('hospital.create');
+Route::post('/slo/hospital', 'HospitalController@store')->name('hospital.store');
+
 
 
 //ajax routes
@@ -74,6 +79,7 @@ Route::get('/slo/repeatId', 'FetchController@repeatId');
 Route::get('/slo/repeatGenId', 'FetchController@repeatGenId');
 Route::get('/slo/getCourseRequirements/{id}', 'FetchController@getCourseRequirements');
 Route::get('/slo/isNursing/{id}', 'FetchController@isNursing');
+Route::post('/slo/addQualification', 'FetchController@addQualification');
 
 Route::get('/slo/attendances', 'AttendenceController@index')->name('attendances');
 Route::get('/slo/transfers', 'BatchController@index')->name('transfers');

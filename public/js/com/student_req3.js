@@ -1,9 +1,12 @@
 const con = document.querySelector('#con');
 const emg = document.querySelector('#emg');
 const spe = document.querySelector('#spe');
+const isNurse = document.querySelector('#isNurse')
+const nurse = document.querySelector('#nurse')
 
 $(document).ready(function () {
     id = parseInt(course_id);
+    showNurse()
 
     fetch('/slo/isNursing/' + id)
         .then(res => res.text())
@@ -12,9 +15,11 @@ $(document).ready(function () {
             let str = data
             if (str.match(/^.*Nursing.*$/)) {
                 console.log("nursing")
-                $('#nurseHtml').append(html)
+                // $('#nurseHtml').append(html)
+                isNurse.value = 'yes'
             } else {
                 console.log('no nursing')
+                isNurse.value = ''
             }
         })
         .catch(err => console.log(err));
@@ -35,6 +40,14 @@ spe.addEventListener('click', function () {
     spe.style.visibility = 'hidden'
     $('#newHtmlSpe').append(htmlSpe)
 })
+
+function showNurse() {
+    if (isNurse.value == 'yes') {
+        nurse.style.display = 'block'
+    } else {
+        nurse.style.display = 'none'
+    }
+}
 
 let htmlSpe = ''
 htmlSpe += '<div class="row">'
@@ -58,7 +71,6 @@ htmlSpe += '<div class="row">'
 htmlSpe += '<div class="col-md-10"><div class="form-group">'
 htmlSpe += '<input class="form-control myDropdown" name="host" id="" placeholder="Hostel">'
 htmlSpe += '</div></div></div>'
-
 
 
 let htmlEmg = ''
@@ -143,6 +155,12 @@ let html = ''
 html += '<div class="row">'
 html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">Details:</label>'
 html += '<input type="text" class="form-control myDropdown" name="" id="" placeholder="Hospital">'
+html += '<select class="form-control " name="hospital_id" id="hospital_id" required>'
+html += '<option>Select Hospital</option>'
+html += '@foreach($hospitals as $h)'
+html += '<option value="{{$h->gen_hospital_id}}">{{$h->hospital_name}}</option>'
+html += '@endforeach'
+html += '</select>'
 html += '</div></div></div>'
 html += '<div class="row">'
 html += '<div class="col-md-10"><div class="form-group">'

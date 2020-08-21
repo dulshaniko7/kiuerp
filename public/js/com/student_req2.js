@@ -2,10 +2,16 @@ const file = document.querySelector('#image')
 const container = document.querySelector('#img');
 const preview = document.querySelector('#preview');
 const text = document.querySelector('#text');
+let getQ = document.querySelector('#getQ');
 
 const course = document.querySelector('#course_id')
-
+const student = document.querySelector('#student_id')
 let course_id = course.value;
+let student_id = student.value;
+
+let year = document.querySelector('#year1')
+let getYear = document.querySelector('#getYear')
+
 console.log(course_id)
 const req = document.querySelector('#req');
 
@@ -26,17 +32,25 @@ file.addEventListener("change", function () {
     }
 })
 
+let y
+
+
 req.addEventListener('click', function () {
     id = parseInt(course_id);
     req.style.visibility = 'hidden'
+    sid = parseInt(student_id)
 
 
+    //
     fetch('/slo/getCourseRequirements/' + id)
         .then(res => res.json())
         .then(data => {
             console.log(' requirements' + data)
             //  let groupStart = data;
+            console.log()
 
+
+            console.log(sid)
             console.log(data[0]['edu_req'])
             console.log(data[0]['pro_req'])
             console.log(data[0]['work_req'])
@@ -48,11 +62,13 @@ req.addEventListener('click', function () {
                         let html = '';
                         html += '<div class="row">'
                         html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">Educational Qualifications:</label>'
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Year"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="School"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Qualification Obtained"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Results"></div></div></div> '
+                        html += ' <input type="text" name="year" class="form-control mb-2" id="year" placeholder="Year"> '
+                        html += ' <input type="text" name="school" class="form-control mb-2" placeholder="School"> '
+                        html += ' <input type="text" name="qualification" class="form-control mb-2" placeholder="Qualification Obtained"> '
+                        html += ' <input type="text" name="results" class="form-control mb-2" placeholder="Results"></div></div></div> '
                         $('#newHtml').append(html)
+                        let year2 = document.querySelector('#year')
+                        y = year2.value;
                     }
                 } else {
                     console.log("no edu")
@@ -66,10 +82,10 @@ req.addEventListener('click', function () {
                         let html = '';
                         html += '<div class="row">'
                         html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">Professional Qualifications:</label>'
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Year"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Institute"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Qualification Obtained"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Results"></div></div></div> '
+                        html += ' <input type="text" name="year" class="form-control mb-2" placeholder="Year"> '
+                        html += ' <input type="text" name="school" class="form-control mb-2" placeholder="Institute"> '
+                        html += ' <input type="text" name="qualification" class="form-control mb-2" placeholder="Qualification Obtained"> '
+                        html += ' <input type="text" name="results" class="form-control mb-2" placeholder="Results"></div></div></div> '
                         $('#newHtml').append(html)
                     }
                 } else {
@@ -85,10 +101,10 @@ req.addEventListener('click', function () {
                         let html = '';
                         html += '<div class="row">'
                         html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">Working Experience:</label>'
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Year"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Institute"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Qualification Obtained"> '
-                        html += ' <input type="text" name="" class="form-control mb-2" placeholder="Results"></div></div></div> '
+                        html += ' <input type="text" name="year" class="form-control mb-2" placeholder="Year"> '
+                        html += ' <input type="text" name="school" class="form-control mb-2" placeholder="Institute"> '
+                        html += ' <input type="text" name="qualification" class="form-control mb-2" placeholder="Qualification Obtained"> '
+                        html += ' <input type="text" name="results" class="form-control mb-2" placeholder="Results"></div></div></div> '
                         $('#newHtml').append(html)
                     }
                 } else {
@@ -102,7 +118,10 @@ req.addEventListener('click', function () {
                         let html = '';
                         html += '<div class="row">'
                         html += '<div class="col-md-10"><div class="form-group"><label for="qualifications">References:</label>'
-                        html += ' <textarea  name="" class="form-control mb-2" rows="5" placeholder="Reference"></textarea> '
+                        html += ' <textarea  name="qualification" class="form-control mb-2" rows="5" placeholder="Reference"></textarea> '
+                        html += '<input type="hidden" name="year" class="form-control mb-2" placeholder="Year">'
+                        html += '<input type="hidden" name="school" class="form-control mb-2" placeholder="Year">'
+                        html += '<input type="hidden" name="results" class="form-control mb-2" placeholder="Year">'
                         html += '</div></div></div> '
                         $('#newHtml').append(html)
                     }
@@ -116,3 +135,29 @@ req.addEventListener('click', function () {
 })
 
 
+
+$('#newHtml').on('click','#getQ', function (e) {
+    e.preventDefault();
+    console.log(y)
+    $.ajax({
+        type: "POST",
+        url: "/slo/addQualification",
+        data: $('#add_form').serialize(),
+
+        success: function (response) {
+            console.log(response + 'iii')
+
+            alert('data saved')
+        },
+        error: function (error) {
+            console.log(error)
+            alert('data not saved')
+        }
+    })
+})
+
+$('#getYear').on('click', function (e) {
+    e.preventDefault()
+    year.value = y
+//console.log(y)
+})

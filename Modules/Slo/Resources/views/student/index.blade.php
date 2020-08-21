@@ -28,8 +28,8 @@
             @endforeach
 
             <td>
-                <div class="btn btn-outline-dark"><span class="fa fa-address-card"></span><a
-                        href="{{ route('register.edit',$s->student_id)}}"> Edit</a></div>
+                <div class="btn btn-outline-dark"><span class="fa fa-address-card"><a
+                            href="{{ route('register.edit',$s->student_id)}}"> Edit</a></span></div>
             </td>
         </tr>
         @endforeach

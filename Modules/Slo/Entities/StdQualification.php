@@ -9,7 +9,7 @@ class StdQualification extends Model
 {
     protected $guarded = [];
     use SoftDeletes;
-
+    protected $table = 'std_qualifications';
     protected $primaryKey = 'std_qualification_id';
 
     public function student()

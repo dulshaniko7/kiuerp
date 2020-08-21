@@ -14,6 +14,7 @@ use Modules\Slo\Http\View\Composers\CourseComposer;
 use Modules\Slo\Http\View\Composers\CourseReqComposer;
 use Modules\Slo\Http\View\Composers\DepartmentComposer;
 use Modules\Slo\Http\View\Composers\FacultyComposer;
+use Modules\Slo\Http\View\Composers\HospitalComposer;
 use Modules\Slo\Http\View\Composers\IdRangeComposer;
 use Modules\Slo\Http\View\Composers\StudentComposer;
 
@@ -70,6 +71,8 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::student.*'], BatchComposer::class);
         View::composer(['slo::student.*'], DepartmentComposer::class);
         View::composer(['slo::student.*'], StudentComposer::class);
+
+        //View::composer(['slo::hospital.*'], HospitalComposer::class);
         //or
 
         View::composer('slo::partials.Batch.*', BatchComposer::class);
@@ -78,6 +81,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);
         View::composer('slo::partials.Country.*', CountryComposer::class);
+        View::composer('slo::partials.Hospital.*',HospitalComposer::class);
     }
 
     /**
