@@ -19,7 +19,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'employee_id', 'lecturer_id', 'name', 'email', 'password', 'admin_role_id', 'status', 'default_admin', 'created_by', 'updated_by', 'deleted_by'
+        'employee_id', 'lecturer_id', 'name', 'email', 'password', 'admin_role_id', 'status', 'default_admin', 'super_user', 'allowed_roles', 'disallowed_roles', 'created_by', 'updated_by', 'deleted_by'
     ];
 
     /**
@@ -40,7 +40,9 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'deleted_at' => 'datetime:Y-m-d H:i:s'
+        'deleted_at' => 'datetime:Y-m-d H:i:s',
+        "allowed_roles" => "array",
+        "disallowed_roles" => "array"
     ];
 
     /**
@@ -71,6 +73,30 @@ class Admin extends Authenticatable
     public function adminRole()
     {
         return $this->belongsTo(AdminRole::class, "admin_role_id", "admin_role_id");
+    }
+
+    public function getAllowedRolesDataAttribute()
+    {
+        if($this->allowed_roles)
+        {
+            return AdminRole::query()->select("admin_role_id", "role_name")->whereIn("admin_role_id", $this->allowed_roles)->get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public function getDisallowedRolesDataAttribute()
+    {
+        if($this->disallowed_roles)
+        {
+            return AdminRole::query()->select("admin_role_id", "role_name")->whereIn("admin_role_id", $this->disallowed_roles)->get();
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /*public function getAdminImageUrlAttribute()

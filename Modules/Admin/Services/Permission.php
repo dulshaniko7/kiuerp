@@ -445,27 +445,24 @@ class Permission
      * Get currently logged in user's permissions list
      * @param int $adminId
      * @param int $adminRoleId
+     * @param string $systemId
      * @return array
      */
-    public static function getPermissions($adminId, $adminRoleId)
+    public static function getPermissions($adminId, $adminRoleId, $systemId="")
     {
-        $permissions = array();
-
-        $system = config('admin.system');
-        if($system != "")
+        if($systemId == "")
         {
+            $system = config('admin.system');
             $adminPermRepo = new AdminPermissionSystemRepository();
             $systemId = $adminPermRepo->getSystemId($system);
-
-            $adminPermissions = self::getAdminPermissions($adminId, $systemId);
-            $adminRolePermissions = AdminRoleRepository::getPermissionData($adminRoleId, $systemId);
-
-            $validPermissions = array_merge($adminPermissions["invoked"], array_diff($adminRolePermissions, $adminPermissions["invoked"]));
-
-            $permissions = array_diff($validPermissions, $adminPermissions["revoked"]);
         }
 
-        return $permissions;
+        $adminPermissions = self::getAdminPermissions($adminId, $systemId);
+        $adminRolePermissions = AdminRoleRepository::getPermissionData($adminRoleId, $systemId);
+
+        $validPermissions = array_merge($adminPermissions["invoked"], array_diff($adminRolePermissions, $adminPermissions["invoked"]));
+
+        return array_diff($validPermissions, $adminPermissions["revoked"]);
     }
 
     /**
@@ -474,7 +471,7 @@ class Permission
      * @param int $adminId
      * @return array
      */
-    public static function getAdminPermissions($systemId, $adminId)
+    public static function getAdminPermissions($adminId, $systemId)
     {
         $adminPermissions = AdminRepository::getPermissionData($adminId, $systemId);
 

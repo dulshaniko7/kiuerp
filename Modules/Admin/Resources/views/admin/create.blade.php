@@ -60,7 +60,43 @@
                                     <hr class="mt-1 mb-2">
                                     <input type="text" class="form-control" name="name" placeholder="Administrator Name" value="<?php echo $record["name"]; ?>">
                                 </div>
+                            </div>
 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Administrator Email</label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" name="email" placeholder="Administrator Email" value="<?php echo $record["email"]; ?>">
+                                </div>
+                            </div>
+
+                            <?php
+                            if($formMode === "add")
+                            {
+                                ?>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Administrator Password</label>
+                                                <hr class="mt-1 mb-2">
+                                                <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $record["password"]; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Confirm Password</label>
+                                                <hr class="mt-1 mb-2">
+                                                <input type="password" class="form-control" name="password_conf" placeholder="Confirm Password" value="<?php echo $record["password_conf"]; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Administrator Role</label>
                                     <hr class="mt-1 mb-2">
@@ -70,30 +106,45 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Administrator Email</label>
+                                    <label>Allowed Roles To Handle</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" name="email" placeholder="Administrator Email" value="<?php echo $record["email"]; ?>">
+                                    <input type="text" class="form-control" name="allowed_roles">
+                                    <p class="text-muted">(You can allow user roles handle by this user)</p>
                                 </div>
-
-                                <?php
-                                if($formMode === "add")
-                                {
-                                    ?>
-                                    <div class="form-group">
-                                        <label>Administrator Password</label>
-                                        <hr class="mt-1 mb-2">
-                                        <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $record["password"]; ?>">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Confirm Password</label>
-                                        <hr class="mt-1 mb-2">
-                                        <input type="password" class="form-control" name="password_conf" placeholder="Confirm Password" value="<?php echo $record["password_conf"]; ?>">
-                                    </div>
-                                    <?php
-                                }
-                                ?>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Disallowed Roles To Handle</label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" name="disallowed_roles">
+                                    <p class="text-muted">(You can overwrite from here which has been allowed from admin role)</p>
+                                </div>
+                            </div>
+
+                            <?php
+                            $superUser = request()->session()->get("super_user");
+                            if($superUser)
+                            {
+                                ?>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Super User</label>
+                                        <hr class="mt-1 mb-2">
+                                        <select name="super_user" class="form-control">
+                                            <option value="0" <?php if ($record["super_user"] == "0") { ?> selected="selected" <?php } ?>>
+                                                Disable
+                                            </option>
+                                            <option value="1" <?php if ($record["super_user"] == "1") { ?> selected="selected" <?php } ?>>
+                                                Enable
+                                            </option>
+                                        </select>
+                                        <p class="text-muted">(Super user can by pass the IP barrier)</p>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -155,9 +206,23 @@
     {
         $admin_role_id[]=$record["admin_role"];
     }
+
+    $allowed_roles = [];
+    if(isset($record["allowed_roles"]))
+    {
+        $allowed_roles[]=$record["allowed_roles"];
+    }
+
+    $disallowed_roles = [];
+    if(isset($record["disallowed_roles"]))
+    {
+        $disallowed_roles[]=$record["disallowed_roles"];
+    }
     ?>
     <script>
         let admin_role_id_ms = null;
+        let allowed_roles_ms = null;
+        let disallowed_roles_ms = null;
         window.onload = function()
         {
             submitCreateForm();
@@ -168,6 +233,22 @@
                 data: "/admin/admin_role/search_data",
                 dataUrlParams:{"_token":"{{ csrf_token() }}"},
                 value:<?php echo json_encode($admin_role_id) ?>,
+            });
+
+            allowed_roles_ms = $("input[name='allowed_roles']").magicSuggest({
+                allowFreeEntries: false,
+                maxSelection:999,
+                data: "/admin/admin_role/search_data",
+                dataUrlParams:{"_token":"{{ csrf_token() }}"},
+                value:<?php echo json_encode($allowed_roles) ?>,
+            });
+
+            disallowed_roles_ms = $("input[name='disallowed_roles']").magicSuggest({
+                allowFreeEntries: false,
+                maxSelection:999,
+                data: "/admin/admin_role/search_data",
+                dataUrlParams:{"_token":"{{ csrf_token() }}"},
+                value:<?php echo json_encode($disallowed_roles) ?>,
             });
 
             $(admin_role_id_ms).on('selectionchange', function(e,m){
@@ -210,7 +291,6 @@
 
             let name=form.name.value;
             let email=form.email.value;
-            let password=form.password.value;
             let status=form.status.value;
             let disabled_reason=form.disabled_reason.value;
 
@@ -230,11 +310,27 @@
                 errorText.push('Valid Email Required.');
             }
 
-            if(password === "")
+            <?php
+            if($formMode === "add")
             {
-                errors++;
-                errorText.push('Password Required.');
+                ?>
+                let password=form.password.value;
+                let password_conf=form.password_conf.value;
+
+                if(password === "")
+                {
+                    errors++;
+                    errorText.push('Password Required.');
+                }
+
+                if(password !== password_conf)
+                {
+                    errors++;
+                    errorText.push('Both Passwords Should be matched.');
+                }
+                <?php
             }
+            ?>
 
             if(status === "0")
             {

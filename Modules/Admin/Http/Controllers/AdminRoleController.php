@@ -130,7 +130,8 @@ class AdminRoleController extends Controller
         $model = $this->repository->getValidatedData($model, [
             "role_name" => "required|min:3",
             "description" => "",
-            "role_status" => "required|digits:1"
+            "role_status" => "required|digits:1",
+            "allowed_roles" => "array"
         ]);
 
         $dataResponse = $this->repository->saveModel($model);
@@ -268,7 +269,8 @@ class AdminRoleController extends Controller
             $model = $this->repository->getValidatedData($model, [
                 "role_name" => "required|min:3",
                 "description" => "",
-                "role_status" => "required|digits:1"
+                "role_status" => "required|digits:1",
+                "allowed_roles" => "array"
             ]);
 
             if($this->repository->isValidData)

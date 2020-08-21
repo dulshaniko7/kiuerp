@@ -268,7 +268,7 @@ class AdminRepository extends BaseRepository
         $date = date("Y-m-d", time());
         $results = AdminPermission::query()
             ->select("admin_perm_system_id","system_perm_id", "inv_rev_status")
-            ->where("adminId", "=", $adminId)
+            ->where("admin_id", "=", $adminId)
             ->where("valid_from", "<=", $date)
             ->where("valid_till", ">=", $date)
             ->get()->toArray();

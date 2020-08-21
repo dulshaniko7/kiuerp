@@ -15,6 +15,8 @@ $permGroup["permissions"][]=["action"=>"/admin/admin/delete", "name"=>"Move To A
 $permGroup["permissions"][]=["action"=>"/admin/admin/restore", "name"=>"Restore From Administrator Trash"];
 $permGroup["permissions"][]=["action"=>"/admin/admin/grant_permissions", "name"=>"Grant Permissions To Administrators"];
 $permGroup["permissions"][]=["action"=>"/admin/admin/revoke_permissions", "name"=>"Revoke Permissions Of Administrators"];
+$permGroup["permissions"][]=["action"=>"/admin/admin_permission_history", "name"=>"List Administrator Permission Change History"];
+$permGroup["permissions"][]=["action"=>"/admin/admin_permission_history/view", "name"=>"View Administrator Permission Change History Record"];
 
 $groups[]=$permGroup;
 

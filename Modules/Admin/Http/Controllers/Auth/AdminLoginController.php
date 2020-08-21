@@ -84,6 +84,15 @@ class AdminLoginController extends Controller
     {
         if($admin->status == "1")
         {
+            if($admin->super_user == "1")
+            {
+                $request->session()->put("super_user", true);
+            }
+            else
+            {
+                $request->session()->put("super_user", false);
+            }
+
             if($admin->default_admin == "1")
             {
                 //this admin have access to all the operations of the system
@@ -111,7 +120,7 @@ class AdminLoginController extends Controller
                     //validate system accessed IP
                     $ip = Location::getClientIP();
 
-                    if($this->isValidIP($admin->admin_id, $ip))
+                    if($admin->super_user == "1" || $this->isValidIP($admin->admin_id, $ip))
                     {
                         $notify["status"] = "success";
                         $notify["notify"][] = "You just signed in successfully.";
@@ -122,6 +131,9 @@ class AdminLoginController extends Controller
                         //this is a normal admin, we have to gather permission data of this user
                         $permissions = Permission::getPermissions($admin->id, $adminRole->admin_role_id);
                         $request->session()->put("permissions", $permissions);
+
+                        $allowedRoles = $this->getAllowedUserRoles($admin, $adminRole);
+                        $request->session()->put("allowed_roles", $allowedRoles);
 
                         $this->recordLoginActivity($admin->id);
 
@@ -200,6 +212,18 @@ class AdminLoginController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    protected function getAllowedUserRoles($admin, $adminRole)
+    {
+        $adminRoleAllowed = $adminRole->allowed_roles;
+        $adminAllowed = $admin->allowed_roles;
+        $adminDisallowed = $admin->disallowed_roles;
+
+        $allowedRoles = array_merge($adminAllowed, array_diff($adminRoleAllowed, $adminAllowed));
+        $allowedRoles = array_diff($allowedRoles, $adminDisallowed);
+
+        return $allowedRoles;
     }
 
     protected function isValidIP($adminId, $ip)

@@ -72,10 +72,18 @@ class AdminController extends Controller
             $query = $this->repository->model::query();
 
             $this->repository->setTableTitle("System Administrators")
-                ->enableViewData("trashList", "trash", "export");
+                ->enableViewData("view", "trashList", "trash", "export");
         }
 
         $query = $query->with(["adminRole"]);
+
+        $defaultAdmin = request()->session()->get("default_admin");
+
+        if(!$defaultAdmin)
+        {
+            $allowed_roles = request()->session()->get("allowed_roles");
+            $query = $query->whereIn("admin_role_id", $allowed_roles);
+        }
 
         return $this->repository->render("admin::layouts.master")->index($query);
     }
@@ -124,11 +132,18 @@ class AdminController extends Controller
             "email" => "unique:Modules\Admin\Entities\Admin,email",
             "password" => "required",
             "status" => "required|digits:1",
+            "allowed_roles" => "array",
+            "disallowed_roles" => "array",
             "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->status == "0";})],
         ], [], ["admin_role_id" => "Administrator Role", "name" => "Administrator name"]);
 
         if($this->repository->isValidData)
         {
+            $superUser = request()->session()->get("super_user");
+            if($superUser)
+            {
+                $model->super_user = request()->post("super_user");
+            }
             $response = $this->repository->saveModel($model);
         }
         else
@@ -150,15 +165,61 @@ class AdminController extends Controller
 
         if($model)
         {
-            $record = $model->toArray();
+            $defaultAdmin = request()->session()->get("default_admin");
 
-            $urls = [];
-            $urls["addUrl"]=URL::to("/admin/admin/create");
-            $urls["listUrl"]=URL::to("/admin/admin");
+            $allowed = true;
+            if(!$defaultAdmin)
+            {
+                $allowed_roles = request()->session()->get("allowed_roles");
 
-            $this->repository->setPageUrls($urls);
+                if(!in_array($model->admin_role_id, $allowed_roles))
+                {
+                    $allowed = false;
+                }
+            }
 
-            return view('admin::admin.view', compact('data', 'record'));
+            if($allowed)
+            {
+                $this->repository->setPageTitle("Administrator | ".$model["name"]);
+
+                $record = $model->toArray();
+
+                $urls = [];
+                $urls["addUrl"]=URL::to("/admin/admin/create");
+                $urls["editUrl"]=URL::to("/admin/admin/edit/");
+                $urls["listUrl"]=URL::to("/admin/admin");
+                $urls["historyUrl"]=URL::to("/admin/admin_permission_history/");
+
+                $this->repository->setPageUrls($urls);
+
+                $systems = AdminPermissionSystem::query()->where("system_status", "=", "1")->get();
+
+                $systemPermissions = [];
+                if(count($systems)>0)
+                {
+                    $adminPermSysRepo = new AdminPermissionSystemRepository();
+                    foreach ($systems as $key => $system)
+                    {
+                        $systemModules = $system->permissionModules()->get()->toArray();
+                        $systemModules = $adminPermSysRepo->getSystemPermissionModules($systemModules);
+
+                        $systemCurrPerms = Permission::getPermissions($id, $record["admin_role_id"], $system->id);
+
+                        $system["modules"] = $systemModules;
+                        $system["currPermissions"] = $systemCurrPerms;
+
+                        $systems->$key = $system;
+                    }
+
+                    $systemPermissions = $systems->toArray();
+                }
+
+                return view('admin::admin.view', compact('data', 'record', 'systemPermissions'));
+            }
+            else
+            {
+                abort(403, "You don't have permission perform this operation.");
+            }
         }
         else
         {
@@ -177,17 +238,37 @@ class AdminController extends Controller
 
         if($model)
         {
-            $record = $model->toArray();
-            $formMode = "edit";
-            $formSubmitUrl = "/".request()->path();
+            $defaultAdmin = request()->session()->get("default_admin");
 
-            $urls = [];
-            $urls["addUrl"]=URL::to("/admin/admin/create");
-            $urls["listUrl"]=URL::to("/admin/admin");
+            $allowed = true;
+            if(!$defaultAdmin)
+            {
+                $allowed_roles = request()->session()->get("allowed_roles");
 
-            $this->repository->setPageUrls($urls);
+                if(!in_array($model->admin_role_id, $allowed_roles))
+                {
+                    $allowed = false;
+                }
+            }
 
-            return view('admin::admin.create', compact('formMode', 'formSubmitUrl', 'record'));
+            if($allowed)
+            {
+                $record = $model->toArray();
+                $formMode = "edit";
+                $formSubmitUrl = "/".request()->path();
+
+                $urls = [];
+                $urls["addUrl"]=URL::to("/admin/admin/create");
+                $urls["listUrl"]=URL::to("/admin/admin");
+
+                $this->repository->setPageUrls($urls);
+
+                return view('admin::admin.create', compact('formMode', 'formSubmitUrl', 'record'));
+            }
+            else
+            {
+                abort(403, "You don't have permission perform this operation.");
+            }
         }
         else
         {
@@ -206,15 +287,54 @@ class AdminController extends Controller
 
         if($model)
         {
-            $model = $this->repository->getValidatedData($model, [
-                "admin_role_id" => "required|exists:admin_roles,admin_role_id",
-                "name" => "required|min:3",
-                "email" => [Rule::unique(Admin::class, "email")->ignore($model->admin_id, $model->getKeyName())],
-                "status" => "required|digits:1",
-                "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->status == "0";})],
-            ], [], ["admin_role_id" => "Administrator Role", "name" => "Administrator name"]);
+            $defaultAdmin = request()->session()->get("default_admin");
 
-            $dataResponse = $this->repository->saveModel($model);
+            $allowed = true;
+            if(!$defaultAdmin)
+            {
+                $allowed_roles = request()->session()->get("allowed_roles");
+
+                if(!in_array($model->admin_role_id, $allowed_roles))
+                {
+                    $allowed = false;
+                }
+            }
+
+            if($allowed)
+            {
+                $model = $this->repository->getValidatedData($model, [
+                    "admin_role_id" => "required|exists:admin_roles,admin_role_id",
+                    "name" => "required|min:3",
+                    "email" => [Rule::unique(Admin::class, "email")->ignore($model->admin_id, $model->getKeyName())],
+                    "status" => "required|digits:1",
+                    "allowed_roles" => "array",
+                    "disallowed_roles" => "array",
+                    "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->status == "0";})],
+                ], [], ["admin_role_id" => "Administrator Role", "name" => "Administrator name"]);
+
+                if($this->repository->isValidData)
+                {
+                    $superUser = request()->session()->get("super_user");
+                    if($superUser)
+                    {
+                        $model->super_user = request()->post("super_user");
+                    }
+                    $response = $this->repository->saveModel($model);
+                }
+                else
+                {
+                    $response = $model;
+                }
+            }
+            else
+            {
+                $notify = array();
+                $notify["status"]="failed";
+                $notify["notify"][]="Details saving was failed. Requested record does not exist.";
+                $notify["notify"][]="You don't have permission perform this operation.";
+
+                $response["notify"]=$notify;
+            }
         }
         else
         {
@@ -222,10 +342,10 @@ class AdminController extends Controller
             $notify["status"]="failed";
             $notify["notify"][]="Details saving was failed. Requested record does not exist.";
 
-            $dataResponse["notify"]=$notify;
+            $response["notify"]=$notify;
         }
 
-        return $this->repository->handleResponse($dataResponse);
+        return $this->repository->handleResponse($response);
     }
 
     /**
@@ -239,21 +359,41 @@ class AdminController extends Controller
 
         if($model)
         {
-            if($model->delete())
-            {
-                $notify = array();
-                $notify["status"]="success";
-                $notify["notify"][]="Successfully moved the record to trash.";
+            $defaultAdmin = request()->session()->get("default_admin");
 
-                $dataResponse["notify"]=$notify;
+            $allowed = true;
+            if(!$defaultAdmin)
+            {
+                $allowed_roles = request()->session()->get("allowed_roles");
+
+                if(!in_array($model->admin_role_id, $allowed_roles))
+                {
+                    $allowed = false;
+                }
+            }
+
+            if($allowed)
+            {
+                if($model->delete())
+                {
+                    $notify = array();
+                    $notify["status"]="success";
+                    $notify["notify"][]="Successfully moved the record to trash.";
+
+                    $dataResponse["notify"]=$notify;
+                }
+                else
+                {
+                    $notify = array();
+                    $notify["status"]="failed";
+                    $notify["notify"][]="Details moving to trash was failed. Unknown error occurred.";
+
+                    $dataResponse["notify"]=$notify;
+                }
             }
             else
             {
-                $notify = array();
-                $notify["status"]="failed";
-                $notify["notify"][]="Details moving to trash was failed. Unknown error occurred.";
-
-                $dataResponse["notify"]=$notify;
+                abort(403, "You don't have permission perform this operation.");
             }
         }
         else
@@ -279,21 +419,41 @@ class AdminController extends Controller
 
         if($model)
         {
-            if($model->restore())
-            {
-                $notify = array();
-                $notify["status"]="success";
-                $notify["notify"][]="Successfully restored the record from trash.";
+            $defaultAdmin = request()->session()->get("default_admin");
 
-                $dataResponse["notify"]=$notify;
+            $allowed = true;
+            if(!$defaultAdmin)
+            {
+                $allowed_roles = request()->session()->get("allowed_roles");
+
+                if(!in_array($model->admin_role_id, $allowed_roles))
+                {
+                    $allowed = false;
+                }
+            }
+
+            if($allowed)
+            {
+                if($model->restore())
+                {
+                    $notify = array();
+                    $notify["status"]="success";
+                    $notify["notify"][]="Successfully restored the record from trash.";
+
+                    $dataResponse["notify"]=$notify;
+                }
+                else
+                {
+                    $notify = array();
+                    $notify["status"]="failed";
+                    $notify["notify"][]="Details restoring from trash was failed. Unknown error occurred.";
+
+                    $dataResponse["notify"]=$notify;
+                }
             }
             else
             {
-                $notify = array();
-                $notify["status"]="failed";
-                $notify["notify"][]="Details restoring from trash was failed. Unknown error occurred.";
-
-                $dataResponse["notify"]=$notify;
+                abort(403, "You don't have permission perform this operation.");
             }
         }
         else
@@ -322,7 +482,7 @@ class AdminController extends Controller
 
             $query = Admin::query()
                 ->select("admin_id", "name")
-                ->where("status", "=", "1")
+                ->where("status", "=", "1")->where("default_admin", "!=", "1")
                 ->orderBy("name")
                 ->limit(10);
 
@@ -334,6 +494,14 @@ class AdminController extends Controller
             if($idNot != "")
             {
                 $query = $query->whereNotIn("admin_id", [$idNot]);
+            }
+
+            $defaultAdmin = request()->session()->get("default_admin");
+
+            if(!$defaultAdmin)
+            {
+                $allowed_roles = request()->session()->get("allowed_roles");
+                $query = $query->whereIn("admin_role_id", $allowed_roles);
             }
 
             $data = $query->get();
@@ -357,40 +525,60 @@ class AdminController extends Controller
         {
             $admin = Admin::find($adminId);
 
-            $permissionSystem = AdminPermissionSystem::find($systemId);
+            $defaultAdmin = request()->session()->get("default_admin");
 
-            if($permissionSystem)
+            $allowed = true;
+            if(!$defaultAdmin)
             {
-                $invRevStatus = $this->invRevStatus;
+                $allowed_roles = request()->session()->get("allowed_roles");
 
-                $aPSRepo = new AdminPermissionSystemRepository();
-                $permissionModules = $permissionSystem->permissionModules()->get()->toArray();
-                $systemPermissions = $aPSRepo->getSystemPermissionModules($permissionModules);
+                if(!in_array($admin->admin_role_id, $allowed_roles))
+                {
+                    $allowed = false;
+                }
+            }
 
-                $permissionSystem = $permissionSystem->toArray();
-                $permissionSystem["modules"] = $systemPermissions;
+            if($allowed)
+            {
+                $permissionSystem = AdminPermissionSystem::find($systemId);
 
-                $adminPermissions = AdminRepository::getPermissionData($adminId, $systemId);
-                $adminPermissions = AdminRepository::getPermissionDataExtract($adminPermissions, $invRevStatus);
-                $adminRolePermissions = AdminRoleRepository::getPermissionData($admin->admin_role_id, $systemId);
+                if($permissionSystem)
+                {
+                    $invRevStatus = $this->invRevStatus;
 
-                return view("admin::admin.grant", compact('formSubmitUrl', 'admin', 'permissionSystem', 'adminPermissions', 'adminRolePermissions', 'invRevStatus'));
+                    $aPSRepo = new AdminPermissionSystemRepository();
+                    $permissionModules = $permissionSystem->permissionModules()->get()->toArray();
+                    $systemPermissions = $aPSRepo->getSystemPermissionModules($permissionModules);
+
+                    $permissionSystem = $permissionSystem->toArray();
+                    $permissionSystem["modules"] = $systemPermissions;
+
+                    $adminPermissions = AdminRepository::getPermissionData($adminId, $systemId);
+                    $adminPermissions = AdminRepository::getPermissionDataExtract($adminPermissions, $invRevStatus);
+                    $adminRolePermissions = AdminRoleRepository::getPermissionData($admin->admin_role_id, $systemId);
+
+                    return view("admin::admin.grant", compact('formSubmitUrl', 'admin', 'permissionSystem', 'adminPermissions', 'adminRolePermissions', 'invRevStatus'));
+                }
+                else
+                {
+                    $response["status"]="failed";
+                    $response["notify"][]="Please select both admin & system to proceed with the permission management.";
+
+                    $this->repository->handleResponse($response, false);
+
+                    $del = "/";
+                    $formSubmitUrl = explode($del, $formSubmitUrl);
+                    array_pop($formSubmitUrl); //removes $systemId
+                    array_pop($formSubmitUrl); //removes $adminId
+                    $formSubmitUrl = implode($del, $formSubmitUrl);
+
+                    $permSystems = AdminPermissionSystem::query()->get()->toArray();
+                    return view("admin::admin.permission_select", compact('formSubmitUrl', 'admin', 'permSystems'));
+                }
             }
             else
             {
-                $response["status"]="failed";
-                $response["notify"][]="Please select both admin & system to proceed with the permission management.";
-
-                $this->repository->handleResponse($response, false);
-
-                $del = "/";
-                $formSubmitUrl = explode($del, $formSubmitUrl);
-                array_pop($formSubmitUrl); //removes $systemId
-                array_pop($formSubmitUrl); //removes $adminId
-                $formSubmitUrl = implode($del, $formSubmitUrl);
-
-                $permSystems = AdminPermissionSystem::query()->get()->toArray();
-                return view("admin::admin.permission_select", compact('formSubmitUrl', 'admin', 'permSystems'));
+                abort(403, "You don't have permission perform this operation.");
             }
         }
         else
@@ -421,17 +609,38 @@ class AdminController extends Controller
         if($adminId != "" && $systemId != "")
         {
             $admin = Admin::find($adminId);
-            $permissionSystem = AdminPermissionSystem::find($systemId);
 
-            if($admin && $permissionSystem)
+            $defaultAdmin = request()->session()->get("default_admin");
+
+            $allowed = true;
+            if(!$defaultAdmin)
             {
-                $invRevStatus = request()->post("inv_rev_status");
-                $response = $this->repository->updatePermission($adminId, $admin->admin_role_id, $systemId, $invRevStatus);
+                $allowed_roles = request()->session()->get("allowed_roles");
+
+                if(!in_array($admin->admin_role_id, $allowed_roles))
+                {
+                    $allowed = false;
+                }
+            }
+
+            if($allowed)
+            {
+                $permissionSystem = AdminPermissionSystem::find($systemId);
+
+                if($admin && $permissionSystem)
+                {
+                    $invRevStatus = request()->post("inv_rev_status");
+                    $response = $this->repository->updatePermission($adminId, $admin->admin_role_id, $systemId, $invRevStatus);
+                }
+                else
+                {
+                    $response["status"]="failed";
+                    $response["notify"][]="Please select a system before import.";
+                }
             }
             else
             {
-                $response["status"]="failed";
-                $response["notify"][]="Please select a system before import.";
+                abort(403, "You don't have permission perform this operation.");
             }
         }
         else

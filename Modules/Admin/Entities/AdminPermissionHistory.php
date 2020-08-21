@@ -19,6 +19,11 @@ class AdminPermissionHistory extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function permissionSystem()
+    {
+        return $this->belongsTo(AdminPermissionSystem::class, "admin_perm_system_id", "admin_perm_system_id");
+    }
+
     public static function boot()
     {
         parent::boot();

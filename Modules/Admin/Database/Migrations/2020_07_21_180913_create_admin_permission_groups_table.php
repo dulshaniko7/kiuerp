@@ -33,6 +33,7 @@ class CreateAdminPermissionGroupsTable extends Migration
 
         Schema::table('admin_permission_groups', function (Blueprint $table) {
 
+            $table->unique(array('admin_perm_module_id', 'group_slug'));
             $table->foreign("admin_perm_module_id")->references("admin_perm_module_id")->on("admin_permission_modules");
             $table->foreign("created_by")->references("admin_id")->on("admins");
             $table->foreign("updated_by")->references("admin_id")->on("admins");

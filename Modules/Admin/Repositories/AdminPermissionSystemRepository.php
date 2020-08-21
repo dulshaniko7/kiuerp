@@ -188,7 +188,7 @@ class AdminPermissionSystemRepository extends BaseRepository
                         }
                         else
                         {
-                            $module = $adminPermMod::query()->create($module);
+                            $module = $adminPermMod::updateOrCreate(["admin_perm_system_id" => $admin_perm_system_id, "module_slug" => $module["module_slug"]], $module);
                             $moduleId = $module->$modPriKey;
                         }
 
@@ -211,7 +211,7 @@ class AdminPermissionSystemRepository extends BaseRepository
                                 }
                                 else
                                 {
-                                    $group = $adminPermGroup::query()->create($group);
+                                    $group = $adminPermGroup::updateOrCreate(["admin_perm_module_id" => $moduleId, "group_slug" => $group["group_slug"]], $group);
                                     $groupId = $group->$groupPriKey;
                                 }
 
@@ -222,7 +222,7 @@ class AdminPermissionSystemRepository extends BaseRepository
                                         $perm[$groupPriKey]=$groupId;
                                         $perm["permission_status"]=1;
 
-                                        $adminSysPerm::query()->create($perm);
+                                        $adminSysPerm::updateOrCreate(["admin_perm_group_id" => $groupId, "permission_key" => $perm["permission_key"]], $perm);
                                     }
                                 }
                             }

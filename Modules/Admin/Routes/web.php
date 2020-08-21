@@ -56,6 +56,10 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
         Route::get('/admin/revoke_permissions/{adminId}/{systemId}','AdminController@revokePermissions')->name('admin.revoke.select');
         Route::post('/admin/revoke_permissions/{adminId}/{systemId}','AdminController@grantRevokeSubmit')->name('admin.revoke.submit');
 
+        Route::get('/admin_permission_history/{adminId}','AdminPermissionHistoryController@index')->name('admin_permission_history.index');
+        Route::post('/admin_permission_history/{adminId}','AdminPermissionHistoryController@index')->name('admin_permission_history.fetch');
+        Route::get('/admin_permission_history/view/{id}','AdminPermissionHistoryController@show')->name('admin_permission_history.view');
+
         Route::get('/admin_role','AdminRoleController@index')->name('admin_role.index');
         Route::post('/admin_role','AdminRoleController@index')->name('admin_role.fetch');
         Route::get('/admin_role/trash', 'AdminRoleController@trash')->name('admin_role.list.trash');
