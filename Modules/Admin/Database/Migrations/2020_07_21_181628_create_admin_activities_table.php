@@ -26,9 +26,12 @@ class CreateAdminActivitiesTable extends Migration
             $table->string("activity_model_name", 255);
             $table->unsignedBigInteger("activity_model");
             $table->dateTime("activity_at");
+        });
 
-            $table->foreign("admin_id")->references("admin_id")->on(Admin::class);
-            $table->foreign("admin_login_history_id")->references("admin_login_history_id")->on(AdminLoginHistory::class);
+        Schema::table('admin_activities', function (Blueprint $table) {
+
+            $table->foreign("admin_id")->references("admin_id")->on("admins");
+            $table->foreign("admin_login_history_id")->references("admin_login_history_id")->on("admin_login_histories");
 
             $table->index("admin_id");
             $table->index("admin_login_history_id");

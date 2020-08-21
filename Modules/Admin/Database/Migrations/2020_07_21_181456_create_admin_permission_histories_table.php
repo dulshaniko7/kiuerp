@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Admin\Entities\Admin;
-use Modules\Admin\Entities\AdminPermissionSystem;
 
 class CreateAdminPermissionHistoriesTable extends Migration
 {
@@ -23,17 +21,20 @@ class CreateAdminPermissionHistoriesTable extends Migration
             $table->json("invoked_permissions");
             $table->json("revoked_permissions");
 
-            $table->foreign("admin_id")->references("admin_id")->on(Admin::class);
-            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on(AdminPermissionSystem::class);
+            $table->timestamps();
+        });
+
+        Schema::table('admin_permission_histories', function (Blueprint $table) {
+
+            $table->foreign("admin_id")->references("admin_id")->on("admins");
+            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on("admin_permission_systems");
 
             $table->index("admin_id");
             $table->index("admin_perm_system_id");
 
             $table->unsignedInteger("created_by");
             $table->index("created_by");
-            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
-
-            $table->timestamps();
+            $table->foreign("created_by")->references("admin_id")->on("admins");
         });
     }
 

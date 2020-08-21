@@ -26,16 +26,19 @@ class CreateSystemAccessIpRestrictionsTable extends Migration
             $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedInteger("deleted_by")->nullable();
 
-            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
-            $table->foreign("updated_by")->references("admin_id")->on(Admin::class);
-            $table->foreign("deleted_by")->references("admin_id")->on(Admin::class);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('system_access_ip_restrictions', function (Blueprint $table) {
+
+            $table->foreign("created_by")->references("admin_id")->on("admins");
+            $table->foreign("updated_by")->references("admin_id")->on("admins");
+            $table->foreign("deleted_by")->references("admin_id")->on("admins");
 
             $table->index("created_by");
             $table->index("updated_by");
             $table->index("deleted_by");
-
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 

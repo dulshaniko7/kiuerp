@@ -26,8 +26,11 @@ class CreateAdminLoginHistoriesTable extends Migration
             $table->dateTime("sign_in_at");
             $table->unsignedTinyInteger("sign_out_type")->nullable()->comment("Manual or Auto; Manual:1, Auto:0");
             $table->dateTime("sign_out_at")->nullable();
+        });
 
-            $table->foreign("admin_id")->references("admin_id")->on(Admin::class);
+        Schema::table('admin_login_histories', function (Blueprint $table) {
+
+            $table->foreign("admin_id")->references("admin_id")->on("admins");
             $table->index("admin_id");
         });
     }

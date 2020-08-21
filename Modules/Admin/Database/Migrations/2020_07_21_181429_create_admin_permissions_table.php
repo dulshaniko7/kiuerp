@@ -25,10 +25,13 @@ class CreateAdminPermissionsTable extends Migration
             $table->unsignedTinyInteger("inv_rev_status")->comment("Invoked or revoked status; Invoked:1, Revoked:0");
             $table->date("valid_from")->nullable();
             $table->date("valid_till")->nullable();
+        });
 
-            $table->foreign("admin_id")->references("admin_id")->on(Admin::class);
-            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on(AdminPermissionSystem::class);
-            $table->foreign("system_perm_id")->references("system_perm_id")->on(AdminSystemPermission::class);
+        Schema::table('admin_permissions', function (Blueprint $table) {
+
+            $table->foreign("admin_id")->references("admin_id")->on("admins");
+            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on("admin_permission_systems");
+            $table->foreign("system_perm_id")->references("system_perm_id")->on("admin_system_permissions");
 
             $table->index("admin_id");
             $table->index("admin_perm_system_id");

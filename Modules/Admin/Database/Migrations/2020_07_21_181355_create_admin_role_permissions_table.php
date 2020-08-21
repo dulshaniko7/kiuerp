@@ -22,9 +22,12 @@ class CreateAdminRolePermissionsTable extends Migration
             $table->unsignedInteger("admin_role_id");
             $table->unsignedSmallInteger("admin_perm_system_id");
             $table->longText("permissions");
+        });
 
-            $table->foreign("admin_role_id")->references("admin_role_id")->on(AdminRole::class);
-            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on(AdminPermissionSystem::class);
+        Schema::table('admin_role_permissions', function (Blueprint $table) {
+
+            $table->foreign("admin_role_id")->references("admin_role_id")->on("admin_roles");
+            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on("admin_permission_systems");
 
             $table->index("admin_role_id");
             $table->index("admin_perm_system_id");

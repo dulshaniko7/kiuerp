@@ -25,12 +25,15 @@ class CreateFacultiesTable extends Migration
             $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedInteger("deleted_by")->nullable();
 
-            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
-            $table->foreign("updated_by")->references("admin_id")->on(Admin::class);
-            $table->foreign("deleted_by")->references("admin_id")->on(Admin::class);
-
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::table('faculties', function (Blueprint $table) {
+
+            $table->foreign("created_by")->references("admin_id")->on("admins");
+            $table->foreign("updated_by")->references("admin_id")->on("admins");
+            $table->foreign("deleted_by")->references("admin_id")->on("admins");
         });
     }
 

@@ -33,25 +33,28 @@ class CreateAdminsTable extends Migration
             $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedInteger("deleted_by")->nullable();
 
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('admins', function (Blueprint $table) {
+
             /*$table->foreign("employee_id")->references("employee_id")->on(Employee::class);
             $table->index("employee_id");
 
             $table->foreign("lecturer_id")->references("lecturer_id")->on(Lecturer::class);
             $table->index("lecturer_id");*/
 
-            $table->foreign("admin_role_id")->references("admin_role_id")->on(AdminRole::class);
-            $table->index("admin_role_id");
+            /*$table->foreign("admin_role_id")->references("admin_role_id")->on("admin_roles");;
+            $table->index("admin_role_id");*/
 
-            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
-            $table->foreign("updated_by")->references("admin_id")->on(Admin::class);
-            $table->foreign("deleted_by")->references("admin_id")->on(Admin::class);
+            $table->foreign("created_by")->references("admin_id")->on("admins");
+            $table->foreign("updated_by")->references("admin_id")->on("admins");
+            $table->foreign("deleted_by")->references("admin_id")->on("admins");
 
             $table->index("created_by");
             $table->index("updated_by");
             $table->index("deleted_by");
-
-            $table->timestamps();
-            $table->softDeletes();
         });
 
         //add default system administrator to the system

@@ -24,17 +24,20 @@ class CreateAdminRolePermissionHistoriesTable extends Migration
             $table->json("invoked_permissions");
             $table->json("revoked_permissions");
 
-            $table->foreign("admin_role_id")->references("admin_role_id")->on(AdminRole::class);
-            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on(AdminPermissionSystem::class);
+            $table->timestamps();
+        });
+
+        Schema::table('admin_role_permission_histories', function (Blueprint $table) {
+
+            $table->foreign("admin_role_id")->references("admin_role_id")->on("admin_roles");
+            $table->foreign("admin_perm_system_id")->references("admin_perm_system_id")->on("admin_permission_systems");
 
             $table->index("admin_role_id");
             $table->index("admin_perm_system_id");
 
             $table->unsignedInteger("created_by");
             $table->index("created_by");
-            $table->foreign("created_by")->references("admin_id")->on(Admin::class);
-
-            $table->timestamps();
+            $table->foreign("created_by")->references("admin_id")->on("admins");
         });
     }
 
