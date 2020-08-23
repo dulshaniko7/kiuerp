@@ -56,6 +56,7 @@ Route::get('/slo/studentRegisters', 'StudentController@index')->name('register.i
 Route::get('/slo/studentRegister', 'StudentController@create')->name('register.create');
 Route::post('/slo/studentRegister', 'StudentController@store')->name('register.store');
 Route::get('/slo/studentRegister/{id}/edit', 'StudentController@edit')->name('register.edit');
+Route::get('/slo/studentRegister/{id}/edit1', 'StudentController@edit1')->name('register.edit1');
 Route::put('/slo/studentRegister/{id}', 'StudentController@update')->name('register.update');
 
 Route::get('/slo/hospitals', 'HospitalController@index')->name('hospital.index');

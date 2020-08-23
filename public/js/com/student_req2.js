@@ -13,7 +13,7 @@ let year = document.querySelector('#year1')
 let getYear = document.querySelector('#getYear')
 
 console.log(course_id)
-const req = document.querySelector('#req');
+//const req = document.querySelector('#req');
 
 file.addEventListener("change", function () {
     const f = this.files[0];
@@ -34,7 +34,7 @@ file.addEventListener("change", function () {
 
 let y
 
-
+/*
 req.addEventListener('click', function () {
     id = parseInt(course_id);
     req.style.visibility = 'hidden'
@@ -134,27 +134,8 @@ req.addEventListener('click', function () {
 
 })
 
+*/
 
-
-$('#newHtml').on('click','#getQ', function (e) {
-    e.preventDefault();
-    console.log(y)
-    $.ajax({
-        type: "POST",
-        url: "/slo/addQualification",
-        data: $('#add_form').serialize(),
-
-        success: function (response) {
-            console.log(response + 'iii')
-
-            alert('data saved')
-        },
-        error: function (error) {
-            console.log(error)
-            alert('data not saved')
-        }
-    })
-})
 
 $('#getYear').on('click', function (e) {
     e.preventDefault()

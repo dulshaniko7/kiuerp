@@ -4,9 +4,11 @@ const spe = document.querySelector('#spe');
 const isNurse = document.querySelector('#isNurse')
 const nurse = document.querySelector('#nurse')
 
+
+
 $(document).ready(function () {
     id = parseInt(course_id);
-    showNurse()
+
 
     fetch('/slo/isNursing/' + id)
         .then(res => res.text())
@@ -17,12 +19,16 @@ $(document).ready(function () {
                 console.log("nursing")
                 // $('#nurseHtml').append(html)
                 isNurse.value = 'yes'
+                nurse.style.display = 'block'
             } else {
                 console.log('no nursing')
                 isNurse.value = ''
+                nurse.style.display = 'none'
             }
         })
         .catch(err => console.log(err));
+
+    showNurse()
 })
 
 
@@ -44,8 +50,10 @@ spe.addEventListener('click', function () {
 function showNurse() {
     if (isNurse.value == 'yes') {
         nurse.style.display = 'block'
+        console.log('block')
     } else {
         nurse.style.display = 'none'
+        console.log('none')
     }
 }
 
@@ -56,8 +64,8 @@ htmlSpe += '<textarea class="form-control myDropdown" name="special_req" id="" p
 htmlSpe += '</div></div></div>'
 htmlSpe += '<div class="row">'
 htmlSpe += '<div class="col-md-10"><div class="form-group"><label for="special" class="mr-4">Preferred Hand</label>'
-htmlSpe += '<label class="radio-inline"><input type="radio" name="preferred_hand" checked>Right</label>'
-htmlSpe += '<label class="radio-inline"><input type="radio" name="preferred_hand">Left</label>'
+htmlSpe += '<label class="radio-inline"><input type="radio" name="preferred_hand" value="right" checked>Right</label>'
+htmlSpe += '<label class="radio-inline"><input type="radio" name="preferred_hand" value="left">Left</label>'
 htmlSpe += '</div></div></div>'
 htmlSpe += '<div class="row">'
 htmlSpe += '<div class="col-md-10"><div class="form-group">'
@@ -128,10 +136,6 @@ htmlCon += '</div></div></div>'
 htmlCon += '<div class="row">'
 htmlCon += '<div class="col-md-10"><div class="form-group">'
 htmlCon += '<input type="text" class="form-control myDropdown" name="tel_work" id="" placeholder="Work">'
-htmlCon += '</div></div></div>'
-htmlCon += '<div class="row">'
-htmlCon += '<div class="col-md-10"><div class="form-group">'
-htmlCon += '<input type="text" class="form-control myDropdown" name="tel_mobile1" id="" placeholder="Mobile 1">'
 htmlCon += '</div></div></div>'
 htmlCon += '<div class="row">'
 htmlCon += '<div class="col-md-10"><div class="form-group">'

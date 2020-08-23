@@ -4,7 +4,7 @@
 <form class="form-label-left input_mask" action="{{route('register.update',$student->student_id)}}" id="add_form"
       method="post">
     @csrf
-    <input type="hidden" name="_method" value="PUT">
+
     <div class="card">
         <div class="card-body">
             <div class="my_container">
@@ -25,7 +25,7 @@
                                 <input type="text" class="form-control myDropdown" name="name_initials"
                                        id="name_initials"
                                        placeholder="Batch Name" value="{{$student->name_initials}}">
-                                <input type="text" id="student_id" name="student_id" value="{{$student->student_id}}">
+                                <input type="hidden" id="student_id" name="student_id" value="{{$student->student_id}}">
                             </div>
                         </div>
                     </div>
@@ -44,23 +44,14 @@
                     </div>
                     @endforeach
                     <div id="nurseHtml"></div>
-                    <input type="hidden" id="isNurse" value="">
 
-                    <div id="nurse">
+                    <div id="other">
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="form-group">
-                                    <label for="batch_name">Hospital:</label>
-                                    @include('slo::partials.Hospital.dropdown')
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-10">
-                                <div class="form-group">
-                                    <input type="text" class="form-control myDropdown" name="" id="" placeholder="Ward">
+                                    <label for="date_of_birth">Date of Birth:</label>
+                                    <input type="date" class="form-control myDropdown" name="date_of_birth"
+                                           id="date_of_birth">
                                 </div>
                             </div>
                         </div>
@@ -68,68 +59,226 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="form-group">
-                                    <input type="text" class="form-control myDropdown" name="" id="" placeholder="NTS">
+                                    <label for="nationality">Nationality:</label>
+                                    <select class="form-control myDropdown" name="nationality" id="nationality">
+                                        <option value="SriLankan" selected>Srilankan</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="form-group">
-                                <label for="date_of_birth">Date of Birth:</label>
-                                <input type="date" class="form-control myDropdown" name="date_of_birth"
-                                       id="date_of_birth">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-10">
-                            <div class="form-group">
-                                <label for="nationality">Nationality:</label>
-                                <select class="form-control myDropdown" name="nationality" id="nationality">
-                                    <option value="SriLankan" selected>Srilankan</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <input type="text" id="year1" value="">
-                    <button id="getQ">Get Q</button>
-                    <button id="getYear">Get year</button>
+                    <input type="hidden" id="edu" value="">
+                    <input type="hidden" id="pro" value="">
+                    <input type="hidden" id="work" value="">
+                    <input type="hidden" id="ref" value="">
 
                     <h2 class="mb-4 mt-4 text-secondary">Qualifications Section<span
                             class="fas fa-plus ml-4"
                             id="req"></span></h2>
+                    <div id="req-section">
+                        <div id="e1">
 
-                    <div id="newHtml"></div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Educational
+                                            Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
 
-                    <h2 class="mb-4 mt-4 text-secondary">Contact Section<span
-                            class="fas fa-plus ml-4"
-                            id="con"></span></h2>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div id="newHtmlContact"></div>
 
-                    <h2 class="mb-4 mt-4 text-secondary">Emergency Contact Section<span
-                            class="fas fa-plus ml-4"
-                            id="emg"></span></h2>
+                        </div>
+                        <div id="e2">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Educational
+                                            Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
 
-                    <div id="newHtmlEmg"></div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <h2 class="mb-4 mt-4 text-secondary">Special Requirements Section<span
-                            class="fas fa-plus ml-4"
-                            id="spe"></span></h2>
+                        </div>
+                        <div id="e3">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Educational
+                                            Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
 
-                    <div id="newHtmlSpe"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="p1">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Professional
+                                            Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="p2">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Professional
+                                            Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="p3">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Professional
+                                            Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="w1">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Working Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="w2">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Working Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="w3">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">Working Qualifications:</label>
+                                        <input type="text" name="year[]" class="form-control mb-2" placeholder="Year">
+                                        <input type="text" name="school[]" class="form-control mb-2"
+                                               placeholder="School">
+                                        <input type="text" name="qualification[]" class="form-control mb-2"
+                                               placeholder="Qualification Obtained">
+                                        <input type="text" name="results[]" class="form-control mb-2"
+                                               placeholder="Results">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="r1">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">References:</label>
+                                        <textarea name="qualification[]" class="form-control mb-2" rows="5"
+                                                  placeholder="Reference"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="r2">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">References:</label>
+                                        <textarea name="qualification[]" class="form-control mb-2" rows="5"
+                                                  placeholder="Reference"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="r3">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group"><label for="qualifications">References:</label>
+                                        <textarea name="qualification[]" class="form-control mb-2" rows="5"
+                                                  placeholder="Reference"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <hr class="mt-1 mb-2">
 
                     <div class="col-md-4">
                         <div class="form-group">
                             <button type="submit" class="btn btn-success btn-add-row">Save</button>
-                            <button class="btn btn-dark" type="reset">Reset</button>
+
+                            <div class="btn btn-xs"><span class="fa fa-plus"></span><a
+                                    href="{{ route('register.edit1',$student->student_id)}}"> Next Section </a></div>
                         </div>
                     </div>
                 </div>

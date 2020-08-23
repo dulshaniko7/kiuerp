@@ -12,6 +12,13 @@ class StdQualification extends Model
     protected $table = 'std_qualifications';
     protected $primaryKey = 'std_qualification_id';
 
+    protected $casts = [
+        'year' => 'array',
+        'school' => 'array',
+        'qualification' => 'array',
+        'results' => 'array'
+    ];
+
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id', 'student_id');

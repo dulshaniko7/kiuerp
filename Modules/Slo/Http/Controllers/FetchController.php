@@ -178,12 +178,17 @@ class FetchController extends Controller
     public function addQualification(Request $request)
     {
 
+//        $studentId = $request->student_id;
+  //      $student = Student::find($studentId);
+    //    $student->date_of_birth = $request->date_of_birth;
+      //  $student->nationality = $request->nationality;
+        //$student->save();
 
         $qualification = new StdQualification();
         $qualification->year = $request->year;
         $qualification->school = $request->school;
         $qualification->qualification = $request->qualification;
-        $qualification->results = $request->results;
+        $qualification->results = $request->input('results');
         $qualification->student_id = $request->input('student_id');
 
         $qualification->save();

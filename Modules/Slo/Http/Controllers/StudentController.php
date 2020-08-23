@@ -10,6 +10,9 @@ use Modules\Academic\Entities\Course;
 use Modules\Academic\Entities\Department;
 use Modules\Slo\Entities\Batch;
 use Modules\Slo\Entities\CourseRequirement;
+use Modules\Slo\Entities\StdEmg;
+use Modules\Slo\Entities\StdExtraDetail;
+use Modules\Slo\Entities\StdNursing;
 use Modules\Slo\Entities\StdQualification;
 use Modules\Slo\Entities\StdRegister;
 use Modules\Slo\Entities\Student;
@@ -115,7 +118,23 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
+        //$course = $student->courses;
+        //$reqs = CourseRequirement::where('course_id', $course->course_id)->orderBy('id')->get()->toArray();
+
+        // $req = CourseRequirement::where('course_id',$course->course_id)->get();
+        //dd($req);
         return view('slo::student.edit', compact('student'));
+    }
+
+    public function edit1($id)
+    {
+        $student = Student::find($id);
+        //$course = $student->courses;
+        //$reqs = CourseRequirement::where('course_id', $course->course_id)->orderBy('id')->get()->toArray();
+
+        // $req = CourseRequirement::where('course_id',$course->course_id)->get();
+        //dd($req);
+        return view('slo::student.edit1', compact('student'));
     }
 
     /**
@@ -129,37 +148,68 @@ class StudentController extends Controller
         $student = Student::find($id);
         $student->date_of_birth = $request->date_of_birth;
         $student->nationality = $request->nationality;
-        $student->update($request->only('date_of_birth', 'nationality'));
+        $student->per_address = $request->per_address;
+        $student->per_city = $request->per_city;
+        $student->per_country = $request->per_country;
+        $student->per_postal_code = $request->per_postal_code;
+
+        $student->tel_residence = $request->tel_residence;
+        $student->tel_work = $request->tel_work;
+        $student->tel_mobile2 = $request->tel_mobile2;
+
+        $student->email1 = $request->email1;
+        $student->email2 = $request->email2;
+        $student->kiu_mail = $request->kiu_mail;
+
+
+        $student->update($request->only('date_of_birth', 'nationality', 'per_address', 'per_city', 'per_country', 'per_postal_code', 'tel_residence', 'tel_work', 'tel_mobile2', 'email1', 'email2', 'kiu_mail'));
 
         // get the course
-        $course_id = $request->course_id;
-        $course = Course::find($course_id);
-        $reqs = CourseRequirement::where('course_id', $course_id)->get()->pluck('edu_req');
+        //  $course_id = $request->course_id;
+        //$course = Course::find($course_id);
+        //$reqs = CourseRequirement::where('course_id', $course_id)->get()->pluck('edu_req');
         // dd(count($reqs[0]));
-        $eduCount = count($reqs[0]);
-       // dd($eduCount);
-        $qualification = new StdQualification();
-        $qualification->year = $request->year;
-        $qualification->school = $request->school;
-        $qualification->qualification = $request->qualification;
-        $qualification->results = $request->results;
-        $qualification->student_id = $request->input('student_id');
+        //$eduCount = count($reqs[0]);
+        // dd($eduCount);
+        $emg = new StdEmg();
+        $emg->emg_name = $request->emg_name;
+        $emg->address = $request->address;
+        $emg->emg_tel_residence = $request->emg_tel_residence;
+        $emg->emg_tel_work = $request->emg_tel_work;
+        $emg->emg_tel_mobile1 = $request->emg_tel_mobile1;
+        $emg->emg_tel_mobile2 = $request->emg_tel_mobile2;
+        $emg->relationship = $request->relationship;
+        $emg->student_id = $student->student_id;
+        $emg->save();
 
-        $qualification->save();
+        $extra = new StdExtraDetail();
+        $extra->special_req = $request->special_req;
+        $extra->preferred_hand = $request->preferred_hand;
+        $extra->hostel = $request->hostel;
+        $extra->locker_key = $request->locker_key;
+        $extra->slipper_size = $request->slipper_size;
+        $extra->student_id = $student->student_id;
+        $extra->save();
 
+        $nurse = new StdNursing();
+        $nurse->ward = $request->ward;
+        $nurse->nts = $request->nts;
+        $nurse->student_id = $student->student_id;
+        $nurse->hospital_id = $request->hospital_id;
+        $nurse->save();
         return redirect()->route('index');
+        /*
+                $qualification = new StdQualification();
+                $qualification->year = $request->year;
+                $qualification->school = $request->school;
+                $qualification->qualification = $request->qualification;
+                $qualification->results = $request->results;
+                $qualification->student_id = $student->student_id;
+                $qualification->save();
 
-/*
-        $qualification = new StdQualification();
-        $qualification->year = $request->year;
-        $qualification->school = $request->school;
-        $qualification->qualification = $request->qualification;
-        $qualification->results = $request->results;
-        $qualification->student_id = $student->student_id;
-        $qualification->save();
+                return redirect()->route('index');
+        */
 
-        return redirect()->route('index');
-*/
     }
 
     /**
