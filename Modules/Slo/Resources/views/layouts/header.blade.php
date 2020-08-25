@@ -79,7 +79,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('courseReq.index')}}">Course Requirements</a>
                                 <a class="dropdown-item" href="{{route('hospital.index')}}">Hospitals</a>
-
+                                <a class="dropdown-item" href="{{route('uploadCategory.index')}}">Upload Category</a>
 
                             </div>
                         </li>

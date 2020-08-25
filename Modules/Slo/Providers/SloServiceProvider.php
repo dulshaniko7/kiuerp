@@ -72,7 +72,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::student.*'], DepartmentComposer::class);
         View::composer(['slo::student.*'], StudentComposer::class);
 
-        //View::composer(['slo::hospital.*'], HospitalComposer::class);
+        View::composer(['slo::hospital.*'], HospitalComposer::class);
         //or
 
         View::composer('slo::partials.Batch.*', BatchComposer::class);

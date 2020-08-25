@@ -63,6 +63,9 @@ Route::get('/slo/hospitals', 'HospitalController@index')->name('hospital.index')
 Route::get('/slo/hospital', 'HospitalController@create')->name('hospital.create');
 Route::post('/slo/hospital', 'HospitalController@store')->name('hospital.store');
 
+Route::get('/slo/uploadCategories', 'UploadCategoryController@index')->name('uploadCategory.index');
+Route::get('/slo/uploadCategory', 'UploadCategoryController@create')->name('uploadCategory.create');
+Route::post('/slo/uploadCategory', 'UploadCategoryController@store')->name('uploadCategory.store');
 
 
 //ajax routes
