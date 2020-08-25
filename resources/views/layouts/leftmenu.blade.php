@@ -47,20 +47,25 @@
                         </li>
                     </ul>
                 </li>
-                <!-- <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                      Simple Link
-                      <span class="right badge badge-danger">New</span>
-                    </p>
-                  </a>
-                </li>-->
 
                 <li class="nav-item">
                     <a href="/slo" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>SLO</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/academic/faculty" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Academic Operations Manager</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/admin" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Admin Operations Manager</p>
                     </a>
                 </li>
             </ul>
@@ -69,9 +74,3 @@
     </div>
     <!-- /.sidebar -->
 </aside>
-<script>
-    import MainApp from "../../../Modules/Slo/Resources/assets/js/MainApp";
-    export default {
-        components: {MainApp}
-    }
-</script>
