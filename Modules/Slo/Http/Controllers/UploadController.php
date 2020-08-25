@@ -5,9 +5,10 @@ namespace Modules\Slo\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Slo\Entities\UploadCategory;
+use Illuminate\Support\Facades\Storage;
+use Modules\Slo\Entities\Student;
 
-class UploadCategoryController extends Controller
+class UploadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +16,17 @@ class UploadCategoryController extends Controller
      */
     public function index()
     {
-        return view('slo::uploadCategory.index');
+        return view('slo::upload.index');
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('slo::uploadCategory.create');
+        $student = Student::find($id);
+        return view('slo::upload.create',compact('student'));
     }
 
     /**
@@ -32,17 +34,20 @@ class UploadCategoryController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        $cat = new UploadCategory();
-        $cat->category_name = $request->category_name;
-        $cat->cat_code = $request->cat_code;
-        $cat->description = $request->description;
-
-        //$batch->batch_code = $this->repository->generateBatchCode();
-
-        if ($cat->save()) {
-            return redirect()->route('uploadCategory.index');
+        $student = Student::find($id);
+        $std_id =  $student->student_id;
+        $std_name =  $student->name_initials;
+       // $folder_name = $std_id+'.'+$std_name;
+        //dd($folder_name);
+       // $folder_name =
+        if($request->hasFile('file')){
+            $request->file('file');
+            return Storage::putFile('public/new',$request->file('file'));
+        }
+        else{
+            return 'no selected';
         }
     }
 
@@ -63,8 +68,7 @@ class UploadCategoryController extends Controller
      */
     public function edit($id)
     {
-        $cat = UploadCategory::find($id);
-        return view('slo::uploadCategory.edit',compact('cat'));
+        return view('slo::edit');
     }
 
     /**
@@ -75,11 +79,7 @@ class UploadCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cat = UploadCategory::find($id);
-        $cat->category_name = $request->category_name;
-        $cat->description = $request->description;
-        $cat->update($request->all());
-        return redirect()->route('uploadCategory.index');
+        //
     }
 
     /**

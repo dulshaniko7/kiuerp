@@ -17,6 +17,7 @@ use Modules\Slo\Http\View\Composers\FacultyComposer;
 use Modules\Slo\Http\View\Composers\HospitalComposer;
 use Modules\Slo\Http\View\Composers\IdRangeComposer;
 use Modules\Slo\Http\View\Composers\StudentComposer;
+use Modules\Slo\Http\View\Composers\UploadCategortComposer;
 
 class SloServiceProvider extends ServiceProvider
 {
@@ -72,7 +73,10 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::student.*'], DepartmentComposer::class);
         View::composer(['slo::student.*'], StudentComposer::class);
 
+        View::composer(['slo::uploadCategory.*'], UploadCategortComposer::class);
         View::composer(['slo::hospital.*'], HospitalComposer::class);
+        View::composer(['slo::upload.*'], StudentComposer::class);
+        View::composer(['slo::upload.*'], UploadCategortComposer::class);
         //or
 
         View::composer('slo::partials.Batch.*', BatchComposer::class);

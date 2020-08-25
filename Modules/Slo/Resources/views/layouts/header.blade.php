@@ -56,7 +56,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('register.create')}}">Add New Student</a>
                                 <a class="dropdown-item" href="{{ route('register.index')}}">Update Student Full Details</a>
-                                <a class="dropdown-item" href="/academic/faculty">Edit Student Details</a>
+                                <a class="dropdown-item" href="{{ route('upload.index')}}">Student Upload Home</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

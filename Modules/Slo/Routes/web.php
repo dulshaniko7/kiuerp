@@ -66,7 +66,12 @@ Route::post('/slo/hospital', 'HospitalController@store')->name('hospital.store')
 Route::get('/slo/uploadCategories', 'UploadCategoryController@index')->name('uploadCategory.index');
 Route::get('/slo/uploadCategory', 'UploadCategoryController@create')->name('uploadCategory.create');
 Route::post('/slo/uploadCategory', 'UploadCategoryController@store')->name('uploadCategory.store');
+Route::get('/slo/uploadCategory/{id}/edit', 'UploadCategoryController@edit')->name('uploadCategory.edit');
+Route::put('/slo/uploadCategory/{id}', 'UploadCategoryController@update')->name('uploadCategory.update');
 
+Route::get('/slo/uploads', 'UploadController@index')->name('upload.index');
+Route::get('/slo/upload/{id}', 'UploadController@create')->name('upload.create');
+Route::put('/slo/upload/{id}', 'UploadController@store')->name('upload.store');
 
 //ajax routes
 Route::get('/slo/getDepartments/{id}', 'StudentController@getDeps')->name('departments.get');
