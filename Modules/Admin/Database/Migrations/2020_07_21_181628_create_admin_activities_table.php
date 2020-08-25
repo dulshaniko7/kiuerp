@@ -21,8 +21,8 @@ class CreateAdminActivitiesTable extends Migration
             $table->unsignedInteger("admin_id");
             $table->string("event", 20)->nullable();
             $table->text("activity");
-            $table->json("activity_old_data");
-            $table->json("activity_new_data");
+            $table->longText("activity_old_data");
+            $table->longText("activity_new_data");
             $table->string("activity_model_name", 255);
             $table->unsignedBigInteger("activity_model");
             $table->dateTime("activity_at");

@@ -3,21 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="f87a49ec-cf3d-4fc4-8f21-8176d8269ba0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Config/permissions.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Config/permissions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170325_create_admin_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170325_create_admin_roles_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170344_create_admins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170344_create_admins_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180856_create_admin_permission_modules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180856_create_admin_permission_modules_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180913_create_admin_permission_groups_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180913_create_admin_permission_groups_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180937_create_admin_system_permissions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_180937_create_admin_system_permissions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/Admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionHistory.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Entities/AdminPermissionHistory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181408_create_admin_role_permission_histories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181408_create_admin_role_permission_histories_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181456_create_admin_permission_histories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181456_create_admin_permission_histories_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181628_create_admin_activities_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181628_create_admin_activities_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/Auth/AdminLoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/Auth/AdminLoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminPermissionSystemRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Repositories/AdminRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Services/Permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Services/Permission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/layouts/auth.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/layouts/auth.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +156,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Modules/Admin/Resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -212,7 +206,9 @@
       <workItem from="1597463685807" duration="241000" />
       <workItem from="1597512428271" duration="59970000" />
       <workItem from="1597848270419" duration="29992000" />
-      <workItem from="1598021511981" duration="16037000" />
+      <workItem from="1598021511981" duration="18425000" />
+      <workItem from="1598244461648" duration="2627000" />
+      <workItem from="1598289340804" duration="5212000" />
     </task>
     <servers />
   </component>
@@ -244,10 +240,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1596330408812" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1597984391578">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1598069081796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1597984391578" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1598069081796" />
     <state x="739" y="334" key="NewPhpClassDialog" timestamp="1595769837162">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -260,25 +256,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1597365884965" />
-    <state x="555" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1596357392067">
+    <state x="555" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1598289350994">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="555" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1596357392067" />
+    <state x="555" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1598289350994" />
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597743215240">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1597743215240" />
-    <state x="656" y="252" width="737" height="606" key="find.popup" timestamp="1598033370624">
+    <state x="656" y="252" width="737" height="606" key="find.popup" timestamp="1598289374326">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="737" height="606" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598033370624" />
+    <state x="656" y="252" width="737" height="606" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598289374326" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1596326900844">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1596326900844" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1598035650382">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1598290240618">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598035650382" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598290240618" />
   </component>
 </project>

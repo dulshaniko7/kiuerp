@@ -141,6 +141,8 @@ class AdminLoginController extends Controller
                     }
                     else
                     {
+                        $this->clearSession();
+
                         $notify["status"] = "failed";
                         $notify["notify"][] = "Your current network IP address is not allowed to access the system.";
                         $notify["notify"][] = "Please contact system administrator for more information with following IP address.";
@@ -157,6 +159,8 @@ class AdminLoginController extends Controller
                 }
                 else
                 {
+                    $this->clearSession();
+
                     if ($adminRole->disabled_reason != "")
                     {
                         $notify["status"] = "failed";
@@ -186,9 +190,7 @@ class AdminLoginController extends Controller
         }
         else
         {
-            $this->guard()->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+            $this->clearSession();
 
             $notify["status"]="failed";
             if ($admin->disabled_reason!= "")
@@ -214,11 +216,33 @@ class AdminLoginController extends Controller
         }
     }
 
+    protected function clearSession()
+    {
+        $this->guard()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+    }
+
     protected function getAllowedUserRoles($admin, $adminRole)
     {
         $adminRoleAllowed = $adminRole->allowed_roles;
         $adminAllowed = $admin->allowed_roles;
         $adminDisallowed = $admin->disallowed_roles;
+
+        if($adminRoleAllowed == null)
+        {
+            $adminRoleAllowed = [];
+        }
+
+        if($adminAllowed == null)
+        {
+            $adminAllowed = [];
+        }
+
+        if($adminDisallowed == null)
+        {
+            $adminDisallowed = [];
+        }
 
         $allowedRoles = array_merge($adminAllowed, array_diff($adminRoleAllowed, $adminAllowed));
         $allowedRoles = array_diff($allowedRoles, $adminDisallowed);
@@ -413,6 +437,7 @@ class AdminLoginController extends Controller
         if($failed)
         {
             $adminLH->login_failed_reason = $loginFailedReason;
+            $adminLH->online_status = 0;
         }
         else
         {

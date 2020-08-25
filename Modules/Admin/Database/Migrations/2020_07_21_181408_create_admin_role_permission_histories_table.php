@@ -21,8 +21,8 @@ class CreateAdminRolePermissionHistoriesTable extends Migration
             $table->unsignedInteger("admin_role_id");
             $table->unsignedSmallInteger("admin_perm_system_id");
             $table->text("remarks")->nullable();
-            $table->json("invoked_permissions");
-            $table->json("revoked_permissions");
+            $table->longText("invoked_permissions");
+            $table->longText("revoked_permissions");
 
             $table->timestamps();
         });

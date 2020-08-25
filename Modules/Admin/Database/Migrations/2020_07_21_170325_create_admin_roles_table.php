@@ -18,7 +18,7 @@ class CreateAdminRolesTable extends Migration
             $table->integerIncrements('admin_role_id')->unsigned();
             $table->string("role_name", 100);
             $table->text("description")->nullable(true);
-            $table->json("allowed_roles")->nullable(true)->comment("Allowed user roles to create by this user role. JSON array of values.");
+            $table->longText("allowed_roles")->nullable(true)->comment("Allowed user roles to create by this user role. JSON array of values.");
             $table->unsignedTinyInteger("role_status");
             $table->text("disabled_reason")->nullable(true)->comment("If user role has been disabled, then reason for that. This value will be displayed to the user when he is trying to sign in");
 
