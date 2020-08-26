@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Modules\Admin\Entities\AdminPermissionGroup;
 use Modules\Admin\Entities\AdminPermissionModule;
@@ -161,7 +162,8 @@ class AdminSystemPermissionController extends Controller
             "permission_title" => "required|min:3",
             "permission_action" => "required|min:3",
             "permission_status" => "required|digits:1",
-        ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action"]);
+            "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->permission_status == "0";})],
+        ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action", "disabled_reason" => "Disabled reason"]);
 
         if($this->repository->isValidData)
         {
@@ -232,7 +234,8 @@ class AdminSystemPermissionController extends Controller
                 "permission_title" => "required|min:3",
                 "permission_action" => "required|min:3",
                 "permission_status" => "required|digits:1",
-            ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action"]);
+                "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->permission_status == "0";})],
+            ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action", "disabled_reason" => "Disabled reason"]);
 
             if($this->repository->isValidData)
             {
