@@ -196,7 +196,7 @@ class AdminPermissionModuleController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('admin::admin_perm_module.view', compact('data', 'record'));
+            return view('admin::admin_perm_module.view', compact( 'record'));
         }
         else
         {

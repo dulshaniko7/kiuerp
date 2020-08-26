@@ -3,15 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="f87a49ec-cf3d-4fc4-8f21-8176d8269ba0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170325_create_admin_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170325_create_admin_roles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170344_create_admins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_170344_create_admins_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181408_create_admin_role_permission_histories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181408_create_admin_role_permission_histories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181456_create_admin_permission_histories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181456_create_admin_permission_histories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181628_create_admin_activities_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Database/Migrations/2020_07_21_181628_create_admin_activities_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/Auth/AdminLoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/Auth/AdminLoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/layouts/auth.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/layouts/auth.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/webpack.mix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/DepartmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/DepartmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/FacultyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Academic/Http/Controllers/FacultyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminActivityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminActivityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionGroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionGroupController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionHistoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionHistoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionModuleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionSystemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionSystemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRolePermissionHistoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminRolePermissionHistoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_module/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_module/create.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,6 +211,7 @@
       <workItem from="1598021511981" duration="18425000" />
       <workItem from="1598244461648" duration="2627000" />
       <workItem from="1598289340804" duration="5212000" />
+      <workItem from="1598461747490" duration="290000" />
     </task>
     <servers />
   </component>
@@ -264,17 +267,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1597743215240" />
-    <state x="656" y="252" width="737" height="606" key="find.popup" timestamp="1598289374326">
+    <state x="656" y="252" width="737" height="606" key="find.popup" timestamp="1598462035588">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="737" height="606" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598289374326" />
+    <state x="656" y="252" width="737" height="606" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598462035588" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1596326900844">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1596326900844" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1598290240618">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1598461777192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598290240618" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598461777192" />
   </component>
 </project>

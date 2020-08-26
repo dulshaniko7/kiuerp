@@ -152,7 +152,7 @@ class DepartmentController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('academic::department.view', compact('data', 'record'));
+            return view('academic::department.view', compact('record'));
         }
         else
         {
