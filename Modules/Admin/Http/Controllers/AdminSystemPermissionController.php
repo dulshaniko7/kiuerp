@@ -190,7 +190,7 @@ class AdminSystemPermissionController extends Controller
         {
             $this->repository->setPageTitle("Admin System Permissions | Edit");
 
-            $permissionModule = AdminPermissionModule::find($model["permissionGroup"]["admin_perm_module_id"]);
+            $permissionModule = AdminPermissionModule::find($model->permissionGroup["admin_perm_module_id"]);
 
             $admin_perm_system_id = $permissionModule["admin_perm_system_id"];
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
@@ -198,7 +198,7 @@ class AdminSystemPermissionController extends Controller
             $model->permissionModule = $permissionModule;
             $model->permissionSystem = $permissionSystem;
 
-            $record = $model->toArray();
+            $record = $model;
 
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();

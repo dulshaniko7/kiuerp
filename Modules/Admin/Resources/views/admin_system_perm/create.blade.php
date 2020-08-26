@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label>Permission Group</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" value="<?php echo $record["permission_group"]["group_name"]; ?>" readonly>
+                                    <input type="text" class="form-control" value="<?php echo $record["permissionGroup"]["group_name"]; ?>" readonly>
                                 </div>
                             </div>
 

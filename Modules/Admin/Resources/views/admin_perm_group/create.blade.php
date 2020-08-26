@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label>Permission System</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" value="<?php echo $permissionSystem["system_name"]; ?>" readonly>
+                                    <input type="text" class="form-control" value="<?php echo $record["permissionSystem"]["system_name"]; ?>" readonly>
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label>Permission Module</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" value="<?php echo $record["permission_module"]["module_name"]; ?>" readonly>
+                                    <input type="text" class="form-control" value="<?php echo $record["permissionModule"]["module_name"]; ?>" readonly>
                                 </div>
                             </div>
 
