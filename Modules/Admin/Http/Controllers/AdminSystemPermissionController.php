@@ -126,7 +126,7 @@ class AdminSystemPermissionController extends Controller
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
 
             $model = new AdminSystemPermission();
-            $model->permission_group = $permissionGroup;
+            $model->permissionGroup = $permissionGroup;
             $model->permissionModule = $permissionModule;
             $model->permissionSystem = $permissionSystem;
 
