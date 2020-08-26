@@ -85,7 +85,7 @@ class AdminActivityController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('admin::admin_activity.view', compact('data', 'record', 'admin'));
+            return view('admin::admin_activity.view', compact('record', 'admin'));
         }
         else
         {

@@ -92,7 +92,7 @@ class AdminRolePermissionHistoryController extends Controller
             $invokedPermissions = AdminSystemPermission::query()->with(["permissionGroup"])->whereIn("system_perm_id", $record["invoked_permissions"])->get()->toArray();
             $revokedPermissions = AdminSystemPermission::query()->with(["permissionGroup"])->whereIn("system_perm_id", $record["revoked_permissions"])->get()->toArray();
 
-            return view('admin::admin_role.permission_history.view', compact('data', 'record', 'adminRole', 'invokedPermissions', 'revokedPermissions'));
+            return view('admin::admin_role.permission_history.view', compact( 'record', 'adminRole', 'invokedPermissions', 'revokedPermissions'));
         }
         else
         {

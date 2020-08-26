@@ -214,7 +214,7 @@ class AdminController extends Controller
                     $systemPermissions = $systems->toArray();
                 }
 
-                return view('admin::admin.view', compact('data', 'record', 'systemPermissions'));
+                return view('admin::admin.view', compact('record', 'systemPermissions'));
             }
             else
             {

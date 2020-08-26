@@ -192,7 +192,7 @@ class AdminRoleController extends Controller
                 $systemPermissions = $systems->toArray();
             }
 
-            return view('admin::admin_role.view', compact('data', 'record', 'systemPermissions'));
+            return view('admin::admin_role.view', compact( 'record', 'systemPermissions'));
         }
         else
         {
