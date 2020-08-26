@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f87a49ec-cf3d-4fc4-8f21-8176d8269ba0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionGroupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionGroupController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminPermissionModuleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminSystemPermissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Http/Controllers/AdminSystemPermissionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_group/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_perm_group/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_system_perm/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Admin/Resources/views/admin_system_perm/create.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
