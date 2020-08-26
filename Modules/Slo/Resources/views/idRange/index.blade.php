@@ -14,7 +14,7 @@
 
     </div>
 
-    <a class="btn btn-primary float-right" href="{{ route('idRange.create',)}}" role="button">Add New ID Range</a>
+
 
     <table id="data-table" class="table table-bordered table-striped" >
         <thead class="thead-dark">
@@ -48,24 +48,37 @@
 
 
     $(document).ready(function () {
-
-
         $('#data-table').DataTable({
+            dom: 'lBfrtip',
+
+            buttons: [
+                { extend: 'copy','text':'Copy', 'className': 'button' },
+                { extend: 'csv', className: 'button ' },
+                { extend: 'excel', className: 'button ' },
+                { extend: 'pdf', className: 'button' },
+                { extend: 'print', className: 'button' }
+
+            ],
+            "oLanguage": {
+                "sLengthMenu": "Show _MENU_", // **dont remove _MENU_ keyword**
+            },
+
             "responsive": true,
             "paging": true,
             "searching": true,
             "ordering": true,
+
             "columnDefs": [{
                 "targets": 2,
+
                 "orderTable": false
-            }]
+            }],
+
+
+
         });
 
-/*
 
-
-            //$('.dataTables_filter input').val(id)
-*/
     });
 </script>
 <script src="{{ asset('js/com/idRange1.js')}}"></script>

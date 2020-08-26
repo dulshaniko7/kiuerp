@@ -99,3 +99,27 @@ form input, textarea {
 form label {
     color: #4f5962;
 }
+
+.dt-buttons {
+    /* margin-bottom: -7px; */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    text-align: center !important;
+
+}
+
+.button {
+    background-color: #007acc !important; /* Green */
+    background-image: none !important;
+    border: none;
+
+
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+

@@ -35,12 +35,33 @@
 <script>
     $(document).ready(function () {
         $('#data-table').DataTable({
-            responsive: true,
+            dom: 'lBfrtip',
+
+            buttons: [
+                { extend: 'copy', 'className': 'button' },
+                { extend: 'csv', className: 'button ' },
+                { extend: 'excel', className: 'button ' },
+                { extend: 'pdf', className: 'button' },
+                { extend: 'print', className: 'button' }
+
+            ],
+            "oLanguage": {
+                "sLengthMenu": "Show _MENU_", // **dont remove _MENU_ keyword**
+            },
+            "responsive": true,
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+
             "columnDefs": [{
                 "targets": 2,
-                "orderable": false
-            }]
+
+                "orderTable": false
+            }],
+
+
         });
+
     });
 </script>
 @endsection
