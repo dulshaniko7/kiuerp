@@ -2,8 +2,22 @@
 
 namespace Modules\Slo\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Slo\Entities\Batch;
+use Modules\Slo\Entities\BatchType;
+use Modules\Slo\Http\View\Composers\BatchComposer;
+use Modules\Slo\Http\View\Composers\BatchTypeComposer;
+use Modules\Slo\Http\View\Composers\CountryComposer;
+use Modules\Slo\Http\View\Composers\CourseComposer;
+use Modules\Slo\Http\View\Composers\CourseReqComposer;
+use Modules\Slo\Http\View\Composers\DepartmentComposer;
+use Modules\Slo\Http\View\Composers\FacultyComposer;
+use Modules\Slo\Http\View\Composers\HospitalComposer;
+use Modules\Slo\Http\View\Composers\IdRangeComposer;
+use Modules\Slo\Http\View\Composers\StudentComposer;
+use Modules\Slo\Http\View\Composers\UploadCategortComposer;
 
 class SloServiceProvider extends ServiceProvider
 {
@@ -29,6 +43,49 @@ class SloServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        // Option 1
+        // View::composer(['slo::batch.*'],function ($view){
+        //     $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
+        // });
+        // View::composer(['slo::batch.*'],function ($view){
+        //       $view->with('batchTypes',BatchType::orderBy('batch_type')->get());
+        //   });
+        View::composer(['slo::batchType.*'], function ($view) {
+            $view->with('batchTypes', BatchType::orderBy('batch_type')->get());
+        });
+        // View::composer(['slo::batch.*'],function ($view){
+        //   $view->with('batches',Batch::orderBy('batch_code')->get());
+        // });
+        //Option 2
+
+        View::composer(['slo::batch.*'], CourseComposer::class);
+        View::composer(['slo::batch.*'], BatchComposer::class);
+        View::composer(['slo::batch.*'], BatchTypeComposer::class);
+        View::composer(['slo::idRange.*'], CourseComposer::class);
+        View::composer(['slo::idRange.*'], IdRangeComposer::class);
+        View::composer(['slo::courseReq.*'], CourseComposer::class);
+        View::composer(['slo::courseReq.*'], CourseReqComposer::class);
+
+        View::composer(['slo::student.*'], CourseComposer::class);
+        View::composer(['slo::student.*'], FacultyComposer::class);
+        View::composer(['slo::student.*'], BatchComposer::class);
+        View::composer(['slo::student.*'], DepartmentComposer::class);
+        View::composer(['slo::student.*'], StudentComposer::class);
+
+        View::composer(['slo::uploadCategory.*'], UploadCategortComposer::class);
+        View::composer(['slo::hospital.*'], HospitalComposer::class);
+        View::composer(['slo::upload.*'], StudentComposer::class);
+        View::composer(['slo::upload.*'], UploadCategortComposer::class);
+        //or
+
+        View::composer('slo::partials.Batch.*', BatchComposer::class);
+        View::composer('slo::partials.Department.*', DepartmentComposer::class);
+        View::composer('slo::partials.Faculty.*', FacultyComposer::class);
+        View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
+        View::composer('slo::partials.Course.*', CourseComposer::class);
+        View::composer('slo::partials.Country.*', CountryComposer::class);
+        View::composer('slo::partials.Hospital.*',HospitalComposer::class);
     }
 
     /**
@@ -97,7 +154,7 @@ class SloServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (! app()->environment('production') && $this->app->runningInConsole()) {
+        if (!app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(module_path($this->moduleName, 'Database/factories'));
         }
     }

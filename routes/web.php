@@ -20,3 +20,5 @@ Route::middleware(["auth.admin:admin", "admin.permissions:admin"])->group(functi
 
     Route::post('/country/search_data', 'CountryController@searchData')->name('country.search.data');
 });
+
+
