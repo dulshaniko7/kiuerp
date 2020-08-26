@@ -116,8 +116,9 @@ class AdminPermissionModuleController extends Controller
             $this->repository->setPageTitle("Admin Permission Modules | Add New");
 
             $model = new AdminPermissionModule();
-            $record = $model;
             $model->permissionSystem = $permissionSystem;
+
+            $record = $model;
 
             $formMode = "add";
             $formSubmitUrl = request()->getPathInfo();
@@ -217,7 +218,8 @@ class AdminPermissionModuleController extends Controller
 
         if($model)
         {
-            $record = $model->toArray();
+            $record = $model;
+
             $formMode = "edit";
             $formSubmitUrl = request()->getPathInfo();
 
