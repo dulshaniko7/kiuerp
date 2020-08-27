@@ -111,9 +111,9 @@
                                                 <table class="table table-bordered">
                                                     @if(empty($courseReq->ref_req))
                                                     @else
-                                                    @foreach($courseReq->wref_req as $r)
+                                                    @foreach($courseReq->ref_req as $r)
                                                     <tr>
-                                                        <td><input type="text" name="w_req[]" value="{{$r}}"
+                                                        <td><input type="text" name="r_req[]" value="{{$r}}"
                                                                    class="form-control"></td>
                                                         <td><div class="btn btn-xs"><span class="fa fa-trash" id="remove1">delete</span></div></td>
                                                     </tr>
