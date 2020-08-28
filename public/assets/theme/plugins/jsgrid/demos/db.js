@@ -7,7 +7,7 @@
                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
                     && (filter.Age === undefined || client.Age === filter.Age)
                     && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
-                    && (!filter.Country || client.Country === filter.Country)
+                    && (!filter.Country1 || client.Country1 === filter.Country1)
                     && (filter.Married === undefined || client.Married === filter.Married);
             });
         },
