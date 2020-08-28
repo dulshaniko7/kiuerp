@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCountriesTable extends Migration
+class CreateCountriesTable1 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('countries1', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('short_code');
@@ -33,6 +33,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('countries1');
     }
 }
