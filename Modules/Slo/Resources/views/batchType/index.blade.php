@@ -1,6 +1,24 @@
 @extends('slo::layouts.master')
 @section('content')
 
+
+<div class="card">
+    <div class="card-header  text-white" style="background-color: #0d1a26;">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 class="header-title">KIU Batch Types</h4>
+            </div>
+            <div class="col-sm-6">
+                <div class="float-right">
+                    <a href="{{ route('batchType.create')}}">
+                        <div class="btn btn-primary btn-sm"><span class="fa fa-plus"></span> Add New</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 <div class="card-body">
     <table id="data-table" class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -30,7 +48,7 @@
         </tfoot>
     </table>
 </div>
-
+</div>
 
 <script>
     $(document).ready(function () {

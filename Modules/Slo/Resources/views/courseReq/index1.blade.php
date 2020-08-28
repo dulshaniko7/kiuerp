@@ -1,5 +1,18 @@
 @extends('slo::layouts.master')
 @section('content')
+
+<div class="card">
+    <div class="card-header  text-white" style="background-color: #0d1a26;">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 class="header-title">KIU Course Requirements</h4>
+            </div>
+            <div class="col-sm-6">
+
+            </div>
+        </div>
+    </div>
+
 <div class="card-body">
 
     <div class="form-group">
@@ -38,7 +51,7 @@
         <tfoot>
         </tfoot>
     </table>
-
+</div>
 
 
 

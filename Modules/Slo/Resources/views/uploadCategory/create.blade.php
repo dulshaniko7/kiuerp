@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-white" style="background-color: #0d1a26;">
                     <div class="row">
                         <div class="col-sm-6">
                             <h4 class="header-title">Add Upload Category</h4>

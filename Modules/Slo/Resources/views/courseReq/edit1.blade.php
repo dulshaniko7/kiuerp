@@ -1,17 +1,24 @@
 @extends('slo::layouts.master')
 @section('content')
-<div class="card">
-    <div class="card-body">
+
 
 
         <div class="card">
-            <div class="card-body">
-                <h3>Current Requirements for {{ $courseReq->course->course_name}}</h3>
+            <div class="card-header text-white" style="background-color: #0d1a26;">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <h4>Current Requirements for {{ $courseReq->course->course_name}}</h4>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="float-right">
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-
-        <div class="card">
             <div class="card-body">
 
                 <form class="form-label-left input_mask" method="post" action={{route('courseReq.update',$courseReq->

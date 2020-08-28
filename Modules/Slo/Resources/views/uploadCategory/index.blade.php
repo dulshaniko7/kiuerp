@@ -1,6 +1,20 @@
 @extends('slo::layouts.master')
 @section('content')
-
+<div class="card">
+    <div class="card-header  text-white" style="background-color: #0d1a26;">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 class="header-title">Upload Categories</h4>
+            </div>
+            <div class="col-sm-6">
+                <div class="float-right">
+                    <a href="{{ route('uploadCategory.create')}}">
+                        <div class="btn btn-primary btn-sm"><span class="fa fa-plus"></span> Add New</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="card-body">
     <table id="data-table" class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -29,11 +43,24 @@
         </tfoot>
     </table>
 </div>
+</div>
 
-<a class="btn btn-primary mt-5" href="{{ route('uploadCategory.create')}}" role="button">Add New Upload Category</a>
 <script>
     $(document).ready(function () {
         $('#data-table').DataTable({
+            dom: 'lBfrtip',
+
+            buttons: [
+                { extend: 'copy', 'className': 'button' },
+                { extend: 'csv', className: 'button ' },
+                { extend: 'excel', className: 'button ' },
+                { extend: 'pdf', className: 'button' },
+                { extend: 'print', className: 'button' }
+
+            ],
+            "oLanguage": {
+                "sLengthMenu": "Show _MENU_", // **dont remove _MENU_ keyword**
+            },
             "responsive": true,
             "paging": true,
             "searching": true,
