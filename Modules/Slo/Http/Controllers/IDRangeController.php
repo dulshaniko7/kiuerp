@@ -112,7 +112,7 @@ class IDRangeController extends Controller
 
     public function start($id)
     {
-
+/*
         $course = Course::findOrFail($id);
 
         $end = IdRange::orderBy('id')
@@ -124,6 +124,18 @@ class IDRangeController extends Controller
                 ];
             });
         return response()->json(['end' => $end]);
+  */
+
+      $end = IdRange::orderBy('id','desc')
+          ->get()
+          ->map(function ($idRange){
+              return[
+                  'end' => $idRange->end
+              ];
+          });
+        return response()->json(['end' => $end]);
+
+
     }
 
     public function search($id)
