@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Modules\Admin\Entities\AdminPermissionGroup;
 use Modules\Admin\Entities\AdminPermissionModule;
@@ -126,7 +127,7 @@ class AdminSystemPermissionController extends Controller
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
 
             $model = new AdminSystemPermission();
-            $model->permission_group = $permissionGroup;
+            $model->permissionGroup = $permissionGroup;
             $model->permissionModule = $permissionModule;
             $model->permissionSystem = $permissionSystem;
 
@@ -161,7 +162,8 @@ class AdminSystemPermissionController extends Controller
             "permission_title" => "required|min:3",
             "permission_action" => "required|min:3",
             "permission_status" => "required|digits:1",
-        ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action"]);
+            "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->permission_status == "0";})],
+        ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action", "disabled_reason" => "Disabled reason"]);
 
         if($this->repository->isValidData)
         {
@@ -190,7 +192,7 @@ class AdminSystemPermissionController extends Controller
         {
             $this->repository->setPageTitle("Admin System Permissions | Edit");
 
-            $permissionModule = AdminPermissionModule::find($model["permissionGroup"]["admin_perm_module_id"]);
+            $permissionModule = AdminPermissionModule::find($model->permissionGroup["admin_perm_module_id"]);
 
             $admin_perm_system_id = $permissionModule["admin_perm_system_id"];
             $permissionSystem = AdminPermissionSystem::find($admin_perm_system_id);
@@ -198,7 +200,7 @@ class AdminSystemPermissionController extends Controller
             $model->permissionModule = $permissionModule;
             $model->permissionSystem = $permissionSystem;
 
-            $record = $model->toArray();
+            $record = $model;
 
             $formMode = "edit";
             $formSubmitUrl = "/".request()->path();
@@ -232,7 +234,8 @@ class AdminSystemPermissionController extends Controller
                 "permission_title" => "required|min:3",
                 "permission_action" => "required|min:3",
                 "permission_status" => "required|digits:1",
-            ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action"]);
+                "disabled_reason" => [Rule::requiredIf(function () use ($model) { return $model->permission_status == "0";})],
+            ], [], ["permission_title" => "Permission title", "permission_action" => "Permission action", "disabled_reason" => "Disabled reason"]);
 
             if($this->repository->isValidData)
             {

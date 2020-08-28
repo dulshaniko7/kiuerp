@@ -145,7 +145,7 @@ class FacultyController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('academic::faculty.view', compact('data', 'record'));
+            return view('academic::faculty.view', compact('record'));
         }
         else
         {

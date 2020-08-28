@@ -116,8 +116,9 @@ class AdminPermissionModuleController extends Controller
             $this->repository->setPageTitle("Admin Permission Modules | Add New");
 
             $model = new AdminPermissionModule();
-            $record = $model;
             $model->permissionSystem = $permissionSystem;
+
+            $record = $model;
 
             $formMode = "add";
             $formSubmitUrl = request()->getPathInfo();
@@ -196,7 +197,7 @@ class AdminPermissionModuleController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('admin::admin_perm_module.view', compact('data', 'record'));
+            return view('admin::admin_perm_module.view', compact( 'record'));
         }
         else
         {
@@ -217,7 +218,8 @@ class AdminPermissionModuleController extends Controller
 
         if($model)
         {
-            $record = $model->toArray();
+            $record = $model;
+
             $formMode = "edit";
             $formSubmitUrl = request()->getPathInfo();
 

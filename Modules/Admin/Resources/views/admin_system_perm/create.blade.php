@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label>Permission Group</label>
                                     <hr class="mt-1 mb-2">
-                                    <input type="text" class="form-control" value="<?php echo $record["permission_group"]["group_name"]; ?>" readonly>
+                                    <input type="text" class="form-control" value="<?php echo $record["permissionGroup"]["group_name"]; ?>" readonly>
                                 </div>
                             </div>
 
@@ -109,7 +109,7 @@
                                 <div class="form-group mb-3">
                                     <label>Enable/Disable Permission Group<span
                                             class="text-danger">*</span></label>
-                                    <select name="permission_status" class="form-control">
+                                    <select name="permission_status" class="form-control" onchange="return onStatusChange(this);">
                                         <option value="1" <?php if ($record["permission_status"] == "1") { ?> selected="selected" <?php } ?>>
                                             Enable
                                         </option>
@@ -127,6 +127,20 @@
                             <div class="col-md-3">
                             </div>
                         </div>
+
+                        <div class="row" id="disabled_reason" style="display: none;">
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Reason for Disabling <span class="text-danger">*</span></label>
+                                    <hr class="mt-1 mb-2">
+                                    <input type="text" class="form-control" name="disabled_reason" placeholder="Disabled Reason" value="<?php echo $record["disabled_reason"]; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,6 +152,18 @@
         {
             submitCreateForm();
         };
+
+        function onStatusChange(elem)
+        {
+            if($(elem).val() !== "1")
+            {
+                $("#disabled_reason").slideDown(300);
+            }
+            else
+            {
+                $("#disabled_reason").slideUp(300);
+            }
+        }
 
         function submitCreateForm()
         {

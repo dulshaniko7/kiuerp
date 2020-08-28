@@ -149,7 +149,7 @@ class AdminPermissionSystemController extends Controller
 
             $this->repository->setPageUrls($urls);
 
-            return view('admin::admin_perm_system.view', compact('data', 'record'));
+            return view('admin::admin_perm_system.view', compact( 'record'));
         }
         else
         {
