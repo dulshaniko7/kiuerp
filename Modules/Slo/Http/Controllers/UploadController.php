@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Modules\Slo\Entities\Student;
+use Modules\Slo\Entities\StudentUpload;
+use Modules\Slo\Entities\UploadCategory;
 
 class UploadController extends Controller
 {
@@ -26,7 +28,7 @@ class UploadController extends Controller
     public function create($id)
     {
         $student = Student::find($id);
-        return view('slo::upload.create',compact('student'));
+        return view('slo::upload.create', compact('student'));
     }
 
     /**
@@ -34,19 +36,38 @@ class UploadController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request, $id)
     {
         $student = Student::find($id);
-        $std_id =  $student->student_id;
-        $std_name =  $student->name_initials;
-       // $folder_name = $std_id+'.'+$std_name;
+        $std_id = $student->student_id;
+        $std_name = $student->name_initials;
+        $doc_name = $request->file;
+        $cat = $request->upload_cat_id;
+        $cat_object = UploadCategory::find($cat);
+        $cat_name = $cat_object->category_name;
+        //dd($std_name);
+        //$folder_name = $std_id+'.'+$std_name;
         //dd($folder_name);
-       // $folder_name =
-        if($request->hasFile('file')){
-            $request->file('file');
-            return Storage::putFile('public/new',$request->file('file'));
-        }
-        else{
+        // $folder_name =
+        $n = strval($std_name);
+
+        $c = strval($cat_name);
+
+        if ($request->hasFile('file')) {
+            // $request->file('file');
+            $filename = $request->file->getClientOriginalName();
+           // Storage::putFile('public/' . $n . '/' . $c, $request->file('file'));
+           // Storage::putFile('public/' . $n . '/' . $c, $filename);
+            $request->file->storeAs('public/' . $n . '/' . $c, $filename);
+
+            $file = new StudentUpload();
+            $file->file = $filename;
+            $file->student = $std_id;
+            $file->category =  $request->upload_cat_id;
+            $file->save();
+            return redirect()->route('upload.index');
+
+        } else {
             return 'no selected';
         }
     }

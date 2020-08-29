@@ -34,7 +34,7 @@
                         <div class="col-md-10">
                             <div class="form-group">
                                 <label for="document">Upload Document Name</label>
-                                <input class="form-control " type="text" name="file_size">
+                                <input class="form-control " type="text" name="file">
                             </div>
                         </div>
                     </div>
