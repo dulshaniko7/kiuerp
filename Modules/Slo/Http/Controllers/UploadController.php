@@ -43,6 +43,8 @@ class UploadController extends Controller
         $std_name = $student->name_initials;
         $doc_name = $request->file;
         $cat = $request->upload_cat_id;
+        $fff = $request->file_size;
+
         $cat_object = UploadCategory::find($cat);
         $cat_name = $cat_object->category_name;
         //dd($std_name);
@@ -56,14 +58,16 @@ class UploadController extends Controller
         if ($request->hasFile('file')) {
             // $request->file('file');
             $filename = $request->file->getClientOriginalName();
-           // Storage::putFile('public/' . $n . '/' . $c, $request->file('file'));
-           // Storage::putFile('public/' . $n . '/' . $c, $filename);
-            $request->file->storeAs('public/' . $n . '/' . $c, $filename);
+            $alis = $fff . ' ' . $filename;
+
+            // Storage::putFile('public/' . $n . '/' . $c, $request->file('file'));
+            // Storage::putFile('public/' . $n . '/' . $c, $filename);
+            $request->file->storeAs('public/' . $n . '/' . $c, $alis);
 
             $file = new StudentUpload();
             $file->file = $filename;
             $file->student = $std_id;
-            $file->category =  $request->upload_cat_id;
+            $file->category = $request->upload_cat_id;
             $file->save();
             return redirect()->route('upload.index');
 
