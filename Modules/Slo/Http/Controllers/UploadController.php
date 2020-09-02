@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\Slo\Entities\Student;
 use Modules\Slo\Entities\StudentUpload;
 use Modules\Slo\Entities\UploadCategory;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UploadController extends Controller
 {
@@ -69,6 +70,7 @@ class UploadController extends Controller
             $file->student = $std_id;
             $file->category = $request->upload_cat_id;
             $file->save();
+            Alert::success('Success', 'File Uploaded');
             return redirect()->route('upload.index');
 
         } else {

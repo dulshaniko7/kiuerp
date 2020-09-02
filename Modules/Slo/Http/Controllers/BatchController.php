@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Slo\Entities\Batch;
 use Modules\Slo\Entities\BatchType;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BatchController extends Controller
 {
@@ -50,7 +50,8 @@ class BatchController extends Controller
                 'batch_type' => 'required'
             ]);
         if ($validate->fails()) {
-            return view('slo::error');
+            alert::warning('Error', 'Required Fields not filled');
+            return view('slo::batch.create');
         }
 
         $batch = new Batch();
@@ -64,6 +65,7 @@ class BatchController extends Controller
         //$batch->batch_code = $this->repository->generateBatchCode();
         $batch->batch_code = $batch->generateBatchCode();
         if ($batch->save()) {
+            Alert::success('Success', 'Batch Saved');
             return redirect()->route('batch.index');
         }
     }
@@ -108,6 +110,7 @@ class BatchController extends Controller
         $batch->batch_start_date = $request->batch_start_date;
         $batch->batch_end_date = $request->batch_end_date;
         $batch->update($request->all());
+        Alert::success('Success', 'Batch Edited');
         return redirect()->route('batch.index');
 
     }
@@ -127,6 +130,7 @@ class BatchController extends Controller
         // $batches = Batch::withoutTrashed();
         $batch = Batch::findOrFail($id);
         $batch->delete();
+        Alert::warning('Deleted', 'Batch Deleted');
         return redirect()->route('batch.index');
     }
 }

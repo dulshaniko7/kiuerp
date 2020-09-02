@@ -16,6 +16,7 @@ use Modules\Slo\Entities\StdNursing;
 use Modules\Slo\Entities\StdQualification;
 use Modules\Slo\Entities\StdRegister;
 use Modules\Slo\Entities\Student;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
 {
@@ -61,6 +62,7 @@ class StudentController extends Controller
                 'reg_date' => 'required'
             ]);
         if ($validate->fails()) {
+            alert::warning('Error', 'Required Fields not filled');
             return view('slo::error');
         }
         $student = new Student();
@@ -94,7 +96,7 @@ class StudentController extends Controller
         $student->batches()->attach($batch);
         $request->flash();
 
-
+        Alert::success('Success', 'Student Saved');
         return redirect()->route('register.create')->withInput();
 
 
@@ -197,6 +199,7 @@ class StudentController extends Controller
         $nurse->student_id = $student->student_id;
         $nurse->hospital_id = $request->hospital_id;
         $nurse->save();
+        Alert::success('Success', 'Student Updated');
         return redirect()->route('index');
         /*
                 $qualification = new StdQualification();

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Academic\Entities\Course;
 use Modules\Slo\Entities\IdRange;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class IDRangeController extends Controller
@@ -45,6 +46,7 @@ class IDRangeController extends Controller
                 'course_id' => 'required',
             ]);
         if ($validate->fails()) {
+            alert::warning('Error', 'Required Fields not filled');
             return view('slo::error');
         }
 
@@ -56,6 +58,7 @@ class IDRangeController extends Controller
         //$batch->batch_code = $this->repository->generateBatchCode();
 
         if ($IdRange->save()) {
+            Alert::success('Success', 'New ID range Created');
             return redirect()->route('idRange.create');
         }
     }
@@ -107,6 +110,7 @@ class IDRangeController extends Controller
         // $batches = Batch::withoutTrashed();
         $idRange = IdRange::findOrFail($id);
         $idRange->delete();
+        Alert::warning('Deleted', 'ID Range Deleted');
         return redirect()->route('idRange.index');
     }
 

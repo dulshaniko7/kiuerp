@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Modules\Slo\Entities\BatchType;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BatchTypeController extends Controller
 {
@@ -46,7 +47,8 @@ class BatchTypeController extends Controller
                 'description' => 'required'
             ]);
         if ($validate->fails()) {
-            return view('slo::error');
+            Alert::warning('Error', 'Required Fields not filled');
+            return view('slo::batchType.create');
         }
 
         $batchType = new BatchType();
@@ -54,6 +56,8 @@ class BatchTypeController extends Controller
         $batchType->batch_type = $request->batch_type;
         $batchType->description = $request->description;
         if ($batchType->save()) {
+            Alert::success('Success', 'Batch Type Saved ');
+
             return redirect()->route('batchType.index');
         }
     }
@@ -93,6 +97,7 @@ class BatchTypeController extends Controller
         $batchType->description = $request->description;
         $batchType->update($request->all());
 //return redirect('/batchType');
+        Alert::success('Success', 'Batch Type Edited');
         return redirect()->route('batchType.index');
     }
 
@@ -112,6 +117,7 @@ class BatchTypeController extends Controller
         // $batches = Batch::withoutTrashed();
         $batchType = BatchType::findOrFail($id);
         $batchType->delete();
+        Alert::warning('Deleted', 'Batch Type Deleted');
         return redirect()->route('batchType.index');
     }
 

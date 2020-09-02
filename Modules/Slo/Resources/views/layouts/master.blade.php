@@ -43,6 +43,8 @@
 
 <body class="sidebar-mini layout-fixed text-sm">
 
+@include('sweetalert::alert')
+
 <div class="wrapper">
     <!-- Navbar -->
     @include('layouts.topnavi')

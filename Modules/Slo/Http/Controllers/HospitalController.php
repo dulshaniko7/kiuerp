@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 use Modules\Slo\Entities\GenHospital;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HospitalController extends Controller
 {
@@ -40,11 +41,13 @@ class HospitalController extends Controller
                 'hospital_name' => 'required'
             ]);
         if ($validate->fails()) {
+            alert::warning('Error', 'Required Fields not filled');
             return view('slo::error');
         }
         $hospital = new GenHospital();
         $hospital->hospital_name = $request->hospital_name;
         if($hospital->save()){
+            Alert::success('Success', 'Hospital Saved');
             return redirect()->route('hospital.index');
         }
     }

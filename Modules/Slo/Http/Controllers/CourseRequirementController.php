@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Academic\Entities\Course;
 use Modules\Slo\Entities\CourseRequirement;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CourseRequirementController extends Controller
 {
@@ -43,6 +44,7 @@ class CourseRequirementController extends Controller
         $requirement->course_id = $request->course_id;
 
         if($requirement->save()){
+            Alert::success('Success', 'Requirement Saved');
             return redirect()->route('courseReq.index');
         }
 
@@ -86,6 +88,7 @@ class CourseRequirementController extends Controller
         $requirement->course_id = $request->course_id;
 
         if($requirement->save()){
+            Alert::success('Success', 'Requirement Saved');
             return redirect()->route('courseReq.index');
         }
     }

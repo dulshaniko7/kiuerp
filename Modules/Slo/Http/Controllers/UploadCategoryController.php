@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Slo\Entities\UploadCategory;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UploadCategoryController extends Controller
 {
@@ -42,6 +43,7 @@ class UploadCategoryController extends Controller
         //$batch->batch_code = $this->repository->generateBatchCode();
 
         if ($cat->save()) {
+            Alert::success('Success', 'Upload Category Saved');
             return redirect()->route('uploadCategory.index');
         }
     }
@@ -79,6 +81,7 @@ class UploadCategoryController extends Controller
         $cat->category_name = $request->category_name;
         $cat->description = $request->description;
         $cat->update($request->all());
+        Alert::success('Success', 'Upload Category Edited');
         return redirect()->route('uploadCategory.index');
     }
 
