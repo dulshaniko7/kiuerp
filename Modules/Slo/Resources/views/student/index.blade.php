@@ -23,6 +23,7 @@
             <td>{{$course->course_name}}</td>
             @endforeach
 
+
             @foreach($s->batches as $batch)
             <td>{{$batch->batch_name}}</td>
             @endforeach
