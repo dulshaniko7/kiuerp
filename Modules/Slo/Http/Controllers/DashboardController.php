@@ -5,6 +5,7 @@ namespace Modules\Slo\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Slo\Entities\Student;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('slo::index');
+        // $students_count = Student::get()
+        $count = Student::count();
+        //$newCount = Student::where
+        return view('slo::index')->with('count', $count);
     }
 
     /**

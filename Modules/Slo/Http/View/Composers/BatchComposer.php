@@ -11,6 +11,8 @@ class BatchComposer
 {
     public function compose(View $view){
         $view->with('batches',Batch::orderBy('batch_name')->get());
-
     }
 }
+
+
+

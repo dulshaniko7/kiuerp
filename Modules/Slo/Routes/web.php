@@ -16,6 +16,9 @@ Route::prefix('slo')->group(function () {
 
 });
 
+Route::get('/slo', 'DashboardController@index');
+
+
 Route::get('/slo/batchTypes', 'BatchTypeController@index')->name('batchType.index');
 Route::get('/slo/batchType', 'BatchTypeController@create')->name('batchType.create');
 Route::post('/slo/batchType', 'BatchTypeController@store')->name('batchType.store');
