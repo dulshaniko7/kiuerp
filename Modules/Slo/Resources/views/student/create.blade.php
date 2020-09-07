@@ -2,7 +2,6 @@
 @section('content')
 
 
-
 <div class="container-fluid behind">
 
     <form class="form-label-left input_mask z" method="post" action="{{ route('register.store')}}">
@@ -144,7 +143,6 @@
                 </div>
 
 
-
                 <!-- /.info-box -->
             </div>
         </div>
@@ -162,7 +160,8 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span></div>
-                                    <select class="form-control col-lg-12 myDropdown" required="required" name="std_title"
+                                    <select class="form-control col-lg-12 myDropdown" required="required"
+                                            name="std_title"
                                             id="std_title"
                                             style="width:144px">
                                         <option>Select Title</option>
@@ -192,7 +191,8 @@
                             <div class="col-md-7" align="right">
                                 <div id="genderContainer">
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <button class="btn btn-secondary" id="gen_button"  type="button" onclick="repeatGenId()">Generate Student Id
+                                        <button class="btn btn-secondary" id="gen_button" type="button"
+                                                onclick="repeatGenId()">Generate Student Id
                                         </button>
                                     </div>
 
@@ -212,7 +212,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
                                     </div>
-                                    <input type="text" class="form-control nic-pass myDropdown" id="nicpass" name="nic_passport"
+                                    <input type="text" class="form-control nic-pass myDropdown" id="nicpass"
+                                           name="nic_passport"
                                            placeholder="NIC/Passport" pattern="[0-9]{9}[x|X|v|V]|[0-9]{12}"
                                            required="required">
                                 </div>
@@ -228,7 +229,8 @@
                                     <div class="input-group-prepend">
                                         \ <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="date" class="form-control myDropdown" placeholder="Initial Starting Date"
+                                    <input type="date" class="form-control myDropdown"
+                                           placeholder="Initial Starting Date"
                                            name="reg_date">
                                 </div>
                                 <br>
@@ -257,7 +259,8 @@
                                     </div>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <select class="form-control myDropdown" required="required" name="grace_period[]" id="select"
+                                    <select class="form-control myDropdown" required="required" name="grace_period[]"
+                                            id="select"
                                             disabled>
                                         <option>Select Grace Period</option>
                                         <option value="0">Not Applicable</option>
@@ -284,7 +287,6 @@
                             </div>
                         </div>
                         <hr>
-
 
 
                     </div>

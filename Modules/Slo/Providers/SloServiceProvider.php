@@ -72,7 +72,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer(['slo::student.*'], BatchComposer::class);
         View::composer(['slo::student.*'], DepartmentComposer::class);
         View::composer(['slo::student.*'], StudentComposer::class);
-
+        //   View::composer(['slo::student.*'], CountryComposer::class);
         View::composer(['slo::uploadCategory.*'], UploadCategortComposer::class);
         View::composer(['slo::hospital.*'], HospitalComposer::class);
         View::composer(['slo::upload.*'], StudentComposer::class);
@@ -85,7 +85,7 @@ class SloServiceProvider extends ServiceProvider
         View::composer('slo::partials.BatchType.*', BatchTypeComposer::class);
         View::composer('slo::partials.Course.*', CourseComposer::class);
         View::composer('slo::partials.Country.*', CountryComposer::class);
-        View::composer('slo::partials.Hospital.*',HospitalComposer::class);
+        View::composer('slo::partials.Hospital.*', HospitalComposer::class);
     }
 
     /**

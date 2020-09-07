@@ -43881,7 +43881,7 @@ window.validateSession = function () {
       },
       error: function error() {}
     });
-  }, 5000);
+  }, timeSecs);
 };
 
 $(document).ready(function () {
@@ -43908,8 +43908,8 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp64\www\kiuerp\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp64\www\kiuerp\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\kiu vui\kiuerp\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\kiu vui\kiuerp\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
