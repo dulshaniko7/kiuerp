@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="batch_type">Batch Type Name</label>
+                                <label for="batch_type">Batch Type Code</label>
                                 <input type="text" class="form-control" name="batch_type" id="batch_type"
                                        placeholder="Batch Type Name" value="{{$batchType->batch_type}}" disabled>
                             </div>

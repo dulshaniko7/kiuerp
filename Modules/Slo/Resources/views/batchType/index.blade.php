@@ -23,7 +23,7 @@
     <table id="data-table" class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
-            <th>ID</th>
+            <th>Batch Type Code</th>
             <th>Batch Type</th>
             <th>Action</th>
         </tr>
@@ -31,7 +31,7 @@
         <tbody>
         @foreach($batchTypes as $batchType)
         <tr>
-            <td>{{$batchType->id}}</td>
+            <td>{{$batchType->batch_type}}</td>
             <td>{{$batchType->description}}</td>
             <td>
 

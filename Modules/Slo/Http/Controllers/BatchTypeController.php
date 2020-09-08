@@ -44,10 +44,10 @@ class BatchTypeController extends Controller
         $validate = Validator::make($request->all(),
             [
                 'batch_type' => 'required',
-                'description' => 'required'
+                'description' => 'required|unique:batch_types'
             ]);
         if ($validate->fails()) {
-            Alert::warning('Error', 'Required Fields not filled');
+            Alert::warning('Error', 'Duplicate description');
             return view('slo::batchType.create');
         }
 
