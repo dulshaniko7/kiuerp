@@ -29,6 +29,7 @@
                                 <label for="batch_type">Batch Type Code</label>
                                 <input type="text" class="form-control" name="batch_type" id="batch_type"
                                        placeholder="00" pattern="[0-9]{2}" title="two number code">
+                                <input type="hidden" value="{{ $new_type ?? '' }}" name="new_id" id="new_id">
                             </div>
                         </div>
                     </div>
@@ -59,6 +60,13 @@
 
 
 <script>
-
+    new_id = document.querySelector('#new_id');
+    batch_type = document.querySelector('#batch_type');
+    //alert('type id ' + batch_type.value);
+    int_Val = parseInt(new_id.value);
+    //alert(int_Val);
+    if (int_Val < 10) {
+        batch_type.value = '0' + int_Val;
+    }
 </script>
 @endsection

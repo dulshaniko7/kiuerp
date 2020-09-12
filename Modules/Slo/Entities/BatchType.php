@@ -18,5 +18,7 @@ class BatchType extends Model
         return $this->hasMany(Batch::class, 'batch_id', 'batch_id');
     }
 
+
+
 }
 

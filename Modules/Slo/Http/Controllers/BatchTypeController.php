@@ -30,7 +30,17 @@ class BatchTypeController extends Controller
      */
     public function create()
     {
-        return view('slo::batchType.create');
+
+
+        $last_type = BatchType::orderBy('id', 'desc')->first();
+        if ($last_type == null) {
+            return view('slo::batchType.create');
+        } else {
+            $new_type = $last_type->batch_type;
+            intval($new_type);
+            $new_type++;
+            return view('slo::batchType.create', compact('new_type'));
+        }
     }
 
     /**
